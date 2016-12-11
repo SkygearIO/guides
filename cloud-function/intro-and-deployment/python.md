@@ -346,6 +346,6 @@ automatically installed for you.
 
 The following flowchart summarizes the process for the cloud codes.
 
-[![Cloud Code Request Process Flowchart](/assets/cloud-code/request-flow.svg)](/assets/cloud-code/request-flow.svg)
+[![Cloud Code Request Process Flowchart](/content-assets/cloud-function-request-flow.svg)](/content-assets/cloud-function-request-flow.svg)
 
 [ssh-key-guide]: https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
