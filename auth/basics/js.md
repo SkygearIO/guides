@@ -282,13 +282,13 @@ providing the user ID and the new username and/or the new email.
 Every user can change his/her own username/email while
 only users with the admin role can change the usernames/emails of other users.
 
-<div class="caution">
+::: caution
 
 **Caution:** Changing the username/email of the current user will trigger the callback
 registered through `skygear.onUserChanged`, even if the new username/email is
 the same as the old one.
 
-</div>
+:::
 
 To change the username of the current user:
 

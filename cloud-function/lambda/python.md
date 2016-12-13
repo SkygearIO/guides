@@ -74,13 +74,13 @@ They are similar to the available types in a JSON object.
 Depending on the SDKs, the supplied arguments will be
 passed to the lambda function as the corresponding data type.
 
-<div class="tips">
+::: tips
 
 **Tips:** In the JS SDK, the parameters are parsed using the `toJSON`
 method. For example, a `Date` object in JS SDK will be passed to
 the lambda function in Python as a string like `'2016-10-28T03:23:11.600Z'`.
 
-</div>
+:::
 
 ### Return Value
 

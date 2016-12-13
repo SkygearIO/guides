@@ -46,10 +46,10 @@ Skygear will find your static assets at
 `./my-assets/files/hero.png` if the user makes a request to
 `http://<endpoint>/static/hello-world/hero.png`.
 
-<div class="advanced">
+::: advanced
 
 The `directory_assets` function returns the absolute path of the static assets
 directory by specifying a path relative to the current directory,
 or an absolute path.
 
-</div>
+:::

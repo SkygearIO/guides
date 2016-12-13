@@ -61,7 +61,7 @@ that inherits one of the Skygear restful classes:
   | `update(self, id)` | PUT | /notes/{id} | update the note of given id |
   | `get(self, id)` | GET | /notes/{id} | fetch the note of given id |
 
-  <div class="caution">
+  ::: caution
 
   **Caution:**
 
@@ -75,7 +75,7 @@ that inherits one of the Skygear restful classes:
   @skygear.rest('/notes', user_required=True)
   ```
 
-  </div>
+  :::
 
 - **`skygear.RestfulRecord`**
 
@@ -126,7 +126,7 @@ that inherits one of the Skygear restful classes:
           return ['eq', {'$type': 'keypath', '$val': 'category'}, 'work']
   ```
 
-  <div class="note">
+  ::: note
 
   **Note:**
 
@@ -140,6 +140,6 @@ that inherits one of the Skygear restful classes:
   @skygear.rest('/notes', user_required=True)
   ```
 
-  </div>
+  :::
 
 [restful-wiki]: https://en.wikipedia.org/wiki/Representational_state_transfer#Applied_to_web_services

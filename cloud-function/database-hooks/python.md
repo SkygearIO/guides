@@ -63,13 +63,13 @@ Functions decorated with `before_save` are executed just before a record
 Typical usages of the `before_save` hook includes data validation, setting
 default values and checking permissions.
 
-<div class="caution">
+::: caution
 
 **Caution:** `async` must be set to `False` in order for the `before_save`
 hook to work properly. It includes modifying record attributes or 
 raising an exception to abort the save operation.
 
-</div>
+:::
 
 ### Hook function parameters
 
@@ -99,14 +99,14 @@ def my_func(record, original_record, db):
   record['number'] = 100
   ```
 
-  <div class="note">
+  ::: note
 
   **Note:** This `record` is a complete object including all attributes.
   It means that even when you are updating an existing record by providing only
   one attribute, you still have the full record object containing
   the existing values of other attributes.
 
-  </div>
+  :::
 
 <a name="before-save-metadata"></a>
 
@@ -149,7 +149,7 @@ def my_func(record, original_record, db):
   include running additional database queries or updating other database records
   using `db.execute`.
 
-  <div class="tips">
+  ::: tips
 
   **Tips:**
 
@@ -160,9 +160,9 @@ def my_func(record, original_record, db):
      endpoint is `todo.skygeario.com`, your schema name is `app_todo`.
      Alternatively You can find your schema name by connecting to your database.
 
-  </div>
+  :::
 
-  <div class="caution">
+  ::: caution
 
   **Caution:** Any queries made using `db` connect to the database directly.
   These queries do not pass through Skygear. Therefore they are
@@ -170,7 +170,7 @@ def my_func(record, original_record, db):
   of a record, e.g. `_updated_at`, do not get updated upon an `UPDATE` SQL
   query.
 
-  </div>
+  :::
 
 ### Return Value
 
@@ -268,13 +268,13 @@ The only difference is that the `record` in the `after_save` hook contains all
 up-to-date metadata attributes, whereas the `before_save` hook only has
 [a few][before-save-metadata] up-to-date.
 
-<div class="tips">
+::: tips
 
 **Tips**: If you want to alter the `record`, you can either use
 the provided `db` connection to execute raw SQL, or
 [call the Skygear API using the container][utility-container].
 
-</div>
+:::
 
 ### Return Value
 
@@ -349,12 +349,12 @@ If you raise an exception, the record will not be deleted.
 An `UnexpectedError` will be returned, with the Exception message in the
 `message` attribute.
 
-<div class="caution">
+::: caution
 
 **Caution:** `async` must be set to `False` if you need to cancel the
 delete operation by raising an exception.
 
-</div>
+:::
 
 ### Example
 

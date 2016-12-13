@@ -49,7 +49,7 @@ task = records[0]
 return task
 ```
 
-<div class="caution">
+::: caution
 
 **Caution:** By using the app's API key, the `SkygearContainer`
 does not have an authenticated user associated.
@@ -59,7 +59,7 @@ to the public. Therefore you cannot save or alter records
 with this API key. To have a user-aware `SkygearContainer`
 for such operations, you need to use the master key, explained below.
 
-</div>
+:::
 
 ### Using the master key
 
@@ -78,11 +78,11 @@ from skygear.options import options
 master_key = options.masterkey
 ```
 
-<div class="caution">
+::: caution
 
 **Caution:** You should never expose the master key in the client SDK.
 
-</div>
+:::
 
 You can impersonate a user from the cloud code by setting the master
 key as the `api_key` when you initialize the `SkygearContainer`,

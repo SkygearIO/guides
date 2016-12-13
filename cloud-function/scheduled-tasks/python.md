@@ -32,7 +32,7 @@ which is the parser used in Skygear.
 @skygear.every('@every 1m30s') # At 90-second intervals since the server starts
 ```
 
-<div class="note">
+::: note
 
 **Note:**
 
@@ -45,7 +45,7 @@ which is the parser used in Skygear.
    meaning that the actual interval will be longer than 1 hour due to
    the re-deployment.
 
-</div>
+:::
 
 [cron-wiki]: https://en.wikipedia.org/wiki/Cron
 [robfig-cron-doc]: https://github.com/robfig/cron/blob/master/doc.go

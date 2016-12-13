@@ -64,7 +64,7 @@ The decorator syntax is:
 
   The default value is `['GET', 'POST', 'PUT']`.
 
-  <div class="tips">
+  ::: tips
 
   **Tips:**
 
@@ -81,7 +81,7 @@ The decorator syntax is:
       pass
   ```
 
-  </div>
+  :::
 
 - **`user_required` (boolean, default `False`)**
 

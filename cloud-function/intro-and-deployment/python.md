@@ -80,14 +80,14 @@ other Skygear app projects in the same Skygear account.
 If you have not generated an SSH key yet, you can follow
 [this guide](ssh-key-guide) to generate one.
 
-<div class="caution">
+::: caution
 
 **Caution:** If you have not uploaded your SSH public key or
 you have uploaded an invalid one,
 you will get the error message "Permission denied (publickey)"
 when you try to push your git repository to Skygear Cloud.
 
-</div>
+:::
 
 
 
