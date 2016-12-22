@@ -1,5 +1,5 @@
 ---
-title: User Profile
+title: User Authentication Basics
 ---
 
 <a name="manage-user"></a>
