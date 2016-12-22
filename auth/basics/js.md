@@ -353,10 +353,10 @@ will be invalidated when a user changes his/her password.
 
 [Not yet implemented]
 If you are not using the JWT token store, you can invalidate existing tokens by
-setting `invalidateTokens` to `true`:
+setting `invalidate` to `true`:
 
 ``` javascript
-skygear.changePassword(currentPassword, newPassword, invalidateTokens=true)
+skygear.changePassword(currentPassword, newPassword, invalidate=true)
 .then((user) => {
   console.log(user); // user object
   console.log('The user has got a new access token');
