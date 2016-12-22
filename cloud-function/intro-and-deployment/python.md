@@ -13,10 +13,10 @@ They are useful when:
 - you do not want to expose your codes in the front end client
 
 Under the hood, cloud codes communicate with the Skygear server
-using a micro-services architecture through [ZeroMQ](http://zeromq.org)
-or [HTTP2](https://http2.github.io/).
+using a micro-services architecture through [ZeroMQ][zeromq]
+or [HTTP2][http2].
 
-Currently Skygear supports [Python 3](https://docs.python.org/3/) for
+Currently Skygear supports [Python 3][python3] for
 cloud codes. JavaScript is on the roadmap.
 
 Below is a simple cloud code example.
@@ -55,7 +55,8 @@ These are the steps to deploy (push) cloud codes to the Skygear cloud:
 
 You can write your own codes or use our sample codes to try out the deployment.
 
-Download the sample codes [here](https://github.com/skygear-demo/cloud-code-quick-start) or simply run this in your command line:
+Download the sample codes [here][cloud-code-quick-start-demo]
+or simply run this in your command line:
 
 ```
 git clone https://github.com/skygear-demo/cloud-code-quick-start.git
@@ -72,7 +73,7 @@ The sample repository contains 3 files:
 
 You need to upload your SSH public key (`~/.ssh/id_rsa.pub`) to the
 Skygear Portal through
-[Manage Your Account](https://portal.skygear.io/user/settings).
+[Manage Your Account][portal-manage-your-account].
 
 Once you have set up the SSH key, you do not have to do it again for
 other Skygear app projects in the same Skygear account.
@@ -100,7 +101,7 @@ git remote add skygear-portal ssh://<your-cloud-code-git-url>
 # you can verify the remote repo list by `git remote -v`
 ```
 
-You can obtain your Cloud Code Git URL from the [Skygear Portal INFO tab](https://portal.skygear.io/app/info).
+You can obtain your Cloud Code Git URL from the [Skygear Portal INFO tab][portal-app-info].
 
 
 ### 4. Deploy the cloud codes
@@ -213,7 +214,7 @@ has an empty `name` attribute, it will raise an exception; and the
 cat will not be saved.
 
 More details can be found in
-[Database Hooks](/cloud-code/guide/triggering-cloud-code#database-triggers).
+[Database Hooks][doc-cloud-code-db-hooks].
 
 ### 2. Scheduled Tasks
 
@@ -231,11 +232,11 @@ def meow_for_food():
 
 This example function will run at two-minute intervals. You will be able to
 see the log messages `'Meow Meow!'` in the
-[Console Log](https://portal.skygear.io/app/logs) of your app
+[Console Log][portal-console-log] of your app
 in the Skygear Portal.
 
 More details can be found in
-[Scheduled Tasks](/cloud-code/guide/triggering-cloud-code#scheduled-tasks).
+[Scheduled Tasks][doc-cloud-code-scheduled-tasks].
 
 ### 3. Lambda Functions
 
@@ -274,7 +275,7 @@ skygear.lambda('food:buy', arguments)
 ```
 
 More details can be found in
-[Lambda Functions](/cloud-code/guide/triggering-cloud-code#lambda-functions).
+[Lambda Functions][doc-cloud-code-lambda].
 
 ### 4. HTTP Handlers
 
@@ -296,7 +297,7 @@ as defined by `cat:feed`, accepting only `GET` requests.
 It returns a response of the string `'Meow! Thanks!'`.
 
 More details can be found in
-[HTTP Handlers](/cloud-code/guide/triggering-cloud-code#http-endpoint).
+[HTTP Handlers][doc-cloud-code-http-handler].
 
 <a name="creating-cloud-code-from-scratch"></a>
 ## Creating Cloud Code from Scratch
@@ -334,7 +335,7 @@ the `skygear` module, in `hello_world.py` for example:
 import skygear
 ```
 
-Package dependencies are managed by [pip](https://pip.pypa.io/en/stable/).
+Package dependencies are managed by [pip][pip].
 Upon deployment, any packages listed in `requirements.txt`
 will be automatically installed.
 
@@ -346,6 +347,19 @@ automatically installed for you.
 
 The following flowchart summarizes the process for the cloud codes.
 
-[![Cloud Code Request Process Flowchart](/content-assets/cloud-function-request-flow.svg)](/content-assets/cloud-function-request-flow.svg)
+[![Cloud Code Request Process Flowchart][doc-request-flow-chart]][doc-request-flow-chart]
 
+[zeromq]: http://zeromq.org
+[http2]: https://http2.github.io/
+[python3]: https://docs.python.org/3/
+[cloud-code-quick-start-demo]: https://github.com/skygear-demo/cloud-code-quick-start
+[portal-manage-your-account]: https://portal.skygear.io/user/settings
 [ssh-key-guide]: https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
+[portal-app-info]: https://portal.skygear.io/app/info
+[doc-cloud-code-db-hooks]: /guide/cloud-function/database-hooks/python/
+[portal-console-log]: https://portal.skygear.io/app/logs
+[doc-cloud-code-scheduled-tasks]: /guide/cloud-function/scheduled-tasks/python/
+[doc-cloud-code-lambda]: /guide/cloud-function/lambda/python/
+[doc-cloud-code-http-handler]: /guide/cloud-function/http-endpoint/python/
+[pip]: https://pip.pypa.io/en/stable/
+[doc-request-flow-chart]: /content-assets/cloud-function-request-flow.svg

@@ -10,7 +10,7 @@ There are two types of access for each record: read and write.
   all the fields of records as well as the access control settings.
 - Write access allows saving and deleting records, which includes adding,
   updating and removing all fields (**EXCEPT**
-  [reserved columns](/js/guide/record#reserved)) of records
+  [reserved columns][doc-reserved-columns]) of records
   as well as access control settings for the record.
 
 However, even with write access, ownership of records cannot be changed.
@@ -126,3 +126,5 @@ Record creation access is separate from write access for individual records:
 skygear.setRecordCreateAccess(Note, [ Employee, Manager ]);
 skygear.setRecordCreateAccess(Plan, [ Manager ]);
 ```
+
+[doc-reserved-columns]: /guide/cloud-db/basics/js/#reserved-columns

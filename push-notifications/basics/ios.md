@@ -4,6 +4,7 @@ title: Skygear Push Basics
 
 You need to register the devices before sending them push notifications.
 
+<a id="registering-device"></a>
 ## Registering device
 
 It is suggested that you register a device with remote server on every launch.
@@ -60,7 +61,7 @@ using the above convenient methods, the device ID is returned from
 ## Send push notification from cloud code
 
 To send push notifications through cloud code, please refer to the
-[Cloud Code Guide: Push Notifications][cloud-code-push-notifications].
+[Cloud Code Guide: Push Notifications][doc-cloud-code-push-notifications].
 
 
 ## Sending push notification to users
@@ -126,4 +127,4 @@ operation.sendCompletionHandler = ^(NSArray *deviceIDs, NSError *error) {
    In the case of sending to users, it would be expected to be an array of
    `SKYUserRecordID`.
 
-[cloud-code-push-notifications]: /guide/cloud-code/calling-skygear-api/python#push-notifications
+[doc-cloud-code-push-notifications]: /guide/cloud-code/calling-skygear-api/python#push-notifications

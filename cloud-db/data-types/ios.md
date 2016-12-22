@@ -13,10 +13,10 @@ Skygear supports a lot of different data types, such as:
 
 There are also four other types provided by Skygear SDK:
 
-- [Reference](#reference) (Record Relations)
-- [Sequence](#sequence)
-- [Geo-location](/ios/guide/geolocation)
-- [Assets (File Upload)](/ios/guide/asset)
+- [Reference][doc-reference] (Record Relations)
+- [Sequence][doc-sequence]
+- [Geo-location][doc-location]
+- [Assets (File Upload)][doc-assets]
 
 <a name="reference"></a>
 ## Record Relations
@@ -42,9 +42,8 @@ bRecord[@"parent"] = aRef;
 
 It will establish a reference from _Record B_ to _Record A_.
 
-<a name="auto-increment"></a>
+<a id="sequence"></a>
 ## Auto-Incrementing Sequence Fields
-<a name="sequence"></a>
 ### Make use of sequence object
 
 Skygear reserves the `id` field in the top level of all record as a primary key.
@@ -93,6 +92,7 @@ SKYDatabase *privateDB = [[SKYContainer defaultContainer] privateCloudDatabase];
 }];
 ```
 
+<a id="location"></a>
 ## Location
 
 1. Supported by saving `CLLocation` in `SKYRecord`
@@ -108,7 +108,7 @@ record[@"location"] = location;
 ```
 
 See
-[Location and Maps Programming Guide](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/LocationAwarenessPG/CoreLocation/CoreLocation.html)
+[Location and Maps Programming Guide][doc-apple-location-and-maps-programming-guide]
 for help on getting current location.
 
 ### Querying records by distance
@@ -168,6 +168,7 @@ Then we can access the distance in `completionHandler` like this:
 }];
 ```
 
+<a id="assets"></a>
 ## File Storage (Assets)
 
 ### Uploading and associating an asset to a record
@@ -227,3 +228,9 @@ querying the record from server.
     // do something with the url
 }];
 ```
+
+[doc-reference]: #reference
+[doc-sequence]: #sequence
+[doc-location]: #location
+[doc-assets]: #assets
+[doc-apple-location-and-maps-programming-guide]: https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/LocationAwarenessPG/CoreLocation/CoreLocation.html

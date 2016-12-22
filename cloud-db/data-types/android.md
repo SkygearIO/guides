@@ -34,12 +34,12 @@ aComment.set("post", aPostReference);
 The location data type represents a point on Earth using
 its latitude and longitude. It is saved in the PostgreSQL database using
 the geographic object type provided by the
-[PostGIS](http://postgis.net/) extension.
+[PostGIS][postgis] extension.
 
 ### Saving a location in a record
 
 You can save a location into a record attribute by providing a
-[Location object](https://developer.android.com/reference/android/location/Location.html)
+[Location object][android-location]
 as the second argument of the `set` method on a record.
 
 Correspondingly, the `get` method for a location data type on a record
@@ -218,3 +218,6 @@ this.skygear.getPublicDatabase().save(aNote, new RecordSaveResponseHandler(){
     }
 });
 ```
+
+[postgis]: http://postgis.net/
+[android-location]: https://developer.android.com/reference/android/location/Location.html

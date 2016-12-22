@@ -6,7 +6,8 @@ title: Cloud Database Basics
 ## Overview
 
 Please make sure you know about and have already configured your skygear
-[container](/android/guide#setting-up) before you proceed.
+container before you proceed.
+You can follow the steps in [Setup Skygear][doc-setup-skygear] to set it up.
 
 <a name="record"></a>
 ### The Record Class
@@ -143,7 +144,7 @@ database.query(query, handler);
 
 ```
 
-For more information, please check out the [Query Section](/android/guide/query)
+For more information, please check out the [Query Section][doc-queries]
 
 ### Updating a record
 
@@ -208,5 +209,7 @@ database.delete(records, handler);
 ```
 
 
-<a name="reserved"></a>
+<a name="reserved-columns"></a>
 ### Reserved Columns
+
+[doc-queries]: /guide/cloud-db/queries/android/

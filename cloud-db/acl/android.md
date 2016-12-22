@@ -16,9 +16,9 @@ Access Control in Skygear can be set as 3 levels:
 
 The access control in Skygear can be divided in following type:
 
-- [Public Access Control](/android/guide/acl/public)
-- [User-based Access Control](/android/guide/acl/user-based)
-- [Role-based Access Control](/android/guide/acl/role-based)
+- [Public Access Control][doc-acl-public]
+- [User-based Access Control][doc-acl-user-based]
+- [Role-based Access Control][doc-acl-role-based]
 
 <a name='acl-default'></a>
 ## Default ACL Settings
@@ -36,7 +36,7 @@ skygear.setDefaultAccessControl(acl);
 
 ```
 
-<a name='acl-public'></a>
+<a id='acl-public'></a>
 ## Public ACL
 To control the public access of a record, you can set the public access control
 of a record:
@@ -66,7 +66,7 @@ boolean isPublicWritable = aRecord.isPublicWritable();
 
 ```
 
-<a name='acl-user'></a>
+<a id='acl-user-based'></a>
 ## ACL by User
 
 User-based access control is to set the access level of a record for a specific
@@ -136,7 +136,7 @@ skygear.getPublicDatabase().save(aRecord, new RecordSaveResponseHandler(){
 
 ```
 
-<a name='acl-role'></a>
+<a id='acl-role-based'></a>
 ## ACL by User Role
 
 Skygear supports assigning a role to a user in order to control the access of
@@ -231,3 +231,7 @@ boolean isWritable = aRecord.isWritable(programmer);
 
 <a name='acl-record'></a>
 ## ACL by Record Type
+
+[doc-acl-public]: #acl-public
+[doc-acl-user-based]: #acl-user-based
+[doc-acl-role-based]: #acl-role-based

@@ -6,7 +6,8 @@ title: Cloud Database Basics
 ## Overview
 
 Please make sure you know about and have already configured your
-[SKYContainer](/ios/guide) before you proceed.
+`SKYContainer` before you proceed.
+You can follow the steps in [Setup Skygear][doc-setup-skygear] to set it up.
 
 ### The Record Class
 
@@ -14,11 +15,11 @@ Please make sure you know about and have already configured your
 
 - `SKYRecord` must have a type.
 - Each `SKYRecord ` object is like a dictionary with keys and values; keys will be mapped to database column names, and values will be stored appropriately
-based on the data type. Please refer to [Data Type](#data-type) section within this guide for more information.
+based on the data type. Please refer to [Data Type][doc-data-type] for more information.
 - `SKYRecord` will be owned by the currently logged in user.
 - `SKYRecord` object has a unique `id` (a string combination of record type and uuid is used).
 - Each `SKYRecord` has a `recordType`, which describes the _type_ of data this record holds.
-- `SKYRecord` has reserved keys that cannot be used, such as `ownerUserRecordID ` and `recordType `. Please refer to [Reserved Columns](#reserved-columns) section for more.
+- `SKYRecord` has reserved keys that cannot be used, such as `ownerUserRecordID ` and `recordType `. Please refer to [Reserved Columns][doc-reserved-columns] section for more.
 
 A record can store whatever values that are JSON-serializable. Possible values include
 strings, numbers, booleans, dates, and several other custom types that Skygear
@@ -37,7 +38,7 @@ private database, and only himself have access to it.
 To control the access, you may set different access control entity to the record. However, only logged in user can do write operation on databases
 - The database objects can be accessed with `[[SKYContainer defaultContainer] publicCloudDatabase]` and `[[SKYContainer defaultContainer] privateCloudDatabase]`.
 
-Head to [Access Control](/ios/guide/access-control) to read more about it.
+Head to [Access Control][doc-access-control] to read more about it.
 
 <a name="basic-crud"></a>
 ## Basic CRUD
@@ -241,14 +242,14 @@ NSString *creatorID = [noteObject creatorUserRecordID];
 SKYRecordID *recordID = [record recordID];
 NSString *recordType = [record recordType];
 ```
-Please head to [Database Schema](/server/guide/database-schema) to read more about Reserved Columns, Record Tables and Reserved Tables.
+Please head to [Database Schema][doc-database-schema] to read more about Reserved Columns, Record Tables and Reserved Tables.
 
 <a name="local-storage"></a>
 ## Local Storage (Offline)
 
 ### Setup
 
-Record storage relies on [Query](/ios/guide/query)
+Record storage relies on [Query][doc-queries]
 
 ```obj-c
 - (void)container:(SKYContainer *)container didReceiveNotification:(SKYNotification *)notification
@@ -317,3 +318,10 @@ for (SKYRecord *note in records) {
                                                   [self.tableView reloadData];
                                               }];
 ``` 
+
+[doc-setup-skygear]: /guide/get-started/ios/
+[doc-data-type]: /guide/cloud-db/data-types/ios/
+[doc-reserved-columns]: #reserved-columns
+[doc-access-control]: /guide/cloud-db/acl/ios/
+[doc-database-schema]: /server/guide/database-schema
+[doc-queries]: /guide/cloud-db/queries/ios/

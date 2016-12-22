@@ -26,7 +26,8 @@ Skygear supports parent-child relation between records via _reference_.
 skygear server database for efficient query.
 
 You can even reference a user from a record. To learn more about user object or
-how to retrieve user objects, you can read the [Users](/js/guide/users) section.
+how to retrieve user objects, you can read the
+[User Authentication Basics][doc-auth-basics].
 Notice that we are not using the `new` keyword creating reference. Assume you
 have the user record object `rick`.
 
@@ -60,7 +61,7 @@ relationship between records. In the above case, if you perform batch save on
 `[note1, note2]`, there will be an error saving `note1`, but `note2` will
 still be saved!
 - If you wish to retrieve `note1` and `note2` at the same time in one query,
-you might use `transientInclude`. Read the [Queries](/js/guide/query#relational-queries)
+you might use `transientInclude`. Read the [Queries][doc-relational-queries]
 section to learn more about eager loading.
 
 ### Deleting Referenced Record
@@ -109,6 +110,7 @@ note.noteID = 43;
 skygear.publicDB.save(note);
 ```
 
+<a id="location"></a>
 ## Location
 
 ### Saving a location on record
@@ -153,7 +155,7 @@ photoQuery.addDescendingByDistance('location', reference);
 ### Querying distance from record geolocation column to given reference point
 
 You can utilize transient fields. Please read more about transient and eager
-loading in the [Queries](/js/guide/query#relational-query) section.
+loading in the [Queries][doc-relational-queries] section.
 
 ``` javascript
 photoQuery.transientIncludeDistance('location', 'distance', reference);
@@ -207,3 +209,6 @@ skygear.publicDB.save(note) // automatically upload the picture
 
 1. Call the `Asset` method to create an `Asset` object and it is stored in an asset column of the `note` object.
 2. When you save the `note` object, the image is automatically uploaded to the server.
+
+[doc-auth-basics]: /guide/auth/basics/js/
+[doc-relational-queries]: /guide/cloud-db/queries/js/

@@ -22,7 +22,7 @@ when you call the `-saveSubscription:completionHandler:` on the database.
 
 ### Registering device
 
-Please refer to [Registering device](/ios/guide/push) section to register the device first.
+Please refer to [Registering device][doc-registering-device] section to register the device first.
 
 After you have registered device, you can then create a subscription.
 
@@ -107,3 +107,5 @@ Set `AppDelegate` as container's delegate
     // ...
 }
 ```
+
+[doc-registering-device]: /guide/push-notifications/basics/ios/#registering-device

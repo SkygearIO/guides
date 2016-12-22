@@ -150,7 +150,7 @@ master_container.send_action(
 <a name="database-queries"></a>
 ## Database Queries
 
-In the [database hooks][doc-database-hooks], you receive the `db` argument
+In the [database hooks][doc-cloud-code-db-hooks], you receive the `db` argument
 which is an instance of the [SQLAlchemy engine connection].
 In other types of cloud code functions, 
 you can obtain such an instance by importing `db` and call
@@ -264,6 +264,6 @@ response = push_users(container, user_ids, notification)
 (TODO)
 
 [portal-app-settings]: https://portal.skygear.io/app/settings
-[doc-database-hooks]: /cloud-code/guide/triggering-cloud-code#database-hooks
+[doc-cloud-code-db-hooks]: /guide/cloud-function/database-hooks/python/
 [gcm]: https://developers.google.com/cloud-messaging/
 [apns]: https://developer.apple.com/go/?id=push-notifications

@@ -272,7 +272,7 @@ up-to-date metadata attributes, whereas the `before_save` hook only has
 
 **Tips**: If you want to alter the `record`, you can either use
 the provided `db` connection to execute raw SQL, or
-[call the Skygear API using the container][utility-container].
+[call the Skygear API using the container][cloud-function-container].
 
 :::
 
@@ -445,7 +445,7 @@ def after_delete_group_chat_user(record, db):
 [python-dict]: https://docs.python.org/3.6/tutorial/datastructures.html#dictionaries
 [sqlalchemy-conn]: http://docs.sqlalchemy.org/en/latest/core/connections.html#sqlalchemy.engine.Connectioh
 [sqlalchemy-textual-sql]: http://docs.sqlalchemy.org/en/latest/core/tutorial.html#using-textual-sql
-[doc-acl]: /js/guide/acl
+[doc-acl]: /guide/cloud-db/acl/ios/
 [before-save-metadata]: #before-save-metadata
 [before-save-func-record]: #before-save-func-record
-[utility-container]: /cloud-code/guide/utils
+[cloud-function-container]: /guide/cloud-function/calling-skygear-api/python/#skygear-container

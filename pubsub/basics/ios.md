@@ -19,7 +19,7 @@ SKYContainer *container = [SKYContainer defaultContainer];
 ```
 
 To publish a message to the channel through cloud code, please refer to the
-[Cloud Code Guide: PubSub Events][cloud-code-pubsub].
+[Cloud Code Guide: PubSub Events][doc-cloud-code-pubsub].
 
 ## Unsubscribing a channel
 
@@ -51,4 +51,4 @@ SKYContainer *container = [SKYContainer defaultContainer];
 [container.pubsubClient publishMessage:nil toChannel:@"PING"];
 ```
 
-[cloud-code-pubsub]: /guide/cloud-code/calling-skygear-api/python#pubsub-events
+[doc-cloud-code-pubsub]: /guide/cloud-code/calling-skygear-api/python#pubsub-events

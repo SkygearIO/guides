@@ -8,8 +8,8 @@ title: Queries
 Skygear provides query of records with conditions. Here is a straight-forward
 example of getting the note that has the `title` as `First note` inside the
 public database. If you don't know the difference between
-private database and public database, please read [Records](/js/guide/record)
-section first.
+private database and public database, please read the
+[Cloud Database Basics][doc-cloud-db-basics] section first.
 
 ``` javascript
 const Note = skygear.Record.extend('note');
@@ -22,7 +22,7 @@ skygear.publicDB.query(query).then((notes) => {
 });
 ```
 
-You can make queries on [reserved columns](/js/guide/record#reserved) as well,
+You can make queries on [reserved columns][doc-reserved-columns] as well,
 and of course you can put multiple conditions in the same query object:
 
 ``` javascript
@@ -113,11 +113,11 @@ query.notHavingRelation('_owner', skygear.relation.Friend);
 // records owned by following users but not friend users
 ```
 
-See [Social](/js/guide/relation) section for more about relations.
+See [Social Relations][doc-social-relation] section for more information.
 
 ### Geolocation condition
 
-Please visit [Geo-location](/js/guide/geolocation) section for more.
+Please visit [Data Types: Location][doc-data-type-location] section for more.
 
 <a name="pagination-ordering"></a>
 ## Pagination and Ordering
@@ -184,7 +184,7 @@ to get the count without fetching any records, simply set `query.limit = 0`.
 
 ### Eager Loading
 
-If you have a record that with [reference](/js/guide/record#reference) to
+If you have a record that with [reference][doc-data-type-reference] to
 another record, you can perform eager loading using the transient syntax.
 Here we have an example (notice that Delivery has reference to Address
 on key `destination`):
@@ -229,3 +229,9 @@ will impair performance
 private database (or the other way around), `transientInclude` would fail
 and give you `null` at the transient key. If you really need to do so, you
 have to make another query.
+
+[doc-cloud-db-basics]: /guide/cloud-db/basics/js/
+[doc-reserved-columns]: /guide/cloud-db/basics/js/#reserved-columns
+[doc-social-relation]: /js/guide/relation
+[doc-data-type-location]: /guide/cloud-db/data-types/js/#location
+[doc-data-type-reference]: /guide/cloud-db/data-types/js/#reference

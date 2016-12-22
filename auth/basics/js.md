@@ -9,7 +9,7 @@ authentication functions provided in the SDK.
 
 Skygear stores and manages the user credentials (username, email and password)
 internally and handles the user login session using an
-[access token](/server/guide#others) stored in the local storage.
+access token stored in the local storage.
 
 The following diagram shows the login flow:
 

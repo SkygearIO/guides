@@ -6,7 +6,8 @@ title: Cloud Database Basics
 ## Overview
 
 Please make sure you know about and have already configured your skygear
-[container](/js/guide#set-up-app) before you proceed.
+container before you proceed.
+You can follow the steps in [Setup Skygear][doc-setup-skygear] to set it up.
 
 <a name="record"></a>
 ### The Record Class
@@ -14,13 +15,13 @@ Please make sure you know about and have already configured your skygear
 - `Record` must have a type.
 - Each `Record` object is like a dictionary with keys and values; keys will be
 mapped to database column names, and values will be stored appropriately
-based on the data type. Please refer to [Data Type](#data-type)
-section within this guide for more information.
+based on the data type. Please refer to [Data Type][doc-data-type]
+section for more information.
 - `Record` will be owned by the currently logged in user.
 - Each `Record` object has its unique `id` (combination of record type
   and uuid used in the database as `_id`).
 - `Record` has reserved keys that cannot be used, such as `id` and `_id`.
-Please refer to [Reserved Columns](#reserved) section for more.
+Please refer to [Reserved Columns][doc-reserved-columns] section for more.
 
 You can design different `Record` type to model your app. Just like defining
 tables in SQL.
@@ -89,7 +90,7 @@ skygear.publicDB.save([goodNote, badNote], { atomic: true });
 
 You can construct a Query object by providing a Record Type.
 You can config the query by mutating its state.
-Read the section about [Query](/js/guide/query) to learn more.
+Read the section about [Query][doc-queries] to learn more.
 
 ``` javascript
 const query = new skygear.Query(Blog);
@@ -173,7 +174,7 @@ skygear.publicDB.query(query)
 });
 ```
 
-<a name="reserved"></a>
+<a name="reserved-columns"></a>
 ### Reserved Columns
 
 There are quite a few reserved columns for storing records into the database.
@@ -223,4 +224,10 @@ query.equalTo('_owner', skygear.currentUser.id);
 skygear.publicDB.query(query);
 ```
 
-Check the server [database schema](/server/guide/database-schema) page for more.
+Check the server [database schema][doc-database-schema] page for more.
+
+[doc-setup-skygear]: /guide/get-started/js/
+[doc-data-type]: /guide/cloud-db/data-types/js/
+[doc-reserved-columns]: #reserved-columns
+[doc-database-schema]: /server/guide/database-schema
+[doc-queries]: /guide/cloud-db/queries/js/

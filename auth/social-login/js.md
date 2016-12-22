@@ -8,7 +8,7 @@ title: Social Login
 Besides the traditional login method using a password,
 Skygear also supports authenticating a user with third party services
 such as Facebook and Twitter, using an
-[auth provider](/plugin/guide/guide-auth) written with cloud code.
+[auth provider][doc-auth-provider] written with cloud code.
 
 You can use the `skygear.loginWithProvider` method by providing the name of the
 auth provider, along with the relevant auth data (an object) necessary for
@@ -34,3 +34,5 @@ skygear.loginWithProvider(provider, authData);
 Note: There is no distinction between signing up and logging in with
 an auth provider. the Skygear server will create a new user if the principal ID
 (as returned by the auth provider) does not exist in the database.
+
+[doc-auth-provider]: /plugin/guide/guide-auth
