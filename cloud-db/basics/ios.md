@@ -323,5 +323,5 @@ for (SKYRecord *note in records) {
 [doc-data-type]: /guide/cloud-db/data-types/ios/
 [doc-reserved-columns]: #reserved-columns
 [doc-access-control]: /guide/cloud-db/acl/ios/
-[doc-database-schema]: /server/guide/database-schema
+[doc-database-schema]: /guide/advanced/database-schema/
 [doc-queries]: /guide/cloud-db/queries/ios/
