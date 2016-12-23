@@ -113,7 +113,7 @@ query.notHavingRelation('_owner', skygear.relation.Friend);
 // records owned by following users but not friend users
 ```
 
-See [Social Relations][doc-social-relation] section for more information.
+See [Social Network][doc-social-network] section for more information.
 
 ### Geolocation condition
 
@@ -232,6 +232,6 @@ have to make another query.
 
 [doc-cloud-db-basics]: /guide/cloud-db/basics/js/
 [doc-reserved-columns]: /guide/cloud-db/basics/js/#reserved-columns
-[doc-social-relation]: /js/guide/relation
+[doc-social-network]: /guide/social-network/basics/js/
 [doc-data-type-location]: /guide/cloud-db/data-types/js/#location
 [doc-data-type-reference]: /guide/cloud-db/data-types/js/#reference

@@ -48,6 +48,7 @@ skygear.publicDB.query(query).then((records) => {
 });
 ```
 
+<a id="search-users"></a>
 ### Retrieving another user's profile by email or username
 
 You can retrieve the public profiles of other users by using their emails or
