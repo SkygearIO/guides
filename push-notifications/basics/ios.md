@@ -61,7 +61,7 @@ using the above convenient methods, the device ID is returned from
 ## Send push notification from cloud code
 
 To send push notifications through cloud code, please refer to the
-[Cloud Code Guide: Push Notifications][doc-cloud-code-push-notifications].
+[Cloud Code Guide: Push Notifications][doc-cloud-function-push-notifications].
 
 
 ## Sending push notification to users
@@ -127,4 +127,4 @@ operation.sendCompletionHandler = ^(NSArray *deviceIDs, NSError *error) {
    In the case of sending to users, it would be expected to be an array of
    `SKYUserRecordID`.
 
-[doc-cloud-code-push-notifications]: /guide/cloud-code/calling-skygear-api/python#push-notifications
+[doc-cloud-function-push-notifications]: /guide/cloud-function/calling-skygear-api/python/#push-notifications
