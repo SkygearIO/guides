@@ -199,7 +199,6 @@ demonstrates:
 
 ```python
 from datetime import datetime
-# need to include SQLAlchemy in requirements.txt
 import sqlalchemy as sa
 import skygear
 from skygear.utils.context import current_user_id
@@ -289,7 +288,6 @@ demonstrates:
 
 ```python
 from datetime import datetime
-# need to include SQLAlchemy in requirements.txt
 import sqlalchemy as sa
 import skygear
 from skygear.utils.context import current_user_id
@@ -364,7 +362,6 @@ demonstrates:
 - a feature that the last admin in a group chat cannot be deleted
 
 ```python
-# need to include SQLAlchemy in requirements.txt
 import sqlalchemy as sa
 import skygear
 
@@ -426,7 +423,6 @@ demonstrates:
 - sending email to the user when he is removed from the group chat
 
 ```python
-# need to include SQLAlchemy in requirements.txt
 import sqlalchemy as sa
 import skygear
 
