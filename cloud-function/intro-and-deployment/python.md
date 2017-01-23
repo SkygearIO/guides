@@ -79,7 +79,7 @@ Once you have set up the SSH key, you do not have to do it again for
 other Skygear app projects in the same Skygear account.
 
 If you have not generated an SSH key yet, you can follow
-[this guide](ssh-key-guide) to generate one.
+[this guide][ssh-key-guide] to generate one.
 
 ::: caution
 

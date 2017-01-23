@@ -130,7 +130,7 @@ NSNumber *order = [record objectForKey: @"order"];
 NSNumber *done = [record objectForKey: @"done"];
 ```
 
-You can construct a `SKYQuery` object by providing a `recordType`. You can configure the `SKYQuery` by mutating its state. Read the [Query](/ios/guide/query) section to learn more.
+You can construct a `SKYQuery` object by providing a `recordType`. You can configure the `SKYQuery` by mutating its state. Read the [Query][doc-queries] section to learn more.
 
 ### Updating a record
 
