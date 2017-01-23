@@ -362,4 +362,4 @@ The following flowchart summarizes the process for the cloud codes.
 [doc-cloud-code-lambda]: /guide/cloud-function/lambda/python/
 [doc-cloud-code-http-handler]: /guide/cloud-function/http-endpoint/python/
 [pip]: https://pip.pypa.io/en/stable/
-[doc-request-flow-chart]: /content-assets/cloud-function-request-flow.svg
+[doc-request-flow-chart]: /assets/cloud-function/request-flow.svg
