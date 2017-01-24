@@ -127,4 +127,4 @@ operation.sendCompletionHandler = ^(NSArray *deviceIDs, NSError *error) {
    In the case of sending to users, it would be expected to be an array of
    `SKYUserRecordID`.
 
-[doc-cloud-function-push-notifications]: /guide/cloud-function/calling-skygear-api/python/#push-notifications
+[doc-cloud-function-push-notifications]: /guides/cloud-function/calling-skygear-api/python/#push-notifications

@@ -356,10 +356,10 @@ The following flowchart summarizes the process for the cloud codes.
 [portal-manage-your-account]: https://portal.skygear.io/user/settings
 [ssh-key-guide]: https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
 [portal-app-info]: https://portal.skygear.io/app/info
-[doc-cloud-code-db-hooks]: /guide/cloud-function/database-hooks/python/
+[doc-cloud-code-db-hooks]: /guides/cloud-function/database-hooks/python/
 [portal-console-log]: https://portal.skygear.io/app/logs
-[doc-cloud-code-scheduled-tasks]: /guide/cloud-function/scheduled-tasks/python/
-[doc-cloud-code-lambda]: /guide/cloud-function/lambda/python/
-[doc-cloud-code-http-handler]: /guide/cloud-function/http-endpoint/python/
+[doc-cloud-code-scheduled-tasks]: /guides/cloud-function/scheduled-tasks/python/
+[doc-cloud-code-lambda]: /guides/cloud-function/lambda/python/
+[doc-cloud-code-http-handler]: /guides/cloud-function/http-endpoint/python/
 [pip]: https://pip.pypa.io/en/stable/
 [doc-request-flow-chart]: /assets/cloud-function/request-flow.svg

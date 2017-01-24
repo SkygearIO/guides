@@ -80,4 +80,4 @@ welcomeHandle.cancel();
 alertHandle.cancel();
 ```
 
-[doc-cloud-code-pubsub]: /guide/cloud-code/calling-skygear-api/python#pubsub-events
+[doc-cloud-code-pubsub]: /guides/cloud-code/calling-skygear-api/python#pubsub-events

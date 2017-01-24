@@ -210,5 +210,5 @@ skygear.publicDB.save(note) // automatically upload the picture
 1. Call the `Asset` method to create an `Asset` object and it is stored in an asset column of the `note` object.
 2. When you save the `note` object, the image is automatically uploaded to the server.
 
-[doc-auth-basics]: /guide/auth/basics/js/
-[doc-relational-queries]: /guide/cloud-db/queries/js/
+[doc-auth-basics]: /guides/auth/basics/js/
+[doc-relational-queries]: /guides/cloud-db/queries/js/

@@ -94,4 +94,4 @@ pubsub.unsubscribeAll("chatroom-001");
 
 ```
 
-[doc-cloud-code-pubsub]: /guide/cloud-code/calling-skygear-api/python#pubsub-events
+[doc-cloud-code-pubsub]: /guides/cloud-code/calling-skygear-api/python#pubsub-events

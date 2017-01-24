@@ -319,9 +319,9 @@ for (SKYRecord *note in records) {
                                               }];
 ``` 
 
-[doc-setup-skygear]: /guide/get-started/ios/
-[doc-data-type]: /guide/cloud-db/data-types/ios/
+[doc-setup-skygear]: /guides/get-started/ios/
+[doc-data-type]: /guides/cloud-db/data-types/ios/
 [doc-reserved-columns]: #reserved-columns
-[doc-access-control]: /guide/cloud-db/acl/ios/
-[doc-database-schema]: /guide/advanced/database-schema/
-[doc-queries]: /guide/cloud-db/queries/ios/
+[doc-access-control]: /guides/cloud-db/acl/ios/
+[doc-database-schema]: /guides/advanced/database-schema/
+[doc-queries]: /guides/cloud-db/queries/ios/

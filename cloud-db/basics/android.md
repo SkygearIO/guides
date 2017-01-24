@@ -212,4 +212,4 @@ database.delete(records, handler);
 <a name="reserved-columns"></a>
 ### Reserved Columns
 
-[doc-queries]: /guide/cloud-db/queries/android/
+[doc-queries]: /guides/cloud-db/queries/android/

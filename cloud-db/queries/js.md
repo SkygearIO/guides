@@ -230,8 +230,8 @@ private database (or the other way around), `transientInclude` would fail
 and give you `null` at the transient key. If you really need to do so, you
 have to make another query.
 
-[doc-cloud-db-basics]: /guide/cloud-db/basics/js/
-[doc-reserved-columns]: /guide/cloud-db/basics/js/#reserved-columns
-[doc-social-network]: /guide/social-network/basics/js/
-[doc-data-type-location]: /guide/cloud-db/data-types/js/#location
-[doc-data-type-reference]: /guide/cloud-db/data-types/js/#reference
+[doc-cloud-db-basics]: /guides/cloud-db/basics/js/
+[doc-reserved-columns]: /guides/cloud-db/basics/js/#reserved-columns
+[doc-social-network]: /guides/social-network/basics/js/
+[doc-data-type-location]: /guides/cloud-db/data-types/js/#location
+[doc-data-type-reference]: /guides/cloud-db/data-types/js/#reference

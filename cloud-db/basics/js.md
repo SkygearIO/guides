@@ -226,8 +226,8 @@ skygear.publicDB.query(query);
 
 Check the server [database schema][doc-database-schema] page for more.
 
-[doc-setup-skygear]: /guide/get-started/js/
-[doc-data-type]: /guide/cloud-db/data-types/js/
+[doc-setup-skygear]: /guides/get-started/js/
+[doc-data-type]: /guides/cloud-db/data-types/js/
 [doc-reserved-columns]: #reserved-columns
-[doc-database-schema]: /server/guide/database-schema
-[doc-queries]: /guide/cloud-db/queries/js/
+[doc-database-schema]: /server/guides/database-schema
+[doc-queries]: /guides/cloud-db/queries/js/

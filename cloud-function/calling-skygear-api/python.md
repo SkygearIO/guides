@@ -264,6 +264,6 @@ response = push_users(container, user_ids, notification)
 (TODO)
 
 [portal-app-settings]: https://portal.skygear.io/app/settings
-[doc-cloud-code-db-hooks]: /guide/cloud-function/database-hooks/python/
+[doc-cloud-code-db-hooks]: /guides/cloud-function/database-hooks/python/
 [gcm]: https://developers.google.com/cloud-messaging/
 [apns]: https://developer.apple.com/go/?id=push-notifications

@@ -35,4 +35,4 @@ Note: There is no distinction between signing up and logging in with
 an auth provider. the Skygear server will create a new user if the principal ID
 (as returned by the auth provider) does not exist in the database.
 
-[doc-auth-provider]: /guide/advanced/auth-provider/python/
+[doc-auth-provider]: /guides/advanced/auth-provider/python/

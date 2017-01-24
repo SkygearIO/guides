@@ -108,4 +108,4 @@ Set `AppDelegate` as container's delegate
 }
 ```
 
-[doc-registering-device]: /guide/push-notifications/basics/ios/#registering-device
+[doc-registering-device]: /guides/push-notifications/basics/ios/#registering-device

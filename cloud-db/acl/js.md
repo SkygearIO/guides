@@ -127,4 +127,4 @@ skygear.setRecordCreateAccess(Note, [ Employee, Manager ]);
 skygear.setRecordCreateAccess(Plan, [ Manager ]);
 ```
 
-[doc-reserved-columns]: /guide/cloud-db/basics/js/#reserved-columns
+[doc-reserved-columns]: /guides/cloud-db/basics/js/#reserved-columns

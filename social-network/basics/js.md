@@ -119,5 +119,5 @@ skygear.relation.remove(unFollow).then((result) => {
 });
 ```
 
-[doc-search-users]: /guide/auth/user-profile/js/#search-users
-[doc-queries]: /guide/cloud-db/queries/js/
+[doc-search-users]: /guides/auth/user-profile/js/#search-users
+[doc-queries]: /guides/cloud-db/queries/js/

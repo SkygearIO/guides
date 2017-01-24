@@ -441,7 +441,7 @@ def after_delete_group_chat_user(record, db):
 [python-dict]: https://docs.python.org/3.6/tutorial/datastructures.html#dictionaries
 [sqlalchemy-conn]: http://docs.sqlalchemy.org/en/latest/core/connections.html#sqlalchemy.engine.Connectioh
 [sqlalchemy-textual-sql]: http://docs.sqlalchemy.org/en/latest/core/tutorial.html#using-textual-sql
-[doc-acl]: /guide/cloud-db/acl/ios/
+[doc-acl]: /guides/cloud-db/acl/ios/
 [before-save-metadata]: #before-save-metadata
 [before-save-func-record]: #before-save-func-record
-[cloud-function-container]: /guide/cloud-function/calling-skygear-api/python/#skygear-container
+[cloud-function-container]: /guides/cloud-function/calling-skygear-api/python/#skygear-container
