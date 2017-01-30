@@ -10,7 +10,7 @@ title: User Authentication Basics
 The first thing you want a user to do is to sign up. The following code illustrates the sign up process:
 
 ```obj-c
-[container signupWithUsername:@"john.doe"
+[[SKYContainer defaultContainer] signupWithUsername:@"john.doe"
                      password:@"verysecurepasswd"
             completionHandler:^(SKYUser *user, NSError *error) {
     if (error) {
@@ -23,10 +23,22 @@ The first thing you want a user to do is to sign up. The following code illustra
 }];
 ```
 
+```swift
+SKYContainer.default().signup(withUsername: "john.doe", password: "verysecurepasswd") { (user, error) in
+    if error != nil {
+        print ("error signing up user: \(error)")
+        return
+    }
+    
+    print ("sign up successful")
+    // do something else
+}
+```
+
 You can use `signupWithEmail:password:` to sign up users with emails as well:
 
 ```obj-c
-[container signupWithEmail:@"john.doe@example.com"
+[[SKYContainer defaultContainer] signupWithEmail:@"john.doe@example.com"
                   password:@"verysecurepasswd"
          completionHandler:^(SKYUserRecordID *user, NSError *error) {
     if (error) {
@@ -37,6 +49,18 @@ You can use `signupWithEmail:password:` to sign up users with emails as well:
     NSLog(@"sign up successful");
     // do something else
 }];
+```
+
+```swift
+SKYContainer.default().signup(withEmail: "john.doe@example.com", password: "verysecurepasswd") { (user, error) in
+    if error != nil {
+        print ("error signing up user: \(error)")
+        return
+    }
+    
+    print ("sign up successful")
+    // do something else
+}
 ```
 
 These two methods will create a new user in your app. Before completing the process, it automatically checks if the username is unique. New users should always be created with either one of the methods.
@@ -50,7 +74,7 @@ If the signup is not successful, you should read the error object returned. Usua
 You can use `loginWithUsername:password:` to let users log in to their accounts by:
 
 ```obj-c
-[container loginWithUsername:@"john.doe"
+[[SKYContainer defaultContainer] loginWithUsername:@"john.doe"
                     password:@"verysecurepasswd"
            completionHandler:^(SKYUserRecordID *user, NSError *error) {
     if (error) {
@@ -63,10 +87,22 @@ You can use `loginWithUsername:password:` to let users log in to their accounts 
 }];
 ```
 
+```swift
+SKYContainer.default().login(withUsername: "john.doe", password: "verysecurepasswd") { (user, error) in
+    if error != nil {
+        print ("error loggin user in \(error)")
+        return
+    }
+    
+    print ("login successful")
+    // do something else
+}
+```
+
 You can also use `loginWithEmail:password:` to log in users with emails:
 
 ```obj-c
-[container loginWithEmail:@"john.doe@example.com"
+[[SKYContainer defaultContainer] loginWithEmail:@"john.doe@example.com"
                  password:@"verysecurepasswd"
         completionHandler:^(SKYUserRecordID *user, NSError *error) {
     if (error) {
@@ -79,12 +115,40 @@ You can also use `loginWithEmail:password:` to log in users with emails:
 }];
 ```
 
+```swift
+SKYContainer.default().login(withEmail: "john.doe@example.com", password: "verysecurepasswd") { (user, error) in
+    if error != nil {
+        print ("error loggin user in \(error)")
+        return
+    }
+    
+    print ("login successful")
+    // do something else
+}
+```
+
 ### Logging out
 
 Of course, you also would want to allow users to log out of their accounts by using `logoutWithCompletionHandler:`.
 
 ```obj-c
-[container logoutWithCompletionHandler:nil];
+[[SKYContainer defaultContainer] logoutWithCompletionHandler:^(SKYUser *user, NSError *error) {
+    if (error != nil) {
+        NSLog(@"Logout error: %@",error);
+        return
+    }
+    NSLog(@"Logout success");
+}];
+```
+
+```swift
+SKYContainer.default().logout { (user, error) in
+    if error != nil {
+    	print ("Logout error: \(error)")
+    	return
+    }
+    print("Logout success")
+}
 ```
 
 ### Changing password
@@ -92,18 +156,29 @@ Of course, you also would want to allow users to log out of their accounts by us
 To change the password of the current user:
 
 ```obj-c
-[container changePassword:@"oldPassword"
-                 password:@"newPassword"
-        completionHandler:^(SKYUserRecordID *user, NSError *error) {
-    if (error) {
+[[SKYContainer defaultContainer] setNewPassword:@"newPassword" oldPassword:@"oldPassword" completionHandler:^(SKYUser *user, NSError *error) {
+    if (error != nil) {
         NSLog(@"can't change password: %@", error);
         // Can be old password not matched?
         return;
     }
-
+    
     NSLog(@"password change successfully");
-}]
+}];
 ```
+
+```swift
+SKYContainer.default().setNewPassword("newPassword", oldPassword: "oldPassword") { (user, error) in
+    if error != nil {
+        print ("can't change password: \(error)")
+        // Can be old password not matched?
+        return
+    }
+    
+    print ("password changed successfully")
+}
+```
+
 
 <a name="current-user"></a>
 ## Current User
@@ -113,9 +188,18 @@ To change the password of the current user:
 You can get the `currentUserRecordID` by:
 
 ```obj-c
-if (container.currentUserRecordID) {
+if ([SKYContainer defaultContainer].currentUser != nil) {
     // user is logged in, proceed
-    NSString *userID = [container currentUserRecordID];
+    NSString *userID = [[SKYContainer defaultContainer] currentUserRecordID];
+} else {
+    // ask user to sign up / login
+}
+```
+
+```swift
+if SKYContainer.default().currentUser != nil {
+    // user is logged in, proceed
+    let userID = SKYContainer.default().currentUserRecordID
 } else {
     // ask user to sign up / login
 }
@@ -134,17 +218,38 @@ user by asking "Who am I" to Skygear:
 }];
 ```
 
+```swift
+SKYContainer.default().getWhoAmI { (user, error) in
+    if error != nil {
+    	// Error handling...
+    } else {
+    	print ("Oh. I am \(user.username)")
+    }
+}
+```
+
 ### Looking up users by email
 
 Skygear provide a user discovery method by email. Everyone has access to this method without even having to be logged in.
 
 ```obj-c
-SKYQueryUsersOperation *operation = [SKYQueryUsersOperation discoverUsersOperationByEmails:@[@"john.doe@example.com", @"jane.doe@example.com"]];
-operation.queryUserCompletionBlock = ^(NSArray /* SKYUser */ *users, NSError *operationError) {
+SKYQueryOperation *operation = [SKYQueryOperation queryUsersOperationByEmails:@[@"john.doe@example.com", @"jane.doe@example.com"]];
+operation.queryRecordsCompletionBlock = ^(NSArray *users, SKYQueryCursor *queryCursor, NSError *operationError) {
     for (SKYUser *user in users) {
         // do something with the user
     }
-};
+}
 operation.container = [SKYContainer defaultContainer];
 [[SKYContainer defaultContainer] addOperation:operation];
+```
+
+```swift
+let operation = SKYQueryOperation.queryUsersOperation(byEmails: ["john.doe@example.com", "jane.doe@example.com"])
+operation?.queryRecordsCompletionBlock = { (users, queryCursor, error) in
+    for user in users as! [SKYUser] {
+        // do something with the user
+    }
+}
+operation?.container = SKYContainer.default()
+SKYContainer.default().add(operation)
 ```

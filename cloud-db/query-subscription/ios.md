@@ -46,12 +46,29 @@ In the register device callback, you should then add the subscriptions.
     // Other application initialization logic here
 }
 ```
-
-
+```swift
+func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+    SKYContainer.default().registerDeviceCompletionHandler { (deviceID, error) in
+        if error != nil {
+            print ("Failed to register device: \(error)")
+            return
+        }
+        
+        // You should put subscription creationg logic in the following method
+        addSubscriptions()
+    }
+    
+    // This will prompt the user for permission to send remote notification
+    application.registerForRemoteNotifications()
+    
+    // Other application initialization logic here
+}
+```
+#### Register for Push Notifications
 ```obj-c
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-    NSLog(@"Registered for Push notifications with token: %@", deviceToken);
+    NSLog(@"Registered for Push notifications with token: %@", deviceToken.description);
     [[SKYContainer defaultContainer] registerRemoteNotificationDeviceToken:deviceToken completionHandler:^(NSString *deviceID, NSError *error) {
         if (error) {
             NSLog(@"Failed to register device token: %@", error);
@@ -63,6 +80,22 @@ In the register device callback, you should then add the subscriptions.
     }];
 }
 ```
+
+```swift
+func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+    print ("Registered for Push notifications with token: \(deviceToken.description)")
+    SKYContainer.default().registerRemoteNotificationDeviceToken(deviceToken) { (deviceID, error) in
+        if error != nil {
+            print ("Failed to register device token: \(error)")
+            return
+        }
+        
+        // You should put subscription creation logic in the following method
+        addSubscriptions()
+    }
+}
+```
+
 
 ### Adding subscription
 
@@ -81,13 +114,37 @@ SKYSubscription *subscription =
 }];
 ```
 
+```swift
+let query = SKYQuery(recordType: "note", predicate: nil)
+let subscription = SKYSubscription(query: query, subscriptionID: "my notes")
+SKYContainer.default().privateCloudDatabase.save(subscription) { (subscription, error) in
+    
+    if error != nil {
+        print ("Failed to subscribe for my note: \(error)")
+        return
+    }
+    
+    print ("Subscription successful.")
+}
+```
+
 ### Implementing `SKYContainerDelegate` to receive notification
 
-Add protocol declaration in `AppDelegate`.
+In Objective-C, add protocol declaration in `AppDelegate`.
 
 ```obj-c
 @interface AppDelegate : UIResponder <UIApplicationDelegate, SKYContainerDelegate>
 ```
+
+In Swift, you should add an extention to the end of `AppDelegate`.
+
+```swift
+extension AppDelegate: SKYContainerDelegate {
+    
+}
+```
+
+**Note: An complier error "AppDelegate does not conform to protocol SKYContainerDelegate" may occur. Just ignore it. The error will be solved after adding the delegate method.**
 
 Implement the delegate method
 
@@ -99,11 +156,25 @@ Implement the delegate method
 }
 ```
 
+```swift
+func container(_ container: SKYContainer!, didReceive notification: SKYNotification!) {
+    print ("received notification = \(notification)")
+    // do more with the notification (not implemented)
+}
+```
+
 Set `AppDelegate` as container's delegate
 
 ```obj-c
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [SKYContainer defaultContainer].delegate = self;
+    // ...
+}
+```
+
+```swift
+func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    SKYContainer.default().delegate = self
     // ...
 }
 ```

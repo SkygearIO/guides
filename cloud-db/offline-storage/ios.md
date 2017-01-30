@@ -9,7 +9,7 @@ Skygear provides a simple cached query mechanism for application that wants to d
 
 ```obj-c
 SKYQuery *query = [SKYQuery queryWithRecordType:@"todo" predicate:nil];
-[publicDB performCachedQuery:query completionHandler:^(NSArray *results, BOOL cached, NSError *error) {
+[[[SKYContainer defaultContainer] publicCloudDatabase] performCachedQuery:query completionHandler:^(NSArray *results, BOOL cached, NSError *error) {
     if (cached) {
         // results from cache
         // it will be called first if cache is available
@@ -19,3 +19,14 @@ SKYQuery *query = [SKYQuery queryWithRecordType:@"todo" predicate:nil];
 }];
 ```
 
+```swift
+let query = SKYQuery(recordType: "todo", predicate: nil)
+SKYContainer.default().publicCloudDatabase.performCachedQuery(query) { (results, cached, error) in
+    if cached {
+        // results from cache
+        // it will be called first if cache is available
+    } else {
+        // results from server, resulted in a second call
+    }
+}
+```

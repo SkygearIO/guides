@@ -33,12 +33,23 @@ using its id.
 SKYReference *aRef = [SKYReference referenceWithRecordID:aID];
 ```
 
+``swift
+// aID is a placeholder of Record A's id
+let aRef = SKYReference(recordID: aID)
+```
+
 Then assign this reference as a regular field of Record B:
 
 ```obj-c
 // bRecord is a placeholder of Record B's object
 bRecord[@"parent"] = aRef;
 ```
+
+```swift
+// bRecord is a placeholder of Record B's object
+bRecord?.setObject(aRef, forKey: "parent" as NSCopying!)
+```
+
 
 It will establish a reference from _Record B_ to _Record A_.
 
@@ -67,6 +78,22 @@ SKYDatabase *privateDB = [[SKYContainer defaultContainer] privateCloudDatabase];
 }];
 ```
 
+```swift
+let todo = SKYRecord(recordType: "todo")
+todo?.setObject("Write documents for Skygear", forKey: "title" as NSCopying!)
+todo?.setObject(SKYSequence(), forKey: "noteID" as NSCopying!)
+    
+let privateDB = SKYContainer.default().privateCloudDatabase
+privateDB?.save(todo, completion: { (record, error) in
+    if error != nil {
+        print ("error saving todo: \(error)")
+        return
+    }
+    
+    print ("saved todo with auto increment noteID = \(record?.object(forKey: "noteID"))")
+})
+```
+
 - You can omit the `noteID` on update, the value will remain unchanged.
 - All the other `Note` in the database will now automatically have their
   `noteID` as well.
@@ -91,6 +118,21 @@ SKYDatabase *privateDB = [[SKYContainer defaultContainer] privateCloudDatabase];
     NSLog(@"saved todo with noteID == 43, %@", record[@"noteID"]);
 }];
 ```
+```swift
+let todo = SKYRecord(recordType: "todo")
+todo?.setObject("Write documents for Skygear", forKey: "title" as NSCopying!)
+todo?.setObject(43, forKey: "noteID" as NSCopying!)
+    
+let privateDB = SKYContainer.default().privateCloudDatabase
+privateDB?.save(todo, completion: { (record, error) in
+    if error != nil {
+        print ("error saving todo: \(error)")
+        return
+    }
+    
+    print ("saved todo with noteID == 43, \(record?.object(forKey: "noteID"))")
+})
+```
 
 <a id="location"></a>
 ## Location
@@ -107,6 +149,13 @@ CLLocation *location = [[CLLocation alloc] initWithLatitude:22.283 longitude:114
 record[@"location"] = location;
 ```
 
+```swift
+import CoreLocation
+
+let location = CLLocation(latitude: 22.283, longitude: 114.15)
+record?.setObject(location, forKey: "location" as NSCopying!)
+```
+
 See
 [Location and Maps Programming Guide][doc-apple-location-and-maps-programming-guide]
 for help on getting current location.
@@ -120,7 +169,7 @@ CLLocation *distanceFromLoc = [[CLLocation alloc] initWithLatitude:22.283 longit
 NSPredicate *predicate = [NSPredicate predicateWithFormat:@"distanceToLocation:fromLocation:(location, %@) < %f", distanceFromLoc, 400.f];
 SKYQuery *query = [SKYQuery queryWithRecordType:@"photo" predicate:predicate];
 
-[privateDB performQuery:query completionHandler:^(NSArray *photos, NSError *error) {
+[[[SKYContainer defaultContainer] privateCloudDatabase] performQuery:query completionHandler:^(NSArray *photos, NSError *error) {
     if (error) {
         NSLog(@"error querying photos: %@", error);
         return;
@@ -128,6 +177,23 @@ SKYQuery *query = [SKYQuery queryWithRecordType:@"photo" predicate:predicate];
 
     NSLog(@"got %@ photos taken within 400m of (22.283, 114.15)", @(photos.count));
 }];
+```
+
+```swift
+let distanceFromLoc = CLLocation(latitude: 22.283, longitude: 114.15)
+let predicate = NSPredicate(format: "distanceToLocation:fromLocation:(location, %@) < %f", distanceFromLoc, 400.0)
+let query = SKYQuery(recordType: "photo", predicate: predicate)
+    
+SKYContainer.default().privateCloudDatabase.perform(query) { (photos, error) in
+    if error != nil {
+        print ("error querying photos: \(error)")
+        return
+    }
+    
+    if let photos = photos {
+        print ("got \(photos.count) photos taken within 400m of (22.283, 114.15")
+    }
+}
 ```
 
 `distanceToLocation:fromLocation:` is a Skygear function which returns distance
@@ -143,6 +209,12 @@ query.sortDescriptors = @[[SKYLocationSortDescriptor locationSortDescriptorWithK
                                                                         ascending:YES]];
 ```
 
+```swift
+query?.sortDescriptors = [SKYLocationSortDescriptor.init(key: "location",
+                                                         relativeLocation: distanceFromLoc,
+                                                         ascending: true)]
+```
+
 ### Retrieving record location field distances relative to a point
 
 Utilize transient fields.
@@ -152,10 +224,15 @@ NSExpression *distanceFunction = [NSExpression expressionWithFormat:@"distanceTo
 query.transientIncludes = @{@"distance": distanceFunction};
 ```
 
+```swift
+let distanceFunction = NSExpression(format: "distanceToLocation:fromLocation:(location, %@)", distanceFromLoc)
+query?.transientIncludes = ["distance": distanceFunction]
+```
+
 Then we can access the distance in `completionHandler` like this:
 
 ```obj-c
-[privateDB performQuery:query completionHandler:^(NSArray *photos, NSError *error) {
+[[[SKYContainer defaultContainer] privateCloudDatabase] performQuery:query completionHandler:^(NSArray *photos, NSError *error) {
     if (error) {
         NSLog(@"error querying photos: %@", error);
         return;
@@ -166,6 +243,20 @@ Then we can access the distance in `completionHandler` like this:
         NSLog(@"Photo taken from distance = %@", distance);
     }
 }];
+```
+
+```swift
+SKYContainer.default().privateCloudDatabase.perform(query) { (photos, error) in
+    if error != nil {
+        print ("error query photos: \(error)")
+        return
+    }
+    
+    for photo in photos as! [SKYRecord] {
+        let distance = photo.transient.object(forKey: "distance")
+        print ("Photo taken from distance = \(distance)")
+    }
+}
 ```
 
 <a id="assets"></a>
@@ -199,6 +290,26 @@ didFinishPickingMediaWithInfo:(NSDictionary<NSString *, id> *)info
 }
 ```
 
+```swift
+func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    if let url = info[UIImagePickerControllerReferenceURL] as? URL {
+        let asset = SKYAsset(name: "profile-picture", fileURL: url)
+        asset?.mimeType = "image/png"
+        
+        let container = SKYContainer.default()
+        container?.uploadAsset(asset, completionHandler: { (asset, error) in
+            if error != nil {
+                print ("error uploading asset: \(error)")
+                return
+            }
+            
+            self.photoRecord?.setObject(asset, forKey: "image" as NSCopying!)
+            container?.privateCloudDatabase.save(self.photoRecord, completion: nil)
+        })
+    }
+}
+```
+
 Asset names will never collide. i.e. you can upload multiple assets with the same asset name.
 
 `asset.name` is rewritten after the asset being uploaded.
@@ -209,6 +320,11 @@ NSString *newName = asset.name;
 // from "profile-picture"
 ```
 
+```swift
+let newName = asset.name
+// The name is changed to "c36e803a-f333-47bf-a3e9-4d52b660a71a-profile-picture" 
+// from "profile-picture"
+```
 
 ### Accessing asset
 
@@ -217,7 +333,7 @@ querying the record from server.
 
 
 ```obj-c
-[privateDB fetchRecordWithID:photoRecordID completionHandler:^(SKYRecord *photo, NSError *error) {
+[[[SKYContainer defaultContainer] privateCloudDatabase] fetchRecordWithID:photoRecordID completionHandler:^(SKYRecord *photo, NSError *error) {
     if (error) {
         NSLog(@"error fetching photo: %@", error);
         return;
@@ -227,6 +343,20 @@ querying the record from server.
     NSURL *url = asset.url;
     // do something with the url
 }];
+```
+
+```swift
+SKYContainer.default().privateCloudDatabase.fetchRecord(with: photoRecordID) { (photo, error) in
+    if error != nil {
+        print ("error fetching photo: \(error)")
+        return
+    }
+    
+    if let asset = photo?.object(forKey: "image") as? SKYAsset{
+        let url = asset.url
+        // do something with the url
+    }
+}
 ```
 
 [doc-reference]: #reference

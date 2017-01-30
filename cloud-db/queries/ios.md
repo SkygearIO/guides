@@ -31,6 +31,24 @@ query.sortDescriptors = @[sortDescriptor];
 }];
 ```
 
+```swift
+let query = SKYQuery(recordType: "todo", predicate: nil)
+let sortDescriptor = NSSortDescriptor(key: "order", ascending: true)
+query?.sortDescriptors = [sortDescriptor]
+    
+SKYContainer.default().privateCloudDatabase.perform(query) { (results, error) in
+    if error != nil {
+        print ("error querying todos: \(error)")
+        return
+    }
+    
+    print ("Received \(results?.count) todos.")
+    for todo in results as! [SKYRecord] {
+        print ("Got a todo \(todo["title"])")
+    }
+}
+```
+
 We constructed a `SKYQuery` to search for `todo` records. There are no additional
 criteria needed so we put the predicate to `nil`. Then we assigned a
 `NSSortDescription` to ask Skygear Server to sort the `todo` records by `order` field in ascending order.
@@ -54,12 +72,20 @@ NSPredicate *inPredicate =
             [NSPredicate predicateWithFormat: @"attribute IN %@", aCollection];
 ```
 
+```swift
+let inPredicate = NSPredicate(format: "attribute IN %@", aCollection)
+```
+
 If the key being queried is a JSON type, the `IN` operator can also be used to
 query the key to check if it contains a particular value:
 
 ```obj-c
 NSPredicate *inPredicate =
             [NSPredicate predicateWithFormat: @"%@ IN attribute", aValue];
+```
+
+```swift
+let inPredicate = NSPredicate(format: "%@ IN attribute", aValue)
 ```
 
 ### Relation Predicate
@@ -77,6 +103,10 @@ NSPredicate *p =
                                                     key:@"_owner"]
 ```
 
+```swift
+let p = SKYRelationPredicate(relation: SKYRelation.following(), keyPath: "_owner")
+```
+
 ### Full-text search (**NOT IMPLEMENTED**)
 
 ### References
@@ -88,7 +118,7 @@ SKYReference *restaurantRef = [SKYReference referenceWithRecordID:[SKYRecordID r
 NSPredicate *predicate = [NSPredicate predicateWithFormat:@"restaurant = %@", restaurantRef];
 SKYQuery *query = [SKYQuery queryWithRecordType:@"order" predicate:predicate];
 
-SKYDatabase *privateDB = database;
+SKYDatabase *privateDB =  [[SKYContainer defaultContainer] privateCloudDatabase];
 
 [privateDB performQuery:query completionHandler:^(NSArray *orders, NSError *error) {
     if (error) {
@@ -100,6 +130,24 @@ SKYDatabase *privateDB = database;
         // work with the fetched order
     }
 }];
+```
+```swift
+let restaurantRef = SKYReference(recordID: SKYRecordID(recordType: "restaurant", name: "my restaurant"))
+let predicate = NSPredicate(format: "restaurant = %@", restaurantRef!)
+let query = SKYQuery(recordType: "order", predicate: predicate)
+    
+let privateDB = SKYContainer.default().privateCloudDatabase
+    
+privateDB?.perform(query, completionHandler: { (orders, error) in
+    if error != nil {
+        print ("error querying orders: \(error)")
+        return
+    }
+    
+    for order in orders as! [SKYRecord] {
+        // work with the fetched order
+    }
+})
 ```
 
 You can query by fields on a referenced record. Following the above example, if
@@ -109,7 +157,7 @@ we want to narrow orders placed in Italian restaurants only:
 NSPredicate *predicate = [NSPredicate predicateWithFormat:@"restaurant.cuisine = %@", @"italian"];
 SKYQuery *query = [SKYQuery queryWithRecordType:@"order" predicate:predicate];
 
-SKYDatabase *privateDB = database;
+SKYDatabase *privateDB =  [[SKYContainer defaultContainer] privateCloudDatabase];
 
 [privateDB performQuery:query completionHandler:^(NSArray *orders, NSError *error) {
     if (error) {
@@ -123,6 +171,24 @@ SKYDatabase *privateDB = database;
 }];
 ```
 
+```swift
+let predicate = NSPredicate(format: "restaurant.cuisine = %@", "italian")
+let query = SKYQuery(recordType: "order", predicate: predicate)
+    
+let privateDB = SKYContainer.default().privateCloudDatabase
+    
+privateDB?.perform(query, completionHandler: { (orders, error) in
+    if error != nil {
+        print ("error querying orders: \(error)")
+        return
+    }
+    
+    for order in orders as! [SKYRecord] {
+        // work with the fetched order
+    }
+})
+```
+
 <a name="pagination-ordering"></a>
 ## Pagination and Ordering
 
@@ -130,8 +196,15 @@ SKYDatabase *privateDB = database;
 We can sort records returned by:
 
 ```obj-c
+SKYQuery *query = [SKYQuery queryWithRecordType:@"order" predicate:nil];
 NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"_updated_at" ascending:NO];     // sorted by modificationDate
 query.sortDescriptors = @[sortDescriptor];     // apply the NSSortDescriptor to the query
+```
+
+```swift
+let query = SKYQuery(recordType: "order", predicate: nil)
+let sortDescriptor = NSSortDescriptor(key: "_updated_at", ascending: false)     // sorted by modificationDate
+query?.sortDescriptors = [sortDescriptor]     // apply the NSSortDescriptor to the query
 ```
 
 `SKYQuery` utilizes `NSPredicate` to apply filtering on query results. You can use other parameters to sort your queries.
@@ -144,10 +217,18 @@ We can limit the numbers of records returned by:
 query.limit = 10;     // only show the top 10 records
 ```
 
+```swift
+query?.limit = 10	  // only show the top 10 records
+```
+
 We can also set an offset number to the query by:
 
 ```obj-c
 query.offset = 5;     // ignore the first 5 records
+```
+
+```swift
+query?.offset = 5	  // ignore the first 5 records
 ```
 
 Setting an `offset` number means skipping that many rolls before beginning to return rows. If the `offset` number is 0, then no rows will be skipped. If you use both `limit` and `offset`, then `offset` numbers of rows will be skipped before starting to limit the number of rows returned.
@@ -175,7 +256,7 @@ SKYQuery *query = [SKYQuery queryWithRecordType:@"child" predicate:nil];
 NSExpression *keyPath = [NSExpression expressionForKeyPath:@"parent"];
 query.transientIncludes = @{@"parentRecord": keyPath};
 
-[privateDB performQuery:query completionHandler:^(NSArray *results, NSError *error) {
+[[[SKYContainer defaultContainer] privateCloudDatabase] performQuery:query completionHandler:^(NSArray *results, NSError *error) {
     if (error) {
         NSLog(@"error fetching child: %@", error);
         return;
@@ -187,6 +268,25 @@ query.transientIncludes = @{@"parentRecord": keyPath};
         NSLog(@"%@'s parent is %@", child.recordID, parent.recordID);
     }
 }];
+```
+
+```swift
+let query = SKYQuery(recordType: "child", predicate: nil)
+let keyPath = NSExpression(forKeyPath: "parent")
+query?.transientIncludes = ["parentRecord": keyPath]
+    
+SKYContainer.default().privateCloudDatabase.perform(query) { (results, error) in
+    if error != nil {
+        print ("error fetching child: \(error)")
+        return
+    }
+    
+    print ("received \(results?.count) childern")
+    for child in results as! [SKYRecord] {
+        let parent: SKYRecord = child.transient.object(forKey: "parentRecord") as! SKYRecord
+        print ("\(child.recordID)'s parent is \(parent.recordID)")
+    }
+}
 ```
 
 It is possible to eager load records from multiple keys, but doing so will
