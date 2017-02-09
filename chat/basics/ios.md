@@ -125,7 +125,7 @@ There are three methods for fetching the existing conversations:
 
 - `fetchUserConversations(fetchLastMessage: Bool, completion: SKYChatFetchUserConversationListCompletion?)`
 
-Fetch the all conversations which involves the current user. The parameter `fetchLastMessage` can be used for fetching the last message in the conversation. Details will be mentioned [later](#displaying-last-messages-in-a-conversation-list).
+Fetch the all conversations which involves the current user. The parameter `fetchLastMessage` can be used for fetching the last message in the conversation.
 ```swift
 SKYContainer.default().chatExtension?.fetchUserConversations(
     fetchLastMessage: false, 
