@@ -171,10 +171,10 @@ skygear.signupWithUsername('UserA', '1234')
   return skygear.discoverUserByUsernames(
   ['UserA', 'UserB', 'UserC']);
 }).then((users) => {
-    skygearchat.createConversation(
+  skygearchat.createConversation(
     users, // an Array of User Object indicating conversation participants
     'Group Chat of ABC', // a String for describing the conversation topic
-    ).then((conversation) => {
+  ).then((conversation) => {
     console.log('Conversation created!', conversation);
   }, (err) => {
     console.log('Fail to create the conversation', err);
@@ -211,10 +211,10 @@ skygear.config({
     return skygear.discoverUserByUsernames(
     ['UserA', 'UserB', 'UserC']);
   }).then((users) => {
-      skygearchat.createConversation(
+    skygearchat.createConversation(
       users, // an Array of User Object indicating conversation participants
       'Group Chat of ABC', // a String for describing the conversation topic
-      ).then((conversation) => {
+    ).then((conversation) => {
       console.log('Conversation created!', conversation);
     }, (err) => {
       console.log('Fail to create the conversation', err);
