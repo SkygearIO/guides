@@ -128,7 +128,7 @@ doSignup() {
 
   skygear.signupWithUsername(username, password).then(() => {
     this.setState({
-      'user': 'Signup as '+username
+      'user': 'Signup as ' + username
     });
   }, () => {
     this.setState({
