@@ -59,8 +59,7 @@ npm start
 ```
 Now, open the browser and navigate to http://localhost:8000/. If the template project is set up successfully, you should see the following screen.
 
-![Skygear](https://docs.skygear.io/assets/js/js-app-preview.png)
-
+![JS Skygear Template Preview Screenshot](/assets/js/js-app-preview.png)
 
 ## What's in the template project
 
@@ -143,7 +142,8 @@ Tips: Even if your app does not require a user system, as every [record](https:/
 ## Using Skygear chat in your app
 To call the Skygear chat APIs in your app, first you need to enable the chat function in the _plug-ins_ page in the [developer portal](https://portal.skygear.io/).
 
-![skygear](http://i.imgur.com/FnGjFqv.png)
+![Enable Chat Plugins at Portal
+Screenshot](/assets/common/enable-chat-plugin-on-portal.png)
 
 Then import ```skygear-chat``` in the JS file.
 
@@ -225,11 +225,12 @@ skygear.config({
 
 Then go to the Skygear data browser. You can find it in the _info_ page in your [Skygear Portal](https://portal.skygear.io/).
 
-![](https://i.imgur.com/Jmvsjv0.png)
+![Open Database Web Browser
+Screenshot](/assets/common/open-database-in-web-browser.png)
 
 In the data browser, go to the table "conversation". If you can see a new record with the title "Group Chat of ABC", congratulation, the conversation is successfully created.
 
-![](https://i.imgur.com/vjAdZyN.png)
+![Data Browser Result Screenshot](/assets/common/chat-data-browser-result.png)
 
 Hurray! Everything should be in the right place from here. Check out the [Skygear chat documentation](https://docs.skygear.io/guides/chat/basics/js/) to start building your chat app.
 
