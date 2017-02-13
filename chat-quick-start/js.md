@@ -68,7 +68,7 @@ Before building the chat app, let's first understand the elements in the the tem
 
 #### 1. Configuration
 
-For your client app to communicate with the Skygear server, you need to configure the Api key and the app end point in the client.
+For your client app to communicate with the Skygear server, you need to configure the API key and the app end point in the client.
 
 In the template project, we have put the configuration in ```src/index.js``` and your app information in ```config/base.js```.
 
@@ -101,7 +101,7 @@ export default {
 
 A normal chat app requires a user authentication system.
 
-In ```components/Main.js``` in the template proejct, you can find all the authtenication related functions.
+In ```components/Main.js``` in the template project, you can find all the authentication related functions.
 
 Codes in ```components/Main.js#L18-46```:
 
@@ -145,7 +145,7 @@ To call the Skygear chat APIs in your app, first you need to enable the chat fun
 
 ![skygear](http://i.imgur.com/FnGjFqv.png)
 
-Then import ```skygear-chat``` in the js file.
+Then import ```skygear-chat``` in the JS file.
 
 ```javascript
 import skygearchat from 'skygear-chat'
@@ -157,7 +157,7 @@ Hurray! You should be able to use Skygear Chat by now.
 
 To see if everything is in a good place, follow the following steps to create a conversation in your app.
 
-In `index.js`, copy and paste the following codes to the skygear.config, inside the then brackets.
+In `index.js`, copy and paste the following codes to the `skygear.config`, inside the then brackets.
 
 (Note: this is not the usual way to create a user and a conversation. It is for testing only.)
 
