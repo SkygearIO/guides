@@ -10,11 +10,11 @@ If you want to use Skygear Chat JS SDK with other JS projects (e.g. Ionic, React
 
 ## Prerequisite
 
-#### 1. Create an account on [the Skygear portal](https://portal.skygear.io/signup)
+### 1. Create an account on [the Skygear portal](https://portal.skygear.io/signup)
 
 Upon signing up, you can find the API keys and the server endpoints in _info_ page. You need them to configure your Skygear app.
 
-#### 2. Install Node.js
+### 2. Install Node.js
 
 We need Node.js to run the template project. If you have never installed Node.js, install it as follow:
 
@@ -66,7 +66,7 @@ Now, open the browser and navigate to http://localhost:8000/. If the template pr
 
 Before building the chat app, let's first understand the elements in the the template project. They are the very key elements we need for every Skygear app.
 
-#### 1. Configuration
+### 1. Configuration
 
 For your client app to communicate with the Skygear server, you need to configure the API key and the app end point in the client.
 
@@ -97,7 +97,7 @@ export default {
 }
 ```
 
-#### 2. User authentication
+### 2. User authentication
 
 A normal chat app requires a user authentication system.
 
