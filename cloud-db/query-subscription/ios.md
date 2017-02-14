@@ -136,7 +136,7 @@ In Objective-C, add protocol declaration in `AppDelegate`.
 @interface AppDelegate : UIResponder <UIApplicationDelegate, SKYContainerDelegate>
 ```
 
-In Swift, you should add an extention to the end of `AppDelegate`.
+In Swift, you should add an extension to the end of `AppDelegate`.
 
 ```swift
 extension AppDelegate: SKYContainerDelegate {
@@ -144,7 +144,7 @@ extension AppDelegate: SKYContainerDelegate {
 }
 ```
 
-**Note: An complier error "AppDelegate does not conform to protocol SKYContainerDelegate" may occur. Just ignore it. The error will be solved after adding the delegate method.**
+**Note: An compiler error `AppDelegate does not conform to protocol SKYContainerDelegate` may occur. Just ignore it. The error will be solved after adding the delegate method.**
 
 Implement the delegate method
 
