@@ -25,3 +25,19 @@ SKYQuery *query = [SKYQuery queryWithRecordType:@"user" predicate:predicate];
     // do something else
 }];
 ```
+
+```swift
+let publicDB = SKYContainer.default().publicCloudDatabase
+let predicate = NSPredicate(format: "_id == [c] %@", SKYContainer.default().currentUserRecordID)
+let query = SKYQuery(recordType: "user", predicate: predicate)
+    
+publicDB?.perform(query, completionHandler: { (results, error) in
+    if error != nil {
+        print ("error quering user profile: \(error)")
+        return
+    }
+    
+    print ("query successful")
+    // do something else
+})
+```

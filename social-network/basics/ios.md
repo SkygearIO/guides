@@ -13,17 +13,29 @@ follower are examples of them; discuss the values of SKYRelationDirection -->
 Get all following users:
 
 ```obj-c
-SKYQueryUsersOperation *operation = [SKYQueryUsersOperation queryUsersOperationByRelation:[SKYRelation followRelation] direction:SKYRelationDirectionActive];
+SKYQueryOperation *operation = [SKYQueryOperation queryUsersOperationByRelation:[SKYRelation followingRelation]];
 operation.container = [SKYContainer defaultContainer];
 [[SKYContainer defaultContainer] addOperation:operation];
+```
+
+```swift
+let operation = SKYQueryOperation.queryUsersOperation(by: SKYRelation.following())
+operation?.container = SKYContainer.default()
+SKYContainer.default().add(operation)
 ```
 
 Get all mutual followers: **[Not implemented]**
 
 ```obj-c
-SKYQueryUsersOperation *operation = [SKYQueryUsersOperation queryUsersOperationByRelation:[SKYRelation followRelation] direction:SKYRelationDirectionMutual];
+SKYQueryOperation *operation = [SKYQueryOperation queryUsersOperationByRelation:[SKYRelation friendRelation]];
 operation.container = [SKYContainer defaultContainer];
 [[SKYContainer defaultContainer] addOperation:operation];
+```
+
+```swift
+let operation = SKYQueryOperation.queryUsersOperation(by: SKYRelation.friend())
+operation?.container = SKYContainer.default()
+SKYContainer.default().add(operation)
 ```
 
 1. Two default relations: friend and follower
@@ -37,28 +49,51 @@ operation.container = [SKYContainer defaultContainer];
 [[SKYContainer defaultContainer] addOperation:operation];
 ```
 
+```swift
+let operation = SKYAddRelationsOperation(type: "friend", usersToRelated: [rick!, ben!])
+operation?.container = SKYContainer.default()
+SKYContainer.default().add(operation)
+```
+
 <a name="querying-relations"></a>
 ## Querying Relations
 
 Get all friends:
 
 ```obj-c
-SKYQueryUsersOperation *operation = [SKYQueryUsersOperation queryUsersOperationByRelation:[SKYRelation friendRelation]];
+SKYQueryOperation *operation = [SKYQueryOperation queryUsersOperationByRelation:[SKYRelation friendRelation]];
 operation.container = [SKYContainer defaultContainer];
 [[SKYContainer defaultContainer] addOperation:operation];
+```
+
+```swift
+let operation = SKYQueryOperation.queryUsersOperation(by: SKYRelation.friend())
+operation?.container = SKYContainer.default()
+SKYContainer.default().add(operation)
 ```
 
 Get all followers:
 
 ```obj-c
-SKYQueryUsersOperation *operation = [SKYQueryUsersOperation queryUsersOperationByRelation:[SKYRelation followRelation] direction:SKYRelationDirectionPassive];
+SKYQueryOperation *operation = [SKYQueryOperation queryUsersOperationByRelation:[SKYRelation followedRelation]];
 operation.container = [SKYContainer defaultContainer];
-__weak SKYQueryUsersOperation *weakOperation = operation;
-operation.queryUserCompletionBlock = ^(NSArray *users, NSError *operationError) {
+__weak SKYQueryOperation *weakOperation = operation;
+operation.queryRecordsCompletionBlock = ^(NSArray *users, SKYQueryCursor *queryCursor, NSError *error) {
     NSLog(@"Operation will have overallCount after execution, %d", weakOperation.overallCount);
 };
-
+    
 [[SKYContainer defaultContainer] addOperation:operation];
+```
+
+```swift
+let operation = SKYQueryOperation.queryUsersOperation(by: SKYRelation.followed())
+operation?.container = SKYContainer.default()
+weak var weakOperation = operation
+operation?.queryRecordsCompletionBlock = { (users, queryCursor, error) in
+    print ("Operation will have overall count after execution, \(weakOperation?.overallCount)")
+}
+
+SKYContainer.default().add(operation)
 ```
 
 `SKYQueryUsersOperation-relationDirection` is only effective on `followRelation`.
@@ -70,4 +105,10 @@ operation.queryUserCompletionBlock = ^(NSArray *users, NSError *operationError) 
 SKYRemoveRelationsOperation *operation = [SKYRemoveRelationsOperation operationWithType:@"follower" usersToRemove:@[faseng, chima]];
 operation.container = [SKYContainer defaultContainer];
 [[SKYContainer defaultContainer] addOperation:operation];
+```
+
+```swift
+let operation = SKYRemoveRelationsOperation(type: "follower", usersToRemove: [faseng!, chima!])
+operation?.container = SKYContainer.default()
+SKYContainer.default().add(operation)
 ```

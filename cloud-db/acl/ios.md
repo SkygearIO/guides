@@ -23,6 +23,12 @@ SKYAccessControl *acl = [[SKYContainer defaultContainer] defaultAccessControl];
 [[SKYContainer defaultContainer] setDefaultAccessControl:acl];
 ```
 
+```swift
+let acl = SKYContainer.default().defaultAccessControl
+acl?.setReadOnlyForPublic()
+SKYContainer.default().defaultAccessControl = acl
+```
+
 In the above example, each newly created record is readable by public and it
 can be modified by a `webmaster`. If you add access control to a specific
 record, the above settings will be ignored for that record.
@@ -36,6 +42,12 @@ Example: Share docs to colleagues
 // supervisor is a placeholder of user id
 SKYRecord *document = [SKYRecord recordWithRecordType:@"doc"];
 [document setReadWriteAccessForUser:supervisor];
+```
+
+```swift
+// supervisor is a placeholder of user id
+let document = SKYRecord(recordType: "doc")
+document?.accessControl.setReadWriteAccessFor(supervisor)
 ```
 
 <a name="acl-role"></a>
@@ -74,11 +86,18 @@ SKYRole *author = [SKYRole roleWithName:@"author"];
 SKYRole *visitor = [SKYRole roleWithName:@"visitor"];
 ```
 
+```swift
+let webmaster = SKYRole(name: "webmaster")
+let author = SKYRole(name: "author")
+let visitor = SKYRole(name: "visitor")
+```
+
 At this point, the `webmaster` role is an ordinary role without special powers
 from the view of Skygear. To actually give the role the power to assign
 roles to other users, you have to designate those as admin roles.
 
 ```objective-c
+// webmaster from previous declaration
 [[SKYContainer defaultContainer] defineAdminRoles:@[webmaster]
                                        completion:^(NSError *error) {
                                          if (!error) {
@@ -88,6 +107,19 @@ roles to other users, you have to designate those as admin roles.
                                          }
                                        }];
 ```
+```swift
+// webmaster from previous declaration
+if let webmaster = webmaster as SKYRole! {
+    SKYContainer.default().defineAdminRoles([webmaster]) { (error) in
+        if error != nil {
+            print ("Success!")
+            return
+        }
+
+        print ("Error: \(error?.localizedDescription)")
+    }
+}
+```
 
 It is possible to designate multiple roles to have admin privilege.
 
@@ -96,6 +128,7 @@ To do this, you have to set `visitor` as the default role. New user will
 automatically gain the `visitor` role.
 
 ```objective-c
+// visitor from previous declaration
 [[SKYContainer defaultContainer] setUserDefaultRole:@[visitor]
                                          completion:^(NSError *error) {
                                            if (!error) {
@@ -104,6 +137,19 @@ automatically gain the `visitor` role.
                                              NSLog(@"Error: %@", error.localizedDescription)
                                            }
                                          }];
+```
+```swift
+// visitor from previous declaration
+if let visitor = visitor as SKYRole! {
+    SKYContainer.default().defineAdminRoles([visitor]) { (error) in
+        if error != nil {
+            print ("Success!")
+            return
+        }
+
+        print ("Error: \(error?.localizedDescription)")
+    }
+}
 ```
 
 Remember that the above definitions are frozen at the time the application
@@ -120,13 +166,12 @@ This is done by setting the `roles` property of an `SKYUser` object.
 
 ```objective-c
 SKYContainer *container = [SKYContainer defaultContainer];
-[container queryUsersByEmails:@[@"johndoe@example.com"]
-                   completion:^(NSArray *users, SKYError *error) {
-                       if (users.count == 1) {
-                           SKYUser *john = users[0];
-                           john.roles = @[author, visitor];
-                           [container saveUser:user completion:nil];
-                       }
+[container queryUsersByEmails:@[@"johndoe@example.com"] completionHandler:^(NSArray<SKYRecord *> *users, NSError *error) {
+	if (users.count == 1) {
+	    SKYUser *john = users[0];
+	    john.roles = @[author, visitor];
+	    [container saveUser:john completion:nil];
+	}
 }];
 ```
 
@@ -154,11 +199,20 @@ access by calling these methods on a record object:
 
 ```objective-c
 SKYRecord *article = [SKYRecord recordWithRecordType:@"article"];
-[article setReadWriteAccessForRole:webmaster];
-[article setReadWriteAccessForRole:author];
-[article setReadOnlyForRole:visitor];
-[[SKYContainer publicCloudDatabase] saveRecord:article completion:nil];
+[article.accessControl setReadWriteAccessForRole:webmaster];
+[article.accessControl setReadWriteAccessForRole:author];
+[article.accessControl setReadOnlyForRole:visitor];
+[[[SKYContainer defaultContainer] publicCloudDatabase] saveRecord:article completion:nil];
 ```
+
+```swift
+let article = SKYRecord(recordType: "article")
+article?.accessControl.setReadWriteAccessFor(webmaster)
+article?.accessControl.setReadWriteAccessFor(author)
+article?.accessControl.setReadOnlyFor(visitor)
+SKYContainer.default().publicCloudDatabase.save(article, completion: nil)
+```
+
 
 Role-based access control are applied to each record individually. In other
 words, access control applied to a record does not affect access control
@@ -221,6 +275,15 @@ SKYContainer *container = [SKYContainer defaultContainer];
                                        NSLog(error.localizedDescription);
                                      }
                                    }];
+```
+
+```swift
+let container = SKYContainer.default()
+container?.defineCreationAccess(withRecordType: "article", roles: [webmaster!, author!], completion: { (error) in
+    if let error = error {
+        print("\(error.localizedDescription)")
+    }
+})
 ```
 
 Note that creation access is frozen in production mode.

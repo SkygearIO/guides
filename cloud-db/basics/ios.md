@@ -66,6 +66,24 @@ SKYDatabase *privateDB = [[SKYContainer defaultContainer] privateCloudDatabase];
 }];
 ```
 
+```swift
+let todo = SKYRecord(recordType: "todo")
+todo?.setObject("Write documents for Skygear", forKey: "title" as NSCopying!)
+todo?.setObject(1, forKey: "order" as NSCopying!)
+todo?.setObject(false, forKey: "done" as NSCopying!)
+    
+let privateDB = SKYContainer.default().privateCloudDatabase
+privateDB?.save(todo, completion: { (record, error) in
+    if error != nil {
+        print ("error saving todo: \(error)")
+        return
+    }
+    
+    print ("saved todo with record = \(record?.recordID)")
+})
+    
+```
+
 There are couples of things we have done here:
 
 1. First we created a `todo` _record_ and assigned some attributes to it. you can use the `[]` subscript operator as shown above, or the `setObject:forKey:` method. Your app automatically creates this Class when you first use it.
@@ -79,9 +97,9 @@ You can also save multiple `SKYRecord`s at once:
 ```obj-c
 SKYRecord *noteOne = [SKYRecord recordWithRecordType:@"note"];
 SKYRecord *noteTwo = [SKYRecord recordWithRecordType:@"note"];
-    
+
 NSArray *notesToSave = [[NSArray alloc] initWithObjects: noteOne, noteTwo, nil];
-    
+
 SKYDatabase *privateDB = [[SKYContainer defaultContainer] privateCloudDatabase];
 [privateDB saveRecords:(notesToSave) completionHandler:^(NSArray *savedRecords, NSError *operationError) {
     if (operationError) {
@@ -89,7 +107,7 @@ SKYDatabase *privateDB = [[SKYContainer defaultContainer] privateCloudDatabase];
         NSLog(@"error completing operation");
         return;
     }
-        
+
     NSLog(@"saved all the todo records");
 } perRecordErrorHandler:^(SKYRecord *record, NSError *error) {
     if (error) {
@@ -97,10 +115,37 @@ SKYDatabase *privateDB = [[SKYContainer defaultContainer] privateCloudDatabase];
         NSLog(@"error saving todo: %@", error);
         return;
     }
-        
+
     NSLog(@"saved todo with recordID = %@", record.recordID);
 }];
 ```
+
+```swift
+let noteOne = SKYRecord(recordType: "note")
+let noteTwo = SKYRecord(recordType: "note")
+
+let notesToSave = [noteOne, noteTwo]
+
+let privateDB = SKYContainer.default().privateCloudDatabase
+privateDB?.saveRecords(notesToSave, completionHandler: { (savedRecords, operationError) in
+    if operationError != nil {
+        // Error completing the operation
+        print ("error completing operation")
+        return
+    }
+
+    print ("saved all the todo records")
+}, perRecordErrorHandler: { (record, error) in
+    if error != nil {
+        // Error saving an individual record
+        print ("error saving todo: \(error)")
+        return
+    }
+
+    print ("saved todo with recordID = \(record?.recordID)")
+})
+```
+
 
 ### Reading a record
 
@@ -122,7 +167,24 @@ SKYRecordID *recordID = [SKYRecordID recordIDWithRecordType:@"todo" name:@"36906
 }];
 ```
 
-To get the values out of the `SKYRecord`, you can use the `[]` subscript operator as shown above, or the `objectForKey:` method:
+```swift
+let recordID = SKYRecordID(recordType: "todo", name: "369067DC-BDBC-49D5-A6A2-D83061D83BFCD")
+SKYContainer.default().privateCloudDatabase.fetchRecord(with: recordID) { (record, error) in
+    if error != nil {
+        print ("error fetching todo: \(error)")
+        return
+    }
+
+    let title = record?.object(forKey: "title")
+    let order = record?.object(forKey: "order")
+    let done = record?.object(forKey: "done")
+
+    print ("Fetched a note (title = \(title), order = \(order), done = \(done)")
+
+}
+```
+
+In Objective-C, to get the values out of the `SKYRecord`, you can use the `[]` subscript operator as shown above, or the `objectForKey:` method:
 
 ```obj-c
 NSString *title = [record objectForKey: @"title"];
@@ -153,6 +215,23 @@ SKYDatabase *privateDB = [[SKYContainer defaultContainer] privateCloudDatabase];
 }];
 ```
 
+```swift
+let todo = SKYRecord(recordType: "todo")
+todo?.setObject("Write documents for Skygear", forKey: "title" as NSCopying!)
+todo?.setObject(1, forKey: "order" as NSCopying!)
+todo?.setObject(false, forKey: "done" as NSCopying!)
+    
+let privateDB = SKYContainer.default().privateCloudDatabase
+privateDB?.save(todo, completion: { (record, error) in
+    if error != nil {
+        print ("error saving todo: \(error)")
+        return
+    }
+    
+    print ("saved todo with record = \(record?.recordID)")
+})
+```
+
 After you have successfully saved the `SKYRecord`, the server will return an updated `SKYRecord`. Your console should look like this:
 
 ```
@@ -167,7 +246,13 @@ you have to mark this todo as done:
 ```obj-c
 SKYRecord *todo = [SKYRecord recordWithRecordType:@"todo" name:@"369067DC-BDBC-49D5-A6A2-D83061D83BFC"];
 todo[@"done"] = @YES;
-[privateDB saveRecord:todo completion:nil];
+[[[SKYContainer defaultContainer] privateCloudDatabase] saveRecord:todo completion:nil];
+```
+
+```swift
+let todo = SKYRecord(recordType: "todo", name: "CCD9C879-E45D-4377-8D86-562A04E4D2CD")
+todo?.setObject(true, forKey: "done" as NSCopying!)
+SKYContainer.default().privateCloudDatabase.save(todo, completion: nil)
 ```
 
 Note that the data in the returned record in the completion block may be
@@ -180,7 +265,12 @@ Deleting a record requires its `recordID` too:
 
 ```obj-c
 SKYRecordID *recordID = [SKYRecordID recordIDWithRecordType:@"todo" name:@"369067DC-BDBC-49D5-A6A2-D83061D83BFC"];
-[privateDB deleteRecordWithID:recordID completionHandler:nil];
+[[[SKYContainer defaultContainer] privateCloudDatabase] deleteRecordWithID:recordID completionHandler:nil];
+```
+
+```swift
+let recordID = SKYRecordID(recordType: "todo", name: "369067DC-BDBC-49D5-A6A2-D83061D83BFC")
+SKYContainer.default().privateCloudDatabase.deleteRecord(with: recordID, completionHandler: nil)
 ```
 
 If you are to delete records in batch, you could also use the
@@ -192,16 +282,16 @@ You can also delete multiple records at once:
 ```obj-c
 SKYRecordID *noteOneRecordID = [SKYRecordID recordIDWithRecordType:@"todo" name:@"369067DC-BDBC-49D5-A6A2-D83061D83BFC"];
 SKYRecordID *noteTwoRecordID = [SKYRecordID recordIDWithRecordType:@"todo" name:@"348275VF-SKGF-69DK-10FH-D83061D83BFC"];
-    
+
 NSArray *notesToDeleteRecordID = [[NSArray alloc] initWithObjects: noteOneRecordID, noteTwoRecordID, nil];
-    
-[privateDB deleteRecordsWithIDs: (notesToDeleteRecordID) completionHandler:^(NSArray *deletedRecordIDs, NSError *error) {
+
+[[[SKYContainer defaultContainer] privateCloudDatabase] deleteRecordsWithIDs: (notesToDeleteRecordID) completionHandler:^(NSArray *deletedRecordIDs, NSError *error) {
     if (error) {
         // Error completing the operation
         NSLog(@"error completing operation");
         return;
     }
-    
+
     NSLog(@"deleted all the todo records");
 } perRecordErrorHandler:^(SKYRecordID *recordID, NSError *error) {
     if (error) {
@@ -209,10 +299,35 @@ NSArray *notesToDeleteRecordID = [[NSArray alloc] initWithObjects: noteOneRecord
         NSLog(@"error deleting todo: %@", error);
         return;
     }
-    
-    NSLog(@"deleting todo with recordID = %@", record.recordID);
+
+    NSLog(@"deleting todo with recordID = %@", recordID);
 }];
 ```
+
+```swift
+let noteOneRecordID = SKYRecordID(recordType: "todo", name: "369067DC-BDBC-49D5-A6A2-D83061D83BFC")
+let noteTwoRecordID = SKYRecordID(recordType: "todo", name: "348275VF-SKGF-69DK-10FH-D83061D83BFC")
+
+let notesToDeleteRecordID = [noteOneRecordID, noteTwoRecordID]
+
+SKYContainer.default().privateCloudDatabase.deleteRecords(withIDs: notesToDeleteRecordID, completionHandler: { (deletedRecordIDs, error) in
+    if error != nil {
+        // Error completing the operation
+        print ("error completing operation")
+        return
+    }
+    print ("deleted all the todo records")
+}) { (recordID, error) in
+    if error != nil {
+        print ("error deleting todo: \(error)")
+        return
+    }
+
+    print ("deleting todo with recordID = \(recordID)")
+}
+```
+
+
 
 <a name="reserved-columns"></a>
 ### Reserved Columns
@@ -242,6 +357,14 @@ NSString *creatorID = [noteObject creatorUserRecordID];
 SKYRecordID *recordID = [record recordID];
 NSString *recordType = [record recordType];
 ```
+
+```swift
+let creationDate = noteObject?.creationDate
+let creatorID = noteObject?.creatorUserRecordID
+let record = record?.recordID
+let recordType = record?.recordType
+```
+
 Please head to [Database Schema][doc-database-schema] to read more about Reserved Columns, Record Tables and Reserved Tables.
 
 <a name="local-storage"></a>
@@ -251,6 +374,8 @@ Please head to [Database Schema][doc-database-schema] to read more about Reserve
 
 Record storage relies on [Query][doc-queries]
 
+Add `SKYContainerDelegate` to your controller.
+
 ```obj-c
 - (void)container:(SKYContainer *)container didReceiveNotification:(SKYNotification *)notification
 {
@@ -258,6 +383,13 @@ Record storage relies on [Query][doc-queries]
     [[SKYRecordStorageCoordinator defaultCoordinator] handleUpdateWithRemoteNotification:notification];
 }
 
+```
+```swift
+func container(_ container: SKYContainer!, didReceive notification: SKYNotification!)
+{
+	// ...
+	SKYRecordStorageCoordinator.default().handleUpdate(withRemoteNotification: notification)
+}
 ```
 
 ### Creating a record storage
@@ -269,6 +401,13 @@ SKYRecordStorage* recordStorage = [coordinator recordStorageWithDatabase:self.da
                                                                   query:query options:nil];
 ```
 
+```swift
+let query = SKYQuery(recordType: "note", predicate: nil)
+let coordinator = SKYRecordStorageCoordinator.default()
+let recordStorage = coordinator?.recordStorage(with: SKYContainer.default().privateCloudDatabase,
+											  query: query, options: nil)
+```
+
 ### Saving records
 
 ```obj-c
@@ -277,10 +416,21 @@ note[@"content"] = @"record storage is fun!";
 [recordStorage saveRecord:note];
 ```
 
+```swift
+let note = SKYRecord(recordType: "note")
+note?.setValue("record storage is fun!", forKey: "content" as NSCopying!)
+recordStorage?.save(note)
+```
+
+
 ### Deleting records
 
 ```obj-c
 [recordStorage deleteRecord:noteToDelete];
+```
+
+```swift
+recordStorage?.delete(note)
 ```
 
 ### Fetching records
@@ -289,13 +439,27 @@ note[@"content"] = @"record storage is fun!";
 SKYRecord *record = [recordStorage recordWithRecordID:recordID];
 ```
 
+```swift
+let record = recordStorage?.record(with: recordID)
+```
+
 ### Querying records
+
+#### Without Predicate
 
 ```obj-c
 for (SKYRecord *note in [recordStorage recordsWithType:@"note"]) {
     // do something with note
 }
 ```
+```swift
+let notes = recordStorage?.records(withType: "note")
+for note in notes as! [SKYRecord]{
+    // do something with note
+}
+```
+
+#### With Predicate
 
 ```obj-c
 NSPredicate *predicate = [NSPredicate predicateWithFormat:@"done == false"];
@@ -303,6 +467,13 @@ NSArray *records = [recordStorage recordsWithType:@"todo"
                                         predicate:predicate
                                   sortDescriptors:nil];
 for (SKYRecord *note in records) {
+    // do something with note
+}
+```
+```swift
+let predicate = NSPredicate(format: "done == false")
+let records = recordStorage?.records(withType: "todo", predicate: predicate, sortDescriptors: nil)
+for note in records as! [SKYRecord] {
     // do something with note
 }
 ```
@@ -317,7 +488,17 @@ for (SKYRecord *note in records) {
                                                   self.notes = [self.categoryStorage recordsWithType:@"note"];
                                                   [self.tableView reloadData];
                                               }];
-``` 
+```
+
+```swift
+NotificationCenter.default.addObserver(
+	forName: Notification.Name.SKYRecordStorageDidUpdate,
+	object: recordStorage,
+	queue: OperationQueue.main) { (note) in
+   		notes = categoryStorage?.records(withType: "note")
+    	self.tableView.reloadData()
+}
+```
 
 [doc-setup-skygear]: /guides/get-started/ios/
 [doc-data-type]: /guides/cloud-db/data-types/ios/
