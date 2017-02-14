@@ -18,7 +18,7 @@ Upon signing up, you can find the API keys and the server endpoints in _info_ pa
 
 We need Node.js to run the template project. If you have never installed Node.js, install it as follow:
 
-```bash
+``` bash
 # for MacOS
 brew install node
 
@@ -32,7 +32,7 @@ Visit [Node.js setup guide](https://nodejs.org/en/download/) for instructions if
 
 Let's install and run the [Yeoman Skygear scaffolding generator](https://github.com/SkygearIO/generator-skygear) to set up the template project. React, Babel ES6 and Webpack will be bundle-installed.
 
-```bash
+``` bash
 # install yeoman and skygear generator globally
 npm install -g yo
 npm install -g generator-skygear
@@ -140,12 +140,18 @@ doSignup() {
 Tips: Even if your app does not require a user system, as every [record](https://docs.skygear.io/guides/cloud-db/basics/js/) in the Skygear database must be owned by a user, you need to at least create a user to perform CRUD. A user can be anonymous. More info [here](https://docs.skygear.io/guides/auth/basics/js/).
 
 ## Using Skygear chat in your app
-To call the Skygear chat APIs in your app, first you need to enable the chat function in the _plug-ins_ page in the [developer portal](https://portal.skygear.io/).
+To call the Skygear chat APIs in your app, make sure you have enabled the chat function in the _plug-ins_ page in the [developer portal](https://portal.skygear.io/).
 
 ![Enable Chat Plugins at Portal
 Screenshot](/assets/common/enable-chat-plugin-on-portal.png)
 
-Then import ```skygear-chat``` in the JS file.
+First, npm install skygear-chat in your terminal
+
+``` bash
+npm install skygear-chat
+```
+
+Then, in your JS file, import ```skygear-chat```.
 
 ```javascript
 import skygearchat from 'skygear-chat'
@@ -179,7 +185,7 @@ skygear.signupWithUsername('UserA', '1234')
   }, (err) => {
     console.log('Fail to create the conversation', err);
   });
-});});
+});
 ```
 
 Your ```index.js``` file should look like this:
@@ -238,4 +244,4 @@ Hurray! Everything should be in the right place from here. Check out the [Skygea
 
 You got the basic! Next learn more about:
 * [Skygear Chat](https://docs.skygear.io/guides/chat/basics/js/) or [API reference](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html)
-* [Skygear User Authentication](https://docs.skygear.io/guides/auth/basics/js/) (link to Guide)
+* [Skygear User Authentication](https://docs.skygear.io/guides/auth/basics/js/)
