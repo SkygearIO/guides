@@ -32,7 +32,7 @@ Visit [Node.js setup guide](https://nodejs.org/en/download/) for instructions if
 
 Let's install and run the [Yeoman Skygear scaffolding generator](https://github.com/SkygearIO/generator-skygear) to set up the template project. React, Babel ES6 and Webpack will be bundle-installed.
 
-Make sure you answer Y when asked to install Skygear Chat extension.
+Make sure you answer Y when you are asked to install the Skygear Chat extension.
 
 ``` bash
 # Install yeoman and skygear generator globally
@@ -66,15 +66,14 @@ Now, open the browser and navigate to http://localhost:8000/. If the template pr
 
 ## What's in the template project
 
-Before developing on top of the yo template, let's first take a look at what it
-set up for you.
+Before developing on top of the yo template, let's first take a look at what it has set up for you.
 
 ### 1. Skygear npm packages
 
-The template already installed npm package `skygear` and `skygear-chat`.
+The npm package `skygear` and `skygear-chat` have been installed together with the template project.
 
-If you want to use it in your custom node project, you can install it via
-terminal:
+If you want to use them in your custom Node.js project, you can install it via
+the terminal:
 
 ``` bash
 npm install --save skygear
@@ -160,7 +159,9 @@ doSignup() {
 }
 ```
 
-Tips: Even if your app does not require a user system, as every [record](https://docs.skygear.io/guides/cloud-db/basics/js/) in the Skygear database must be owned by a user, you need to at least create a user to perform CRUD. A user can be anonymous. More info at the [User Authentication Basics Guide](https://docs.skygear.io/guides/auth/basics/js/).
+:::tips
+ Even if your app does not require a user system, as every [record](https://docs.skygear.io/guides/cloud-db/basics/js/) in the Skygear database must be owned by a user, you need to at least create a user to perform CRUD. A user can be anonymous. More info at the [User Authentication Basics Guide](https://docs.skygear.io/guides/auth/basics/js/).
+:::
 
 ## Enable Skygear Chat
 Skygear Chat is disabled by default when you sign up a new Skygear account. To use the Skygear Chat APIs in your app, enable the Skygear Chat in the _plug-ins_ page in the [developer portal](https://portal.skygear.io/).
@@ -172,15 +173,14 @@ Hurray! You should be able to use Skygear Chat by now.
 
 ## Creating Your First Conversation
 
-To see if everything is in a good place, let's put some code to the template
+To see if everything is in a good place, let's add some codes to the template
 project to create our first conversation (chat room).
 
-In `src/index.js`, copy and paste the following codes so we sign up a few users
-and create a Conversation between them.
+In `src/index.js`, copy and paste the following codes so that we can sign up a few users
+and create a conversation between them.
 
 :::tips
-Practically code should not structure in that way, but it's simple enough for
-demo.
+Practically the codes should not be structured in that way. It is only for demo purpose.
 :::
 
 Your ```index.js``` file should look like this:
@@ -223,7 +223,7 @@ skygear.config({
   });
 });
 ```
-If the code run successfully, you should be able to see the conversation record in Skygear Cloud DB. Open the Skygear data browser in the _info_ page in your [Skygear Portal](https://portal.skygear.io/).
+If the codes run successfully, you should be able to see the conversation record in the Skygear Cloud DB. Open the Skygear data browser in the _info_ page in your [Skygear Portal](https://portal.skygear.io/).
 
 ![Open Database Web Browser
 Screenshot](/assets/common/open-database-in-web-browser.png)
