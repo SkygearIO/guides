@@ -8,7 +8,7 @@ This guide will walk you through the steps to add Skygear to your HTML5 project 
 Alternatively, you might want to get started with Skygear using:
 * [Skygear Scaffolding Template for React-Webpack project](https://github.com/SkygearIO/generator-skygear)
 * [JS API Samples Project](https://github.com/SkygearIO/skygear-SDK-JS/tree/master/example)
-* [Demo / Tutorials](https://github.com/skygear-demo/)
+* [List of JS demo / tutorials at github.com/skygear-demo](https://github.com/search?q=topic%3Askygear-js+org%3Askygear-demo)
 :::
 
 ## Prerequisite

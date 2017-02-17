@@ -9,7 +9,7 @@ This guide will walk you through the steps to add Skygear to your Android projec
 Alternatively, you might want to get started with Skygear using:
 * [Skygear Scaffolding Template for Android](https://github.com/SkygearIO/skygear-Scaffolding-Android)
 * [Android API Samples Project](https://github.com/SkygearIO/skygear-SDK-Android/tree/master/skygear_example)
-* [Demo / Tutorials](https://github.com/skygear-demo/)
+* [List of Android demo / tutorials at github.com/skygear-demo](https://github.com/search?q=topic%3Askygear-android+org%3Askygear-demo)
 :::
 
 ## Prerequisite
