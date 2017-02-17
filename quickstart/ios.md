@@ -1,5 +1,5 @@
 ---
-title: Skygear installation guide
+title: Skygear Quick Start Guide
 ---
 
 This guide will walk you through the steps to add Skygear to your iOS project via CocoaPods from scratch.
