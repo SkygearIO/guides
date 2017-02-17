@@ -20,7 +20,7 @@ Alternatively, you might want to get started with Skygear using:
 ## Step 1: Install the Skygear Android SDK
 
 1. Create a new Android Studio project or use your existing one.
-2. In `build.gradle` of the **project**, include the JCenter Maven respository.
+2. In `build.gradle` of the **project**, include the JCenter Maven repository.
 
 ```java
 allprojects {
@@ -39,7 +39,7 @@ dependencies {
 }
 ```
 
-4. You will be hinted for a project sync as you have updated the gradle file. The Skygear Android SDK will have been installed when the sync is completed.
+4. You will be hinted for a project sync as you have updated the `gradle` files. The Skygear Android SDK will have been installed when the sync is completed.
 
 ## Step 2: Configure Skygear in your app
 
@@ -68,7 +68,7 @@ public class MyApplication extends SkygearApplication {
 You can get your server endpoints and the API keys in the _info page_ in your [developer portal](https://portal.skygear.io/apps) after signing up for the [Skygear Cloud Services](https://portal.skygear.io/signup).
 :::
 
-### Method 2: Initialise Skygear when the app starts
+### Method 2: Configure Skygear when the app starts
 
 If you already have your own custom applications, you can configure Skygear in the `onCreate` function. Your `MyApplication.java` should look like this:
 
@@ -171,7 +171,7 @@ You can access your database using the data browser we provide. It can be found 
 You can access Skygear database in 3 ways.
 1. Web data browser: It can be found in from  _info_ page in your [developer portal](https://portal.skygear.io/apps).
 2. PostgreSQL client: Skygear database can viewed in any PostgreSQL client. Get the connection string from the _info_ page in your [developer portal](https://portal.skygear.io/apps). We recommend using [Postico](https://eggerapps.at/postico/).
-3. Skygear CMS: Skygear CMS is a business-user friendly web interface that allows users to edit the data in the database. To use the CMS, you have to enable it in the _plug-ins_ page in the [developer portal](https://portal.skygear.io/apps). Your CMS url is https://insert-your-app-name.skygeario.com/cms.
+3. Skygear CMS: Skygear CMS is a business-user friendly web interface that allows users to edit the data in the database. To use the CMS, you have to enable it in the _plug-ins_ page in the [developer portal](https://portal.skygear.io/apps). Your CMS URL is https://insert-your-app-name.skygeario.com/cms.
 
 :::
 
