@@ -1,6 +1,6 @@
 ---
 
-title: Skygear Quick Start Guide
+title: Quick Start
 ---
 
 This guide will walk you through the steps to add Skygear to your Android project from scratch.

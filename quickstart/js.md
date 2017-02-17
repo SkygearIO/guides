@@ -1,5 +1,5 @@
 ---
-title: Skygear Quick Start Guide
+title: Quick Start
 ---
 
 This guide will walk you through the steps to add Skygear to your HTML5 project and Node.js project from scratch.
