@@ -18,7 +18,11 @@ Alternatively, you might want to get started with Skygear using:
 
 ## Step 1: Install the Skygear JS SDK and configure Skygear
 
-### HTML5 project (CDN)
+There are two ways you might use Skygear JS SDK:
+1. Use the SDK in HTML with CDN
+1. Import the [npm package](https://www.npmjs.com/package/skygear)
+
+### Method 1: HTML5 project (CDN)
 
 Add the following lines into the header of your HTML file.
 
@@ -45,7 +49,7 @@ Add the following lines into the header of your HTML file.
 You can get your server endpoints and the API keys in the _info page_ in your [developer portal](https://portal.skygear.io/apps) after signing up for the [Skygear Cloud Services](https://portal.skygear.io/signup).
 :::
 
-### Node.js project
+### Method 2: Node.js project
 
 1. Add Skygear to your Node.js project using npm install.
 
