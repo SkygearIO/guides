@@ -109,7 +109,11 @@ If the record is created successfully, you should see the record "Hello World" i
 
 You can access your database using the data browser we provide. It can be found from the _info_ page in your [developer portal](https://portal.skygear.io/apps).
 
-![](https://i.imgur.com/Jmvsjv0.png)
+![Skygear portal](/assets/common/open-database-in-web-browser.png)
+
+This is how your data browser should look like.
+
+![Web database viewer](/assets/common/quickstart-database-viewer.png)
 
 :::tips
 You can access Skygear database in 3 ways.

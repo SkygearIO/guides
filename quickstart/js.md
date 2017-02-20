@@ -82,7 +82,7 @@ You can get your server endpoints and the API keys in the _info page_ in your [d
 
 Now, let's create a record in the Skygear database to see if the SDK has been installed successfully.
 
-Add the following lines after the `skygear.config` function using promise to create a record. This is how the codes should look.
+Add the following lines after the `skygear.config` function using promise to create a record. This is how the codes should be placed.
 
 :::tips
 Practically the codes should not be structured this way. It is for demo only.
@@ -115,7 +115,11 @@ If the record is created successfully, you should see the record "Hello World" i
 
 You can access your database using the data browser we provide. It can be found from the _info_ page in your [developer portal](https://portal.skygear.io/apps).
 
-![](https://i.imgur.com/Jmvsjv0.png)
+![Skygear portal](/assets/common/open-database-in-web-browser.png)
+
+This is how your data browser should look like.
+
+![Web database viewer](/assets/common/quickstart-database-viewer.png)
 
 :::tips
 You can access Skygear database in 3 ways.
