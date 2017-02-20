@@ -111,7 +111,7 @@ You can access your database using the data browser we provide. It can be found 
 
 ![Skygear portal](/assets/common/open-database-in-web-browser.png)
 
-This is how your data browser should look like.
+This is how your data browser will look like.
 
 ![Web database viewer](/assets/common/quickstart-database-viewer.png)
 

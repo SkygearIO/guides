@@ -41,6 +41,8 @@ dependencies {
 
 4. You will be hinted for a project sync as you have updated the `gradle` files. The Skygear Android SDK will have been installed when the sync is completed.
 
+![Skygear Android SDK](/assets/android/android-project-sync.png)
+
 ## Step 2: Configure Skygear in your app
 
 ### Method 1: Create an `Application` that extends `SkygearApplication`
@@ -122,43 +124,57 @@ Practically the codes should not be structured this way. It is for demo only.
 :::
 
 ```java
+// import the modules
+import io.skygear.skygear.AuthResponseHandler;
+import io.skygear.skygear.Error;
+import io.skygear.skygear.Record;
+import io.skygear.skygear.RecordSaveResponseHandler;
+import io.skygear.skygear.SkygearApplication;
+import io.skygear.skygear.Container;
+import io.skygear.skygear.User;
+
 // Every record in Skygear must be owned by a user
 // For testing purpose, we have used signupAnonmously to create a record
 // Visit the user authetication documentation to learn more
 // https://docs.skygear.io/guides/auth/basics/android/
-Container skygear = Container.defaultContainer(this);
-skygear.signupAnonymously(new AuthResponseHandler() {
-    @Override
-    public void onAuthSuccess(User user) {
-        Log.i("MyApplication", "Signup successfully");
+@Override
+public void onCreate() {
+    super.onCreate();
+    final Container skygear = Container.defaultContainer(this);
+    skygear.signupAnonymously(new AuthResponseHandler() {
+        @Override
+        public void onAuthSuccess(User user) {
+            Log.i("MyApplication", "Signup successfully");
 
-        // Create the table "test" and the record "Hello world"
-        Record test = new Record("test");
-        test.set("content", "Hello world");
+            // Create the table "test" and the record "Hello world"
+            Record test = new Record("test");
+            test.set("content", "Hello world");
 
-        skygear.getPublicDatabase().save(test, new RecordSaveResponseHandler() {
-            @Override
-            public void onSaveSuccess(Record[] records) {
-                Log.i("MyApplication", "Record saved");
-            }
+            skygear.getPublicDatabase().save(test, new RecordSaveResponseHandler() {
+                @Override
+                public void onSaveSuccess(Record[] records) {
+                    Log.i("MyApplication", "Record saved");
+                }
 
-            @Override
-            public void onPartiallySaveSuccess(Map<String, Record> successRecords, Map<String, Error> errors) {
-                Log.i("MyApplication", "Some records are failed to save");
-            }
+                @Override
+                public void onPartiallySaveSuccess(Map<String, Record> successRecords, Map<String, Error> errors) {
+                    Log.i("MyApplication", "Some records are failed to save");   
+                }
 
-            @Override
-            public void onSaveFail(Error error) {
-                Log.w("MyApplication", "Failed to save: " + error.getMessage(), error);
-            }
-        });
-    }
 
-    @Override
-    public void onAuthFail(Error error) {
-        Log.w("MyApplication", "Failed to signup: " + error.getMessage(), error);
-    }
-});
+                @Override
+                public void onSaveFail(Error error) {
+                    Log.w("MyApplication", "Failed to save: " + error.getMessage(), error);
+                }
+            });
+        }
+
+        @Override
+        public void onAuthFail(Error error) {
+            Log.w("MyApplication", "Failed to signup: " + error.getMessage(), error);
+        }
+    });
+}
 ```
 
 If the record is created successfully, you should see the record "Hello World" in your database table "test".
@@ -167,7 +183,7 @@ You can access your database using the data browser we provide. It can be found 
 
 ![Skygear portal](/assets/common/open-database-in-web-browser.png)
 
-This is how your data browser should look like.
+This is how your data browser will look like.
 
 ![Web database viewer](/assets/common/quickstart-database-viewer.png)
 
