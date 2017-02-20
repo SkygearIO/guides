@@ -3,7 +3,7 @@ title: Skygear Chat
 ---
 Skygear Chat is a collection of APIs to help you build Chat apps much easier.
 
-## Enabling on Chat Plugin on Skygear Portal 
+## Enabling on Chat Plugin on Skygear Portal
 
 To set up a JavaScript project using Skygear, please refer to the [Quick Start](https://docs.skygear.io/guides/get-started/js/).
 
@@ -35,9 +35,9 @@ There are two types of conversations in Skygear:
 - **Direct Conversation**, support chatting between one user to another
 - **Group Conversation**, support chatting among 2 or more users
 
-### Creating direct conversations 
-You can use [`createDirectConversation(user: User, title: string, meta: object, options: object)`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-createDirectConversation) to create a conversation with another user. Please specify the user ID as `user`. 
-  
+### Creating direct conversations
+You can use [`createDirectConversation(user: User, title: string, meta: object, options: object)`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-createDirectConversation) to create a conversation with another user. Please specify the user ID as `user`.
+
 This example shows how to create a direct chat between the current user and `userBen`.
 
 You can also set up optional `metadata` in your conversation for custom configurations.
@@ -53,7 +53,7 @@ skygearChat.createDirectConversation(userBen, 'Greeting')
 
 ### Creating Group Conversations
 
-Besides direct chats, you can also create a group conversation with 2 or more people. 
+Besides direct chats, you can also create a group conversation with 2 or more people.
 
 Instead of a single `user` as the parameter, [`createConversation`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-createConversation) accepts a list of `participants`. A new conversation will be created with the IDs given as participants.
 
@@ -133,7 +133,7 @@ skygearChat.getConversation(conversationId)
   })
 ```
 
-### Leaving conversations 
+### Leaving conversations
 
 To leave a conversation, you can call [`leaveConversation(conversation:
 string)`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-leaveConversation).
@@ -150,7 +150,7 @@ skygearChat.leaveConversation(conversationID)
 ## Managing conversation participants
 At some point of your conversation, you may wish to update the participant list. You may add or remove participants in a conversation.
 
-### Adding users to conversation 
+### Adding users to conversation
 
 You can add users to an existing conversation with [`addParticipants(conversation: string, participants: []User)`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-addParticipants)
 
@@ -163,7 +163,7 @@ skygearChat.addParticipants(conversationId, [userBen])
   })
 ```
 
-### Removing users from conversation 
+### Removing users from conversation
 
 
 To remove users from a conversation, you can call [`removeParticipants(conversation: string, participants: []User)`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-removeParticipants)
@@ -181,7 +181,7 @@ skygearChat.removeParticipants(conversationId, [userBen])
 ### Admin
 
 An admin of the conversation has the following permissions:
-1. add or remove participants from to conversation, 
+1. add or remove participants from to conversation,
 2. add or remove admins from the conversation,
 3. delete the conversation
 
@@ -197,7 +197,7 @@ You can call [`addAdmins(conversation: string, admins: []User)`](https://doc.esd
 To remove an existing admin from a conversation, you can call [`removeAdmins(conversation: string, admins: []User)`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-removeAdmins).
 
 ## Chat history
-### Loading all messages from a conversation 
+### Loading all messages from a conversation
 
 
 When users get into the chatroom, you may want to load the messages of the conversation with [`getMessages(conversation: Conversation, limit: number, beforeTime: Date)`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-getMessages). You can specify the limit of the messages in `limit` and the time constraint for the message in `beforeTime`.
@@ -212,7 +212,7 @@ skygearChat.getMessages(conversation, 10, currentTime)
 ```
 
 ## Sending messages
-To send a message, just call [`createMessage`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-createMessage) and specify a target conversation. You can also set metadata and attachments accordingly. 
+To send a message, just call [`createMessage`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-createMessage) and specify a target conversation. You can also set metadata and attachments accordingly.
 
 ### Plain text
 
@@ -363,7 +363,7 @@ Both callback functions return one variable as follows.
 
 
 ### Sending my typing status
-To get typing status from other devices, you should always update your typing 
+To get typing status from other devices, you should always update your typing
 status to the server with [`sendTypingIndicator(conversation, state)`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-sendTypingIndicator).
 
 ```javascript
@@ -376,7 +376,7 @@ messageInput.addEventListener("blur", function () {
 });
 ```
 ## Recipient status
-Skygear Chat is helpful for displaying recipient status such as *"Delivering"*, *"Delivered"* or *"Seen"*. 
+Skygear Chat is helpful for displaying recipient status such as *"Delivering"*, *"Delivered"* or *"Seen"*.
 
 ### Message status
 You can make use of the following receipt status to indicate your message status.
