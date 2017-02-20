@@ -147,7 +147,7 @@ While each of the sign-up functions is resolved with a user object,
 in most cases you need not deal with it because
 you can access the currently logged-in user using [`skygear.currentUser`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/container.js~Container.html#instance-get-currentUser).
 
-signupWithUsername sample code:
+[`signupWithUsername`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/container.js~Container.html#instance-method-signupWithUsername) sample code:
 
 ``` javascript
 import skygear from 'skygear';
@@ -165,7 +165,7 @@ skygear.signupWithUsername(username, password).then((user) => {
 });
 ```
 
-signupWithEmail sample code:
+[`signupWithEmail`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/container.js~Container.html#instance-method-signupWithEmail) sample code:
 
 ``` javascript
 import skygear from 'skygear';
