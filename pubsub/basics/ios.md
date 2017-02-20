@@ -31,7 +31,7 @@ container?.pubsubClient.publishMessage(["name":"world"], toChannel: "hello")
 ```
 
 To publish a message to the channel through cloud code, please refer to the
-[Cloud Code Guide: PubSub Events][doc-cloud-code-pubsub].
+[Cloud Functions Guide: Calling Skygear API - Pubsub Events][doc-cloud-code-pubsub].
 
 ## Unsubscribing a channel
 
@@ -87,4 +87,4 @@ container?.pubsubClient.subscribe(to: "PONG", handler: { (info) in
 container?.pubsubClient.publishMessage(nil, toChannel: "PING")
 ```
 
-[doc-cloud-code-pubsub]: /guides/cloud-code/calling-skygear-api/python#pubsub-events
+[doc-cloud-code-pubsub]: /guides/cloud-function/calling-skygear-api/python/#pubsub-events

@@ -26,7 +26,7 @@ pubsub.publish("chatroom-001", jsonObject);
 ```
 
 To publish a message to the channel through cloud code, please refer to the
-[Cloud Code Guide: PubSub Events][doc-cloud-code-pubsub].
+[Cloud Functions Guide: Calling Skygear API - Pubsub Events][doc-cloud-code-pubsub].
 
 <a name="subscribe"></a>
 ## Subscribe
@@ -94,4 +94,4 @@ pubsub.unsubscribeAll("chatroom-001");
 
 ```
 
-[doc-cloud-code-pubsub]: /guides/cloud-code/calling-skygear-api/python#pubsub-events
+[doc-cloud-code-pubsub]: /guides/cloud-function/calling-skygear-api/python/#pubsub-events
