@@ -79,7 +79,7 @@ You can retrieve the current user from [`skygear.currentUser`](https://doc.esdoc
 const user = skygear.currentUser; // if not logged in, it will be null
 ```
 
-If there is an authenticated user, it will give you a user object like this:
+If there is an authenticated user, it will give you a [`User`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/user.js~User.html) object like this:
 
 ``` javascript
 {
@@ -93,7 +93,7 @@ Please be reminded that the [`currentUser`](https://doc.esdoc.org/github.com/sky
 login / signup Skygear.
 
 To get the latest information (e.g. roles, emails, etc.) of the current user,
-you can ask "Who am I" to Skygear:
+you can ask call [`whoami()`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/container.js~Container.html#instance-method-whoami):
 
 ``` javascript
 skygear.whoami().then((user) => {
@@ -147,22 +147,7 @@ While each of the sign-up functions is resolved with a user object,
 in most cases you need not deal with it because
 you can access the currently logged-in user using [`skygear.currentUser`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/container.js~Container.html#instance-get-currentUser).
 
-#### Anonymous user
-
-Without being authenticated, a user can read data from the public database but
-cannot perform most of the other operations, including saving data into the
-database.
-
-If you need an authenticated user but do not require a user to
-sign up explicitly with a username or email, you can create an anonymous user
-by calling [`skygear.signupAnonymously`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/container.js~Container.html#instance-method-signupAnonymously).
-
-Every anonymous user has a unique user ID, and behaves exactly the same as
-any user authenticated with a username or an email. The only difference is that
-an anonymous user has no username, email, nor password. Because of the absence
-of username and email, the account will be lost when the access token is lost.
-
-#### Signing up using a username
+signupWithUsername sample code:
 
 ``` javascript
 import skygear from 'skygear';
@@ -180,7 +165,7 @@ skygear.signupWithUsername(username, password).then((user) => {
 });
 ```
 
-#### Signing up using an email
+signupWithEmail sample code:
 
 ``` javascript
 import skygear from 'skygear';
@@ -197,8 +182,20 @@ skygear.signupWithEmail(email, password).then((user) => {
   }
 });
 ```
+#### Anonymous user
 
-#### Signing up anonymously
+Without being authenticated, a user can read data from the public database but
+cannot perform most of the other operations, including saving data into the
+database.
+
+If you need an authenticated user but do not require a user to
+sign up explicitly with a username or email, you can create an anonymous user
+by calling [`skygear.signupAnonymously`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/container.js~Container.html#instance-method-signupAnonymously).
+
+Every anonymous user has a unique user ID, and behaves exactly the same as
+any user authenticated with a username or an email. The only difference is that
+an anonymous user has no username, email, nor password. Because of the absence
+of username and email, the account will be lost when the access token is lost.
 
 ``` javascript
 import skygear from 'skygear';
@@ -373,3 +370,9 @@ Not yet implemented.
 ## User Verification
 
 Not yet implemented.
+
+## What's next from here?
+You may want to learn more about:
+
+* [Social Login using Skygear](/guides/auth/social-login/js/)
+* [Setting User Profile](/guides/auth/user-profile/js/)
