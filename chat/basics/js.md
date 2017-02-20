@@ -17,7 +17,7 @@ const skygearChat = require('skygear-chat');
 * Shall include more details about the data type: Message, UserConversation and
   Conversation; although they are included as Example.
 * We should also explain conversation options are configurable via
-  [updateConversation](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-updateConversation)
+  [`updateConversation`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-updateConversation)
 * We should explain or include a link to the UIKit for quick chat application
   implementation
 * We should mention the TypingIndicator Utility.
@@ -36,7 +36,7 @@ There are two types of conversations in Skygear:
 - **Group Conversation**, support chatting among 2 or more users
 
 ### Creating direct conversations 
-You can use [createDirectConversation(user: User, title: string, meta: object, options: object)](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-createDirectConversation) to create a conversation with another user. Please specify the user ID as `user`. 
+You can use [`createDirectConversation(user: User, title: string, meta: object, options: object)`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-createDirectConversation) to create a conversation with another user. Please specify the user ID as `user`. 
   
 This example shows how to create a direct chat between the current user and `userBen`.
 
@@ -55,9 +55,9 @@ skygearChat.createDirectConversation(userBen, 'Greeting')
 
 Besides direct chats, you can also create a group conversation with 2 or more people. 
 
-Instead of a single `user` as the parameter, [createConversation](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-createConversation) accepts a list of `participants`. A new conversation will be created with the IDs given as participants.
+Instead of a single `user` as the parameter, [`createConversation`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-createConversation) accepts a list of `participants`. A new conversation will be created with the IDs given as participants.
 
-Example of using [createConversation(participants: []User, title: string, meta: object, options: object)](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-createConversation)
+Example of using [`createConversation(participants: []User, title: string, meta: object, options: object)`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-createConversation)
 
 ```JavaScript
 skygearChat.createConversation([userBen, userCharles, userDavid, userEllen], 'Greeting')
@@ -72,7 +72,7 @@ You may also specify metadata with the `meta` parameter when creating a conversa
 
 ### Creating group chat by distinct participants (distinctByParticipants)
 
-By default, if you try to create conversations with same list of participants with [createConversation](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-createConversation). You will eventually create different conversations with the identical participants.
+By default, if you try to create conversations with same list of participants with [`createConversation`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-createConversation). You will eventually create different conversations with the identical participants.
 
 This may or may be a desire behavior in your application depends on your app design.
 
@@ -109,7 +109,7 @@ In this conversation, `userBen` will be the only admin.
 ### Fetching existing conversations
 
 You can also get all conversations of the current user by
-[getConversations](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-getConversations).
+[`getConversations`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-getConversations).
 
 
 ```javascript
@@ -122,7 +122,7 @@ skygearChat.getConversations()
 ```
 
 Or a specific conversation given its `id` with
-[getConversation](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-getConversation)
+[`getConversation`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-getConversation)
 
 ```javascript
 skygearChat.getConversation(conversationId)
@@ -135,8 +135,8 @@ skygearChat.getConversation(conversationId)
 
 ### Leaving conversations 
 
-To leave a conversation, you can call [leaveConversation(conversation:
-string)](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-leaveConversation).
+To leave a conversation, you can call [`leaveConversation(conversation:
+string)`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-leaveConversation).
 
 ```JavaScript
 skygearChat.leaveConversation(conversationID)
@@ -152,7 +152,7 @@ At some point of your conversation, you may wish to update the participant list.
 
 ### Adding users to conversation 
 
-You can add users to an existing conversation with [addParticipants(conversation: string, participants: []User)](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-addParticipants)
+You can add users to an existing conversation with [`addParticipants(conversation: string, participants: []User)`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-addParticipants)
 
 ```javascript
 skygearChat.addParticipants(conversationId, [userBen])
@@ -166,7 +166,7 @@ skygearChat.addParticipants(conversationId, [userBen])
 ### Removing users from conversation 
 
 
-To remove users from a conversation, you can call [removeParticipants(conversation: string, participants: []User)](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-removeParticipants)
+To remove users from a conversation, you can call [`removeParticipants(conversation: string, participants: []User)`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-removeParticipants)
 
 ```javascript
 skygearChat.removeParticipants(conversationId, [userBen])
@@ -189,18 +189,18 @@ The number of admins in a conversation is unlimited, so you may add everyone as 
 
 #### Adding admins
 
-You can call [addAdmins(conversation: string, admins: []User)](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-addAdmins) to add a list of users as admins in a conversation.
+You can call [`addAdmins(conversation: string, admins: []User)`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-addAdmins) to add a list of users as admins in a conversation.
 
 
 #### Removing admins
 
-To remove an existing admin from a conversation, you can call [removeAdmins(conversation: string, admins: []User)](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-removeAdmins).
+To remove an existing admin from a conversation, you can call [`removeAdmins(conversation: string, admins: []User)`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-removeAdmins).
 
 ## Chat history
 ### Loading all messages from a conversation 
 
 
-When users get into the chatroom, you may want to load the messages of the conversation with [getMessages(conversation: Conversation, limit: number, beforeTime: Date)](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-getMessages). You can specify the limit of the messages in `limit` and the time constraint for the message in `beforeTime`.
+When users get into the chatroom, you may want to load the messages of the conversation with [`getMessages(conversation: Conversation, limit: number, beforeTime: Date)`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-getMessages). You can specify the limit of the messages in `limit` and the time constraint for the message in `beforeTime`.
 
 ```JavaScript
 const currentTime = new Date();
@@ -212,12 +212,12 @@ skygearChat.getMessages(conversation, 10, currentTime)
 ```
 
 ## Sending messages
-To send a message, just call [createMessage](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-createMessage) and specify a target conversation. You can also set metadata and attachments accordingly. 
+To send a message, just call [`createMessage`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-createMessage) and specify a target conversation. You can also set metadata and attachments accordingly. 
 
 ### Plain text
 
 To send a text message, just set `body` in
-[createMessage](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-createMessage).
+[`createMessage`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-createMessage).
 
 ```javascript
 skygearChat.createMessage(
@@ -260,7 +260,7 @@ skygearChat.createMessage(
 
 ### Subscribing to messages in all conversations
 
-In order to get real time update of new messages, you can subscribe to a conversation with [subscribe](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-subscribe).
+In order to get real time update of new messages, you can subscribe to a conversation with [`subscribe`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-subscribe).
 
 ```javascript
 // Set subscribe handler to messages
@@ -288,7 +288,7 @@ The `event_type` could have the following string:
 
 ## Displaying unread count
 ### Conversation unread count
-You can show the unread count for a conversation by [getUnreadMessageCount](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-getUnreadMessageCount).
+You can show the unread count for a conversation by [`getUnreadMessageCount`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-getUnreadMessageCount).
 
 ```javascript
 skygearChat.getUnreadMessageCount(conversation).then(function (count) {
@@ -299,7 +299,7 @@ skygearChat.getUnreadMessageCount(conversation).then(function (count) {
 ```
 
 ### Overall unread count
-You can show the total unread count of all conversations by [getUnreadCount](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-getUnreadCount).
+You can show the total unread count of all conversations by [`getUnreadCount`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-getUnreadCount).
 
 ```javascript
 skygearChat.getUnreadCount().then(function (count) {
@@ -319,7 +319,7 @@ The typing indicator has these three states:
 You can make good use of these states to implement the typing indicator feature in your app.
 
 ### Subscribing to typing indicator
-Skygear Chat provides real-time update to typing indicators via callback by [subscribeTypingIndicator](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-subscribeTypingIndicator) and [subscribeAllTypingIndicator](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-subscribeAllTypingIndicator).
+Skygear Chat provides real-time update to typing indicators via callback by [`subscribeTypingIndicator`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-subscribeTypingIndicator) and [`subscribeAllTypingIndicator`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-subscribeAllTypingIndicator).
 
 The only differences is the former subscribe to one conversation only (common
 use case), the later one subscribe to all typing indicator event.
@@ -364,7 +364,7 @@ Both callback functions return one variable as follows.
 
 ### Sending my typing status
 To get typing status from other devices, you should always update your typing 
-status to the server with [sendTypingIndicator(conversation, state)](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-sendTypingIndicator).
+status to the server with [`sendTypingIndicator(conversation, state)`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html#instance-method-sendTypingIndicator).
 
 ```javascript
 messageInput.addEventListener("focus", function () {
