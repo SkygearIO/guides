@@ -80,7 +80,7 @@ publicDB.save(aRecord, new RecordSaveResponseHandler(){
     }
 
     @Override
-    public void onSaveFail(String reason) {
+    public void onSaveFail(Error error) {
         // Error handling
     }
 });
@@ -186,8 +186,8 @@ this.skygear.uploadAsset(asset, new AssetPostRequest.ResponseHandler() {
     }
 
     @Override
-    public void onPostFail(Asset asset, String reason) {
-        Log.i("Skygear Asset", "Upload fail: " + reason);
+    public void onPostFail(Asset asset, Error error) {
+        Log.i("Skygear Asset", "Upload fail: " + error.toString());
     }
 });
 ```
@@ -212,8 +212,14 @@ this.skygear.getPublicDatabase().save(aNote, new RecordSaveResponseHandler(){
         Log.i("Skygear Record", "Successfully saved");
     }
 
+
     @Override
-    public void onSaveFail(String reason) {
+    public void onPartiallySaveSuccess(Map<String, Record> successRecords, Map<String, Error> errors) {
+         Log.i("Skygear Record", "Partially saved");
+    }
+
+    @Override
+    public void onSaveFail(Error error) {
         Log.i("Skygear Record", "Record save fails");
     }
 });
