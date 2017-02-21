@@ -115,7 +115,7 @@ orderQuery.transientInclude("shipping_address");
 
 // after getting a record of the query result
 Map<String, Record> transientMap = record.getTransient();
-Record shippingAddress = transientMap.get("shipping_address");
+Record shippingAddress = (Record) transientMap.get("shipping_address");
 
 ```
 
@@ -125,7 +125,7 @@ argument to `transientInclude`:
 
 ```java
 orderQuery.transientInclude("shipping_address", "shipping");
-Record shippingAddress = transientMap.get("shipping");
+Record shippingAddress = (Record) transientMap.get("shipping");
 
 ```
 
