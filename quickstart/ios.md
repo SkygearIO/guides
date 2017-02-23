@@ -49,10 +49,13 @@ pod install
 
 ## Step 3: Configure Skygear in your app
 
-1. In `AppDelegate.m`, import the Skygear iOS SDK.
+1. In `AppDelegate.m` or `AppDelegate.swift`, import the Skygear iOS SDK.
 
 ```obj-c
 import <SKYKit/SKYKit.h>
+```
+```swift
+import SKYKit
 ```
 
 2. Then add the following lines in the  `application:didFinishLaunchingWithOptions` method to configure your app.
@@ -61,6 +64,10 @@ import <SKYKit/SKYKit.h>
 SKYContainer *container = [SKYContainer defaultContainer];
 [container configAddress:@"https://your-endpoint.skygeario.com/"]; //Your server endpoint
 [container configureWithAPIKey:@"SKYGEAR_API_KEY"]; //Your Skygear API Key
+```
+```swift
+SKYContainer.default().configAddress("<Your endpoint url>")
+SKYContainer.default().configure(withAPIKey: "<Your API Key>")
 ```
 :::note
 You can get your server endpoints and the API keys in the _info page_ in your [developer portal](https://portal.skygear.io/apps) after signing up for the [Skygear Cloud Services](https://portal.skygear.io/signup).
