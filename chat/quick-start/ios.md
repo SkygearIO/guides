@@ -11,12 +11,12 @@ Follow the [iOS quick start](https://docs.skygear.io/guides/quickstart/iOS/) gui
 
 ## Step 2: Add Skygear Chat to your app using CocoaPods
 
-1. Go to your Podfile and add the following lines to include SKYKItChat (Skygear Chat SDK) in your project.
+1. Go to your `Podfile` and add the following lines to include `SKYKItChat` (Skygear Chat SDK) in your project.
 
 ```bash
 pod 'SKYKitChat', :git => 'https://github.com/SkygearIO/chat-SDK-iOS.git'
 ```
-2. Save your Podfile and run `pod install` in the terminal.
+2. Save your `Podfile` and run `pod install` in the terminal.
 
 ```bash
 pod install
