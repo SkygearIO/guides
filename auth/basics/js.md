@@ -89,7 +89,7 @@ If there is an authenticated user, it will give you a user object like this:
 }
 ```
 
-Please be reminded that the `currentUser` object only retrieved when user
+Please be reminded that the `currentUser` object only exists when user
 login / signup Skygear.
 
 To get the latest information (e.g. roles, emails, etc.) of the current user,
