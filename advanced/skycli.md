@@ -22,6 +22,7 @@ handler:
 
 ```bash
 $ export SKYCLI_API_KEY=YOUR_API_KEY
+$ export SKYCLI_ENDPOINT=YOUR_ENDPOINT
 ```
 
 Let's verify it is working by getting a non-existed record:
