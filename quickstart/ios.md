@@ -111,6 +111,31 @@ Practically the codes should not be structured this way. It is for demo only.
     }];
 
 ```
+```swift
+// Every record in Skygear must be owned by a user
+// For testing purpose, we have used signupAnonmously to create a record
+// Visit the user authetication documentation to learn more
+// https://docs.skygear.io/guides/auth/basics/ios/
+
+let skygear = SKYContainer.default()
+skygear?.signupAnonymously(completionHandler: { (user, error) in
+    if error != nil {
+        print("Signup Error: \(error?.localizedDescription)")
+        return
+    }
+    
+    // Create the table "test" and the record "Hello world"
+    let test = SKYRecord(recordType: "test")
+    test?.setObject("Hello world", forKey: "content" as NSCopying!)
+    skygear?.publicCloudDatabase.save(test, completion: { (record, error) in
+        if error != nil {
+            print("Failed to save a record: \(error?.localizedDescription)")
+            return
+        }
+        print("Record saved with ID: \(record?.recordID.recordName)")
+    })
+})
+```
 
 If the record is created successfully, you should see the record "Hello World" in your database table "test".
 
