@@ -10,7 +10,7 @@ Skygear also supports authenticating a user with third party services
 such as Facebook and Twitter, using an
 [auth provider][doc-auth-provider] written with cloud code.
 
-You can use the `skygear.loginWithProvider` method by providing the name of the
+You can use the [`skygear.loginWithProvider`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/container.js~Container.html#instance-method-loginWithProvider) method by providing the name of the
 auth provider, along with the relevant auth data (an object) necessary for
 the authentication, such as the access token obtained from Facebook.
 
