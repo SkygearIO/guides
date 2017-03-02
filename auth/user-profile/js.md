@@ -8,11 +8,11 @@ title: User Profile
 Whenever a new user signs up, a user profile is automatically created for
 you to track user information other than their username, email or password.
 
-The user profile is created using the record type `user` with
+The user profile is created using the record type [`user`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/user.js~User.html) with
 the column `_id` storing the user ID, so you can use it
 in the same way as using any other record types.
 You can query and update a user's profile by manipulating using
-the `User` record type.
+the [`User`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/user.js~User.html) record type.
 
 Important note: This user profile is created in the public database, i.e.
 it is visible to any other user. Therefore you should not store any sensitive
