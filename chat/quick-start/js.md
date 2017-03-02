@@ -19,7 +19,7 @@ There are 2 ways to do it. Either use CDN or import the npm package.
 Add the following lines into the header of your HTML file right under the CDNs of the Skygear Core.
 
 ```javascript
-<script src ="http://code.skygear.io/js/chat/latest/skygear-chat.min.js" </script>
+<script src="https://code.skygear.io/js/chat/latest/skygear-chat.min.js"></script>
 ```
 
 ### Method 2: Npm Install
@@ -46,5 +46,4 @@ Cool your are all set now.
 You got the basic. Next, learn more about:
 * [Skygear Chat](https://docs.skygear.io/guides/chat/basics/js/) or [API reference](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html)
 * [Skygear User Authentication](https://docs.skygear.io/guides/auth/basics/js/)
-* [Chat demo project in ionic](https://github.com/skygear-demo/ionic-chat-demo)
-* [Chat demo project in React](https://github.com/skygear-demo/react-chat-demo)
+* [Chat Demo Projects in JavaScript](https://github.com/search?q=topic%3Ajavascript+topic%3Askygear-chat+org%3Askygear-demo&type=Repositories)

@@ -44,5 +44,4 @@ You got the basic. Next, learn more about:
 * [Skygear Chat](https://docs.skygear.io/guides/chat/basics/ios/)
 * [Skygear User Authentication](https://docs.skygear.io/guides/auth/basics/ios/)
 * [Skygear Chat UIKit for iOS](https://github.com/SkygearIO/chat-SDK-iOS/blob/master/docs/UIKit/index.md) (common chat UI elements)
-* [Chat demo project in Swift](https://github.com/skygear-demo/swift-chat-demo)
-* [Chat UIKit demo project in Swift](https://github.com/skygear-demo/swift-chat-uikit-demo)
+* [Chat demo projects for iOS](https://github.com/search?q=topic%3Askygear-chat+topic%3Askygear-ios+org%3Askygear-demo&type=Repositories)
