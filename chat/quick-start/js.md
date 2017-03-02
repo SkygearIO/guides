@@ -26,7 +26,7 @@ Add the following lines into the header of your HTML file right under the CDNs o
 
 1. Add Skygear Chat to your project using npm install.
 ```bash
-npm install skygear-chat
+npm install --save skygear-chat
 ```
 2. Then import `skygearchat` in your JS file.
 ```bash
@@ -46,3 +46,5 @@ Cool your are all set now.
 You got the basic. Next, learn more about:
 * [Skygear Chat](https://docs.skygear.io/guides/chat/basics/js/) or [API reference](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/index.js~SkygearChatContainer.html)
 * [Skygear User Authentication](https://docs.skygear.io/guides/auth/basics/js/)
+* [Chat demo project in ionic](https://github.com/skygear-demo/ionic-chat-demo)
+* [Chat demo project in React](https://github.com/skygear-demo/react-chat-demo)
