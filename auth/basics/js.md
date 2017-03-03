@@ -89,11 +89,13 @@ If there is an authenticated user, it will give you a [`User`](https://doc.esdoc
 }
 ```
 
-Please be reminded that the [`currentUser`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/container.js~Container.html#instance-get-currentUser) object only exists when user
-login / signup Skygear.
+Please be reminded that the
+[`currentUser`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/container.js~Container.html#instance-get-currentUser)
+ object is persisted locally, and the information (e.g. roles, emails, etc) 
+ might not sync with the server if it was changed remotely.
 
-To get the latest information (e.g. roles, emails, etc.) of the current user,
-you can ask call [`whoami()`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/container.js~Container.html#instance-method-whoami):
+To get the latest information of the current user,
+you can call [`whoami()`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/container.js~Container.html#instance-method-whoami):
 
 ``` javascript
 skygear.whoami().then((user) => {
