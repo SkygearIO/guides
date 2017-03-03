@@ -146,7 +146,9 @@ public void onCreate() {
         public void onAuthSuccess(User user) {
             Log.i("MyApplication", "Signup successfully");
 
-            // Create the table "test" and the record "Hello world"
+            // Create Record Type "test" and put "Hello world" as value of key "content"
+            // Advanced: Skygear Server will create a table "test" and appropriate
+            //           columns in PostgreSQL in Development mode.
             Record test = new Record("test");
             test.set("content", "Hello world");
 

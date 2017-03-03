@@ -99,7 +99,9 @@ skygear.config({
   // https://docs.skygear.io/guides/auth/basics/js/
   return skygear.signupAnonymously()
 }).then(function() {
-  // Create the table "test" and the record "Hello world"
+  // Create Record Type "test" and put "Hello world" as value of key "content"
+  // Advanced: Skygear Server will create a table "test" and appropriate
+  //           columns in PostgreSQL in Development mode.
   var Test = skygear.Record.extend('test');
   return skygear.publicDB.save(new Test({
     'content': 'Hello World'

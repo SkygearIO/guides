@@ -96,7 +96,9 @@ Practically the codes should not be structured this way. It is for demo only.
             return;
         }
 
-        // Create the table "test" and the record "Hello world"
+        // Create Record Type "test" and put "Hello world" as value of key "content"
+        // Advanced: Skygear Server will create a table "test" and appropriate
+        //           columns in PostgreSQL in Development mode.
         SKYRecord *test = [SKYRecord recordWithRecordType:@"test"];
         test[@"content"] = @"Hello world";
 
@@ -124,7 +126,9 @@ skygear?.signupAnonymously(completionHandler: { (user, error) in
         return
     }
     
-    // Create the table "test" and the record "Hello world"
+    // Create Record Type "test" and put "Hello world" as value of key "content"
+    // Advanced: Skygear Server will create a table "test" and appropriate
+    //           columns in PostgreSQL in Development mode.
     let test = SKYRecord(recordType: "test")
     test?.setObject("Hello world", forKey: "content" as NSCopying!)
     skygear?.publicCloudDatabase.save(test, completion: { (record, error) in
