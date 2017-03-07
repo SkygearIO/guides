@@ -109,11 +109,11 @@ Log.i("Skygear User", "User ID: " + currentUser.userId);
 Log.i("Skygear User", "Username: " + currentUser.username);
 ```
 
-Please be reminded that the `currentUser` object only retrieved when user
-login / signup Skygear.
+Please be reminded that the `currentUser` object persist locally, and the
+information (e.g. roles, emails, etc) might not sync with the server if it was
+changed remotely.
 
-To get the latest information (e.g. roles, emails, etc.) of the current user,
-you can ask "Who am I" to Skygear:
+To get the latest information of the current user, you can call `whoami()`.
 
 ```java
 skygear.whoami(new AuthResponseHandler() {

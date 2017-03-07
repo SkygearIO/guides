@@ -205,8 +205,11 @@ if SKYContainer.default().currentUser != nil {
 }
 ```
 
-You can get the latest information (e.g. roles, emails, etc.) of the current
-user by asking "Who am I" to Skygear:
+Please be reminded that the `currentUser` object persist locally, and the
+information (e.g. roles, emails, etc) might not sync with the server if it was
+changed remotely.
+
+To get the latest information of the current user, you can call `getWhoAmI()`.
 
 ```obj-c
 [[SKYContainer defaultContainer] getWhoAmIWithCompletionHandler:^(SKYUser *user, NSError *error) {
