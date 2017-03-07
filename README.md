@@ -23,7 +23,7 @@ always include a bullet points list of todo items.
 
 ## Creating code switcher (e.g. Objective-C vs Swift)
 
-Any two consecuting fenced code blocks of different languages will be combined
+Any two consecutive fenced code blocks of different languages will be combined
 as a code switcher, e.g.
 
     ``` objectivec
@@ -34,7 +34,7 @@ as a code switcher, e.g.
     some swift code
     ```
 
-Note: Currently it only supports two languages; the behaviour will be unexpected
+Note: Currently it only supports two languages; the behavior will be unexpected
 if there are more consecutive different language fenced code blocks.
 You can insert paragraphs and text between the codes to avoid this.
 
