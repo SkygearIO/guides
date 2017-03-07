@@ -67,7 +67,7 @@ SKYContainer.default().chatExtension?.createConversation(
 
 By default, if you try to create conversations with same list of participants with `createConversation`. You will eventually create different conversations with the identical participants.
 
-This may or may be a desire behavior in your application depends on your app design.
+This may or may not be a desire behavior in your application depends on your app design.
 
 If you want to make sure each conversation contains distinct participants, you can set `distinctByParticipants` in options to be `true`.
 
