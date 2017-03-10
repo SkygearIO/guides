@@ -4,7 +4,7 @@ title: Offline Storage
 
 [[toc]]
 
-<a name="cached-query"></a>
+
 ## Cached Query
 
 Skygear provides a simple cached query mechanism for application that wants to

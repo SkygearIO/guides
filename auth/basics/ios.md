@@ -4,7 +4,7 @@ title: User Authentication Basics
 
 [[toc]]
 
-<a name="manage-user"></a>
+
 ## Manage User
 
 ### Signing up
@@ -182,7 +182,7 @@ SKYContainer.default().setNewPassword("newPassword", oldPassword: "oldPassword")
 ```
 
 
-<a name="current-user"></a>
+
 ## Current User
 
 ### Getting current user id

@@ -4,7 +4,7 @@ title: Authenticating Users
 
 [[toc]]
 
-<a name="getting-current-user-id"></a>
+
 ## Getting the current user ID
 
 In your cloud code, you can obtain the user ID of the authenticated user by
@@ -23,7 +23,7 @@ def create_task(description):
     # do further processing with user_id
 ```
 
-<a name="reset-password"></a>
+
 ## Reset Password
 
 You can reset (change) the password of a user using the 

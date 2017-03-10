@@ -4,7 +4,7 @@ title: Query Subscriptions
 
 [[toc]]
 
-<a name="subscription"></a>
+
 ## Subscribe to Query Change
 
 Creating a subscription requires your application to register the current device

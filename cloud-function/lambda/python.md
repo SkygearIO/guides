@@ -89,7 +89,7 @@ the lambda function in Python as a string like `'2016-10-28T03:23:11.600Z'`.
 A lambda function should return a JSON-serializable Python dictionary or `None`.
 It will be the response the client SDK receives.
 
-<a name="lambda-example"></a>
+
 ### Example
 
 The following lambda function, named `send_invitation_email`,

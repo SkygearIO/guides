@@ -4,7 +4,7 @@ title: Calling Skygear API
 
 [[toc]]
 
-<a name="skygear-container"></a>
+
 ## Skygear Container
 
 Besides using the SDKs to interact with Skygear,
@@ -149,7 +149,7 @@ master_container.send_action(
 )
 ```
 
-<a name="database-queries"></a>
+
 ## Database Queries
 
 In the [database hooks][doc-cloud-code-db-hooks], you receive the `db` argument
@@ -170,7 +170,7 @@ def db_conn_demo():
         pass
 ```
 
-<a name="pubsub-events"></a>
+
 ## PubSub Events
 
 You can publish a message to a PubSub channel through cloud code using
@@ -193,7 +193,7 @@ The `publish` function has no return values and takes two arguments:
 
   This is the data to be published to the channel.
 
-<a name="push-notifications"></a>
+
 ## Push Notifications
 
 You can send push notifications to users from the cloud code

@@ -4,7 +4,7 @@ title: Access Control (ACL)
 
 [[toc]]
 
-<a name='acl-type'></a>
+
 ## Access Type
 
 Skygear supports access control on records. You can use it to control whether
@@ -22,7 +22,7 @@ The access control in Skygear can be divided in following type:
 - [User-based Access Control][doc-acl-user-based]
 - [Role-based Access Control][doc-acl-role-based]
 
-<a name='acl-default'></a>
+
 ## Default ACL Settings
 
 Besides of setting each record to a specific access control, Skygear also
@@ -231,7 +231,7 @@ boolean isWritable = aRecord.isWritable(programmer);
 
 ```
 
-<a name='acl-record'></a>
+
 ## ACL by Record Type
 
 [doc-acl-public]: #acl-public

@@ -18,7 +18,7 @@ There are also four other types provided by Skygear JS SDK:
 - Location
 - Asset
 
-<a name="reference"></a>
+
 ## Record Relations
 
 ### What Skygear provides

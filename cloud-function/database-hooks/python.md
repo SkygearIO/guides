@@ -85,7 +85,7 @@ def my_func(record, original_record, db):
     pass
 ```
 
-<a name="before-save-func-record"></a>
+
 - **`record` (Skygear `Record` class)**
 
   It is the record that is going to be saved to the database.
@@ -110,7 +110,7 @@ def my_func(record, original_record, db):
 
   :::
 
-<a name="before-save-metadata"></a>
+
 
   For the metadata attributes, they can be accessed but not altered.
   Among those attributes, only the record ID, record type,
@@ -134,7 +134,7 @@ def my_func(record, original_record, db):
   created_by = record.created_by
   ```
 
-<a name="before-save-func-original-record"></a>
+
 - **`original_record` (Skygear `Record` class)**
 
   It is the existing record object in the database, as identified by the `_id`.
@@ -143,7 +143,7 @@ def my_func(record, original_record, db):
 
   If you are creating a new record, `original_record` will be `None`.
 
-<a name="before-save-func-db"></a>
+
 - **`db` (SQLAlchemy connection)**
 
   It is an instance of the [SQLAlchemy engine connection][sqlalchemy-conn]

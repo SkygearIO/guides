@@ -20,7 +20,7 @@ There are also four other types provided by Skygear SDK:
 - [Geo-location][doc-location]
 - [Assets (File Upload)][doc-assets]
 
-<a name="reference"></a>
+
 ## Record Relations
 
 ### What Skygear provides

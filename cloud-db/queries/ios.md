@@ -4,7 +4,7 @@ title: Queries
 
 [[toc]]
 
-<a name="basic-queries"></a>
+
 ## Basic Queries
 
 We have shown how to fetch individual records by ids, but in real-world
@@ -55,7 +55,7 @@ We constructed a `SKYQuery` to search for `todo` records. There are no additiona
 criteria needed so we put the predicate to `nil`. Then we assigned a
 `NSSortDescription` to ask Skygear Server to sort the `todo` records by `order` field in ascending order.
 
-<a name="conditions"></a>
+
 ## Conditions
 
 To use `SKYQuery` with ease, we recommend using the methods provided to add constraints. However, you can also use `NSPredicate` to add constraints if you wish. The following features are supported:
@@ -191,7 +191,7 @@ privateDB?.perform(query, completionHandler: { (orders, error) in
 })
 ```
 
-<a name="pagination-ordering"></a>
+
 ## Pagination and Ordering
 
 ### Sorting the records
@@ -244,7 +244,7 @@ To get the number of all records matching a query, set the property
 retrieved from `overallCount` property of `SKYQueryOperation` when
 `perRecordCompletionBlock` is first called.
 
-<a name="relational-queries"></a>
+
 ## Relational Queries
 
 ### Eager Loading

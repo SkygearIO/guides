@@ -4,7 +4,7 @@ title: Access Control (ACL)
 
 [[toc]]
 
-<a name='acl-type'></a>
+
 ## Access Type
 
 There are two types of access for each record: read and write.
@@ -17,7 +17,7 @@ There are two types of access for each record: read and write.
 
 However, even with write access, ownership of records cannot be changed.
 
-<a name='acl-default'></a>
+
 ## Default ACL Settings
 
 By default, read access is granted to the public and write access is granted
@@ -40,7 +40,7 @@ After changing the default ACL setting, all records created in the future
 will automatically have this ACL setting; however, ACL setting for existing
 records created before this update will remain unchanged.
 
-<a name='acl-user'></a>
+
 ## ACL by User
 
 Suppose you have three user objects: `Tak`, `Benson` and `Rick`.
@@ -58,7 +58,7 @@ note.hasReadAccessForUser(Tak); // false
 note.hasWriteAccessForUser(Benson); // false
 ```
 
-<a name='acl-role'></a>
+
 ## ACL by User Role
 
 ### Defining roles
@@ -117,7 +117,7 @@ plan.hasReadAccessForRole(Employee); // true
 plan.hasWriteAccessForRole(Manager); // true
 ```
 
-<a name='acl-record'></a>
+
 ## ACL by Record Type
 
 ### Record creation access control

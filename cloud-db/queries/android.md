@@ -7,7 +7,7 @@ title: Queries
 Skygear provides query of records with conditions. You can apply condition to
 Skygear queries, only getting the records you want.
 
-<a name="basic-queries"></a>
+
 ## Basic Queries
 
 To perform a query, first you need to construct a `Query` object:
@@ -73,7 +73,7 @@ Query notBetweenOneAndThree = new Query("Note")
 
 ```
 
-<a name="conditions"></a>
+
 ## Conditions
 
 Besides the operations shown above, the following list out all operations supported.
@@ -96,10 +96,10 @@ Besides the operations shown above, the following list out all operations suppor
 - `addDescending`
 - `addAscending`
 
-<a name="pagination-ordering"></a>
+
 ## Pagination and Ordering
 
-<a name="relational-queries"></a>
+
 ## Relational Queries
 
 ### Eager Loading
@@ -131,8 +131,8 @@ Record shippingAddress = (Record) transientMap.get("shipping");
 
 ```
 
-<a name="cached-query"></a>
+
 ## Cached Query
 
-<a name="subscription"></a>
+
 ## Subscribing to Query Change

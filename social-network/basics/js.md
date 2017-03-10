@@ -4,7 +4,7 @@ title: User Relations Basics
 
 [[toc]]
 
-<a name="friends-and-followers"></a>
+
 ## Introduction
 
 Skygear provide three default relations: friend, following and follower.
@@ -13,7 +13,7 @@ follow a user without his explicit approval.
 - `friend` is mutual relation without direction. If you add Ben as your friend
 and Ben add you as his friend, then you two will have `friend` relationship.
 
-<a name="adding-relations"></a>
+
 ## Adding Relations
 
 If the current user wants to follow Ben:
@@ -52,7 +52,7 @@ const beFriend = new skygear.relation.Friend([ben]);
 skygear.relation.add(beFriend).then(...);
 ```
 
-<a name="querying-relations"></a>
+
 ## Querying Relations
 
 You may query the relations of the current user or other users.
@@ -108,7 +108,7 @@ skygear.relation.query(query).then((users) => {
 });
 ```
 
-<a name="removing-relations"></a>
+
 ### Removing Relations
 
 ``` javascript

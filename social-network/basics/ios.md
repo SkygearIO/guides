@@ -4,7 +4,7 @@ title: User Relations Basics
 
 [[toc]]
 
-<a name="friends-and-followers"></a>
+
 ## User Relations (Friends & Followers)
 
 ### Relation directions
@@ -42,7 +42,7 @@ SKYContainer.default().add(operation)
 
 1. Two default relations: friend and follower
 
-<a name="adding-relations"></a>
+
 ## Adding relation between users
 
 ```obj-c
@@ -57,7 +57,7 @@ operation?.container = SKYContainer.default()
 SKYContainer.default().add(operation)
 ```
 
-<a name="querying-relations"></a>
+
 ## Querying Relations
 
 Get all friends:
@@ -100,7 +100,7 @@ SKYContainer.default().add(operation)
 
 `SKYQueryUsersOperation-relationDirection` is only effective on `followRelation`.
 
-<a name="removing-relations"></a>
+
 ## Removing Relations
 
 ```obj-c

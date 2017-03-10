@@ -4,12 +4,12 @@ title: Access Control (ACL)
 
 [[toc]]
 
-<a name="access-type"></a>
+
 ## Access Type
 
 <!--- TODO: add something here -->
 
-<a name="default-acl"></a>
+
 ## Default ACL Settings
 
 If you do not add access control on a record, the record will inherit
@@ -35,7 +35,7 @@ In the above example, each newly created record is readable by public and it
 can be modified by a `webmaster`. If you add access control to a specific
 record, the above settings will be ignored for that record.
 
-<a name="acl-user"></a>
+
 ## ACL by User
 
 Example: Share docs to colleagues
@@ -52,7 +52,7 @@ let document = SKYRecord(recordType: "doc")
 document?.accessControl.setReadWriteAccessFor(supervisor)
 ```
 
-<a name="acl-role"></a>
+
 ## ACL By User Role
 
 Role-based access control is suitable for applications that limit access to
@@ -246,7 +246,7 @@ NSNotificationCenter *center = [NSNotificationCenter defaultCenter]
                 }];
 ```
 
-<a name="acl-type"></a>
+
 ## ACL By Record Type
 
 <!--- TODO: add something here -->

@@ -6,7 +6,7 @@ title: User Authentication Basics
 With Skygear, you can implement a user login system easily using the
 authentication functions provided in the SDK.
 
-<a name="user-login-flow"></a>
+
 ## User Login Flow
 
 Skygear stores and manages the user credentials (username, email and password)
@@ -70,7 +70,7 @@ The following diagram shows the login flow:
    call to the server, the SDK will clear the user information and the access
    token. The app will change from the logged-in state to the anonymous state.
 
-<a name="user-login-status"></a>
+
 ## User Login Status
 
 ### Getting the currently logged-in user
@@ -135,7 +135,7 @@ handler.cancel(); // The callback is cancelable
 ```
 
 
-<a name="signup-login-logout"></a>
+
 ## Signing up / Logging in / Logging out
 
 ### Signing up
@@ -272,7 +272,7 @@ skygear.logout().then(() => {
 });
 ```
 
-<a name="change-email-password"></a>
+
 ## Changing username/email/password
 
 ### Changing the username and email of a user
@@ -370,7 +370,7 @@ skygear.changePassword(currentPassword, newPassword, invalidate=true)
 
 Not yet implemented.
 
-<a name="user-verification"></a>
+
 ## User Verification
 
 Not yet implemented.

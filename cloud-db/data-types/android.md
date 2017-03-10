@@ -4,7 +4,7 @@ title: Data Types
 
 [[toc]]
 
-<a name="reference"></a>
+
 ## Record Relations
 
 Skygear supports parent-child relations between records via _reference_.
@@ -28,7 +28,7 @@ aComment.set("post", aPostReference);
 
 ```
 
-<a name="auto-increment"></a>
+
 ## Auto-Incrementing Sequence Fields
 
 ## Location

@@ -12,7 +12,7 @@ Skygear will automatically re-connect on connection drop. Skygear will also
 re-subscribe all existing handler on connection restore. So in normal case,
 you don't need to re-subscribe all your handler on re-connect.
 
-<a name="publish"></a>
+
 ## Publish
 
 The following code snippet shows how to publish a data object (in `JSON` format)
@@ -30,7 +30,7 @@ pubsub.publish("chatroom-001", jsonObject);
 To publish a message to the channel through cloud code, please refer to the
 [Cloud Functions Guide: Calling Skygear API - Pubsub Events][doc-cloud-code-pubsub].
 
-<a name="subscribe"></a>
+
 ## Subscribe
 
 You may need to subscribe to a channel, so that you will be notified if there
@@ -57,7 +57,7 @@ pubsub.setHandlerExecutionInBackground(true);
 
 ```
 
-<a name="unsubscribe"></a>
+
 ## Unsubscribe
 
 You may also need to unsubscribe to a channel if you don't need the notification

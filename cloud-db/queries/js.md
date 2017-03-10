@@ -4,7 +4,7 @@ title: Queries
 
 [[toc]]
 
-<a name="basic-queries"></a>
+
 ## Basic Queries
 
 Skygear provides query of records with conditions. Here is a straight-forward
@@ -50,7 +50,7 @@ skygear.publicDB.query(query);
 
 You can use `skygear.Query.not(query)` to get a condition negated version of `query`.
 
-<a name="conditions"></a>
+
 ## Conditions
 
 Conditions are like `WHERE` clause in SQL query and `filter` in NoSQL query.
@@ -121,7 +121,7 @@ See [Social Network][doc-social-network] section for more information.
 
 Please visit [Data Types: Location][doc-data-type-location] section for more.
 
-<a name="pagination-ordering"></a>
+
 ## Pagination and Ordering
 
 ### Ordering of records
@@ -181,7 +181,7 @@ skygear.publicDB.query(query).then((notes) => {
 The count is not affected by the limit set on the query. So, if you only want
 to get the count without fetching any records, simply set `query.limit = 0`.
 
-<a name="relational-queries"></a>
+
 ## Relational Queries
 
 ### Eager Loading

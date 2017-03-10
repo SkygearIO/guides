@@ -4,7 +4,7 @@ title: User Profile
 
 [[toc]]
 
-<a name="user-profile"></a>
+
 ## User Profile
 
 Whenever a new user signs up, a user profile is automatically created for

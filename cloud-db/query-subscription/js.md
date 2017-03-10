@@ -4,7 +4,7 @@ title: Query Subscriptions
 
 [[toc]]
 
-<a name="subscription"></a>
+
 ## Subscribe to Query Change (**Coming Soon**)
 
 ### Creating a subscription

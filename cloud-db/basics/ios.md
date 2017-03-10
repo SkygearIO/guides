@@ -4,7 +4,7 @@ title: Cloud Database Basics
 
 [[toc]]
 
-<a name="overview"></a>
+
 ## Overview
 
 Please make sure you know about and have already configured your
@@ -42,7 +42,7 @@ To control the access, you may set different access control entity to the record
 
 Head to [Access Control][doc-access-control] to read more about it.
 
-<a name="basic-crud"></a>
+
 ## Basic CRUD
 
 ### Creating a record
@@ -331,7 +331,7 @@ SKYContainer.default().privateCloudDatabase.deleteRecords(withIDs: notesToDelete
 
 
 
-<a name="reserved-columns"></a>
+
 ### Reserved Columns
 
 For each record type stored in the database, a table with the same name as the record type is created. For example, if your record type is called `note`, there is a table called `note` in the database. Each row in the table corresponds to one record.
@@ -369,7 +369,7 @@ let recordType = record?.recordType
 
 Please head to [Database Schema][doc-database-schema] to read more about Reserved Columns, Record Tables and Reserved Tables.
 
-<a name="local-storage"></a>
+
 ## Local Storage (Offline)
 
 ### Setup

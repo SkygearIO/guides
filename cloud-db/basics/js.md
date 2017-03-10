@@ -4,14 +4,14 @@ title: Cloud Database Basics
 
 [[toc]]
 
-<a name="overview"></a>
+
 ## Overview
 
 Please make sure you know about and have already configured your skygear
 container before you proceed.
 You can follow the steps in [Setup Skygear][doc-setup-skygear] to set it up.
 
-<a name="record"></a>
+
 ### The Record Class
 
 - `Record` must have a type.
@@ -48,7 +48,7 @@ To control the access, you may set different access control to the record.
 - The database objects can be accessed with `skygear.publicDB` and
 `skygear.privateDB`.
 
-<a name="basic-crud"></a>
+
 ## Basic CRUD
 
 ### Creating a record
@@ -176,7 +176,7 @@ skygear.publicDB.query(query)
 });
 ```
 
-<a name="reserved-columns"></a>
+
 ### Reserved Columns
 
 There are quite a few reserved columns for storing records into the database.

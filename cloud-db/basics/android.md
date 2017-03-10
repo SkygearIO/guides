@@ -4,14 +4,14 @@ title: Cloud Database Basics
 
 [[toc]]
 
-<a name="overview"></a>
+
 ## Overview
 
 Please make sure you know about and have already configured your skygear
 container before you proceed.
 You can follow the steps in [Setup Skygear][doc-setup-skygear] to set it up.
 
-<a name="record"></a>
+
 ### The Record Class
 
 ### Record Database
@@ -37,7 +37,7 @@ Database publicDatabase = skygear.getPublicDatabase();
 Database privateDatabase = skygear.getPrivateDatabase();
 ```
 
-<a name="basic-crud"></a>
+
 ## Basic CRUD
 
 ### Create a record
@@ -211,7 +211,7 @@ database.delete(records, handler);
 ```
 
 
-<a name="reserved-columns"></a>
+
 ### Reserved Columns
 
 [doc-queries]: /guides/cloud-db/queries/android/

@@ -4,7 +4,7 @@ title: Introduction and Deployment of Cloud Code
 
 [[toc]]
 
-<a name="what-is-cloud-code"></a>
+
 ## What is Cloud Code?
 
 Cloud codes are custom functions that run on the Skygear server.
@@ -37,7 +37,7 @@ def validate_cat_name(record, original_record, db):
     return record
 ```
 
-<a name="deploying-to-skygear-cloud"></a>
+
 ## Cloud code deployment
 
 
@@ -186,7 +186,7 @@ Meow! Thanks!
 Do you see `Meow! Thanks!`? If yes it means the deployment is successful.
 You are now good to go. :grinning:
 
-<a name="how-cloud-code-works"></a>
+
 ## How Cloud Code Works
 
 Now, let's examine the cloud code example in details.
@@ -301,7 +301,7 @@ It returns a response of the string `'Meow! Thanks!'`.
 More details can be found in
 [HTTP Handlers][doc-cloud-code-http-handler].
 
-<a name="creating-cloud-code-from-scratch"></a>
+
 ## Creating Cloud Code from Scratch
 
 At a minimum, you need a git repository with the `__init__.py` file
@@ -344,7 +344,7 @@ will be automatically installed.
 Tips: You do not need to specify `skygear` in `requirements.txt`. It is
 automatically installed for you.
 
-<a name="request-process-flowchart"></a>
+
 ## Request Process Flowchart
 
 The following flowchart summarizes the process for the cloud codes.
