@@ -2,6 +2,8 @@
 title: User Relations Basics
 ---
 
+[[toc]]
+
 <a name="friends-and-followers"></a>
 ## Introduction
 

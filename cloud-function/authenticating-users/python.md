@@ -2,6 +2,8 @@
 title: Authenticating Users
 ---
 
+[[toc]]
+
 <a name="getting-current-user-id"></a>
 ## Getting the current user ID
 

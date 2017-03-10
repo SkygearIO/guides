@@ -2,6 +2,8 @@
 title: Data Types
 ---
 
+[[toc]]
+
 Skygear supports a lot of different data types, such as:
 
 - String

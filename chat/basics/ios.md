@@ -1,6 +1,8 @@
 ---
 title: Skygear Chat
 ---
+
+[[toc]]
 Skygear Chat is a collection of APIs to help you build Chat apps much easier. 
 
 ## Enabling on Chat Plugin on Skygear Portal 

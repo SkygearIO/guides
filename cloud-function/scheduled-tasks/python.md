@@ -2,6 +2,8 @@
 title: Scheduled Tasks
 ---
 
+[[toc]]
+
 Skygear supports creating functions that run at specific time intervals using
 the `@skygear.every` decorator. It works similar to the
 [cron daemon][cron-wiki] in UNIX.

@@ -2,6 +2,8 @@
 title: Database Hooks
 ---
 
+[[toc]]
+
 ## Overview
 
 Database hooks are executed when a database record is modified through Skygear.

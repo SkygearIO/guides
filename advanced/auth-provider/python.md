@@ -2,6 +2,8 @@
 title: Writing your own Authentication Provider
 ---
 
+[[toc]]
+
 A common use case of a social app is to authenticate user with popular social network. Authentication Provider allows a plugin to authenticate user based on credentials from a third-party. The Authentication Provider respond to Skygear Server whether the credentials are accepted.
 
 When authenticated, Skygear creates new user account for new user or fetches an existing user account for an existing user. Skygear distinguish user account by User ID, which your Authentication Provider has to generate based on the supplied credentials.

@@ -2,6 +2,8 @@
 title: Cloud code triggered by Client SDK
 ---
 
+[[toc]]
+
 You will need lambda functions if you want to have codes written on the backend
 server instead of inside the SDK. The client SDK calls the cloud codes which
 in turn return the response back to the client.

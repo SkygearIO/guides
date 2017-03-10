@@ -2,6 +2,8 @@
 title: Custom HTTP Endpoint
 ---
 
+[[toc]]
+
 You can configure the cloud code as an HTTP handler, which can respond to
 requests coming from outside the SDK. A custom HTTP endpoint can be
 created using the `skygear.handler` decorator.

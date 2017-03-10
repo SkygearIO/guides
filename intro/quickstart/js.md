@@ -2,6 +2,8 @@
 title: Quick Start
 ---
 
+[[toc]]
+
 This guide will walk you through the steps to add Skygear to your HTML5 project and Node.js project from scratch.
 
 :::note

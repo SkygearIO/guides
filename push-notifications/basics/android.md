@@ -2,6 +2,8 @@
 title: Skygear Push Basics
 ---
 
+[[toc]]
+
 To enable receiving push notifications from Skygear, you need to:
 
 1. Delegate Skygear SDK to manage the GCM services

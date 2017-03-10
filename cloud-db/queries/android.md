@@ -2,6 +2,8 @@
 title: Queries
 ---
 
+[[toc]]
+
 Skygear provides query of records with conditions. You can apply condition to
 Skygear queries, only getting the records you want.
 

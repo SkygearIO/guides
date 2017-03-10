@@ -2,6 +2,8 @@
 title: Quick Start
 ---
 
+[[toc]]
+
 This guide will walk you through the steps to add Skygear to your iOS project via CocoaPods from scratch.
 
 :::note

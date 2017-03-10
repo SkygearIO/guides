@@ -2,6 +2,8 @@
 title: Skygear Push Basics
 ---
 
+[[toc]]
+
 You need to register the devices before sending them push notifications.
 
 <a id="registering-device"></a>

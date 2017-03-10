@@ -2,6 +2,8 @@
 title: Cloud Database Basics
 ---
 
+[[toc]]
+
 <a name="overview"></a>
 ## Overview
 

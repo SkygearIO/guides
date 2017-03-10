@@ -2,6 +2,8 @@
 title: Social Login
 ---
 
+[[toc]]
+
 <a name="social-login"></a>
 ## Social Login (Facebook, Twitter, etc)
 

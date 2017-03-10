@@ -1,6 +1,8 @@
 ---
 title: User Authentication Basics
 ---
+
+[[toc]]
 With Skygear, you can implement a user login system easily using the
 authentication functions provided in the SDK.
 

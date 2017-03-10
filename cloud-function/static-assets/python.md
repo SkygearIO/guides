@@ -2,6 +2,8 @@
 title: Static Assets
 ---
 
+[[toc]]
+
 Besides dynamically generated content,
 most websites also load other files which are static,
 such as images, JavaScript and stylesheets.

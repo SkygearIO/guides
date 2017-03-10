@@ -2,6 +2,8 @@
 title: Calling Skygear API
 ---
 
+[[toc]]
+
 <a name="skygear-container"></a>
 ## Skygear Container
 

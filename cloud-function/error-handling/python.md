@@ -2,6 +2,8 @@
 title: Error Handling
 ---
 
+[[toc]]
+
 In addition to returning a result in your extension point, you can also return
 an error to indicate to the client that an error has occurred. To do that,
 you raise a `SkygearException` in your function.

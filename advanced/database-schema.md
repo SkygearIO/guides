@@ -2,6 +2,8 @@
 title: Skygear Database Schema
 ---
 
+[[toc]]
+
 This section describes the database schema used by Skygear.
 
 Tables in the database can be classified into Records Table and Reserved Table.

@@ -2,6 +2,8 @@
 title: Data Types
 ---
 
+[[toc]]
+
 <a name="reference"></a>
 ## Record Relations
 

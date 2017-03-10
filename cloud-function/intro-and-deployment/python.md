@@ -2,6 +2,8 @@
 title: Introduction and Deployment of Cloud Code
 ---
 
+[[toc]]
+
 <a name="what-is-cloud-code"></a>
 ## What is Cloud Code?
 

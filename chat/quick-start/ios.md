@@ -1,6 +1,8 @@
 ---
 title: Skygear Chat Quick Start
 ---
+
+[[toc]]
 Follow the steps below to add Skygear Chat to your app.
 
 ## Step 1: Add Skygear Core to your app

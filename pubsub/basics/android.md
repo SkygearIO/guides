@@ -2,6 +2,8 @@
 title: PubSub basics
 ---
 
+[[toc]]
+
 Skygear provides pubsub services for building apps required real-time updates.
 A typical pubsub services can be divided into two parts: Publish and
 Subscription.

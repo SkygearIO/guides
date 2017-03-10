@@ -2,6 +2,8 @@
 title: User Authentication Basics
 ---
 
+[[toc]]
+
 <a name="manage-user"></a>
 ## Manage User
 

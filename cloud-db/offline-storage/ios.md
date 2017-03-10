@@ -2,6 +2,8 @@
 title: Offline Storage
 ---
 
+[[toc]]
+
 <a name="cached-queries"></a>
 ## Cached Queries
 

@@ -2,6 +2,8 @@
 title: PubSub basics
 ---
 
+[[toc]]
+
 ## Subscribing a channel
 
 ```obj-c

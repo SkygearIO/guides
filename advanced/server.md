@@ -2,6 +2,8 @@
 title: Setup Skygear Development Server Locally
 ---
 
+[[toc]]
+
 This guide shows you how to set up a development [Skygear server](https://github.com/SkygearIO/skygear-server) on your local machine for development or custom deployment purpose.
 
 ::: caution

@@ -2,6 +2,8 @@
 title: Data Types
 ---
 
+[[toc]]
+
 Skygear supports almost all of the builtin JavaScript types, such as:
 - String
 - Number

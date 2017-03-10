@@ -2,6 +2,8 @@
 title: Restful HTTP Endpoint
 ---
 
+[[toc]]
+
 While you can easily perform the CRUD (Create, Read, Update, Delete)
 operations by using the SDK directly, you still have the option
 to implement a custom [restful][restful-wiki] backend using cloud codes.

@@ -1,6 +1,8 @@
 ---
 
 title: Quick Start
+
+[[toc]]
 ---
 
 This guide will walk you through the steps to add Skygear to your Android project from scratch.

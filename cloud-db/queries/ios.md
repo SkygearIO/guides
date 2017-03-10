@@ -2,6 +2,8 @@
 title: Queries
 ---
 
+[[toc]]
+
 <a name="basic-queries"></a>
 ## Basic Queries
 

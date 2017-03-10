@@ -2,6 +2,8 @@
 title: Skygear Command Line Interface
 ---
 
+[[toc]]
+
 Skygear provides a default command-line interface `skycli` to interact with
 Skygear's handlers and PostgreSQL backend to facilitate application development
 and some common administration works.

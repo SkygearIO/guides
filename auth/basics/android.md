@@ -2,6 +2,8 @@
 title: User Authentication Basics
 ---
 
+[[toc]]
+
 Skygear support user authentication with email or username. The following
 shows how it works using Skygear SDK.
 

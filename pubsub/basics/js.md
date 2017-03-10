@@ -2,6 +2,8 @@
 title: PubSub basics
 ---
 
+[[toc]]
+
 Pubsub will only work after the user has logged in. You can check the connection
 by accessing `skygear.pubsub.connected`. Here, all the examples are using event
 `ping`.
