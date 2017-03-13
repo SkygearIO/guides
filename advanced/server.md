@@ -10,7 +10,57 @@ This guide shows you how to set up a development [Skygear server](https://github
 This guide is for advanced users only. Normally using Skygear.io should be the simplest way for development and production deployment.
 :::
 
-Skygear can be set up on: 
+## Concept
+
+A typical deployment of Skygear is like this:
+
+```
+                                                   +--------------------+
+                                                   |     skygear-node   |
+                      +------------------+    +---^+(JS Cloud Functions)|
+                      |                  |    |    +------------------+-+
+                      |                  |    |                       |
++----------------+    |                  |    |    +----------------+ |
+|   (Optional)   |    |  skygear-server  |    |    |   py-skygear   | |
+|     Nginx      +----+(1 to n instances)| <-------+    (python     | |
+|  Load Balancer |    |                  |    |    |Cloud Functions)| |
++----------------+    |                  |    |    +------------+---+ |
+                      |                  |    |                 |     |
+                      |                  |    |    +---------+  |     |
+                      +--------+---------+    |    |  chat   |  |     |
+                               |              +----+(Plugins)|  |     |
+                               v                   +----+----+  |     |
+                         +-----+----+                   |       |     |
+                         |          +^------------------+       |     |
+                         |          |                           |     |
+                         |PostgreSQL+^--------------------------+     |
+                         |          |                                 |
+                         |          <---------------------------------+
+                         +----------+
+```
+
+You can run multiple instances of skygear-server which provide core
+functionality of Skygear. And also multiple instances of skygear-node and
+py-skygear which are for Cloud Functions of Javascript and Python
+respectively. There are a number of official plugins, such as chat, which are
+technically identical to other Cloud Functions.
+
+All configuration are in environment for ease of deployment.
+
+One module missing in the diagram above is the WebSocket server for pubsub.
+Which is optional depends on if you need the pubsub functionality.
+
+Connections between different services are either [zmq](http://zeromq.org/) or
+HTTP.
+
+For authentication token, the default token store is JWT. If you use Redis or
+FS, you will need a redis or filesystem available for skygear-server.
+
+In most repository you can find docker-compose config.
+
+## Environment
+
+Skygear can be set up on:
 
 * macOS
 * Unix based machines
@@ -61,5 +111,5 @@ If you wish to write cloud code in JS, you will need to install the node runtime
 	``` 
 3. Run skygear-node in your project folder. Skygear will look for `index.js` as entry point and run your code
 	``` bash
-	skygear-node
+	$(npm bin)/skygear-node
 	```
