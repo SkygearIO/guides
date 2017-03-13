@@ -38,6 +38,10 @@ Note: Currently it only supports two languages; the behavior will be unexpected
 if there are more consecutive different language fenced code blocks.
 You can insert paragraphs and text between the codes to avoid this.
 
+## ASCII Diagram
+
+ASCII Diagram are generated with [asciiflow](http://asciiflow.com/)
+
 ## Style Guide
 
 - Use You to refer to the reader
