@@ -88,11 +88,15 @@ continue setting up as Part II describes.
 	```
 1. You can found the complete [environment variable list here](https://github.com/SkygearIO/skygear-server/blob/master/.env.example). Note that you may not need all environment variables to get your server set up.
 1. Run skygear with command line tool. Skygear is running in your local machine. You can now config your app to connect to your local server.
-1. [For Cloud Code only] To enable JS cloud code plugin, you will need to add the follow environment variables in your **server environment**, so skygear will look for the skygear-node when it starts. Assume that you are running skygear-node at `localhost:9000`.
+1. [For Cloud Code only] To enable JS cloud code plugin, you will need to add the follow environment variables in your **server environment**, so skygear will look for the skygear-node when it starts. Assume that you are running two skygear-node at `localhost:9000` and `localhost:9001`.
 	``` bash
-        export PLUGINS="JS"
-        export JS_TRANSPORT="http"
-        export JS_PATH="http://localhost:9000"
+        export PLUGINS="JS1"
+        export JS1_TRANSPORT="http"
+        export JS1_PATH="http://localhost:9000"
+
+        export PLUGINS="JS2"
+        export JS2_TRANSPORT="http"
+        export JS2_PATH="http://localhost:9001"
 	```
 
 ## **Part II: Install Skygear Cloud Code (JS)**
