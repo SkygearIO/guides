@@ -58,7 +58,7 @@ FS, you will need a redis or filesystem available for skygear-server.
 
 In most repository you can find docker-compose config.
 
-## Environment
+## Operating System
 
 Skygear can be set up on:
 
@@ -70,7 +70,7 @@ To get Skygear Sever running, you can just install follow Part I to install
 Skygear. If you wish to write cloud code in JavaScript, you will need to
 continue setting up as Part II describes.
 
-## Part I: Install Skygear Server**
+## Install Skygear Server
 
 1. Set up PostgreSQL database in your local machine
     1. Mac version(easiest way): Install PostgreSQL with [postgresapp.com](http://postgresapp.com/)
@@ -99,7 +99,7 @@ continue setting up as Part II describes.
         export JS2_PATH="http://localhost:9001"
 	```
 
-## **Part II: Install Skygear Cloud Code (JS)**
+## Install Skygear Cloud Functions (JS)**
 
 If you wish to write cloud code in JS, you will need to install the node runtime in your local machine as well. Here shows you how: 
 
@@ -117,3 +117,167 @@ If you wish to write cloud code in JS, you will need to install the node runtime
 	``` bash
 	$(npm bin)/skygear-node
 	```
+
+## Common Configurations for Skygear Server
+
+As mentioned above, all configuration are via environment variables. Here are
+some common features.
+
+### App Name and API Key
+
+It is strongly recommended that you change the App Name and the API Key.
+The App Name should be a string consisting of alphanumeric and underscore
+that can identify your app among other apps that might reside on the same
+system. The App Name also serves as a prefix to the database schema, which
+isolates data from the other apps.
+
+The API Key serves as a shared secret between the Skygear backend and the
+Skygear client app. The Skygear client app must possess the key to make API
+requests to Skygear backend.
+
+### S3 Configurations
+
+Skygear supports using Amazon S3 as the default storage backend.
+Set the AWS access key, secret key, region and bucket by the following
+environment variables.
+
+```
+$ export ASSET_STORE=s3
+$ export ASSET_STORE_PUBLIC=NO
+$ export ASSET_STORE_ACCESS_KEY=AKXXXXXXXXXXXXXXXXXX
+$ export ASSET_STORE_SECRET_KEY=3XXx/X/XxxXXXXxXxXxxXXXXxx00x0XXxXxx0xxX
+$ export ASSET_STORE_REGION=us-east-1
+$ export ASSET_STORE_BUCKET=thebucketname
+```
+
+If your S3 is readable by the public, you can set `ASSET_STORE_PUBLIC` to `YES`
+so that the access signature can be omitted.
+
+### Admin User
+
+After launching Skygear Server, an administrative role (`Admin`) and an
+admin user is created. The default username is `admin` and the default
+password is `secret`.
+
+Please remember to change the password of the admin user before your
+application is push to production. The following Bash Script helps you to
+change the password.
+
+```bash
+# Please update the following settings
+USER_NAME='admin'
+PASSWORD='secret'
+NEW_PASSWORD='new-password'
+SKYGEAR_API_KEY='changeme'
+SKYGEAR_ENDPOINT='https://your-endpoint.skygeario.com/'
+
+
+ACCESS_TOKEN=$(curl -sX POST \
+-d "{
+  \"action\": \"auth:login\",
+  \"api_key\": \"$SKYGEAR_API_KEY\",
+  \"username\": \"$USER_NAME\",
+  \"password\": \"$PASSWORD\"
+}" \
+$SKYGEAR_ENDPOINT |
+python -c 'import json,sys; print json.load(sys.stdin)["result"]["access_token"]'
+) && \
+curl -sX POST \
+-d "{
+  \"action\": \"auth:password\",
+  \"api_key\": \"$SKYGEAR_API_KEY\",
+  \"access_token\": \"$ACCESS_TOKEN\",
+  \"old_password\": \"$PASSWORD\",
+  \"password\": \"$NEW_PASSWORD\"
+}" \
+$SKYGEAR_ENDPOINT > /dev/null && \
+echo "Success"
+```
+
+### Logging
+
+Logging lets you keep track of what is happening in Skygear. Information
+from log is very important for diagnosing bugs and performance issues.
+
+List of logging levels: `debug`, `info`, `warn`, `error`, `fatal`, `panic`.
+
+To change the Skygear logging level, modify `LOG_LEVEL`:
+
+```
+$ export LOG_LEVEL=warn
+```
+
+Skygear supports using [Sentry](https://getsentry.com/) as the logging backend.
+To enable logging with Sentry, simply add `SENTRY_DSN` and `SENTRY_LEVEL`:
+
+```
+$ export SENTRY_DSN=http://abcd:efgh@sentry.example.com/sentry/project1
+$ export SENTRY_LEVEL=warn
+```
+
+### All Environment Variables
+
+* `APP_NAME` - string, alphanumeric or underscore, name of the application
+* `API_KEY` - string, shared secret between backend and client app
+* `MASTER_KEY` - string, for potentially destructive operations and request
+  options restricted to system administrators
+* `CORS_HOST` - string, hostname for cross origin access control
+* `SLAVE` - boolean, specify `true` to run skygear-server is in
+  slave mode.  If you have multiple skygear-servers running behind a load
+  balancer, you should dedicate one skygear-server as leader and enable slave 
+  mode on all the rest. When slave mode is enabled, features such as pubsub and 
+  cron jobs are disabled on slaves so the slaves will not be in conflict with the
+  leader, meaning that only one instance of skygear-server will be running these
+  features.
+
+#### Token store related
+* `TOKEN_STORE` - the backing store for user token, supporting `fs`,
+  `redis` and `jwt`. `fs` is intended for local development.
+  Please use `redis` or `jwt` for production deployment.
+  * `fs` - uses the file system to store access tokens
+  * `redis` - uses Redis database to store access tokens
+  * `jwt` - encodes user info in the access token passed to the client
+* `TOKEN_STORE_PATH` - where the token will store when using `fs`. Or the
+  URL when using `redis`, e.g. `redis://localhost:6379`
+* `TOKEN_STORE_PREFIX` - string, prefix to the access token for using Redis.
+* `TOKEN_STORE_EXPIRY` - integer, number of seconds the created access token
+  will expire. Default is to never expire.
+* `TOKEN_STORE_SECRET` - string, for `jwt`, the secret used to validates
+  the access token.
+
+#### Asset store related
+* `ASSET_STORE` - the backing store of assets, currently supporting `fs` and `s3`.
+  `fs` is intended for local development
+* `ASSET_STORE_PUBLIC` - specifying the asset is public or follows ACL: `YES` or
+  `NO`
+* `ASSET_STORE_PATH` - where the asset is saved when using `fs` backing store.
+* `ASSET_STORE_URL_PREFIX` - the URL prefix Skygear will generate for `fs`
+  store.
+* `ASSET_STORE_SECRET` - the signing key for `fs` store
+* `ASSET_STORE_ACCESS_KEY` - `s3` access key
+* `ASSET_STORE_SECRET_KEY` - `s3` secret key
+* `ASSET_STORE_REGION` - `s3` region, with the default as `us-east-1`
+* `ASSET_STORE_BUCKET` - `s3` bucket name
+
+#### Apple Push notification related
+* `APNS_ENABLE` - string, `YES` or `NO`
+* `APNS_ENV` - string, `sandbox` or `production`
+* `APNS_CERTIFICATE` - full string of the certificate in PEM format
+* `APNS_PRIVATE_KEY` - full string of the private key in PEM format
+* `APNS_CERTIFICATE_PATH` - string, absolute path to the cert, in PEM format.
+* `APNS_PRIVATE_KEY_PATH` - string, absolute path to the private key, in PEM format.
+
+Read [this guide](http://docs.moengage.com/docs/ios-push-notifications#making-a-pem-file)
+to learn how to convert a cert/key to PEM.
+
+#### GCM(Google Cloud Messaging) related
+* `GCM_ENABLE` - string , `YES` or `NO`
+* `GCM_APIKEY` - string, the API key you obtained from Google
+
+## Docker Deployment
+
+You can find Dockerfile and [docker-compose.yml](https://github.com/SkygearIO/skygear-server/blob/master/docker-compose.yml)
+in most repo. Skygear also support using [.env](https://github.com/SkygearIO/skygear-server/blob/master/.env.example) to setup environments config.
+
+For more information about how the `.env` file works, please read
+https://github.com/joho/godotenv
