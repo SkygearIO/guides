@@ -1,30 +1,30 @@
 ---
-title: Introduction and Deployment of Cloud Code
+title: Introduction and Deployment of Cloud Functions
 ---
 
 [[toc]]
 
 
-## What is Cloud Code?
+## What is Cloud Functions?
 
-Cloud codes are custom functions that run on the Skygear server.
+Cloud Functions are custom functions that run on the Skygear server.
 They are useful when:
 
 - you need to build functionalities that are not basic database operations
   provided in the SDK
 - you do not want to expose your codes in the front end client
 
-Under the hood, cloud codes communicate with the Skygear server
+Under the hood, Cloud Functions communicate with the Skygear server
 using a micro-services architecture through [ZeroMQ][zeromq]
 or [HTTP2][http2].
 
-Currently Skygear supports [Python 3][python3] for
-cloud codes. JavaScript is on the roadmap.
+Currently Skygear supports [Python 3][python3] and [JavaScript][javascript] for
+Cloud Functions.
 
-Below is a simple cloud code example.
+Below is a simple Cloud Functions example.
 It is extracted from an app that stores information about our cats.
 (Yes we got 4 cats in the office!)
-The cloud code below checks if the field "name" is filled before
+The Cloud Functions below checks if the field "name" is filled before
 saving the record to the database.
 If not, it will raise an exception and will not save the record.
 
@@ -38,20 +38,20 @@ def validate_cat_name(record, original_record, db):
 ```
 
 
-## Cloud code deployment
+## Cloud Functions deployment
 
 
-To have your cloud codes running on your Skygear server,
-you need to deploy the cloud codes as a git repository to the Skygear cloud
+To have your Cloud Functions running on your Skygear server,
+you need to deploy the Cloud Functions as a git repository to the Skygear cloud
 server. After pushing your git
 repository to the cloud, the codes will be deployed automatically.
 
-These are the steps to deploy (push) cloud codes to the Skygear cloud:
+These are the steps to deploy (push) Cloud Functions to the Skygear cloud:
 
 1. get your code ready
 2. configure your SSH public key in Skygear Portal
 3. setup the git remote repository of Skygear Cloud
-4. deploy the cloud codes
+4. deploy the Cloud Functions
 
 ### 1. Get your code ready
 
@@ -66,8 +66,8 @@ git clone https://github.com/skygear-demo/cloud-code-quick-start.git
 
 The sample repository contains 3 files:
 
-- `__init__.py` - to make this a package directory and import the cloud code
-- `cloud_code.py` - where the cloud codes are
+- `__init__.py` - to make this a package directory and import the Cloud Functions
+- `cloud_code.py` - where the Cloud Functions are
 - `README.md` - the README file
 
 
@@ -103,19 +103,19 @@ git remote add skygear-portal ssh://<your-cloud-code-git-url>
 # you can verify the remote repo list by `git remote -v`
 ```
 
-You can obtain your Cloud Code Git URL from the [Skygear Portal INFO tab][portal-app-info].
+You can obtain your Cloud Functions Git URL from the [Skygear Portal INFO tab][portal-app-info].
 
 
-### 4. Deploy the cloud codes
+### 4. Deploy the Cloud Functions
 
-Deploying your cloud codes to the Skygear Cloud can be done by
+Deploying your Cloud Functions to the Skygear Cloud can be done by
 pushing them to the remote repository:
 
 ```bash
 git push skygear-portal master
 ```
 
-The cloud code will then be deployed automatically.
+The Cloud Functions will then be deployed automatically.
 It takes a few second to have your codes up and running on the server
 after pushing them to the cloud.
 
@@ -187,11 +187,11 @@ Do you see `Meow! Thanks!`? If yes it means the deployment is successful.
 You are now good to go. :grinning:
 
 
-## How Cloud Code Works
+## How Cloud Functions Works
 
-Now, let's examine the cloud code example in details.
+Now, let's examine the Cloud Functions example in details.
 
-Functions defined in the cloud code `cloud_code.py` are recognized
+Functions defined in the Cloud Functions `cloud_code.py` are recognized
 by Skygear using decorators. There are 4 types of functions that
 can be used; they are illustrated by the 4 functions in the examples.
 
@@ -302,15 +302,15 @@ More details can be found in
 [HTTP Handlers][doc-cloud-code-http-handler].
 
 
-## Creating Cloud Code from Scratch
+## Creating Cloud Functions from Scratch
 
 At a minimum, you need a git repository with the `__init__.py` file
-for the cloud code to initialize itself.
+for the Cloud Functions to initialize itself.
 You can import other files from `__init__.py` as seen in the example we used.
 
 The following bash commands create a `cloud-code` git repository directory with a
 `__init__.py` file importing codes from `hello_world.py`, which is ready for
-a "hello world" cloud code deployment.
+a "hello world" Cloud Functions deployment.
 
 ```bash
 # create and initialize new git repository `cloud-code`
@@ -318,7 +318,7 @@ mkdir cloud-code
 cd cloud-code
 git init
 
-# use hello_world.py to write the first cloud code
+# use hello_world.py to write the first Cloud Functions
 echo "from .hello_world import *" > __init__.py
 touch hello_world.py
 
@@ -330,7 +330,7 @@ git add .
 git commit -m "Initial commit"
 ```
 
-To start writing the cloud code using skygear decorators, you need to import
+To start writing the Cloud Functions using skygear decorators, you need to import
 the `skygear` module, in `hello_world.py` for example:
 
 ```
@@ -347,9 +347,9 @@ automatically installed for you.
 
 ## Request Process Flowchart
 
-The following flowchart summarizes the process for the cloud codes.
+The following flowchart summarizes the process for the Cloud Functions.
 
-[![Cloud Code Request Process Flowchart][doc-request-flow-chart]][doc-request-flow-chart]
+[![Cloud Functions Request Process Flowchart][doc-request-flow-chart]][doc-request-flow-chart]
 
 [zeromq]: http://zeromq.org
 [http2]: https://http2.github.io/
