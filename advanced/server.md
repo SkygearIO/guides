@@ -41,7 +41,7 @@ A typical deployment of Skygear is like this:
 
 You can run multiple instances of skygear-server which provide core
 functionality of Skygear. And also multiple instances of skygear-node and
-py-skygear which are for Cloud Functions of Javascript and Python
+py-skygear which are for Cloud Functions of JavaScript and Python
 respectively. There are a number of official plugins, such as chat, which are
 technically identical to other Cloud Functions.
 
@@ -53,10 +53,8 @@ Which is optional depends on if you need the pubsub functionality.
 Connections between different services are either [zmq](http://zeromq.org/) or
 HTTP.
 
-For authentication token, the default token store is JWT. If you use Redis or
-FS, you will need a redis or filesystem available for skygear-server.
-
-In most repository you can find docker-compose config.
+For authentication token, the default token store is `JWT`. If you use `Redis` or
+`FS`, you will need a Redis or file system available for skygear-server.
 
 ## Operating System
 
@@ -276,8 +274,8 @@ to learn how to convert a cert/key to PEM.
 
 ## Docker Deployment
 
-You can find Dockerfile and [docker-compose.yml](https://github.com/SkygearIO/skygear-server/blob/master/docker-compose.yml)
-in most repo. Skygear also support using [.env](https://github.com/SkygearIO/skygear-server/blob/master/.env.example) to setup environments config.
+You can find Dockerfile and [`docker-compose.yml`](https://github.com/SkygearIO/skygear-server/blob/master/docker-compose.yml)
+in most repository. Skygear also support using [.env](https://github.com/SkygearIO/skygear-server/blob/master/.env.example) to setup environments config.
 
 For more information about how the `.env` file works, please read
 https://github.com/joho/godotenv

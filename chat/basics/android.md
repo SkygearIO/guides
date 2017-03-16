@@ -26,7 +26,7 @@ dependencies {
 
 You will be hinted for a project sync as you have updated the `gradle` files. The Skygear Android SDK will have been installed when the sync is completed.
 
-You will interact with the Chat Container to access features of the Chat API. Here is how you can get the ChatContainer instance:
+You will interact with the Chat Container to access features of the Chat API. Here is how you can get the `ChatContainer` instance:
 
 ```Java
 Container skygear = Container.defaultContainer(getApplicationContext());
@@ -686,8 +686,8 @@ Coming soon
 Skygear Chat does not have support on caching message history locally. However you can always achieve offline caching with other tools.
 
 There are some good libraries helping you to cache messages offline:
-- [Android dualcache](https://github.com/vincentbrison/dualcache)
-- [Disk LRU Cache](https://github.com/JakeWharton/DiskLruCache)
+- [`Android dualcache`](https://github.com/vincentbrison/dualcache)
+- [`Disk LRU Cache`](https://github.com/JakeWharton/DiskLruCache)
 
 ### Handling edit and delete messages
 
