@@ -97,9 +97,11 @@ continue setting up as Part II describes.
         export JS2_PATH="http://localhost:9001"
 	```
 
-## Install Skygear Cloud Functions (JS)**
+## Install skygear-node
 
-If you wish to write cloud code in JS, you will need to install the node runtime in your local machine as well. Here shows you how: 
+There could be multiple instances of Cloud Functions running as shown above. If
+you wish to write cloud functions  in JS, you will need to install the node
+runtime in your local machine as well. Here shows you how:
 
 1. To get the node runtime, we need the Skygear SDK. Install Skygear SDK with npm:
 	``` bash
@@ -116,7 +118,7 @@ If you wish to write cloud code in JS, you will need to install the node runtime
 	$(npm bin)/skygear-node
 	```
 
-## Common Configurations for Skygear Server
+## Configurations of Skygear Server
 
 As mentioned above, all configuration are via environment variables. Here are
 some common features.
