@@ -18,7 +18,7 @@ Under the hood, Cloud Functions communicate with the Skygear server
 using a micro-services architecture through [ZeroMQ][zeromq]
 or [HTTP2][http2].
 
-Currently Skygear supports [Python 3][python3] and [JavaScript][javascript] for
+Currently Skygear supports [Python 3][python3] and JavaScript for
 Cloud Functions.
 
 Below is a simple Cloud Functions example.
