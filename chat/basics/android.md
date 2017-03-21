@@ -33,7 +33,7 @@ Container skygear = Container.defaultContainer(getApplicationContext());
 ChatContainer chatContainer = ChatContainer.getInstance(skygear);
 ```
 
-## >Creating conversations
+## Creating conversations
 In order to send messages, you need to create a conversation first. You can consider **conversations** as chatrooms or channels in your application.
 
 There are two types of conversations in Skygear:
@@ -503,7 +503,7 @@ In order to get real time update of new messages, you can subscribe to a convers
 Container skygear = Container.defaultContainer(getApplicationContext());
 ChatContainer chatContainer = ChatContainer.getInstance(skygear);
 
-chatContainer.subscribeConversationMessage(conversation, new MessageSubscriptionCallback() {
+chatContainer.subscribeConversationMessage(conversation, new MessageSubscriptionCallback(conversation) {
     @Override
     public void notify(@NonNull String eventType, @NonNull Message message) {
         Log.i("MyApplication", "Event Type:"+ eventType +", Message: " + message.getBody());
@@ -585,7 +585,7 @@ with [`subscribeTypingIndicator`](https://docs.skygear.io/android/plugins/chat/r
 Container skygear = Container.defaultContainer(getApplicationContext());
 ChatContainer chatContainer = ChatContainer.getInstance(skygear);
 
-chatContainer.subscribeTypingIndicator(conversation, new TypingSubscriptionCallback() {
+chatContainer.subscribeTypingIndicator(conversation, new TypingSubscriptionCallback(conversation) {
     @Override
     public void notify(@NonNull Map<String, Typing> typingMap) {
     // Handle event here
@@ -694,30 +694,31 @@ There are some good libraries helping you to cache messages offline:
 You can edit or delete `Message` records like other records. Then save it to the cloud.
 
 Here is an example on how you can edit the body text of the last message in a conversation:
-```swift
-SKYContainer.default().chatExtension?.fetchMessages(
-    conversation: conversation.conversation,
-    limit: 100,
-    beforeTime: nil,
-    completion: { (messages, error) in
-        if let err = error {
-            print ("Error when fetching the messages. " +
-                   "Error: \(err.localizedDescription)")
-            return
+
+
+```Java
+Record messageRecord = message.getRecord();
+messageRecord.set("body","Updated body content");
+
+try {
+    skygear.getPrivateDatabase().save(messageRecord, new RecordSaveResponseHandler() {
+        @Override
+        public void onSaveSuccess(Record[] records) {
+            Log.i("MyApplication", "Message body saved");
         }
 
-        if let messages = messages {
-            let lastMessage = messages.last
-            lastMessage?.body = "The body is changed"
-            SKYContainer.default().publicCloudDatabase.save(lastMessage,
-                completion: { (record, error) in
-                    if let err = error {
-                        print ("Error when saving record. " +
-                               "Error: \(err.localizedDescription)")
-                        return
-                    }
-                    print ("Updated the message")
-        })
-    }
-})
+        @Override
+        public void onPartiallySaveSuccess(Map<String, Record> successRecords, Map<String, Error> errors) {
+            Log.i("MyApplication", "Some messages failed to save");
+        }
+
+        @Override
+        public void onSaveFail(Error error) {
+            Log.w("MyApplication", "Failed to save message: " + error.getMessage(), error);
+        }
+    });
+} catch (AuthenticationException e) {
+    e.printStackTrace();
+}
+
 ```
