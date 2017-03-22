@@ -14,28 +14,28 @@ This guide is for advanced users only. Normally using Skygear.io should be the s
 
 A typical deployment of Skygear is like this:
 
-```
+```xml
                                                    +--------------------+
                                                    |     skygear-node   |
-                      +------------------+    +---^+(JS Cloud Functions)|
+                      +------------------+    +--- |(JS Cloud Functions)|
                       |                  |    |    +------------------+-+
                       |                  |    |                       |
 +----------------+    |                  |    |    +----------------+ |
 |   (Optional)   |    |  skygear-server  |    |    |   py-skygear   | |
-|     Nginx      +----+(1 to n instances)| <-------+    (python     | |
+|     Nginx      |----|(1 to n instances)| ------- |    (python     | |
 |  Load Balancer |    |                  |    |    |Cloud Functions)| |
-+----------------+    |                  |    |    +------------+---+ |
++----------------+    |                  |    |    +----------------+ |
                       |                  |    |                 |     |
                       |                  |    |    +---------+  |     |
-                      +--------+---------+    |    |  chat   |  |     |
-                               |              +----+(Plugins)|  |     |
-                               v                   +----+----+  |     |
-                         +-----+----+                   |       |     |
-                         |          +^------------------+       |     |
+                      +------------------+    |    |  chat   |  |     |
+                               |              +----|(Plugins)|  |     |
+                               v                   +---------+  |     |
+                         +----------+                   |       |     |
+                         |          | ------------------+       |     |
                          |          |                           |     |
-                         |PostgreSQL+^--------------------------+     |
+                         |PostgreSQL| --------------------------+     |
                          |          |                                 |
-                         |          <---------------------------------+
+                         |          | --------------------------------+
                          +----------+
 ```
 
@@ -86,7 +86,7 @@ continue setting up as Part II describes.
 	```
 1. You can found the complete [environment variable list here](https://github.com/SkygearIO/skygear-server/blob/master/.env.example). Note that you may not need all environment variables to get your server set up.
 1. Run skygear with command line tool. Skygear is running in your local machine. You can now config your app to connect to your local server.
-1. [For Cloud Code only] To enable JS cloud code plugin, you will need to add the follow environment variables in your **server environment**, so skygear will look for the skygear-node when it starts. Assume that you are running two skygear-node at `localhost:9000` and `localhost:9001`.
+1. [For Cloud Functions only] To enable JS cloud code plugin, you will need to add the follow environment variables in your **server environment**, so skygear will look for the skygear-node when it starts. Assume that you are running two skygear-node at `localhost:9000` and `localhost:9001`.
 	``` bash
         export PLUGINS="JS1"
         export JS1_TRANSPORT="http"
