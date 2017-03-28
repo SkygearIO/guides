@@ -1,5 +1,6 @@
 ---
 title: User Authentication Basics
+description: User sign up, login, logout / access token / username, email and password management in JS
 ---
 
 [[toc]]

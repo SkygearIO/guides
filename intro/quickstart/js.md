@@ -1,5 +1,6 @@
 ---
 title: Quick Start
+description: Adding Skygear to your web apps
 ---
 
 [[toc]]

@@ -1,5 +1,6 @@
 ---
 title: Quick Start
+descripition: Adding Skygear to your Android apps
 ---
 
 [[toc]]
