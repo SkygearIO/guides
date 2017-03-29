@@ -23,7 +23,7 @@ A lambda function can be created using the `@skygear.op` decorator.
 The decorator syntax is:
 
 ```python
-@skygear.op(name, user_required=False)
+@skygear.op(name, user_required=False, key_required=False)
 ```
 
 - **`name`** (String)
@@ -38,6 +38,16 @@ The decorator syntax is:
   error if an unauthenticated user tries to call this function.
 
   The default value is `False`.
+
+- **`key_required`** (boolean, optional)
+
+  If `key_required` is set to `True`, only authenticated user
+  or client with API key can call this function. Skygear will return a
+  `NotAuthenticated` error if an unauthenticated user and a client
+  without API key tries to call this function.
+
+  The default value is `False`. If `user_required` is set to `True`, this
+  parameter is ignored.
 
 ### Passing arguments to Lambda Functions
 
