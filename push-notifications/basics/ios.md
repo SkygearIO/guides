@@ -202,6 +202,36 @@ operation?.sendCompletionHandler = { (deviceIDs, error) in
 }
 ```
 
+## Unregistering device
+
+When a device is registered, it is associated with the authenticated user.
+Therefore it is necessary to unregister the device when the user is no longer
+associated with the device, for example when the user logs out.
+
+```obj-c
+[container unregisterDeviceCompletionHandler:^(NSString *deviceID, NSError *error) {
+    if (error != nil) {
+        NSLog(@"Cannot unregister device");
+        return;
+    }
+    [container logoutWithCompletionHandler:^(SKYUser *user, NSError *error) {
+        // handle logout result
+    }];
+}];
+```
+
+```swift
+container.unregisterDeviceCompletionHandler({ (deviceID, error) in
+    if error != nil {
+        print ("Cannot unregister device")
+        return
+    }
+    container.logout(completionHandler: { (user, error) in
+        // handle logout result
+    })
+})
+```
+
 ### TODO: Problems with the interface
 
 1. There are no exported interfaces for SDK to fetch device ids. Sending to device
