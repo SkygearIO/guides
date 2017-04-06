@@ -181,6 +181,7 @@ An asset can only be saved with a record but not as a standalone upload.
 Skygear automatically uploads the files to a server that you specify,
 like Amazon S3.
 
+### Create an Asset via the File API
 For example, you want to allow users to upload an image as an `attachment` to his `note`.
 
 First you need to make a file upload form:
@@ -189,7 +190,7 @@ First you need to make a file upload form:
 <input type="file" id="picture" accept="image/*">
 ```
 
-Once the user has selected the image to upload, you can save it by:
+Once the user has selected the image to upload, you can create an Asset object by:
 
 ``` javascript
 const Note = skygear.Record.extend('note');
@@ -198,6 +199,28 @@ const picture = new skygear.Asset({
   name: '<your-asset-name>',
   file: document.getElementById('picture').files[0],
 });
+```
+
+### Create an Asset with a base64 string
+
+Apart from creating an Asset with File API, you can also create one using
+a base64 string.
+They behave the same.
+
+``` javascript
+const picture = new skygear.Asset({
+  name: 'hello.png',           // filename of your asset
+  base64: 'iVBORw0KGgoAAAA...' // base64 of the file, no mime
+  contentType: 'image/png'     // mime of the file
+});
+```
+
+### Saving the asset
+
+The Asset object should then be passed to a record, which would upload the asset
+when the record is saved.
+
+```
 const note = new Note({ attachment: picture });
 skygear.publicDB.save(note) // automatically upload the picture
 .then((record) => {
@@ -209,7 +232,7 @@ skygear.publicDB.save(note) // automatically upload the picture
 })
 ```
 
-1. Call the `Asset` method to create an `Asset` object and it is stored in an asset column of the `note` object.
+1. Associate the Asset to the Note record object by setting it to the attachment field.
 2. When you save the `note` object, the image is automatically uploaded to the server.
 
 [doc-auth-basics]: /guides/auth/basics/js/
