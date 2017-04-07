@@ -81,6 +81,8 @@ skygear.config({
 You can get your server endpoints and the API keys in the _info page_ in your [developer portal](https://portal.skygear.io/apps) after signing up for the [Skygear Cloud Services](https://portal.skygear.io/signup).
 :::
 
+That is it. You are good to go now. You can continue with the step below to learn about basic database operations.
+
 ## Step 2: Create your first record in Skygear
 
 Now, let's create a record in the Skygear database to see if the SDK has been installed successfully.

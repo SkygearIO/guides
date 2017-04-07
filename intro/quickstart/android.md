@@ -51,7 +51,7 @@ dependencies {
 
 If your existing project does not have any extension, you can configure Skygear by creating an `Application ` that extends `SkygearApplication`.
 
-Assume your custom application is defined in `MyApplication.java`, add the following lines to the file.
+Assume you already have your custom application defined in `MyApplication.java`  (if not please create one), add the following lines to the file.
 
 ```java
 import io.skygear.skygear.SkygearApplication;
@@ -114,7 +114,7 @@ For the Skygear Android SDK to work, make sure the following two items are set i
     android:name=".MyApplication">
 </application>
 ```
-
+That is it. You are good to go now. You can continue with the step below to learn about basic database operations.
 
 ## Step 4: Create your first record in Skygear
 Now, let's create a record in the Skygear database to see if the SDK has been installed successfully.
