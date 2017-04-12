@@ -16,6 +16,20 @@ skygear.on('ping', (data) => {
 });
 ```
 
+### Waiting for a single event
+
+``` javascript
+skygear.pubsub.once('event')
+.then(_ => {
+  // do stuff after event happened
+});
+```
+or with ES7 async/await:
+``` javascript
+await skygear.pubsub.once('event');
+// do stuff after event happened
+```
+
 ## Unsubscribing an event
 
 ### Unsubscribing all handlers for an event
