@@ -246,7 +246,7 @@ reference     @ref:<referenced_id>
 string        @str:<literal>
 ```
 
-See [Protocol Data Type](https://github.com/oursky/skygear/wiki/Protocol-DataType) for more complex value supported by Skygear.
+See [Protocol Data Type](https://github.com/SkygearIO/skygear-server/wiki/Protocol-DataType) for more complex value supported by Skygear.
 
 #### Handling assets
 

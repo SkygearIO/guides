@@ -267,7 +267,7 @@ $ export SENTRY_LEVEL=warn
 * `APNS_CERTIFICATE_PATH` - string, absolute path to the cert, in PEM format.
 * `APNS_PRIVATE_KEY_PATH` - string, absolute path to the private key, in PEM format.
 
-Read [this guide](http://docs.moengage.com/docs/ios-push-notifications#making-a-pem-file)
+Read [this guide](http://stackoverflow.com/questions/991758/how-to-get-pem-file-from-key-and-crt-files)
 to learn how to convert a cert/key to PEM.
 
 #### GCM(Google Cloud Messaging) related

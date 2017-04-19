@@ -231,5 +231,5 @@ Check the server [database schema][doc-database-schema] page for more.
 [doc-setup-skygear]: /guides/get-started/js/
 [doc-data-type]: /guides/cloud-db/data-types/js/
 [doc-reserved-columns]: #reserved-columns
-[doc-database-schema]: /server/guides/database-schema
+[doc-database-schema]: /guides/advanced/database-schema/
 [doc-queries]: /guides/cloud-db/queries/js/
