@@ -8,10 +8,7 @@ description: User sign up, login, logout / access token / username, email and pa
 Skygear support user authentication with email or username. The following
 shows how it works using Skygear SDK.
 
-
-## Managing User
-
-### Signing up
+## Signing up
 
 The following shows how to sign up a user with username and password.
 
@@ -55,7 +52,7 @@ skygear.signupWithEmail(email, password, new AuthResponseHandler() {
 });
 ```
 
-### Logging in
+## Logging in
 
 The following shows how to log in a user with username and password.
 
@@ -100,7 +97,7 @@ skygear.loginWithUsername(email, password, new AuthResponseHandler() {
 ```
 
 
-## Current User
+## Getting the current User
 
 After sign up / log in, the user session can be obtained by:
 
