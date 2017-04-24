@@ -182,9 +182,11 @@ Skygear automatically uploads the files to a server that you specify,
 like Amazon S3.
 
 ### Create an Asset via the File API
-For example, you want to allow users to upload an image as an `attachment` to his `note`.
 
-First you need to make a file upload form:
+The common use case is to create an asset using the File API using
+an HTML form with a file input field.
+
+First you need to create a file upload input field:
 
 ``` html
 <input type="file" id="picture" accept="image/*">
@@ -193,47 +195,47 @@ First you need to make a file upload form:
 Once the user has selected the image to upload, you can create an Asset object by:
 
 ``` javascript
-const Note = skygear.Record.extend('note');
-
 const picture = new skygear.Asset({
-  name: '<your-asset-name>',
+  name: 'your-asset-name',
   file: document.getElementById('picture').files[0],
 });
 ```
 
 ### Create an Asset with a base64 string
 
-Apart from creating an Asset with File API, you can also create one using
+Apart from creating an Asset through the File API, you can also create one using
 a base64 string.
-They behave the same.
 
 ``` javascript
 const picture = new skygear.Asset({
-  name: 'hello.png',           // filename of your asset
-  base64: 'iVBORw0KGgoAAAA...' // base64 of the file, no mime
-  contentType: 'image/png'     // mime of the file
+  name: 'hello.png',            // filename of your asset
+  base64: 'iVBORw0KGgoAAAA...', // base64 of the file, no mime
+  contentType: 'image/png'      // mime of the file
 });
 ```
 
 ### Saving the asset
 
-The Asset object should then be passed to a record, which would upload the asset
-when the record is saved.
+
+After creating an Asset, you need to attach it to a record.
+Skygear will upload the asset when the record is saved.
+
+For example, you want to allow users to upload an image as an `attachment`
+to his `note`:
 
 ```
+const Note = skygear.Record.extend('note');
+
 const note = new Note({ attachment: picture });
 skygear.publicDB.save(note) // automatically upload the picture
 .then((record) => {
-  console.log(record.attachment.url); // where you can load the image
+  console.log(record.attachment.url);
   // if configured properly, the url should look like the following
   // <ASSET_STORE_URL_PREFIX>/<asset-id>-<your-asset-name>
 }, (error) => {
   console.error(error)
 })
 ```
-
-1. Associate the Asset to the Note record object by setting it to the attachment field.
-2. When you save the `note` object, the image is automatically uploaded to the server.
 
 [doc-auth-basics]: /guides/auth/basics/js/
 [doc-relational-queries]: /guides/cloud-db/queries/js/
