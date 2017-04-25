@@ -13,8 +13,7 @@ Skygear Chat is built on top of the cloud database and the PubSub module. If you
 Before we start, make sure you have already:
 
 - switched on the Chat plug-in in the developer portal
-- installed the Chat SDK
-- imported skygear-chat in your project
+- imported Chat SDK (skygear-chat) in your project
 
 ```javascript
 const skygearChat = require('skygear-chat')
@@ -30,6 +29,8 @@ And here are a list of Sample Projects using Skygear JS Chat SDK:
   Conversation; although they are included as Example.
 * We should also explain conversation options are configurable via
   [`updateConversation`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/container.js~SkygearChatContainer.html#instance-method-updateConversation)
+* We should explain or include a link to the UIKit for quick chat application
+  implementation
 * We should mention the TypingIndicator Utility.
 * Expand the Recipient status section
 * Explain and include samples for User Online Indicator
@@ -99,16 +100,17 @@ If you are using a 3rd party login provider, you need create write your own user
 :::
 
 There are a few more attributes you can specify when you create a conversation:
+`skygearChat.createConversation(partcipants, title, meta, options)`.
 
-- **Title**: That's the title of a conversation. It can be omitted.
-- **Meta**: It is for application specific purpose. Say in your app you have different type of conversations, you can specific it here.
-- **Options**: There are two options of a conversation, `distinctByParticipants` and `admins`. `distinctByParticipants` applies only to group conversation and `admins` applies to both conversation types. See more details more.
+- **title**: That's the title of a conversation. It can be omitted.
+- **meta**: It is for application specific purpose. Say in your app you have different type of conversations, you can specific it here.
+- **options**: There are two options of a conversation, `distinctByParticipants` and `admins`. `distinctByParticipants` applies only to group conversation and `admins` applies to both conversation types. See more details more.
 
 **DistinctByParticipants**
 
 This option useful when you want to create group conversation with distinct participants.
 
-When `DistinctByParticipants` is `True`, when you create a conversation with a group of people, and a conversation with the same group of people already exists, the call will return the existing conversation.
+If `DistinctByParticipants` is `True`, when you create a conversation with a group of people, and a conversation with the same group of people already exists, the call will return the existing conversation.
 
 By default, `DistincyByParticipants` is `False`. That means every time you create a conversation with the same group of people, the call will return a new conversation.
 
@@ -167,11 +169,9 @@ The admin of a conversation has the following permissions:
 - add or remove participants from a conversation
 - add or remove admins from the conversation
 
-Examples can be found in the "admins" section below.
-
 ### Getting all the conversations of a user has
 
-In most real-time chat apps, you need to display all the conversations the currently logged in user has. Think about the main page of Whatsapp or Telegram.
+In most chat apps, you need to display a list of conversations the currently logged in user has. Think about the list of conversations (main screen) of Whatsapp or Telegram.
 
 To do so you can simply call [`getUserConversations()`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/container.js~SkygearChatContainer.html#instance-method-getUserConversations).
 
@@ -184,7 +184,7 @@ skygearChat.getUserConversations(includeLastMessage, page, pageSize)
   .then(function (conversations) {
 
     /*
-     * it returns all the conversation the current user has
+     * it returns all conversations the current user has
      * it returns the last message of every conversation
      * it displays the first page of the conversation list
      * each page has 20 conversations
@@ -197,9 +197,32 @@ skygearChat.getUserConversations(includeLastMessage, page, pageSize)
 ```
 In this call, you can specify 3 things:
 
-- **includeLastmessage(boolean, optional, default=True)**: Whether or not you want to get the last message of each of the conversation in the call.
-- **page(number, optional, default=1)**: Which page to display. Default to be the first page.
-- **pageSize(number, optional, default=50)**: The number of conversation shown per page.
+- **includeLastmessage: boolean, optional, default=True** - Whether or not you want to get the last message of each of the conversation in the call.
+- **page: number, optional, default=1** - Which page to display. Default to be the first page.
+- **pageSize: number, optional, default=50** - The number of conversation shown per page.
+
+`getUserConversations` will return a list of `UserConversation` objects, which
+consist of information specific for each users:
+
+| Attributes  | Type                | Description  |
+| ------ | ------------------- | ------------ |
+| unread_count  | Number | |
+| last_read_message | Reference | |
+| user | Reference | |
+| conversation | Reference | |
+
+There is a reference to the `Conversation` object, which consist of general
+information about a Conversation, and consist of the following:
+
+| Attributes  | Type                | Description  |
+| ------ | ------------------- | ------------ |
+| title  | String | |
+| admin_ids | JSON Array | |
+| participant_ids | JSON Array | |
+| participant_count | Number | |
+| distinct_by_participants | Boolean | |
+| metadata | JSON Object | |
+| last_message | Reference | |
 
 ### Leaving a conversation
 
@@ -228,11 +251,11 @@ Attribute of messages:
 
 | Attributes  | Type                | Description  |
 | ------ | ------------------- | ------------ |
-| body  | <code>String</code> | |
-| conversation_status | <code>String</code> | Summary of receipt status |
-| attachment | <code>Asset</code> | |
-| metadata | <code>JSON Object</code> | |
-| conversation_id | <code>Reference</code> | |
+| body  | String | |
+| conversation_status | String | Summary of receipt status |
+| attachment | Asset | File |
+| metadata | JSON Object | Any meta data for chat message |
+| conversation_id | Reference | |
 
 ### Sending messages
 
@@ -292,12 +315,12 @@ The event_type may contain the following strings:
 
 ### Sending push notification for new messages
 
-Coming soon
+Use [Push Notification API](https://docs.skygear.io/guides/push-notifications/basics/js/) to implement any push notification, needed.
 
 ## Chat history
 When users enter a conversation, you may need to display the chat history of the conversation.
 
-You can call [`getMessage()`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/container.js~SkygearChatContainer.html#instance-method-getMessages) to get an array of message of a conversation.
+You can call [`getMessages()`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/container.js~SkygearChatContainer.html#instance-method-getMessages) to get an array of message of a conversation.
 
 ```JavaScript
 const limit=10;
@@ -310,8 +333,8 @@ skygearChat.getMessages(conversation, limit, beforeTime)
 ```
 Messages are queried by `limit` and `beforeTime` in this call:
 
-1. **limit (number, optional, default=50)**: It's the number of messages the call will return. If the number is too large, it may result in timeout.
-2. **beforeTime(date)**: It specify from which time the query should get the message.
+1. **limit: number, optional, default=50** - It's the number of messages the call will return. If the number is too large, it may result in timeout.
+2. **beforeTime: date** - It specify from which time the query should get the message.
 
 ## Message receipt status
 
@@ -420,12 +443,9 @@ skygearChat.getUnreadCount().then(function (count) {
 ### Resetting unread counts
 The unread count can be reset by [marking the message as read](#marking-messages-as-read).
 
-
 ## Push notification
-Coming soon
 
-### Receiving push notifications
-Coming soon
+Use [Push Notification API](https://docs.skygear.io/guides/push-notifications/basics/js/) to implement any push notification, needed.
 
 ## User Online Indicator
 Coming soon
