@@ -5,10 +5,7 @@ description: User sign up, login, logout / access token / username, email and pa
 
 [[toc]]
 
-
-## Manage User
-
-### Signing up
+## Signing up
 
 The first thing you want a user to do is to sign up. The following code illustrates the sign up process:
 
@@ -32,7 +29,7 @@ SKYContainer.default().signup(withUsername: "john.doe", password: "verysecurepas
         print ("error signing up user: \(error)")
         return
     }
-    
+
     print ("sign up successful")
     // do something else
 }
@@ -60,7 +57,7 @@ SKYContainer.default().signup(withEmail: "john.doe@example.com", password: "very
         print ("error signing up user: \(error)")
         return
     }
-    
+
     print ("sign up successful")
     // do something else
 }
@@ -72,7 +69,7 @@ When a new user is successfully created, a `SKYUser` is returned.
 
 If the signup is not successful, you should read the error object returned. Usually it is just that the username or the email has been taken. You should communicate this to your users and ask them to try a different username. They may also be other kinds of errors that you should take note of.
 
-### Logging in
+## Logging in
 
 You can use `loginWithUsername:password:` to let users log in to their accounts by:
 
@@ -96,7 +93,7 @@ SKYContainer.default().login(withUsername: "john.doe", password: "verysecurepass
         print ("error loggin user in \(error)")
         return
     }
-    
+
     print ("login successful")
     // do something else
 }
@@ -124,13 +121,13 @@ SKYContainer.default().login(withEmail: "john.doe@example.com", password: "verys
         print ("error loggin user in \(error)")
         return
     }
-    
+
     print ("login successful")
     // do something else
 }
 ```
 
-### Logging out
+## Logging out
 
 Of course, you also would want to allow users to log out of their accounts by using `logoutWithCompletionHandler:`.
 
@@ -154,7 +151,7 @@ SKYContainer.default().logout { (user, error) in
 }
 ```
 
-### Changing password
+## Changing a user's password
 
 To change the password of the current user:
 
@@ -165,7 +162,7 @@ To change the password of the current user:
         // Can be old password not matched?
         return;
     }
-    
+
     NSLog(@"password change successfully");
 }];
 ```
@@ -177,16 +174,11 @@ SKYContainer.default().setNewPassword("newPassword", oldPassword: "oldPassword")
         // Can be old password not matched?
         return
     }
-    
+
     print ("password changed successfully")
 }
 ```
-
-
-
-## Current User
-
-### Getting current user id
+### Getting the current user id
 
 You can get the `currentUserRecordID` by:
 
@@ -234,7 +226,7 @@ SKYContainer.default().getWhoAmI { (user, error) in
 }
 ```
 
-### Looking up users by email
+## Looking up users by email
 
 Skygear provide a user discovery method by email. Everyone has access to this method without even having to be logged in.
 
