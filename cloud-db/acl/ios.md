@@ -18,7 +18,7 @@ is public readable.
 
 The default setting can be changed by calling `setDefaultAccessControl` method:
 
-```objective-c
+```obj-c
 SKYAccessControl *acl = [[SKYContainer defaultContainer] defaultAccessControl];
 [acl setReadOnlyForPublic];
 [acl setReadWriteAccessForRole:webmaster];
@@ -40,7 +40,7 @@ record, the above settings will be ignored for that record.
 
 Example: Share docs to colleagues
 
-```objective-c
+```obj-c
 // supervisor is a placeholder of user id
 SKYRecord *document = [SKYRecord recordWithRecordType:@"doc"];
 [document setReadWriteAccessForUser:supervisor];
@@ -82,7 +82,7 @@ The role of an `webmaster` is to assign roles to existing users.
 To tell Skygear Server you have these roles, you should define them during the
 bootstrapping phrase:
 
-```objective-c
+```obj-c
 SKYRole *webmaster = [SKYRole roleWithName:@"webmaster"];
 SKYRole *author = [SKYRole roleWithName:@"author"];
 SKYRole *visitor = [SKYRole roleWithName:@"visitor"];
@@ -98,7 +98,7 @@ At this point, the `webmaster` role is an ordinary role without special powers
 from the view of Skygear. To actually give the role the power to assign
 roles to other users, you have to designate those as admin roles.
 
-```objective-c
+```obj-c
 // webmaster from previous declaration
 [[SKYContainer defaultContainer] defineAdminRoles:@[webmaster]
                                        completion:^(NSError *error) {
@@ -129,7 +129,7 @@ Finally, you have to tell Skygear Server what the default role a new user should
 To do this, you have to set `visitor` as the default role. New user will
 automatically gain the `visitor` role.
 
-```objective-c
+```obj-c
 // visitor from previous declaration
 [[SKYContainer defaultContainer] setUserDefaultRole:@[visitor]
                                          completion:^(NSError *error) {
@@ -166,7 +166,7 @@ user can promote a `visitor` to an `author`.
 
 This is done by setting the `roles` property of an `SKYUser` object.
 
-```objective-c
+```obj-c
 SKYContainer *container = [SKYContainer defaultContainer];
 [container queryUsersByEmails:@[@"johndoe@example.com"] completionHandler:^(NSArray<SKYRecord *> *users, NSError *error) {
 	if (users.count == 1) {
@@ -199,7 +199,7 @@ when you create an article, you want `visitor` to see it, but only
 only `webmaster` and `author` will be able to change it. You can set the
 access by calling these methods on a record object:
 
-```objective-c
+```obj-c
 SKYRecord *article = [SKYRecord recordWithRecordType:@"article"];
 [article.accessControl setReadWriteAccessForRole:webmaster];
 [article.accessControl setReadWriteAccessForRole:author];
@@ -227,7 +227,7 @@ post the `SKYContainerWillSaveRecordNotification`. By doing this, you put the
 access control logic in one place, and that access control settings are applied
 consistently.
 
-```objective-c
+```obj-c
 NSNotificationCenter *center = [NSNotificationCenter defaultCenter]
 [center addObserverForName:SKYContainerWillSaveRecordNotification
                     object:nil
@@ -261,7 +261,7 @@ a `visitor` can create a new instance of article.
 To restrict record creation to a certain role, you call `createAccess` on
 a record class in the bootstrapping phrase.
 
-```objective-c
+```obj-c
 SKYContainer *container = [SKYContainer defaultContainer];
 [container defineCreationAccessWithRecordType:@"article"
                                         roles:@[webmaster, author]
