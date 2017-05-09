@@ -9,7 +9,7 @@ description: How to handle errors gracefully when something goes wrong
 
 Whenever you perform an action that calls the server, there is chance the
 server rejects your request for various reasons.
-This guide demostrate how should the errors be handled.
+This guide demonstrate how should the errors be handled.
 
 For example when you try to save a record to the database and without
 logging in, you get an error.
