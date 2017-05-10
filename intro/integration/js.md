@@ -29,48 +29,6 @@ import skygear from 'skygear/react-native'
 ```
 
 
-# Using older version
-
-For versions before 0.24, some manual works are needed for integrating frameworks building with webpack, popular examples are Ionic and Angular.
-
-## Webpack
-
-Webpack does not work well with Skygear out of the box, if you are building with Webpack, please modify your Webpack config, and add `react-native` to `externals`.
-
-```
-  externals: [
-    'react-native'
-  ]
-```
-
-## Ionic
-
-If you are using `ionic start` to create an Ionic project, you have to customize its internal Webpack config to get it working with Skygear.
-
-1. update `package.json`, specify your own Webpack config.
-```
-  "config": {
-    "ionic_webpack": "./webpack.config.json"
-  }
-```
-
-2. Create the webpack config file
-```
-  {
-    "externals": ["react-native"],
-    "output": {
-      "libraryTarget": "umd",
-      "path": "{{BUILD}}",
-      "publicPath": "build/",
-      "filename": "main.js"
-    }
-  }
-```
-
-## Angular
-
-If you are using `ng new` to bootstrap your app, you will find it uses Webpack internally to build the project. Unfortunately, there is no way to customize the build process and therefore not possible to make it work with Skygear. We recommend using [Angular-webpack](https://github.com/preboot/angular-webpack) for bootstrapping, and then follow the above guide for integrating with Webpack.
-
 # Configurating
 
 You can use the following code snippet to configure the SDK to connect to server.
