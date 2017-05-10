@@ -1,6 +1,6 @@
 # Using Skygear JS SDK with other frameworks
 
-Skygear JS SDK can be used with various frameworks smoothly to boost your development.
+Skygear JS SDK can be used with various frameworks smoothly to boost your development. You can find the source code of [a demo project integrated with Angular project](https://github.com/skygear-demo/skygear-angular) and [Ionic](https://github.com/skygear-demo/skygear-ionic).
 
 # Setting up the build process
 
@@ -167,5 +167,3 @@ this.skygearService.getSkygear()
   this.title = "Saved record: " + record.id;
 });
 ```
-
-A full example project can be found [here for Angular](https://github.com/skygear-demo/skygear-angular) and [Here for Ionic](https://github.com/skygear-demo/skygear-ionic).
