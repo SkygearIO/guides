@@ -1,16 +1,29 @@
 # Using Skygear JS SDK with other frameworks
 
-Skygear JS SDK can be used with various frameworks smoothly to boost your development. You can find the source code of [a demo project integrated with Angular project](https://github.com/skygear-demo/skygear-angular) and [Ionic](https://github.com/skygear-demo/skygear-ionic).
+Skygear JS SDK can be used with various JS frameworks smoothly to boost your development.
 
-# Setting up the build process
+In this guide, we will guide you through the set up of Skygear with
 
-First, install Skygear JS SDK.
+- Angular
+- Ionic
+- React Native
+
+If you are looking for a quick way to get started, simply check out our demo projects:
+- [Angular-Skygear demo project](https://github.com/skygear-demo/skygear-angular)
+- [Ionic-Skygear demo project](https://github.com/skygear-demo/skygear-ionic).
+
+
+# Angular and Ionic
+
+## Setting up the build process
+
+First, install the Skygear JS SDK.
 
 ```
 npm install --save skygear
 ```
 
-Next, import it into your code.
+Next, import it in your code.
 
 ```
 var skygear = require('skygear');
@@ -18,37 +31,15 @@ var skygear = require('skygear');
 import skygear from 'skygear';
 ```
 
-For most of the cases, this should be enough to get Skygear JS SDK running. If you are using React Native, Angular or Ionic with an old version, please follow the guides below.
+## Configurating Skygear
 
-## Using with React Native
+Our next step is to configure Skygear in your web client so that it communicates with the server.
 
-Skygear has special integration with React Native to leverage the extended capability of the platform. Instead of just importing the normal skygear, you should do this
-
-```
-import skygear from 'skygear/react-native'
-```
-
-
-# Configurating
-
-You can use the following code snippet to configure the SDK to connect to server.
-
-```
-skygear.config({
-  'endPoint': 'https://<your-app-name>.skygeario.com/', // trailing slash is required
-  'apiKey': '<your-api-key>',
-}).then(() => {
-  console.log('skygear container is now ready for making API calls.');
-}, (error) => {
-  console.error(error);
-});
-```
-
-## Angular and Ionic
+To do so, make sure you have already created an account at [Skygear.io](https://skygear.io). We will need the "app end point" and the "api key" of your Skygear app for configuration.
 
 A project using Angular (including Ionic) should follow Angular's pattern of managing data. Skygear is usually used as a global singleton object, the Angular way to manage such data is through [Service](https://angular.io/docs/ts/latest/tutorial/toh-pt4.html).
 
-First, you need to create a `SkygearService` that hold an refernce of the singleton skygear object. An empty service looks like this, save this as `skygear.service.ts`.
+First, you need to create a `SkygearService` that hold an reference of the singleton Skygear object. An empty service looks like this. Now, save this as `skygear.service.ts`.
 
 ```
 import { Injectable } from '@angular/core';
@@ -58,7 +49,7 @@ export class SkygearService {
 }
 ```
 
-Then you have to add a method to the service for configurating and returing the skygear instance.
+Then you have to add a method to the service for configurating and returning the Skygear instance.
 
 ```
   isConfigurated = false;
@@ -129,7 +120,9 @@ Finally, the state can be displayed via the template.
 <h1>{{title}}</h1>
 ```
 
-## Creating your first record with user interaction
+## Creating your first Skygear record with user interaction
+
+Let's create our first Skygear record to see if we have successfully set up the app.
 
 First, you need a button, add the following code to your template file, for the default `AppModule`, it will be `app.component.html`.
 
@@ -165,5 +158,41 @@ this.skygearService.getSkygear()
   // Here, record is the saved note,
   // it can be shown to user interface by assigning to a property that is displayed by the template.
   this.title = "Saved record: " + record.id;
+});
+```
+
+That is it. Start building your awesome app now. :smile:
+
+
+# React Native
+
+## Setting up the build process
+
+First, install the Skygear JS SDK.
+
+```
+npm install --save skygear
+```
+
+Next, import it in your code.
+
+As Skygear has special integration with React Native to leverage the extended capability of the platform, instead of just importing the normal Skygear, you should do this
+
+```
+import skygear from 'skygear/react-native'
+```
+
+## Configurating Skygear
+
+You can use the following code snippet to configure the SDK to connect to server.
+
+```
+skygear.config({
+  'endPoint': 'https://<your-app-name>.skygeario.com/', // trailing slash is required
+  'apiKey': '<your-api-key>',
+}).then(() => {
+  console.log('skygear container is now ready for making API calls.');
+}, (error) => {
+  console.error(error);
 });
 ```
