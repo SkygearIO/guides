@@ -108,6 +108,11 @@ Next, it is recommended to do necessary configuration in the `ngOnInit` life cyc
       this.skygear = skygear;
       this.title = "Configurated";
     })
+    // Skygear requires a user before creating a record
+    .then(()=> this.skygear.signupAnonymously())
+    .then(user=> {
+      this.title = "Signed up anonymous user: " + user.id;
+    })
     .catch(error=> {
       this.title = "Cannot configure skygear";
     });
@@ -145,7 +150,6 @@ You can then place code to create a record in the handler, and reflect the state
 ```
 this.skygearService.getSkygear()
 // Skygear requires a user before creating a record
-.then(()=> this.skygear.signupAnonymously())
 .then(()=> {
   // Create the note
   var Note = this.skygear.Record.extend('Note');
