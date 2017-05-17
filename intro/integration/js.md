@@ -27,7 +27,7 @@ npm install --save skygear
 
 Our next step is to configure Skygear in your web client so that it communicates with the server.
 
-To do so, make sure you have already created an account at [Skygear.io](https://skygear.io). We will need the "app end point" and the "api key" of your Skygear app for configuration.
+To do so, make sure you have already created an account at [Skygear.io](https://skygear.io). We will need the "app end point" and the "API key" of your Skygear app for configuration.
 
 A project using Angular (including Ionic) should follow Angular's pattern of managing data. Skygear is usually used as a global singleton object, the Angular way to manage such data is through [Service](https://angular.io/docs/ts/latest/tutorial/toh-pt4.html).
 
@@ -98,7 +98,7 @@ service to it.
 And you're also recommended to do any preparation in the `ngOnInit` life cycle
 function.
 
-So we will add the following in the AppComponent class
+So we will add the following in the `AppComponent` class
 (`src/app/app.component.ts`).
 
 ``` javascript
