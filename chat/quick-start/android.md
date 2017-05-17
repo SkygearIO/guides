@@ -17,6 +17,7 @@ You also need to install the Chat plugin SDK into your project via Gradle.
 ```Java
 dependencies {
     // other dependencies
+    compile 'io.skygear:skygear:+' // from Android Quickstart
     compile 'io.skygear.plugins:chat:+'
 }
 ```

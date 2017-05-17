@@ -21,6 +21,10 @@ There are 2 ways to do it. Either use CDN or import the npm package.
 Add the following lines into the header of your HTML file right under the CDNs of the Skygear Core.
 
 ```javascript
+<script src="https://code.skygear.io/js/polyfill/latest/polyfill.min.js"></script>
+<script src="https://code.skygear.io/js/skygear/latest/skygear.min.js"></script>
+
+<!--Add this line-->
 <script src="https://code.skygear.io/js/chat/latest/skygear-chat.min.js"></script>
 ```
 
@@ -28,10 +32,12 @@ Add the following lines into the header of your HTML file right under the CDNs o
 
 1. Add Skygear Chat to your project using npm install.
 ```bash
+npm install --save skygear
 npm install --save skygear-chat
 ```
 2. Then import `skygearchat` in your JS file.
 ```bash
+import skygear from 'skygear'; // From Skygear Quickstart
 import skygearchat from 'skygear-chat';
 ```
 
