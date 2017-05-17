@@ -31,7 +31,7 @@ var skygear = require('skygear');
 import skygear from 'skygear';
 ```
 
-## Configurating Skygear
+## Configuring Skygear
 
 Our next step is to configure Skygear in your web client so that it communicates with the server.
 
@@ -49,12 +49,12 @@ export class SkygearService {
 }
 ```
 
-Then you have to add a method to the service for configurating and returning the Skygear instance.
+Then you have to add a method to the service for configuring and returning the Skygear instance.
 
 ```
-  isConfigurated = false;
+  isConfigured = false;
   getSkygear() {
-    if (this.isConfigurated) {
+    if (this.isConfigured) {
       // Return the instance directly if it is ready
       return Promise.resolve(skygear);
     }
@@ -62,7 +62,7 @@ Then you have to add a method to the service for configurating and returning the
       'endPoint': 'https://<your-app-name>.skygeario.com/', // trailing slash is required
       'apiKey': '<your-api-key>',
     });
-    promise.then(()=> this.isConfigurated = true);
+    promise.then(()=> this.isConfigured = true);
     return promise;
   }
 ```
@@ -106,7 +106,7 @@ Next, it is recommended to do necessary configuration in the `ngOnInit` life cyc
     this.skygearService.getSkygear()
     .then(skygear=> {
       this.skygear = skygear;
-      this.title = "Configurated";
+      this.title = "Configured";
     })
     // Skygear requires a user before creating a record
     .then(()=> this.skygear.signupAnonymously())
@@ -186,7 +186,7 @@ As Skygear has special integration with React Native to leverage the extended ca
 import skygear from 'skygear/react-native'
 ```
 
-## Configurating Skygear
+## Configuring Skygear
 
 You can use the following code snippet to configure the SDK to connect to server.
 
