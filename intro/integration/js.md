@@ -23,14 +23,6 @@ First, install the Skygear JS SDK.
 npm install --save skygear
 ```
 
-Next, import it in your code.
-
-```
-var skygear = require('skygear');
-// Or ES6
-import skygear from 'skygear';
-```
-
 ## Configuring Skygear
 
 Our next step is to configure Skygear in your web client so that it communicates with the server.
@@ -39,10 +31,11 @@ To do so, make sure you have already created an account at [Skygear.io](https://
 
 A project using Angular (including Ionic) should follow Angular's pattern of managing data. Skygear is usually used as a global singleton object, the Angular way to manage such data is through [Service](https://angular.io/docs/ts/latest/tutorial/toh-pt4.html).
 
-First, you need to create a `SkygearService` that hold an reference of the singleton Skygear object. An empty service looks like this. Now, save this as `skygear.service.ts`.
+First, you need to create a `SkygearService` that hold an reference of the singleton Skygear object. An empty service looks like this. Now, save this as `src/app/skygear.service.ts`.
 
-```
+``` javascript
 import { Injectable } from '@angular/core';
+import skygear from 'skygear';
 
 @Injectable()
 export class SkygearService {
@@ -51,7 +44,13 @@ export class SkygearService {
 
 Then you have to add a method to the service for configuring and returning the Skygear instance.
 
-```
+``` javascript
+import { Injectable } from '@angular/core';
+import skygear from 'skygear';
+
+@Injectable()
+export class SkygearService {
+  // Configure and init Skygear JS Client
   isConfigured = false;
   getSkygear() {
     if (this.isConfigured) {
@@ -65,13 +64,14 @@ Then you have to add a method to the service for configuring and returning the S
     promise.then(()=> this.isConfigured = true);
     return promise;
   }
+}
 ```
 
 Now you have a service that is working, the next step would be using the service in the component. Here I would use the root module `app.module.ts` and component `app.component.ts` as example, but the idea works for any other modules.
 
-To use the service in the component, you have to pass it as a provider of the module.
+To use the service in the component, you have to pass it as a provider of the module, edit `src/app/app.module.ts`.
 
-```
+``` javascript
 import { SkygearService } from './skygear.service';
 
 @NgModule({
@@ -83,7 +83,7 @@ import { SkygearService } from './skygear.service';
     FormsModule,
     HttpModule
   ],
-  providers: [SkygearService],  // This line is want you need
+  providers: [SkygearService],  // Include Skygear Service
   bootstrap: [AppComponent]
 })
 export class AppModule {
@@ -91,17 +91,23 @@ export class AppModule {
 
 ```
 
-Next, accepts the service in the component by modifying the constructor. This creates a private property `skygearService` in the component and assign the service to it.
+Next, accepts the service in the component by modifying the constructor. This
+creates a private property `skygearService` in the component and assign the
+service to it.
 
-```
-constructor(private skygearService: SkygearService) {}
-```
+And you're also recommended to do any preparation in the `ngOnInit` life cycle
+function.
 
-Next, it is recommended to do necessary configuration in the `ngOnInit` life cycle funcion.
+So we will add the following in the AppComponent class
+(`src/app/app.component.ts`).
 
-```
+``` javascript
+export class AppComponent implements OnInit {
   title = 'Loading...';
   skygear = null;
+
+  constructor(private skygearService: SkygearService) {}
+
   ngOnInit(): void {
     this.skygearService.getSkygear()
     .then(skygear=> {
@@ -117,11 +123,13 @@ Next, it is recommended to do necessary configuration in the `ngOnInit` life cyc
       this.title = "Cannot configure skygear";
     });
   }
+}
 ```
 
-Finally, the state can be displayed via the template.
+For demonstration purpose, we can display the `title` variable in the template
+of `src/app/app.component.html`
 
-```
+``` html
 <h1>{{title}}</h1>
 ```
 
@@ -138,35 +146,31 @@ First, you need a button, add the following code to your template file, for the 
 Then, you have to add a handler that will be triggered when the button is pressed, it looks like this:
 
 ```
-export class AppComponent {
+export class AppComponent implements OnInit{
+  // Other codes
+
   addNewRecord() {
     // Called when button is clicked
+    this.skygearService.getSkygear()
+    // Skygear requires a user before creating a record
+    .then(()=> {
+      // Create the note
+      var Note = this.skygear.Record.extend('Note');
+      // And save the note
+      return this.skygear.publicDB.save(new Note({
+        'content': 'Hello World'
+      }));
+    })
+    .then((record)=> {
+      // Here, record is the saved note,
+      // it can be shown to user interface by assigning to a property that is displayed by the template.
+      this.title = "Saved record: " + record.id;
+    });
   }
 }
 ```
 
-You can then place code to create a record in the handler, and reflect the state to user interface.
-
-```
-this.skygearService.getSkygear()
-// Skygear requires a user before creating a record
-.then(()=> {
-  // Create the note
-  var Note = this.skygear.Record.extend('Note');
-  // And save the note
-  return this.skygear.publicDB.save(new Note({
-    'content': 'Hello World'
-  }));
-})
-.then((record)=> {
-  // Here, record is the saved note,
-  // it can be shown to user interface by assigning to a property that is displayed by the template.
-  this.title = "Saved record: " + record.id;
-});
-```
-
 That is it. Start building your awesome app now. :smile:
-
 
 # React Native
 
