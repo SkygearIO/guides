@@ -1,4 +1,8 @@
-# Using Skygear JS SDK with other frameworks
+---
+title: Integrate Skygear with different JS frameworks
+---
+
+[[toc]]
 
 Skygear JS SDK can be used with various JS frameworks smoothly to boost your development.
 
@@ -13,9 +17,9 @@ If you are looking for a quick way to get started, simply check out our demo pro
 - [Ionic-Skygear demo project](https://github.com/skygear-demo/skygear-ionic).
 
 
-# Angular and Ionic
+## Angular and Ionic
 
-## Setting up the build process
+### Setting up the build process
 
 First, install the Skygear JS SDK.
 
@@ -23,7 +27,7 @@ First, install the Skygear JS SDK.
 npm install --save skygear
 ```
 
-## Configuring Skygear
+### Configuring Skygear
 
 Our next step is to configure Skygear in your web client so that it communicates with the server.
 
@@ -133,7 +137,7 @@ of `src/app/app.component.html`
 <h1>{{title}}</h1>
 ```
 
-## Creating your first Skygear record with user interaction
+### Creating your first Skygear record with user interaction
 
 Let's create our first Skygear record to see if we have successfully set up the app.
 
@@ -172,9 +176,9 @@ export class AppComponent implements OnInit{
 
 That is it. Start building your awesome app now. :smile:
 
-# React Native
+## React Native
 
-## Setting up the build process
+### Setting up the build process
 
 First, install the Skygear JS SDK.
 
@@ -190,7 +194,7 @@ As Skygear has special integration with React Native to leverage the extended ca
 import skygear from 'skygear/react-native'
 ```
 
-## Configuring Skygear
+### Configuring Skygear
 
 You can use the following code snippet to configure the SDK to connect to server.
 
