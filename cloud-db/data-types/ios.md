@@ -275,8 +275,9 @@ For example, you want to allow users to upload an image as an `image` to his `SK
 - (void)imagePickerController:(UIImagePickerController *)picker
 didFinishPickingMediaWithInfo:(NSDictionary<NSString *, id> *)info
 {
-    NSURL *url = info[UIImagePickerControllerReferenceURL];
-    SKYAsset *asset = [SKYAsset assetWithName:@"profile-picture" fileURL:url];
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    SKYAsset *asset = [SKYAsset assetWithName:@"profile-picture"
+                                         data:UIImagePNGRepresentation(image)];
     asset.mimeType = @"image/png";
 
     SKYContainer *container = [SKYContainer defaultContainer];
