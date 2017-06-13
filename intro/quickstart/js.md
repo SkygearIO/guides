@@ -102,7 +102,7 @@ skygear.config({
   // For testing purpose, we have used signupAnonmously to create a record
   // Visit the user authetication documentation to learn more
   // https://docs.skygear.io/guides/auth/basics/js/
-  return skygear.signupAnonymously()
+  return skygear.auth.signupAnonymously()
 }).then(function() {
   // Create Record Type "test" and put "Hello world" as value of key "content"
   // Advanced: Skygear Server will create a table "test" and appropriate

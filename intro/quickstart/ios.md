@@ -95,7 +95,7 @@ Practically the codes should not be structured this way. It is for demo only.
 // https://docs.skygear.io/guides/auth/basics/ios/
 
  SKYContainer *skygear = [SKYContainer defaultContainer];
-    [skygear signupAnonymouslyWithCompletionHandler:^(SKYUser *user, NSError *error) {
+    [[skygear auth] signupAnonymouslyWithCompletionHandler:^(SKYUser *user, NSError *error) {
         if (error != nil) {
             NSLog(@"Signup Error: %@", error.localizedDescription);
             return;
@@ -125,7 +125,7 @@ Practically the codes should not be structured this way. It is for demo only.
 // https://docs.skygear.io/guides/auth/basics/ios/
 
 let skygear = SKYContainer.default()
-skygear?.signupAnonymously(completionHandler: { (user, error) in
+skygear.auth.signupAnonymously(completionHandler: { (user, error) in
     if error != nil {
         print("Signup Error: \(error?.localizedDescription)")
         return
@@ -136,7 +136,7 @@ skygear?.signupAnonymously(completionHandler: { (user, error) in
     //           columns in PostgreSQL in Development mode.
     let test = SKYRecord(recordType: "test")
     test?.setObject("Hello world", forKey: "content" as NSCopying!)
-    skygear?.publicCloudDatabase.save(test, completion: { (record, error) in
+    skygear.publicCloudDatabase.save(test, completion: { (record, error) in
         if error != nil {
             print("Failed to save a record: \(error?.localizedDescription)")
             return
