@@ -119,7 +119,7 @@ export class AppComponent implements OnInit {
       this.title = "Configured";
     })
     // Skygear requires a user before creating a record
-    .then(()=> this.skygear.signupAnonymously())
+    .then(()=> this.skygear.auth.signupAnonymously())
     .then(user=> {
       this.title = "Signed up anonymous user: " + user.id;
     })
