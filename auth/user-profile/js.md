@@ -60,7 +60,7 @@ The promise will be resolved by an array of matched user profiles.
 
 ``` javascript
 // you can also pass an array of emails
-skygear.discoverUserByEmails('ben@skygear.com').then((users) => {
+skygear.auth.discoverUserByEmails('ben@skygear.com').then((users) => {
   console.log(users); // array of profiles (user records)
 }, (error) => {
   console.error(error);
@@ -69,7 +69,7 @@ skygear.discoverUserByEmails('ben@skygear.com').then((users) => {
 
 ``` javascript
 // you can also pass an array of usernames
-skygear.discoverUserByUsernames('ben').then((users) => {
+skygear.auth.discoverUserByUsernames('ben').then((users) => {
   console.log(users); // array of profiles (user records)
 }, (error) => {
   console.error(error);
