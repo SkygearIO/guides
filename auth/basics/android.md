@@ -18,7 +18,7 @@ Container skygear = Container.defaultContainer(this);
 String username = getUsername(); // get from user input
 String password = getPassword(); // get from user input
 
-skygear.signupWithUsername(username, password, new AuthResponseHandler() {
+skygear.auth().signupWithUsername(username, password, new AuthResponseHandler() {
     @Override
     public void onAuthSuccess(User user) {
         Log.i("Skygear Signup", "onAuthSuccess: Got token: " + user.accessToken);
@@ -39,7 +39,7 @@ Container skygear = Container.defaultContainer(this);
 String email = getEmail(); // get from user input
 String password = getPassword(); // get from user input
 
-skygear.signupWithEmail(email, password, new AuthResponseHandler() {
+skygear.auth().signupWithEmail(email, password, new AuthResponseHandler() {
     @Override
     public void onAuthSuccess(User user) {
         Log.i("Skygear Signup", "onAuthSuccess: Got token: " + user.accessToken);
@@ -62,7 +62,7 @@ Container skygear = Container.defaultContainer(this);
 String username = getUsername(); // get from user input
 String password = getPassword(); // get from user input
 
-skygear.loginWithUsername(username, password, new AuthResponseHandler() {
+skygear.auth().loginWithUsername(username, password, new AuthResponseHandler() {
     @Override
     public void onAuthSuccess(User user) {
         Log.i("Skygear Login", "onAuthSuccess: Got token: " + user.accessToken);
@@ -83,7 +83,7 @@ Container skygear = Container.defaultContainer(this);
 String email = getEmail(); // get from user input
 String password = getPassword(); // get from user input
 
-skygear.loginWithUsername(email, password, new AuthResponseHandler() {
+skygear.auth().loginWithUsername(email, password, new AuthResponseHandler() {
     @Override
     public void onAuthSuccess(User user) {
         Log.i("Skygear Login", "onAuthSuccess: Got token: " + user.accessToken);
@@ -102,7 +102,8 @@ skygear.loginWithUsername(email, password, new AuthResponseHandler() {
 After sign up / log in, the user session can be obtained by:
 
 ```java
-User currentUser = skygear.getCurrentUser();
+Container skygear = Container.defaultContainer(this);
+User currentUser = skygear.auth().getCurrentUser();
 
 Log.i("Skygear User", "User access token: " + currentUser.accessToken);
 Log.i("Skygear User", "User ID: " + currentUser.userId);
@@ -116,7 +117,9 @@ changed remotely.
 To get the latest information of the current user, you can call `whoami()`.
 
 ```java
-skygear.whoami(new AuthResponseHandler() {
+Container skygear = Container.defaultContainer(this);
+
+skygear.auth().whoami(new AuthResponseHandler() {
     @Override
     public void onAuthSuccess(User user) {
         Log.i("Skygear User", "I am " + user.getUsername());
