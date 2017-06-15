@@ -75,7 +75,7 @@ Container skygear = Container.defaultContainer(getApplicationContext());
 ChatContainer chatContainer = ChatContainer.getInstance(skygear);
 
 HashSet<String> users = new HashSet<String>();
-users.add(skygear.auth().getCurrentUser().getId());
+users.add(skygear.getAuth().getCurrentUser().getId());
 users.add(userBen.getId());
 users.add(userChris.getId());
 
@@ -140,7 +140,7 @@ Container skygear = Container.defaultContainer(getApplicationContext());
 ChatContainer chatContainer = ChatContainer.getInstance(skygear);
 
 chatContainer.addConversationAdmin(conversation,
-    skygear.auth().getCurrentUser().getId(),
+    skygear.getAuth().getCurrentUser().getId(),
     new SaveCallback<Conversation>() {
             @Override
             public void onSucc(@Nullable Conversation conversation) {
@@ -163,7 +163,7 @@ Container skygear = Container.defaultContainer(getApplicationContext());
 ChatContainer chatContainer = ChatContainer.getInstance(skygear);
 
 HashSet<String> admins = new HashSet<String>();
-admins.add(skygear.auth().getCurrentUser().getId());
+admins.add(skygear.getAuth().getCurrentUser().getId());
 admin.add(userBen.getId());
 
 

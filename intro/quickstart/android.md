@@ -34,7 +34,7 @@ allprojects {
 
 3. Then, in `build.gradle` of the **module**, add Skygear as a dependency by adding `io.skygear:skygear+` in the dependency list.
 
-```java   
+```java
 dependencies {
     // other dependencies
     compile 'io.skygear:skygear:+'
@@ -143,7 +143,7 @@ import io.skygear.skygear.User;
 public void onCreate() {
     super.onCreate();
     final Container skygear = Container.defaultContainer(this);
-    skygear.auth().signupAnonymously(new AuthResponseHandler() {
+    skygear.getAuth().signupAnonymously(new AuthResponseHandler() {
         @Override
         public void onAuthSuccess(User user) {
             Log.i("MyApplication", "Signup successfully");
@@ -154,7 +154,7 @@ public void onCreate() {
             Record test = new Record("test");
             test.set("content", "Hello world");
 
-            skygear.publicDatabase().save(test, new RecordSaveResponseHandler() {
+            skygear.getPublicDatabase().save(test, new RecordSaveResponseHandler() {
                 @Override
                 public void onSaveSuccess(Record[] records) {
                     Log.i("MyApplication", "Record saved");

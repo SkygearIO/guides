@@ -153,7 +153,7 @@ Role projectManager = new Role("ProjectManager");
 theUser.addRole(programmer);
 theUser.removeRole(projectManager);
 
-skygear.auth().saveUser(theUser, new UserSaveResponseHandler() {
+skygear.getAuth().saveUser(theUser, new UserSaveResponseHandler() {
     @Override
     public void onSaveSuccess(User user) {
         // The roles of the user has been updated
