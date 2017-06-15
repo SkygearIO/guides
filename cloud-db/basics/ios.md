@@ -73,17 +73,17 @@ let todo = SKYRecord(recordType: "todo")
 todo?.setObject("Write documents for Skygear", forKey: "title" as NSCopying!)
 todo?.setObject(1, forKey: "order" as NSCopying!)
 todo?.setObject(false, forKey: "done" as NSCopying!)
-    
+
 let privateDB = SKYContainer.default().privateCloudDatabase
-privateDB?.save(todo, completion: { (record, error) in
+privateDB.save(todo, completion: { (record, error) in
     if error != nil {
         print ("error saving todo: \(error)")
         return
     }
-    
+
     print ("saved todo with record = \(record?.recordID)")
 })
-    
+
 ```
 
 There are couples of things we have done here:
@@ -129,7 +129,7 @@ let noteTwo = SKYRecord(recordType: "note")
 let notesToSave = [noteOne, noteTwo]
 
 let privateDB = SKYContainer.default().privateCloudDatabase
-privateDB?.saveRecords(notesToSave, completionHandler: { (savedRecords, operationError) in
+privateDB.saveRecords(notesToSave, completionHandler: { (savedRecords, operationError) in
     if operationError != nil {
         // Error completing the operation
         print ("error completing operation")
@@ -222,14 +222,14 @@ let todo = SKYRecord(recordType: "todo")
 todo?.setObject("Write documents for Skygear", forKey: "title" as NSCopying!)
 todo?.setObject(1, forKey: "order" as NSCopying!)
 todo?.setObject(false, forKey: "done" as NSCopying!)
-    
+
 let privateDB = SKYContainer.default().privateCloudDatabase
-privateDB?.save(todo, completion: { (record, error) in
+privateDB.save(todo, completion: { (record, error) in
     if error != nil {
         print ("error saving todo: \(error)")
         return
     }
-    
+
     print ("saved todo with record = \(record?.recordID)")
 })
 ```

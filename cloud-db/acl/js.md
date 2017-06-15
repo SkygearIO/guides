@@ -30,10 +30,10 @@ const acl = new skygear.ACL();
 acl.setPublicNoAccess();
 acl.setPublicReadOnly(); // default
 acl.setPublicReadWriteAccess();
-skygear.setDefaultACL(acl); // will change skygear.defaultACL
+skygear.publicDB.setDefaultACL(acl); // will change skygear.defaultACL
 
-skygear.defaultACL.hasPublicReadAccess(); // default true
-skygear.defaultACL.hasPublicWriteAccess(); // default false
+skygear.publicDB.defaultACL.hasPublicReadAccess(); // default true
+skygear.publicDB.defaultACL.hasPublicWriteAccess(); // default false
 ```
 
 After changing the default ACL setting, all records created in the future
@@ -72,12 +72,12 @@ signed up user would start with these roles.
 const Manager = skygear.Role.define('manager');
 const Visitor = new skygear.Role('visitor');
 // either way of defining roles is fine
-skygear.setAdminRole([Manager]).then((roles) => {
+skygear.publicDB.setAdminRole([Manager]).then((roles) => {
   console.log(roles); // [ 'manager' ]
 }, (error) => {
   console.error(error);
 });
-skygear.setDefaultRole([Visitor]).then(...);
+skygear.publicDB.setDefaultRole([Visitor]).then(...);
 ```
 
 ### Changing roles
@@ -86,11 +86,11 @@ For admin user to change roles of other users:
 
 ``` javascript
 // skygear.currentUser should be an admin user
-skygear.getUsersByEmail(['johndoe@example.com']).then((records) => {
+skygear.auth.getUsersByEmail(['johndoe@example.com']).then((records) => {
   const john = records[0];
   john.addRole(Manager);
   john.removeRole(Visitor);
-  return skygear.saveUser(john);
+  return skygear.auth.saveUser(john);
 }, (error) => {
   console.error('John is not found')
 }).then((john) => {
@@ -125,8 +125,8 @@ plan.hasWriteAccessForRole(Manager); // true
 Record creation access is separate from write access for individual records:
 
 ``` javascript
-skygear.setRecordCreateAccess(Note, [ Employee, Manager ]);
-skygear.setRecordCreateAccess(Plan, [ Manager ]);
+skygear.publicDB.setRecordCreateAccess(Note, [ Employee, Manager ]);
+skygear.publicDB.setRecordCreateAccess(Plan, [ Manager ]);
 ```
 
 [doc-reserved-columns]: /guides/cloud-db/basics/js/#reserved-columns

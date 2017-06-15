@@ -22,13 +22,13 @@ The default setting can be changed by calling `setDefaultAccessControl` method:
 SKYAccessControl *acl = [[SKYContainer defaultContainer] defaultAccessControl];
 [acl setReadOnlyForPublic];
 [acl setReadWriteAccessForRole:webmaster];
-[[SKYContainer defaultContainer] setDefaultAccessControl:acl];
+[[[SKYContainer defaultContainer] publicCloudDatabase] setDefaultAccessControl:acl];
 ```
 
 ```swift
 let acl = SKYContainer.default().defaultAccessControl
 acl?.setReadOnlyForPublic()
-SKYContainer.default().defaultAccessControl = acl
+SKYContainer.default().publicCloudDatabase.defaultAccessControl = acl
 ```
 
 In the above example, each newly created record is readable by public and it
@@ -100,19 +100,20 @@ roles to other users, you have to designate those as admin roles.
 
 ```obj-c
 // webmaster from previous declaration
-[[SKYContainer defaultContainer] defineAdminRoles:@[webmaster]
-                                       completion:^(NSError *error) {
-                                         if (!error) {
-                                           NSLog(@"Success!");
-                                         } else {
-                                           NSLog(@"Error: %@", error.localizedDescription);
-                                         }
-                                       }];
+SKYPublicDatabase *publicDB = publicCloudDatabase;
+[publicDB defineAdminRoles:@[webmaster]
+                completion:^(NSError *error) {
+                  if (!error) {
+                    NSLog(@"Success!");
+                  } else {
+                    NSLog(@"Error: %@", error.localizedDescription);
+                  }
+                }];
 ```
 ```swift
 // webmaster from previous declaration
 if let webmaster = webmaster as SKYRole! {
-    SKYContainer.default().defineAdminRoles([webmaster]) { (error) in
+    SKYContainer.default().publicCloudDatabase.defineAdminRoles([webmaster]) { (error) in
         if error != nil {
             print ("Success!")
             return
@@ -131,19 +132,20 @@ automatically gain the `visitor` role.
 
 ```obj-c
 // visitor from previous declaration
-[[SKYContainer defaultContainer] setUserDefaultRole:@[visitor]
-                                         completion:^(NSError *error) {
-                                           if (!error) {
-                                             NSLog(@"Success!");
-                                           } else {
-                                             NSLog(@"Error: %@", error.localizedDescription)
-                                           }
-                                         }];
+SKYPublicDatabase *publicDB = publicCloudDatabase;
+[publicDB setUserDefaultRole:@[visitor]
+                  completion:^(NSError *error) {
+                    if (!error) {
+                      NSLog(@"Success!");
+                    } else {
+                      NSLog(@"Error: %@", error.localizedDescription)
+                    }
+                  }];
 ```
 ```swift
 // visitor from previous declaration
 if let visitor = visitor as SKYRole! {
-    SKYContainer.default().defineAdminRoles([visitor]) { (error) in
+    SKYContainer.default().publicCloudDatabase.defineAdminRoles([visitor]) { (error) in
         if error != nil {
             print ("Success!")
             return
@@ -168,11 +170,11 @@ This is done by setting the `roles` property of an `SKYUser` object.
 
 ```obj-c
 SKYContainer *container = [SKYContainer defaultContainer];
-[container queryUsersByEmails:@[@"johndoe@example.com"] completionHandler:^(NSArray<SKYRecord *> *users, NSError *error) {
+[[container auth] queryUsersByEmails:@[@"johndoe@example.com"] completionHandler:^(NSArray<SKYRecord *> *users, NSError *error) {
 	if (users.count == 1) {
 	    SKYUser *john = users[0];
 	    john.roles = @[author, visitor];
-	    [container saveUser:john completion:nil];
+	    [[container auth] saveUser:john completion:nil];
 	}
 }];
 ```
@@ -263,25 +265,25 @@ a record class in the bootstrapping phrase.
 
 ```obj-c
 SKYContainer *container = [SKYContainer defaultContainer];
-[container defineCreationAccessWithRecordType:@"article"
-                                        roles:@[webmaster, author]
-                                   completion:^(NSError *error) {
-                                     if (error) {
-                                       NSLog(error.localizedDescription);
-                                     }
-                                   }];
-[container defineCreationAccessWithRecordType:@"comment"
-                                        roles:@[webmaster, author, visitor]
-                                   completion:^(NSError *error) {
-                                     if (error) {
-                                       NSLog(error.localizedDescription);
-                                     }
-                                   }];
+[[container publicCloudDatabase] defineCreationAccessWithRecordType:@"article"
+                                                              roles:@[webmaster, author]
+                                                         completion:^(NSError *error) {
+                                                           if (error) {
+                                                             NSLog(error.localizedDescription);
+                                                           }
+                                                         }];
+[[container publicCloudDatabase] defineCreationAccessWithRecordType:@"comment"
+                                                              roles:@[webmaster, author, visitor]
+                                                         completion:^(NSError *error) {
+                                                           if (error) {
+                                                             NSLog(error.localizedDescription);
+                                                           }
+                                                         }];
 ```
 
 ```swift
 let container = SKYContainer.default()
-container?.defineCreationAccess(withRecordType: "article", roles: [webmaster!, author!], completion: { (error) in
+container.publicCloudDatabase.defineCreationAccess(withRecordType: "article", roles: [webmaster!, author!], completion: { (error) in
     if let error = error {
         print("\(error.localizedDescription)")
     }

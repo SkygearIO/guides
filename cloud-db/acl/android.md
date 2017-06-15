@@ -153,7 +153,7 @@ Role projectManager = new Role("ProjectManager");
 theUser.addRole(programmer);
 theUser.removeRole(projectManager);
 
-skygear.saveUser(theUser, new UserSaveResponseHandler() {
+skygear.auth().saveUser(theUser, new UserSaveResponseHandler() {
     @Override
     public void onSaveSuccess(User user) {
         // The roles of the user has been updated
@@ -177,7 +177,7 @@ Container skygear = Container.defaultContainer(this);
 Role admin = new Role("Admin");
 Role boss = new Role("Boss");
 
-skygear.setAdminRole(new Role[]{ admin, boss }, new SetRoleResponseHandler() {
+skygear.getPublicDatabase().setAdminRole(new Role[]{ admin, boss }, new SetRoleResponseHandler() {
     @Override
     public void onSetSuccess(Role[] roles) {
         // Admin roles are updated

@@ -20,6 +20,7 @@ SKYQuery *query = [SKYQuery queryWithRecordType:@"todo" predicate:nil];
 NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"order" ascending:YES];
 query.sortDescriptors = @[sortDescriptor];
 
+SKYDatabase *privateDB = [[SKYContainer defaultContainer] privateCloudDatabase];
 [privateDB performQuery:query completionHandler:^(NSArray *results, NSError *error) {
     if (error) {
         NSLog(@"error querying todos: %@", error);
@@ -37,13 +38,13 @@ query.sortDescriptors = @[sortDescriptor];
 let query = SKYQuery(recordType: "todo", predicate: nil)
 let sortDescriptor = NSSortDescriptor(key: "order", ascending: true)
 query?.sortDescriptors = [sortDescriptor]
-    
+
 SKYContainer.default().privateCloudDatabase.perform(query) { (results, error) in
     if error != nil {
         print ("error querying todos: \(error)")
         return
     }
-    
+
     print ("Received \(results?.count) todos.")
     for todo in results as! [SKYRecord] {
         print ("Got a todo \(todo["title"])")
@@ -137,15 +138,15 @@ SKYDatabase *privateDB =  [[SKYContainer defaultContainer] privateCloudDatabase]
 let restaurantRef = SKYReference(recordID: SKYRecordID(recordType: "restaurant", name: "my restaurant"))
 let predicate = NSPredicate(format: "restaurant = %@", restaurantRef!)
 let query = SKYQuery(recordType: "order", predicate: predicate)
-    
+
 let privateDB = SKYContainer.default().privateCloudDatabase
-    
-privateDB?.perform(query, completionHandler: { (orders, error) in
+
+privateDB.perform(query, completionHandler: { (orders, error) in
     if error != nil {
         print ("error querying orders: \(error)")
         return
     }
-    
+
     for order in orders as! [SKYRecord] {
         // work with the fetched order
     }
@@ -176,15 +177,15 @@ SKYDatabase *privateDB =  [[SKYContainer defaultContainer] privateCloudDatabase]
 ```swift
 let predicate = NSPredicate(format: "restaurant.cuisine = %@", "italian")
 let query = SKYQuery(recordType: "order", predicate: predicate)
-    
+
 let privateDB = SKYContainer.default().privateCloudDatabase
-    
-privateDB?.perform(query, completionHandler: { (orders, error) in
+
+privateDB.perform(query, completionHandler: { (orders, error) in
     if error != nil {
         print ("error querying orders: \(error)")
         return
     }
-    
+
     for order in orders as! [SKYRecord] {
         // work with the fetched order
     }
@@ -276,13 +277,13 @@ query.transientIncludes = @{@"parentRecord": keyPath};
 let query = SKYQuery(recordType: "child", predicate: nil)
 let keyPath = NSExpression(forKeyPath: "parent")
 query?.transientIncludes = ["parentRecord": keyPath]
-    
+
 SKYContainer.default().privateCloudDatabase.perform(query) { (results, error) in
     if error != nil {
         print ("error fetching child: \(error)")
         return
     }
-    
+
     print ("received \(results?.count) childern")
     for child in results as! [SKYRecord] {
         let parent: SKYRecord = child.transient.object(forKey: "parentRecord") as! SKYRecord
