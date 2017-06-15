@@ -117,7 +117,7 @@ The following code snippet shows how to trigger GCM token registration:
 
 ```java
 Container skygear = Container.defaultContainer(this);
-if (skygear.getGcmSenderId() != null) {
+if (skygear.push().getGcmSenderId() != null) {
     Intent gcmTokenRegisterIntent = new Intent(this, RegistrationIntentService.class);
     this.startService(gcmTokenRegisterIntent);
 }
