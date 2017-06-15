@@ -11,7 +11,7 @@ by accessing `skygear.pubsub.connected`. Here, all the examples are using event
 ## Subscribing to an event
 
 ``` javascript
-skygear.on('ping', (data) => {
+skygear.pubsub.on('ping', (data) => {
   console.log(data);
 });
 ```
@@ -35,17 +35,17 @@ await skygear.pubsub.once('event');
 ### Unsubscribing all handlers for an event
 
 ``` javascript
-skygear.off('ping');
+skygear.pubsub.off('ping');
 ```
 
 ### Unsubscribing a specific handler for an event
 
 ``` javascript
 const handler = (data) => console.log(data);
-skygear.on('ping', handler); // also returns handler
+skygear.pubsub.on('ping', handler); // also returns handler
 
 // later
-skygear.off('ping', handler);
+skygear.pubsub.off('ping', handler);
 ```
 
 ## Check if an event has handler
@@ -69,7 +69,7 @@ To publish a message to the channel through cloud code, please refer to the
 
 ## Listening to Connection state
 
-Skygear will automatically re-connect on connection drop. Skygear will also 
+Skygear will automatically re-connect on connection drop. Skygear will also
 re-subscribe all existing handler on connection restore. So in normal case,
 you don't need to re-subscribe all your handler on re-connect.
 
