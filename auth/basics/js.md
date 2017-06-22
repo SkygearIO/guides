@@ -87,7 +87,7 @@ you can access the currently logged-in user using [`skygear.currentUser`](https:
 
 ``` javascript
 import skygear from 'skygear';
-import skygearError from 'skygear/lib/error';
+import skygearError from 'skygear';
 
 skygear.signupWithUsername(username, password).then((user) => {
   console.log(user); // user object
@@ -105,7 +105,7 @@ skygear.signupWithUsername(username, password).then((user) => {
 
 ``` javascript
 import skygear from 'skygear';
-import skygearError from 'skygear/lib/error';
+import skygearError from 'skygear';
 
 skygear.signupWithEmail(email, password).then((user) => {
   console.log(user); // user object
