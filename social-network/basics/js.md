@@ -19,7 +19,7 @@ and Ben add you as his friend, then you two will have `friend` relationship.
 If the current user wants to follow Ben:
 
 ``` javascript
-const toFollow = new skygear.relation.Following([ben]);
+const toFollow = new skygear.Following([ben]);
 // ben is a user object
 skygear.relation.add(toFollow).then((result) => {
   console.log(result);
@@ -48,7 +48,7 @@ const ben = new skygear.User({
 If the current user wants to add friend with Ben:
 
 ``` javascript
-const beFriend = new skygear.relation.Friend([ben]);
+const beFriend = new skygear.Friend([ben]);
 skygear.relation.add(beFriend).then(...);
 ```
 
@@ -96,7 +96,7 @@ Learn more in the [Queries][doc-queries] section.
 
 ``` javascript
 const query = new skygear.relation.Query(skygear.relation.Friend);
-query.user = skygear.currentUser;
+query.user = skygear.auth.currentUser;
 query.limit = 10;
 query.page = 2;
 query.greaterThan('age', 20);

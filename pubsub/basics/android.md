@@ -19,7 +19,7 @@ The following code snippet shows how to publish a data object (in `JSON` format)
 to a specific channel:
 
 ```java
-Pubsub pubsub = Container.defaultContainer(this).getPubsub();
+PubsubContainer pubsub = Container.defaultContainer(this).getPubsub();
 
 JSONObject jsonObject = new JSONObject();
 jsonObject.put("msg", "Hello World");
@@ -37,7 +37,7 @@ You may need to subscribe to a channel, so that you will be notified if there
 are updates:
 
 ```java
-Pubsub pubsub = Container.defaultContainer(this).getPubsub();
+PubsubContainer pubsub = Container.defaultContainer(this).getPubsub();
 pubsub.subscribe("chatroom-001", new Pubsub.Handler() {
     @Override
     public void handle(JSONObject data) {
@@ -52,7 +52,7 @@ By default, the handler you provide will be dispatched to main thread. If you
 want your handler to run in the background, you can update the pubsub settings:
 
 ```java
-Pubsub pubsub = Container.defaultContainer(this).getPubsub();
+PubsubContainer pubsub = Container.defaultContainer(this).getPubsub();
 pubsub.setHandlerExecutionInBackground(true);
 
 ```
@@ -64,7 +64,7 @@ You may also need to unsubscribe to a channel if you don't need the notification
 from that channel:
 
 ```java
-Pubsub pubsub = Container.defaultContainer(this).getPubsub();
+PubsubContainer pubsub = Container.defaultContainer(this).getPubsub();
 
 // you may need the return value for unsubscription
 Pubsub.Handler handler = pubsub.subscribe("chatroom-001", new Pubsub.Handler() {
@@ -78,7 +78,7 @@ pubsub.unsubscribe("chatroom-001", handler);
 Of cause, you can add multiple handlers and unsubscribe all of them:
 
 ```java
-Pubsub pubsub = Container.defaultContainer(this).getPubsub();
+PubsubContainer pubsub = Container.defaultContainer(this).getPubsub();
 
 pubsub.subscribe("chatroom-001", new Pubsub.Handler() {
     // Pubsub.Handler implementation A ...

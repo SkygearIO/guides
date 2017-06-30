@@ -20,12 +20,12 @@ notification, you can also do so when the application launches.
 
 ```obj-c
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [[SKYContainer defaultContainer] registerDeviceCompletionHandler:^(NSString *deviceID, NSError *error) {
+    [[[SKYContainer defaultContainer] push] registerDeviceCompletionHandler:^(NSString *deviceID, NSError *error) {
         if (error) {
             NSLog(@"Failed to register device: %@", error);
             return;
         }
-    
+
         // Anything you want to do in the callback can be added here
     }];
 
@@ -33,27 +33,27 @@ notification, you can also do so when the application launches.
     [application registerForRemoteNotifications];
 
     // Other application initialization logic here
-    
+
     return YES;
 }
 ```
 
 ```swift
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-    SKYContainer.default().registerDeviceCompletionHandler { (deviceID, error) in
+    SKYContainer.default().push.registerDeviceCompletionHandler { (deviceID, error) in
         if error != nil {
             print ("Failed to register device: \(error)")
             return
         }
-        
+
         // Anything you want to do in the callback can be added here
     }
-    
+
     // This will prompt the user for permission to send remote notification
     application.registerForRemoteNotifications()
-    
+
     // Other application initialization logic here
-    
+
     return true
 }
 ```
@@ -66,7 +66,7 @@ with a device token.
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
     NSLog(@"Registered for Push notifications with token: %@", deviceToken.description);
-    [[SKYContainer defaultContainer] registerRemoteNotificationDeviceToken:deviceToken completionHandler:^(NSString *deviceID, NSError *error) {
+    [[[SKYContainer defaultContainer] push] registerRemoteNotificationDeviceToken:deviceToken completionHandler:^(NSString *deviceID, NSError *error) {
         if (error) {
             NSLog(@"Failed to register device token: %@", error);
             return;
@@ -81,12 +81,12 @@ with a device token.
 ```swift
 func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
     print ("Registered for Push notifications with token: \(deviceToken.description)")
-    SKYContainer.default().registerRemoteNotificationDeviceToken(deviceToken) { (deviceID, error) in
+    SKYContainer.default().push.registerRemoteNotificationDeviceToken(deviceToken) { (deviceID, error) in
         if error != nil {
             print ("Failed to register device token: \(error)")
             return
         }
-        
+
         // You should put subscription creation logic in the following method
         addSubscriptions()
     }
@@ -131,20 +131,20 @@ operation.sendCompletionHandler = ^(NSArray *userIDs, NSError *error) {
 // send notification through APNS
 let apsInfo = SKYAPSNotificationInfo()
 apsInfo.alertBody = "Hi iOS!"
-    
+
 let info = SKYNotificationInfo()
 info.apsNotificationInfo = apsInfo
-    
+
 let operation = SKYSendPushNotificationOperation(notificationInfo: info, userIDsToSend: [kenji, rick])
 operation?.sendCompletionHandler = { (userIDs, error) in
     if error != nil {
         print ("error sending push notification")
         return
     }
-    
+
     print ("Sent \(userIDs?.count) notification to 2 users")
 }
-    
+
 SKYContainer.default().add(operation)
 ```
 
@@ -181,23 +181,23 @@ operation.sendCompletionHandler = ^(NSArray *deviceIDs, NSError *error) {
 // send notification through both APNS and GCM
 let apsInfo = SKYAPSNotificationInfo()
 apsInfo.alertBody = "Hi iOS!"
-    
+
 let gcmInfo = SKYGCMNotificationInfo()
 gcmInfo.collapseKey = "hello"
 gcmInfo.notification.title = "Greetings from Skygear"
 gcmInfo.notification.body = "Hi Android!"
-    
+
 let info = SKYNotificationInfo()
 info.apsNotificationInfo = apsInfo
 info.gcmNotificationInfo = gcmInfo
-    
+
 let operation = SKYSendPushNotificationOperation(notificationInfo: info, deviceIDsToSend: ["device0", "device1"])
 operation?.sendCompletionHandler = { (deviceIDs, error) in
     if error != nil {
         print ("error sending push notification")
         return
     }
-    
+
     print ("Sent \(deviceIDs?.count) notification to \(deviceIDs?.count) devices")
 }
 ```

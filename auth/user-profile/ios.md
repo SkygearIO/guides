@@ -14,7 +14,7 @@ user profile is public and thus visible to any user.
 
 ```obj-c
 SKYDatabase *publicDB = [[SKYContainer defaultContainer] publicCloudDatabase];
-NSPredicate *predicate = [NSPredicate predicateWithFormat:@"_id ==[c] %@", [container currentUserRecordID]];
+NSPredicate *predicate = [NSPredicate predicateWithFormat:@"_id ==[c] %@", [[container auth] currentUserRecordID]];
 SKYQuery *query = [SKYQuery queryWithRecordType:@"user" predicate:predicate];
 
 [publicDB performQuery:query completionHandler:^(NSArray *results, NSError *error) {
@@ -30,15 +30,15 @@ SKYQuery *query = [SKYQuery queryWithRecordType:@"user" predicate:predicate];
 
 ```swift
 let publicDB = SKYContainer.default().publicCloudDatabase
-let predicate = NSPredicate(format: "_id == [c] %@", SKYContainer.default().currentUserRecordID)
+let predicate = NSPredicate(format: "_id == [c] %@", SKYContainer.default().auth.currentUserRecordID)
 let query = SKYQuery(recordType: "user", predicate: predicate)
-    
+
 publicDB?.perform(query, completionHandler: { (results, error) in
     if error != nil {
         print ("error quering user profile: \(error)")
         return
     }
-    
+
     print ("query successful")
     // do something else
 })

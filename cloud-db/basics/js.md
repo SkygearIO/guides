@@ -70,7 +70,7 @@ skygear.publicDB.save(new Note({
 You can also batch save multiple records at one time.
 
 ``` javascript
-skygear.publicDb.save([goodNote1, goodNote2, badNote3, goodNote4, badNote5])
+skygear.publicDB.save([goodNote1, goodNote2, badNote3, goodNote4, badNote5])
 .then((result) => {
   console.log(result.savedRecords);
   // [goodNote1, goodNote2, undefined, goodNote4, undefined]

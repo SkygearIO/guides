@@ -61,7 +61,7 @@ It will establish a reference from _Record B_ to _Record A_.
 
 Skygear reserves the `id` field in the top level of all record as a primary key.
 `id` must be unique and default to be Version 4 UUID. If you want to
-auto-incrementing id for display purpose, Skygear provide a sequence for this 
+auto-incrementing id for display purpose, Skygear provide a sequence for this
 purpose. The sequence is guaranteed unique.
 
 ```obj-c
@@ -84,14 +84,14 @@ SKYDatabase *privateDB = [[SKYContainer defaultContainer] privateCloudDatabase];
 let todo = SKYRecord(recordType: "todo")
 todo?.setObject("Write documents for Skygear", forKey: "title" as NSCopying!)
 todo?.setObject(SKYSequence(), forKey: "noteID" as NSCopying!)
-    
+
 let privateDB = SKYContainer.default().privateCloudDatabase
-privateDB?.save(todo, completion: { (record, error) in
+privateDB.save(todo, completion: { (record, error) in
     if error != nil {
         print ("error saving todo: \(error)")
         return
     }
-    
+
     print ("saved todo with auto increment noteID = \(record?.object(forKey: "noteID"))")
 })
 ```
@@ -124,14 +124,14 @@ SKYDatabase *privateDB = [[SKYContainer defaultContainer] privateCloudDatabase];
 let todo = SKYRecord(recordType: "todo")
 todo?.setObject("Write documents for Skygear", forKey: "title" as NSCopying!)
 todo?.setObject(43, forKey: "noteID" as NSCopying!)
-    
+
 let privateDB = SKYContainer.default().privateCloudDatabase
-privateDB?.save(todo, completion: { (record, error) in
+privateDB.save(todo, completion: { (record, error) in
     if error != nil {
         print ("error saving todo: \(error)")
         return
     }
-    
+
     print ("saved todo with noteID == 43, \(record?.object(forKey: "noteID"))")
 })
 ```
@@ -185,13 +185,13 @@ SKYQuery *query = [SKYQuery queryWithRecordType:@"photo" predicate:predicate];
 let distanceFromLoc = CLLocation(latitude: 22.283, longitude: 114.15)
 let predicate = NSPredicate(format: "distanceToLocation:fromLocation:(location, %@) < %f", distanceFromLoc, 400.0)
 let query = SKYQuery(recordType: "photo", predicate: predicate)
-    
+
 SKYContainer.default().privateCloudDatabase.perform(query) { (photos, error) in
     if error != nil {
         print ("error querying photos: \(error)")
         return
     }
-    
+
     if let photos = photos {
         print ("got \(photos.count) photos taken within 400m of (22.283, 114.15")
     }
@@ -253,7 +253,7 @@ SKYContainer.default().privateCloudDatabase.perform(query) { (photos, error) in
         print ("error query photos: \(error)")
         return
     }
-    
+
     for photo in photos as! [SKYRecord] {
         let distance = photo.transient.object(forKey: "distance")
         print ("Photo taken from distance = \(distance)")
@@ -298,14 +298,14 @@ func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMe
     if let url = info[UIImagePickerControllerReferenceURL] as? URL {
         let asset = SKYAsset(name: "profile-picture", fileURL: url)
         asset?.mimeType = "image/png"
-        
+
         let container = SKYContainer.default()
         container?.uploadAsset(asset, completionHandler: { (asset, error) in
             if error != nil {
                 print ("error uploading asset: \(error)")
                 return
             }
-            
+
             self.photoRecord?.setObject(asset, forKey: "image" as NSCopying!)
             container?.privateCloudDatabase.save(self.photoRecord, completion: nil)
         })
@@ -319,13 +319,13 @@ Asset names will never collide. i.e. you can upload multiple assets with the sam
 
 ```obj-c
 NSString *newName = asset.name;
-// The name is changed to "c36e803a-f333-47bf-a3e9-4d52b660a71a-profile-picture" 
+// The name is changed to "c36e803a-f333-47bf-a3e9-4d52b660a71a-profile-picture"
 // from "profile-picture"
 ```
 
 ```swift
 let newName = asset.name
-// The name is changed to "c36e803a-f333-47bf-a3e9-4d52b660a71a-profile-picture" 
+// The name is changed to "c36e803a-f333-47bf-a3e9-4d52b660a71a-profile-picture"
 // from "profile-picture"
 ```
 
@@ -354,7 +354,7 @@ SKYContainer.default().privateCloudDatabase.fetchRecord(with: photoRecordID) { (
         print ("error fetching photo: \(error)")
         return
     }
-    
+
     if let asset = photo?.object(forKey: "image") as? SKYAsset{
         let url = asset.url
         // do something with the url
