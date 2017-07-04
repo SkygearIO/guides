@@ -79,7 +79,7 @@ If a user try to sign up with an existing username / email, the error `ERROR.COD
 A typical way to check if a user account already exists is shown below:
 
 ```java
-skygear.signupWithUsername(username, password, new AuthResponseHandler() {
+skygear.getAuth().signupWithUsername(username, password, new AuthResponseHandler() {
     @Override
     public void onAuthSuccess(User user) {
         Log.i("Skygear Signup", "onAuthSuccess: Got token: " + user.getAccessToken());
@@ -106,7 +106,7 @@ In this case you can create a anonymous user session. An anonymous user acts lik
 To create an anonymous user, call `skygear.signupAnonymously()` as shown below:
 
 ```java
-skygear.signupAninymously(new AuthResponseHandler() {
+skygear.getAuth().signupAninymously(new AuthResponseHandler() {
     @Override
     public void onAuthSuccess(User user) {
         Log.i("Skygear Signup", "onAuthSuccess: Got token: " + user.getAccessToken());
@@ -176,7 +176,7 @@ skygear.getAuth().loginWithUsername(email, password, new AuthResponseHandler() {
 To logout from the current user, simply call `skygear.logout()` as shown below:
 
 ```java
-skygear.logout(new LogoutResponseHandler() {
+skygear.getAuth().logout(new LogoutResponseHandler() {
    @Override
    public void onLogoutSuccess() {
        Log.i("Skygear Logout", "Successfully logged out");
@@ -241,7 +241,7 @@ User newUser = new User(currentUser.getId(),
                         "your-new-username",
                         "your-new-email@hello.com");
 
-skygear.saveUser(newUser, new UserSaveResponseHandler() {
+skygear.getAuth().saveUser(newUser, new UserSaveResponseHandler() {
     @Override
     public void onSaveSuccess(User user) {
         Log.i("Skygear User", "Update user successful");
