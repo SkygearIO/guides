@@ -45,7 +45,7 @@ String password = getPassword(); // get from user input
 skygear.getAuth().signupWithUsername(username, password, new AuthResponseHandler() {
     @Override
     public void onAuthSuccess(User user) {
-        Log.i("Skygear Signup", "onAuthSuccess: Got token: " + user.accessToken);
+        Log.i("Skygear Signup", "onAuthSuccess: Got token: " + user.getAccessToken());
     }
 
     @Override
@@ -64,7 +64,7 @@ String password = getPassword(); // get from user input
 skygear.getAuth().signupWithEmail(email, password, new AuthResponseHandler() {
     @Override
     public void onAuthSuccess(User user) {
-        Log.i("Skygear Signup", "onAuthSuccess: Got token: " + user.accessToken);
+        Log.i("Skygear Signup", "onAuthSuccess: Got token: " + user.getAccessToken());
     }
 
     @Override
@@ -82,7 +82,7 @@ A typical way to check if a user account already exists is shown below:
 skygear.signupWithUsername(username, password, new AuthResponseHandler() {
     @Override
     public void onAuthSuccess(User user) {
-        Log.i("Skygear Signup", "onAuthSuccess: Got token: " + user.accessToken);
+        Log.i("Skygear Signup", "onAuthSuccess: Got token: " + user.getAccessToken());
     }
 
     @Override
@@ -109,7 +109,7 @@ To create an anonymous user, call `skygear.signupAnonymously()` as shown below:
 skygear.signupAninymously(new AuthResponseHandler() {
     @Override
     public void onAuthSuccess(User user) {
-        Log.i("Skygear Signup", "onAuthSuccess: Got token: " + user.accessToken);
+        Log.i("Skygear Signup", "onAuthSuccess: Got token: " + user.getAccessToken());
     }
 
     @Override
@@ -143,7 +143,7 @@ String password = getPassword(); // get from user input
 skygear.getAuth().loginWithUsername(username, password, new AuthResponseHandler() {
     @Override
     public void onAuthSuccess(User user) {
-        Log.i("Skygear Login", "onAuthSuccess: Got token: " + user.accessToken);
+        Log.i("Skygear Login", "onAuthSuccess: Got token: " + user.getAccessToken());
     }
 
     @Override
@@ -162,7 +162,7 @@ String password = getPassword(); // get from user input
 skygear.getAuth().loginWithUsername(email, password, new AuthResponseHandler() {
     @Override
     public void onAuthSuccess(User user) {
-        Log.i("Skygear Login", "onAuthSuccess: Got token: " + user.accessToken);
+        Log.i("Skygear Login", "onAuthSuccess: Got token: " + user.getAccessToken());
     }
 
     @Override
@@ -198,9 +198,9 @@ After sign up / log in, the user session can be obtained with `getCurrentUser`.
 Container skygear = Container.defaultContainer(this);
 User currentUser = skygear.getAuth().getCurrentUser();
 
-Log.i("Skygear User", "User access token: " + currentUser.accessToken);
-Log.i("Skygear User", "User ID: " + currentUser.userId);
-Log.i("Skygear User", "Username: " + currentUser.username);
+Log.i("Skygear User", "User access token: " + currentUser.getAccessToken());
+Log.i("Skygear User", "User ID: " + currentUser.getId());
+Log.i("Skygear User", "Username: " + currentUser.getUsername());
 ```
 
 Please be reminded that the `currentUser` object persists locally, and the
@@ -236,8 +236,8 @@ This is how you can update the username/email of the current user:
 ```java
 User currentUser = skygear.getCurrentUser();
 
-User newUser = new User(currentUser.userId,
-                        currentUser.accessToken,
+User newUser = new User(currentUser.getId(),
+                        currentUser.getAccessToken(),
                         "your-new-username",
                         "your-new-email@hello.com");
 
