@@ -73,27 +73,26 @@ The following diagram shows the login flow:
 ### Signing up with email or username
 
 A user can sign up using a username or an email, along with a password.
-It is done using either [`skygear.auth.signupWithUsername`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/auth.js~AuthContainer.html#instance-method-signupWithUsername) or
-[`skygear.auth.signupWithEmail`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/auth.js~AuthContainer.html#instance-method-signupWithEmail).
+It is done using either [`skygear.auth.signupWithUsername`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/packages/skygear-core/lib/auth.js~AuthContainer.html#instance-method-signupWithUsername) or
+[`skygear.auth.signupWithEmail`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/packages/skygear-core/lib/auth.js~AuthContainer.html#instance-method-signupWithEmail).
 
 Skygear does not allow duplicated usernames or emails. Signing up with a
 duplicated identifier will give the error `Duplicated`.
 
 While each of the sign-up functions is resolved with a user object,
 in most cases you need not deal with it because
-you can access the currently logged-in user using [`skygear.auth.currentUser`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/auth.js~AuthContainer.html#instance-get-currentUser).
+you can access the currently logged-in user using [`skygear.auth.currentUser`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/packages/skygear-core/lib/auth.js~AuthContainer.html#instance-get-currentUser).
 
-[`signupWithUsername`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/auth.js~AuthContainer.html#instance-method-signupWithUsername) sample code:
+[`signupWithUsername`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/packages/skygear-core/lib/auth.js~AuthContainer.html#instance-method-signupWithUsername) sample code:
 
 ``` javascript
 import skygear from 'skygear';
-import skygearError from 'skygear/lib/error';
 
 skygear.auth.signupWithUsername(username, password).then((user) => {
   console.log(user); // user object
 }, (error) => {
   console.error(error);
-  if (error.error.code === skygearError.Duplicated) {
+  if (error.error.code === skygear.ErrorCodes.Duplicated) {
     // the username has already existed
   } else {
     // other kinds of error
@@ -101,17 +100,16 @@ skygear.auth.signupWithUsername(username, password).then((user) => {
 });
 ```
 
-[`signupWithEmail`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/auth.js~AuthContainer.html#instance-method-signupWithEmail) sample code:
+[`signupWithEmail`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/packages/skygear-core/lib/auth.js~AuthContainer.html#instance-method-signupWithEmail) sample code:
 
 ``` javascript
 import skygear from 'skygear';
-import skygearError from 'skygear/lib/error';
 
 skygear.auth.signupWithEmail(email, password).then((user) => {
   console.log(user); // user object
 }, (error) => {
   console.error(error);
-  if (error.error.code === skygearError.Duplicated) {
+  if (error.error.code === skygear.ErrorCodes.Duplicated) {
     // the email has already existed
   } else {
     // other kinds of error
@@ -126,7 +124,7 @@ database.
 
 If you need an authenticated user but do not require a user to
 sign up explicitly with a username or email, you can create an anonymous user
-by calling [`skygear.auth.signupAnonymously`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/auth.js~AuthContainer.html#instance-method-signupAnonymously).
+by calling [`skygear.auth.signupAnonymously`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/packages/skygear-core/lib/auth.js~AuthContainer.html#instance-method-signupAnonymously).
 
 Every anonymous user has a unique user ID, and behaves exactly the same as
 any user authenticated with a username or an email. The only difference is that
@@ -135,7 +133,6 @@ of username and email, the account will be lost when the access token is lost.
 
 ``` javascript
 import skygear from 'skygear';
-import skygearError from 'skygear/lib/error';
 
 skygear.auth.signupAnonymously().then((user) => {
   console.log(user); // user object with undefined email and username
@@ -155,7 +152,7 @@ If the credentials are incorrect, it will give the error of:
 
 While each of the login functions is resolved with a user object,
 in most cases you need not deal with it because
-you can access the currently logged-in user using [`skygear.auth.currentUser`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/auth.js~AuthContainer.html#instance-get-currentUser).
+you can access the currently logged-in user using [`skygear.auth.currentUser`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/packages/skygear-core/lib/auth.js~AuthContainer.html#instance-get-currentUser).
 
 ### Logging in using a username
 
@@ -164,8 +161,8 @@ skygear.auth.loginWithUsername(username, password).then((user) => {
   console.log(user); // user object
 }, (error) => {
   console.error(error);
-  if (error.error.code === skygearError.InvalidCredentials ||
-      error.error.code === skygearError.ResourceNotFound ) {
+  if (error.error.code === skygear.ErrorCodes.InvalidCredentials ||
+      error.error.code === skygear.ErrorCodes.ResourceNotFound ) {
     // incorrect username or password
   } else {
     // other kinds of error
@@ -180,8 +177,8 @@ skygear.auth.loginWithEmail(email, password).then((user) => {
   console.log(user); // user object
 }, (error) => {
   console.error(error);
-  if (error.error.code === skygearError.InvalidCredentials ||
-      error.error.code === skygearError.ResourceNotFound ) {
+  if (error.error.code === skygear.ErrorCodes.InvalidCredentials ||
+      error.error.code === skygear.ErrorCodes.ResourceNotFound ) {
     // incorrect username or password
   } else {
     // other kinds of error
@@ -191,7 +188,7 @@ skygear.auth.loginWithEmail(email, password).then((user) => {
 
 ## Logging out
 
-Logging out the current user is simple using the [`skygear.auth.logout`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/auth.js~AuthContainer.html#instance-method-logout) method.
+Logging out the current user is simple using the [`skygear.auth.logout`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/packages/skygear-core/lib/auth.js~AuthContainer.html#instance-method-logout) method.
 
 Upon successful logout, the SDK will clear the current user and the access token
 from the local storage.
@@ -206,13 +203,13 @@ skygear.auth.logout().then(() => {
 
 ## Getting the current user
 
-You can retrieve the current user from [`skygear.auth.currentUser`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/auth.js~AuthContainer.html#instance-get-currentUser).
+You can retrieve the current user from [`skygear.auth.currentUser`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/packages/skygear-core/lib/auth.js~AuthContainer.html#instance-get-currentUser).
 
 ``` javascript
 const user = skygear.auth.currentUser; // if not logged in, it will be null
 ```
 
-If there is an authenticated user, it will give you a [`User`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/user.js~User.html) object like this:
+If there is an authenticated user, it will give you a [`User`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/packages/skygear-core/lib/user.js~User.html) object like this:
 
 ``` javascript
 {
@@ -223,12 +220,12 @@ If there is an authenticated user, it will give you a [`User`](https://doc.esdoc
 ```
 
 Please be reminded that the
-[`currentUser`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/auth.js~AuthContainer.html#instance-get-currentUser)
+[`currentUser`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/packages/skygear-core/lib/auth.js~AuthContainer.html#instance-get-currentUser)
  object persist locally, and the information (e.g. roles, emails, etc)
  might not sync with the server if it was changed remotely.
 
 To get the latest information of the current user,
-you can call [`whoami()`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/auth.js~AuthContainer.html#instance-method-whoami):
+you can call [`whoami()`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/packages/skygear-core/lib/auth.js~AuthContainer.html#instance-method-whoami):
 
 ``` javascript
 skygear.auth.whoami().then((user) => {
@@ -242,7 +239,7 @@ skygear.auth.whoami().then((user) => {
 ## Observing user changes
 
 The preferred way for your app to handle any logged-in user change is to
-register a callback by using the [`skygear.auth.onUserChanged`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/auth.js~AuthContainer.html#instance-method-onUserChanged) method.
+register a callback by using the [`skygear.auth.onUserChanged`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/packages/skygear-core/lib/auth.js~AuthContainer.html#instance-method-onUserChanged) method.
 The callback will be invoked whenever the user is changed, i.e.
 when any of the followings happens:
 
@@ -268,7 +265,7 @@ handler.cancel(); // The callback is cancelable
 ## Updating a user's username and email
 
 To change a user's username and email, you can use
-the [`skygear.auth.saveUser`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/auth.js~AuthContainer.html#instance-method-saveUser) method by
+the [`skygear.auth.saveUser`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/packages/skygear-core/lib/auth.js~AuthContainer.html#instance-method-saveUser) method by
 providing the user ID and the new username and/or the new email.
 Every user can change his/her own username/email while
 only users with the admin role can change the usernames/emails of other users.
@@ -276,7 +273,7 @@ only users with the admin role can change the usernames/emails of other users.
 ::: caution
 
 **Caution:** Changing the username/email of the current user will trigger the callback
-registered through [`skygear.auth.onUserChanged`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/auth.js~AuthContainer.html#instance-method-onUserChanged), even if the new username/email is
+registered through [`skygear.auth.onUserChanged`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/packages/skygear-core/lib/auth.js~AuthContainer.html#instance-method-onUserChanged), even if the new username/email is
 the same as the old one.
 
 :::
@@ -310,12 +307,12 @@ skygear.auth.saveUser({
 ```
 
 To change the username and email at the same time, you can specify both
-[`username`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/user.js~User.html#instance-member-username) and [`email`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/user.js~User.html#instance-member-email) when calling [`skygear.auth.saveUser`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/auth.js~AuthContainer.html#instance-method-saveUser).
+[`username`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/packages/skygear-core/lib/user.js~User.html#instance-member-username) and [`email`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/packages/skygear-core/lib/user.js~User.html#instance-member-email) when calling [`skygear.auth.saveUser`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/packages/skygear-core/lib/auth.js~AuthContainer.html#instance-method-saveUser).
 
 ## Updating a user's password
 
 The currently logged-in user can change his/her own password.
-This can be done using the [`skygear.auth.changePassword`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/auth.js~AuthContainer.html#instance-method-changePassword) function.
+This can be done using the [`skygear.auth.changePassword`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/packages/skygear-core/lib/auth.js~AuthContainer.html#instance-method-changePassword) function.
 
 If the current password is incorrect, the SDK will return an
 `InvalidCredentials` error.
@@ -326,7 +323,7 @@ skygear.auth.changePassword(currentPassword, newPassword).then((user) => {
   console.log('Password has been changed');
 }, (error) => {
   console.error(error);
-  if (error.error.code === skygearError.InvalidCredentials) {
+  if (error.error.code === skygear.ErrorCodes.InvalidCredentials) {
     // the current password is incorrect
   } else {
     // other kinds of error
@@ -335,7 +332,7 @@ skygear.auth.changePassword(currentPassword, newPassword).then((user) => {
 ```
 
 Note: Changing the password of the current user will not trigger the callback
-registered through [`skygear.auth.onUserChanged`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/auth.js~AuthContainer.html#instance-method-onUserChanged).
+registered through [`skygear.auth.onUserChanged`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/packages/skygear-core/lib/auth.js~AuthContainer.html#instance-method-onUserChanged).
 
 ## Invalidating existing access tokens
 
