@@ -87,7 +87,6 @@ you can access the currently logged-in user using [`skygear.auth.currentUser`](h
 
 ``` javascript
 import skygear from 'skygear';
-import skygearError from 'skygear/lib/error';
 
 skygear.auth.signupWithUsername(username, password).then((user) => {
   console.log(user); // user object
@@ -105,7 +104,6 @@ skygear.auth.signupWithUsername(username, password).then((user) => {
 
 ``` javascript
 import skygear from 'skygear';
-import skygearError from 'skygear/lib/error';
 
 skygear.auth.signupWithEmail(email, password).then((user) => {
   console.log(user); // user object
@@ -135,7 +133,6 @@ of username and email, the account will be lost when the access token is lost.
 
 ``` javascript
 import skygear from 'skygear';
-import skygearError from 'skygear/lib/error';
 
 skygear.auth.signupAnonymously().then((user) => {
   console.log(user); // user object with undefined email and username
