@@ -1,0 +1,18 @@
+language: node_js
+
+node_js: 6
+
+cache:
+  directories:
+    - node_modules
+
+install:
+  - npm install markdown-spellcheck
+
+script:
+  - "./node_modules/.bin/mdspell -r --en-us -n '**/*.md' -n '!node_modules/**/*.md'"
+
+notifications:
+  slack:
+    rooms:
+      secure: Z78dJi2Ew2HjXUnz6FMQcbZyktQRrFPN9NhUEnhhrT8LXYTOEglsK++0X1M+PWcFAmEEoe0YQjGauTkj/c3GuU5gM8hw5p49m6fojzq5d6eCkDbgtTp0/PPCm8As8laLoaqduHdiv9HqCuqVgLF33c5Jiosqcb5waxwUSGydIsqcNVWycspJAvCa/86WG8Q4RaNL9e3HhGBOjLR/UztA9CFur1XzzUWgVbpMcVvUDRjbpom3+DNnIiIoDGr05ZuvtNh38DvIzMQPnEGYiX67jbSZLnKq3i8GvoJk7GthFihRwRRdUpHaLq9J1W3BOsHgbPk2WkHO1W6NExuniyR2unp7p/aRUnOQ3Rz9BpkFgByY4dqcLQSRnFgaqWlW5a558h0dbwz/i5CC72O1dR8SU5tRKeIOphUsVueSioKL9fD1n8+ZzRP3zuTX5eolYwv8B9HtZUxRtiglICprABDolyRPkHLZXohr2gn4HXW6oWxLUyFuf2TlErSoYMixHL/8kG+uP8SwNRw4o/RNteqVepBkTWC9Wj314TMMl4IviB0ompqAL7SyXo1T3oqXZDcFvLQuTaEsYcbW5uy5FD74NakCtaJrN+RusXhYVAAUZ3qMRkQtuzk7vpN3LBLcRAHgmnK+QgAGYeRGlAqnldFWdcVz2ndinX0C7OQcW6jJFGw=
