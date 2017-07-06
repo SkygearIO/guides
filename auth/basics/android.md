@@ -132,7 +132,7 @@ Depending whether they sign up with email or username, you can log a user in wit
 - loginWithUsername
 - loginWithEmail
 
-However, if user try to sign up with an exsisting username / email, the error `ERROR.CODE.DUPLICATED` will be returned in the `onAuthFail` method, indicating the username / email is already registered.
+However, if user try to sign up with an existing username / email, the error `ERROR.CODE.DUPLICATED` will be returned in the `onAuthFail` method, indicating the username / email is already registered.
 
 The following shows how to log in a user with username and password.
 
