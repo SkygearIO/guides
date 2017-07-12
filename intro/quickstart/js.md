@@ -7,25 +7,33 @@ description: Adding Skygear to your web apps
 
 This guide will walk you through the steps to add Skygear to your HTML5 project and Node.js project from scratch.
 
+## Try Skygear
+If you are interested in having a sneak peek, you can play around with Skygear using this [code snippet](https://jsfiddle.net/0bu7urc6/).
+
+## Get started with JS Demo Projects
 :::note
-Alternatively, you might want to get started with Skygear using:
-* [Skygear Scaffolding Template for React-Webpack project](https://github.com/SkygearIO/generator-skygear)
-* [JS API Samples Project](https://github.com/SkygearIO/skygear-SDK-JS/tree/master/example)
-* [List of JS demo / tutorials at github.com/skygear-demo](https://github.com/search?q=topic%3Askygear-js+org%3Askygear-demo)
+Alternatively, you might want to get started with Skygear using the following demo projects:
+* [HTML5: Web Dinner Poll](https://github.com/skygear-demo/web-dinnerpoll): This is a simple dinner polling app demonstrating the usage of Skygear as a cloud database.
+* [Ionic: Todo List](https://github.com/skygear-demo/ionic-todo-demo): This is a simple ToDo List app written in Angular.js demonstrating the usage of Ionic Framework and Skygear JS SDK.
+* [React: Chat App](https://github.com/skygear-demo/react-chat-demo): This is a simple chat app demonstrating the usage of Skygear Server with the chat plugin.
+* [Slackbot: Lunchbot](https://github.com/skygear-demo/skygear-lunchbot-js): This bot allows your Slack team to create a list of places for lunch and the bot will suggest a place to eat based on a schedule.
+* You can view a full list of JS demos / tutorials at [github.com/skygear-demo](https://github.com/search?q=topic%3Askygear-js+org%3Askygear-demo)
 :::
 
-## Prerequisite
+## Install Skygear in your app
+
+### Prerequisite
 
 - A Skygear account. Sign up [here](https://portal.skygear.io/signup).
 
 
-## Step 1: Install the Skygear JS SDK and configure Skygear
+### Step 1: Install the Skygear JS SDK and configure Skygear
 
 There are two ways you might use Skygear JS SDK:
 1. Use the SDK in HTML with CDN
 1. Import the [npm package](https://www.npmjs.com/package/skygear)
 
-### Method 1: HTML5 project (CDN)
+#### Method 1: HTML5 project (CDN)
 
 Add the following lines into the header of your HTML file.
 
@@ -52,7 +60,7 @@ Add the following lines into the header of your HTML file.
 You can get your server endpoints and the API keys in the _info page_ in your [developer portal](https://portal.skygear.io/apps) after signing up for the [Skygear Cloud Services](https://portal.skygear.io/signup).
 :::
 
-### Method 2: Node.js project
+#### Method 2: Node.js project
 
 1. Add Skygear to your Node.js project using npm install.
 
@@ -83,7 +91,7 @@ You can get your server endpoints and the API keys in the _info page_ in your [d
 
 That is it. You are good to go now. You can continue with the step below to learn about basic database operations.
 
-## Step 2: Create your first record in Skygear
+### Step 2: Create your first record in Skygear
 
 Now, let's create a record in the Skygear database to see if the SDK has been installed successfully.
 
@@ -125,13 +133,13 @@ You can access your database using the data browser we provide. It can be found 
 ![Skygear portal](/assets/common/open-database-in-web-browser.png)
 
 This is how your data browser will look like.
-
 ![Web database viewer](/assets/common/quickstart-database-viewer.png)
 
-:::tips
+:::tips 
+<a id="tips-anchor"></a>
 You can access Skygear database in 3 ways.
 1. Web data browser: It can be found from the _info_ page in your [developer portal](https://portal.skygear.io/apps).
-2. PostgreSQL client: Skygear database can viewed in any PostgreSQL client. Get the connection string from the _info_ page in your [developer portal](https://portal.skygear.io/apps). We recommend using [Postico](https://eggerapps.at/postico/).
+2. PostgreSQL client: Skygear database can be viewed in any PostgreSQL client. Get the connection string from the _info_ page in your [developer portal](https://portal.skygear.io/apps). We recommend using [Postico](https://eggerapps.at/postico/).
 3. Skygear CMS: Skygear CMS is a business-user friendly web interface that allows users to edit the data in the database. To use the CMS, you have to enable it in the _plug-ins_ page in the [developer portal](https://portal.skygear.io/apps). Your CMS URL is https://insert-your-app-name.skygeario.com/cms.
 
 :::

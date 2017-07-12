@@ -25,7 +25,7 @@ section for more information.
 - `Record` has reserved keys that cannot be used, such as `id` and `_id`.
 Please refer to [Reserved Columns][doc-reserved-columns] section for more.
 
-You can design different `Record` type to model your app. Just like defining
+You can design different `Record` types to model your app. Just like defining
 tables in SQL.
 
 ``` javascript
@@ -36,6 +36,8 @@ const note = new Note({ 'content': 'Hello World' });
 ```
 
 ### Record Database
+
+Please note Skygear database uses PostgreSQL. You can review our [tips](https://docs.skygear.io/guides/intro/quickstart/js/#tips-anchor) on the 3 ways you can access the Skygear database. 
 
 You will be provided with a private and a public database.
 
@@ -53,7 +55,7 @@ To control the access, you may set different access control to the record.
 
 ### Creating a record
 
-You can save a public record to server as the following.
+You can save a public record to server as the following: 
 
 ``` javascript
 skygear.publicDB.save(new Note({
@@ -64,6 +66,8 @@ skygear.publicDB.save(new Note({
   console.error(error);
 });
 ```
+Here we created a new record in the 'Note' table and under the 'content' column, we added the record value: 'Hello World!'. Your data browser should look similar to the following, but with the 'Note' table instead of the 'test' table. 
+![Web database viewer](/assets/common/quickstart-database-viewer.png)
 
 #### Batch save
 
