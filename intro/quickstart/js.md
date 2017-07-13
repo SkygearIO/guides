@@ -5,10 +5,8 @@ description: Adding Skygear to your web apps
 
 [[toc]]
 
-This guide will walk you through the steps to add Skygear to your HTML5 project and Node.js project from scratch.
-
 ## Try Skygear
-If you are interested in having a sneak peek, you can play around with Skygear using this [code snippet](https://jsfiddle.net/0bu7urc6/).
+If you are interested in having a sneak peek, you can play around with Skygear using this [code snippet](https://jsfiddle.net/0bu7urc6/). You can obtain your own server endpoints and the API keys by signing up for a free Skygear account [here](https://portal.skygear.io/signup).
 
 ## Get started with JS Demo Projects
 :::note
@@ -21,6 +19,8 @@ Alternatively, you might want to get started with Skygear using the following de
 :::
 
 ## Install Skygear in your app
+
+This guide will walk you through the steps to add Skygear to your HTML5 project and Node.js project from scratch.
 
 ### Prerequisite
 
