@@ -30,9 +30,15 @@ tables in SQL.
 
 ``` javascript
 const Note = skygear.Record.extend('note');
-const Blog = skygear.Record.extend('blog');
+  // In SQL language, this creates a new table in the database named 'note'. You can use 'Note' to refer the 'note' table aka record type.
 
 const note = new Note({ 'content': 'Hello World' });
+  //This creates a new record value 'Hello World' stored under a column called 'content' in the 'note' table.
+
+const Blog = skygear.Record.extend('blog');
+  //You can also define a different record type (e.g. a blog) by creating a new table called "blog".
+
+
 ```
 
 ### Record Database
