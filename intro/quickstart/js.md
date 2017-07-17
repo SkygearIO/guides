@@ -60,10 +60,15 @@ You can get your server endpoints and the API keys in the _info page_ in your [d
 npm install skygear --save
 ```
 
-2. Then import skygear in your JS file.
+2. Then require it from any JavaScript file:
 
 ```javascript
 var skygear = require('skygear');
+```
+If you are using ES2015, you can import the module instead:
+
+```javascript
+import skygear from 'skygear';
 ```
 
 3. To configure Skygear in your app , add the following lines in the JS file.
