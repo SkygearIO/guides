@@ -74,7 +74,7 @@ npm install skygear --save
 2. Then import skygear in your JS file.
 
 ```javascript
-import skygear from 'skygear';
+var skygear = require('skygear');
 ```
 
 3. To configure Skygear in your app , add the following lines in the JS file.
