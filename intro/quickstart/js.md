@@ -9,13 +9,15 @@ description: Adding Skygear to your web apps
 
 If you are interested in having a sneak peek, you can play around with Skygear using this [code snippet](https://jsfiddle.net/0bu7urc6/). You can obtain your own server endpoints and API keys by signing up for a free Skygear account [here](https://portal.skygear.io/signup).
 
+If you would prefer to use your own text editor, you can use this simple React [scaffolding](https://github.com/SkygearIO/generator-skygear) and follow the guide to set up your Skygear app. 
+
 ## Get started with JS Demo Projects
 
 Alternatively, you might want to get started with Skygear using the following demo projects:
 * [HTML5: Web Dinner Poll](https://github.com/skygear-demo/web-dinnerpoll): This is a simple dinner polling app demonstrating the usage of Skygear as a cloud database.
-* [Ionic: Todo List](https://github.com/skygear-demo/ionic-todo-demo): This is a simple ToDo List app written in Angular.js demonstrating the usage of Ionic Framework and Skygear JS SDK.
+* [Ionic: Todo List](https://github.com/skygear-demo/ionic-todo-demo): This is a simple ToDo List app written in AngularJS demonstrating the usage of Ionic Framework and Skygear JS SDK.
 * [React: Chat App](https://github.com/skygear-demo/react-chat-demo): This is a simple chat app demonstrating the usage of Skygear Server with the chat plugin.
-* [Slackbot: Lunchbot](https://github.com/skygear-demo/skygear-lunchbot-js): This bot allows your Slack team to create a list of places for lunch and the bot will suggest a place to eat based on a schedule.
+* [Slack-bot: Lunch-bot](https://github.com/skygear-demo/skygear-lunchbot-js): This bot allows your Slack team to create a list of places for lunch and the bot will suggest a place to eat based on a schedule.
 * You can view a full list of JS demos / tutorials at [github.com/skygear-demo](https://github.com/search?q=topic%3Askygear-js+org%3Askygear-demo)
 
 
