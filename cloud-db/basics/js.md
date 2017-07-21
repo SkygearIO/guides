@@ -30,13 +30,13 @@ tables in SQL.
 
 ``` javascript
 const Note = skygear.Record.extend('note');
-  // In SQL language, this creates a new table in the database named 'note'. You can use 'Note' to refer the 'note' table aka record type.
+  //You can use 'Note' to reference the 'note' record type.
 
 const note = new Note({ 'content': 'Hello World' });
-  //This creates a new record value 'Hello World' stored under a column called 'content' in the 'note' table.
+  //This creates a new record value 'Hello World' stored under a column called 'content' in the 'note' record type.
 
 const Blog = skygear.Record.extend('blog');
-  //You can also define a different record type (e.g. a blog) by creating a new table called "blog".
+  //You can also define a different record type (e.g. a blog).
 
 
 ```
@@ -72,7 +72,7 @@ skygear.publicDB.save(new Note({
   console.error(error);
 });
 ```
-Here we created a new record in the 'Note' table and under the 'content' column, we added the record value: 'Hello World!'. Your data browser should look similar to the following, but with the 'Note' table instead of the 'test' table. 
+Here we created a new record in 'Note' and under the 'content' column, we added the record value: 'Hello World!'. Your data browser should look similar to the following, but with the 'note' record type instead of the 'test' record type. 
 ![Web database viewer](/assets/common/quickstart-database-viewer.png)
 
 #### Batch save
