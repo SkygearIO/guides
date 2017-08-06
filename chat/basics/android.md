@@ -467,7 +467,7 @@ chatContainer.sendMessage(conversation, "Message Body", null, meta, new SaveCall
 ```
 ### Files
 
-If you would like to send files via Skygear Chat, you can upload a file as an [`io.skygear.skygear.Asset`](https://docs.skygear.io/android/reference/io/skygear/skygear/Asset.html).
+If you would like to send files via Skygear Chat, you can upload a file as an [`io.skygear.skygear.Asset`](https://docs.skygear.io/android/reference/v0/io/skygear/skygear/Asset.html).
 
 ```Java
 Container skygear = Container.defaultContainer(getApplicationContext());

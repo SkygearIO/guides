@@ -28,7 +28,7 @@ And here are a list of Sample Projects using Skygear JS Chat SDK:
 * Shall include more details about the data type: Message, UserConversation and
   Conversation; although they are included as Example.
 * We should also explain conversation options are configurable via
-  [`updateConversation`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/container.js~SkygearChatContainer.html#instance-method-updateConversation)
+  [`updateConversation`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/packages/skygear-core/lib/container.js~SkygearChatContainer.html#instance-method-updateConversation)
 * We should explain or include a link to the UIKit for quick chat application
   implementation
 * We should mention the TypingIndicator Utility.
@@ -61,8 +61,8 @@ Attributes of a conversation:
 
 There are 2 APIs you can use to create a conversation:
 
-- **[`createDirectConversation`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/container.js~SkygearChatContainer.html#instance-method-createDirectConversation)**: It's for one-to-one conversation
-- **[`createConversation`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/container.js~SkygearChatContainer.html#instance-method-createConversation)**: It's for group conversation
+- **[`createDirectConversation`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/packages/skygear-core/lib/container.js~SkygearChatContainer.html#instance-method-createDirectConversation)**: It's for one-to-one conversation
+- **[`createConversation`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/packages/skygear-core/lib/container.js~SkygearChatContainer.html#instance-method-createConversation)**: It's for group conversation
 
 Below is an example of creating a direct chat between the current user and Ben.
 
@@ -94,7 +94,7 @@ skygearChat.createConversation(participants, 'Greeting')
 :::tips
 **Fetching a user**
 
-From the above example, you can see we that need a user object to create a conversation. To get a user, you can either use [`discoverUserByEmails`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/container.js~Container.html#instance-method-discoverUserByEmails) or [`discoverUserByUsernames`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/container.js~Container.html#instance-method-discoverUserByUsernames), depending on the credential you use for user authentication (i.e. [`signupWithEmail`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/container.js~Container.html#instance-method-discoverUserByEmails) or [`signupWithUsername`](https://doc.esdoc.org/github.com/skygeario/skygear-SDK-JS/class/lib/container.js~Container.html#instance-method-signupWithUsername)).
+From the above example, you can see we that need a user object to create a conversation. To get a user, you can either use [`discoverUserByEmails`](https://docs.skygear.io/js/reference/v0/class/packages/skygear-core/lib/container.js~Container.html#instance-method-discoverUserByEmails) or [`discoverUserByUsernames`](https://docs.skygear.io/js/reference/v0/class/packages/skygear-core/lib/container.js~Container.html#instance-method-discoverUserByUsernames), depending on the credential you use for user authentication (i.e. [`signupWithEmail`](https://docs.skygear.io/js/reference/v0/class/packages/skygear-core/lib/container.js~Container.html#instance-method-discoverUserByEmails) or [`signupWithUsername`](https://docs.skygear.io/js/reference/v0/class/packages/skygear-core/lib/container.js~Container.html#instance-method-signupWithUsername)).
 
 If you are using a 3rd party login provider, you need create write your own user identifier. Check out the user profile guide for more details.
 :::
@@ -173,7 +173,7 @@ The admin of a conversation has the following permissions:
 
 In most chat apps, you need to display a list of conversations the currently logged in user has. Think about the list of conversations (main screen) of Whatsapp or Telegram.
 
-To do so you can simply call [`getUserConversations()`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/container.js~SkygearChatContainer.html#instance-method-getUserConversations).
+To do so you can simply call [`getUserConversations()`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/packages/skygear-core/lib/container.js~SkygearChatContainer.html#instance-method-getUserConversations).
 
 ```javascript!
 const includeLastMessage=True;
@@ -226,7 +226,7 @@ information about a Conversation, and consist of the following:
 
 ### Leaving a conversation
 
-You can call [`leaveConversation()`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/container.js~SkygearChatContainer.html#instance-method-leaveConversation) to leave a conversation.
+You can call [`leaveConversation()`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/packages/skygear-core/lib/container.js~SkygearChatContainer.html#instance-method-leaveConversation) to leave a conversation.
 
 ```javascript!
 skygearChat.leaveConversation(conversation)
@@ -259,7 +259,7 @@ Attribute of messages:
 
 ### Sending messages
 
-To send a message, you can call [`createMessage()`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/container.js~SkygearChatContainer.html#instance-method-createMessage) and specify a target conversation.
+To send a message, you can call [`createMessage()`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/packages/skygear-core/lib/container.js~SkygearChatContainer.html#instance-method-createMessage) and specify a target conversation.
 
 This is an example of sending a red plain text message together with a file.
 
@@ -284,7 +284,7 @@ skygearChat.createMessage(conversation, message, metadata, assets)
 
 ### Getting messages in real time
 
-To get messages in real time, you should subscribe to a conversation with the API [`subscribe`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/container.js~SkygearChatContainer.html#instance-method-subscribe). Once you have subscribed a conversation, your app will listen for new messages published from the server.
+To get messages in real time, you should subscribe to a conversation with the API [`subscribe`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/packages/skygear-core/lib/container.js~SkygearChatContainer.html#instance-method-subscribe). Once you have subscribed a conversation, your app will listen for new messages published from the server.
 
 ```javascript!
 //To subscribe all the conversations
@@ -320,7 +320,7 @@ Use [Push Notification API](https://docs.skygear.io/guides/push-notifications/ba
 ## Chat history
 When users enter a conversation, you may need to display the chat history of the conversation.
 
-You can call [`getMessages()`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/container.js~SkygearChatContainer.html#instance-method-getMessages) to get an array of message of a conversation.
+You can call [`getMessages()`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/packages/skygear-core/lib/container.js~SkygearChatContainer.html#instance-method-getMessages) to get an array of message of a conversation.
 
 ```JavaScript
 const limit=10;
@@ -364,7 +364,7 @@ There are 3 status:
 
 ### Sending my typing status
 
-First of all, you need to send the users' typing status to the server using [`sendTypingIndicaton`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/container.js~SkygearChatContainer.html#instance-method-sendTypingIndicator).
+First of all, you need to send the users' typing status to the server using [`sendTypingIndicaton`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/packages/skygear-core/lib/container.js~SkygearChatContainer.html#instance-method-sendTypingIndicator).
 
 ```javascript!
 messageInput.addEventListener("focus", function () {
@@ -382,8 +382,8 @@ messageInput.addEventListener("blur", function () {
 To get other's typing status in real time, you need to subscribe to it so that your app will listen for any typing status updates.
 
 There are 2 APIs you can call:
-- **[subscribeTypingIndicator](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/container.js~SkygearChatContainer.html#instance-method-subscribeTypingIndicator)**: It's for subscribing to a specific conversation. (common use case)
-- **[subscribeAllTypingIndicator](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/container.js~SkygearChatContainer.html#instance-method-subscribeAllTypingIndicator)**: It's for subscribing to all typing indicator events.
+- **[subscribeTypingIndicator](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/packages/skygear-core/lib/container.js~SkygearChatContainer.html#instance-method-subscribeTypingIndicator)**: It's for subscribing to a specific conversation. (common use case)
+- **[subscribeAllTypingIndicator](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/packages/skygear-core/lib/container.js~SkygearChatContainer.html#instance-method-subscribeAllTypingIndicator)**: It's for subscribing to all typing indicator events.
 
 ```javascript!
 skygearChat.subscribeTypingIndicator(conversation, function (payload) {
@@ -424,8 +424,8 @@ Both callback functions return one variable as follows:
 ## Unread counts
 
 There are 2 APIs you can use to get unread counts.
-- **[`getUnreadMessageCount`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/container.js~SkygearChatContainer.html#instance-method-getUnreadMessageCount)**: It's to get the unread count of a specific conversation
-- **[`getUnreadCount`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/container.js~SkygearChatContainer.html#instance-method-getUnreadCount)**: It's to get the overall unread counts of all the conversations of a user
+- **[`getUnreadMessageCount`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/packages/skygear-core/lib/container.js~SkygearChatContainer.html#instance-method-getUnreadMessageCount)**: It's to get the unread count of a specific conversation
+- **[`getUnreadCount`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/packages/skygear-core/lib/container.js~SkygearChatContainer.html#instance-method-getUnreadCount)**: It's to get the overall unread counts of all the conversations of a user
 
 ```javascript
 skygearChat.getUnreadMessageCount(conversationA).then(function (count) {
