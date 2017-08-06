@@ -342,7 +342,7 @@ Coming Soon
 
 You may want to learn more about:
 - [Social Login using Skygear (Coming soon)](/guides/auth/social-login/android/)
-- [Setting User Profile (Coming soon)](/guides/auth/user-profile/android/)
+- [Setting User Profile](/guides/auth/user-profile/android/)
 
 [`Record`]: https://docs.skygear.io/android/reference/v1/io/skygear/skygear/Record.html
 [`getCurrentUser`]: https://docs.skygear.io/android/reference/v1/io/skygear/skygear/AuthContainer.html#getCurrentUser--
