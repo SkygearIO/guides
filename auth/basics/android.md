@@ -32,11 +32,20 @@ Records in the public database can be queried without any user session. But if y
 
 ## Signing up
 
-There are 2 APIs you can use to sign up a user:
-1. `signupWithUsername`: signing up with a username and a password
-2. `signupWithEmail`: signing up with an email and a password
+### Signing up with email or username
 
-The following example shows how to sign up a user with username and password.
+A user can sign up using a username or an email, along with a password.
+It is done using either [`signupWithUsername`] or
+[`signupWithEmail`].
+
+Skygear does not allow duplicated usernames or emails. Signing up with a
+duplicated identifier will give the error `Duplicated`.
+
+While each of the sign-up functions is resolved with a user record,
+in most cases you need not deal with it because
+you can access the currently logged-in user using [`getCurrentUser`].
+
+[`signupWithUsername`] sample code:
 
 ```java
 String username = getUsername(); // get from user input
@@ -44,7 +53,7 @@ String password = getPassword(); // get from user input
 
 skygear.getAuth().signupWithUsername(username, password, new AuthResponseHandler() {
     @Override
-    public void onAuthSuccess(User user) {
+    public void onAuthSuccess(Record user) {
         Log.i("Skygear Signup", "onAuthSuccess: Got token: " + user.getAccessToken());
     }
 
@@ -55,7 +64,7 @@ skygear.getAuth().signupWithUsername(username, password, new AuthResponseHandler
 });
 ```
 
-Signing up with email is done with much the same way:
+[`signupWithEmail`] sample code:
 
 ```java
 String email = getEmail(); // get from user input
@@ -63,7 +72,7 @@ String password = getPassword(); // get from user input
 
 skygear.getAuth().signupWithEmail(email, password, new AuthResponseHandler() {
     @Override
-    public void onAuthSuccess(User user) {
+    public void onAuthSuccess(Record user) {
         Log.i("Skygear Signup", "onAuthSuccess: Got token: " + user.getAccessToken());
     }
 
@@ -74,41 +83,49 @@ skygear.getAuth().signupWithEmail(email, password, new AuthResponseHandler() {
 });
 ```
 
-If a user try to sign up with an existing username / email, the error `ERROR.CODE.DUPLICATED` will be returned in the `onAuthFail` method.
-
-A typical way to check if a user account already exists is shown below:
+It is common to add other data to user record when signing up, you can do that
+by specifying the data for user record in the third parameter of the signup
+functions:
 
 ```java
+String username = getUsername(); // get from user input
+String password = getPassword(); // get from user input
+Map<String, Object> profile = new HashMap<String, Object>();
+profile.put("interest", "reading");
+
 skygear.getAuth().signupWithUsername(username, password, new AuthResponseHandler() {
     @Override
-    public void onAuthSuccess(User user) {
+    public void onAuthSuccess(Record user) {
         Log.i("Skygear Signup", "onAuthSuccess: Got token: " + user.getAccessToken());
+        Log.i("Skygear Signup", user.get("interest"));
     }
 
     @Override
     public void onAuthFail(Error error) {
-        if(error.getCode().equals(Error.Code.DUPLICATED)){
-            Toast.makeText(getApplicationContext(), "User already exist!", Toast.LENGTH_SHORT).show();
-            //Duplicate user handling...
-        }
+        Log.i("Skygear Signup", "onAuthFail: Fail with reason: " + error.getMessage());
     }
 });
 ```
 
-## Anonymous user
+### Signing up anonymously
 
-As mentioned before, to write and/or update a record in the Skygear database, there must be a user session.
+Without being authenticated, a user can read data from the public database but
+cannot perform most of the other operations, including saving data into the
+database.
 
-However, if your app dose not require a user to sign up explicitly, how can you write records to the cloud database from your app then?
+If you need an authenticated user but do not require a user to
+sign up explicitly with a username or email, you can create an anonymous user
+by calling [`signupAnonymously`].
 
-In this case you can create a anonymous user session. An anonymous user acts like a normal user - he can write, read and update the records.
-
-To create an anonymous user, call `skygear.signupAnonymously()` as shown below:
+Every anonymous user has a unique user ID, and behaves exactly the same as
+any user authenticated with a username or an email. The only difference is that
+an anonymous user has no username, email, nor password. Because of the absence
+of username and email, the account will be lost when the access token is lost.
 
 ```java
 skygear.getAuth().signupAninymously(new AuthResponseHandler() {
     @Override
-    public void onAuthSuccess(User user) {
+    public void onAuthSuccess(Record user) {
         Log.i("Skygear Signup", "onAuthSuccess: Got token: " + user.getAccessToken());
     }
 
@@ -119,22 +136,20 @@ skygear.getAuth().signupAninymously(new AuthResponseHandler() {
 });
 ```
 
-Each anonymous user has a unique ID that behaves exactly the same way as normal. As expected, an anonymous user does not have username, email nor password.
-
-Because of this behavior, once the token of an anonymous user is lost, the account will not be able to access again. The records, however, will still persist.
-
 ## Logging in
 
-Logging in behaves the same way as signing up a user.
+The login functions are similar to the sign-up ones.
 
-Depending whether they sign up with email or username, you can log a user in with:
+If the credentials are incorrect, it will give the error of:
 
-- loginWithUsername
-- loginWithEmail
+- `InvalidCredentials` if the password is incorrect;
+- `ResourceNotFound` if the email or username is not found.
 
-However, if user try to sign up with an existing username / email, the error `ERROR.CODE.DUPLICATED` will be returned in the `onAuthFail` method, indicating the username / email is already registered.
+While each of the login functions is resolved with a user record,
+in most cases you need not deal with it because
+you can access the currently logged-in user using [`getCurrentUser`].
 
-The following shows how to log in a user with username and password.
+### Logging in using a username
 
 ```java
 String username = getUsername(); // get from user input
@@ -142,18 +157,18 @@ String password = getPassword(); // get from user input
 
 skygear.getAuth().loginWithUsername(username, password, new AuthResponseHandler() {
     @Override
-    public void onAuthSuccess(User user) {
+    public void onAuthSuccess(Record user) {
         Log.i("Skygear Login", "onAuthSuccess: Got token: " + user.getAccessToken());
     }
 
     @Override
     public void onAuthFail(Error error) {
-        Log.i("Skygear Login", "onAuthFail: Fail with reason: " + error.getMessage());
+        Log.i("Skygear Login", "onAuthFail: Fail with reason: " + error.getCode());
     }
 });
 ```
 
-Users can log in with their emails if they have registered:
+### Logging in using an email
 
 ```java
 String email = getEmail(); // get from user input
@@ -161,19 +176,23 @@ String password = getPassword(); // get from user input
 
 skygear.getAuth().loginWithUsername(email, password, new AuthResponseHandler() {
     @Override
-    public void onAuthSuccess(User user) {
+    public void onAuthSuccess(Record user) {
         Log.i("Skygear Login", "onAuthSuccess: Got token: " + user.getAccessToken());
     }
 
     @Override
     public void onAuthFail(Error error) {
-        Log.i("Skygear Login", "onAuthFail: Fail with reason: " + error.getMessage());
+        Log.i("Skygear Login", "onAuthFail: Fail with reason: " + error.getCode());
     }
 });
 ```
 
 ## Logging out
-To logout from the current user, simply call `skygear.logout()` as shown below:
+
+Logging out the current user is simple using the [`logout`] method.
+
+Upon successful logout, the SDK will clear the current user and the access token
+from the local storage.
 
 ```java
 skygear.getAuth().logout(new LogoutResponseHandler() {
@@ -192,29 +211,41 @@ skygear.getAuth().logout(new LogoutResponseHandler() {
 
 ## Getting the current User
 
-After sign up / log in, the user session can be obtained with `getCurrentUser`.
+You can retrieve the current user from [`getCurrentUser`].
 
 ```java
 Container skygear = Container.defaultContainer(this);
-User currentUser = skygear.getAuth().getCurrentUser();
+Record currentUser = skygear.getAuth().getCurrentUser();
 
 Log.i("Skygear User", "User access token: " + currentUser.getAccessToken());
 Log.i("Skygear User", "User ID: " + currentUser.getId());
 Log.i("Skygear User", "Username: " + currentUser.getUsername());
 ```
 
-Please be reminded that the `currentUser` object persists locally, and the
-information (e.g. roles, emails, etc) might not sync with the server if it was
-changed remotely.
+If there is an authenticated user, it will give you a [`Record`] which
+is the user record. The user record looks like this:
 
-To get the latest information of the current user, you can call `whoami()`.
+``` json
+{
+  '_id': 'abcdef',
+  'username': 'Ben',
+  'email': 'ben@skygeario.com',
+}
+```
+
+Please be reminded that the [`getCurrentUser`]
+ object persist locally, and the data in the user record
+ might not sync with the server if it was changed remotely.
+
+To get the latest information of the current user,
+you can call [`whoami`]:
 
 ```java
 Container skygear = Container.defaultContainer(this);
 
 skygear.getAuth().whoami(new AuthResponseHandler() {
     @Override
-    public void onAuthSuccess(User user) {
+    public void onAuthSuccess(Record user) {
         Log.i("Skygear User", "I am " + user.getUsername());
     }
 
@@ -225,42 +256,101 @@ skygear.getAuth().whoami(new AuthResponseHandler() {
 });
 ```
 
-## Updating the username / email of a user
+## Updating a user's username and email
 
-To change a user's username and email, you can use the `skygear.saveUser()` method by providing the user ID and the new username and/or the new email.
+Username and email is saved to the user record. You can modify the username
+and email in the same way you modify any other record, which is achieved by
+calling [`save`].
 
-Each user can only edit his/her information. Only users with the admin role can change information of other users.
+::: caution
 
-This is how you can update the username/email of the current user:
+**Caution:** When saving user record, the user record returned by
+[`getCurrentUser`] is not automatically updated. To force an update of
+the record returned from [`getCurrentUser`], call [`whoami`].
+
+:::
+
+To change the username of the current user:
 
 ```java
-User currentUser = skygear.getCurrentUser();
-
-User newUser = new User(currentUser.getId(),
-                        currentUser.getAccessToken(),
-                        "your-new-username",
-                        "your-new-email@hello.com");
-
-skygear.getAuth().saveUser(newUser, new UserSaveResponseHandler() {
+Container skygear = Container.defaultContainer(this);
+Record currentUser = skygear.getAuth().getCurrentUser();
+currentUser.set("username", "new-username");
+skygear.getPublicDatabase().save(currentUser, new RecordSaveResponseHandler() {
     @Override
-    public void onSaveSuccess(User user) {
-        Log.i("Skygear User", "Update user successful");
+    public void onSaveSuccess(Record user) {
+        Log.i("Skygear User", "Username " + user.get("username"));
+        skygear.getAuth.whoami(null);
     }
 
     @Override
     public void onSaveFail(Error error) {
         Log.i("Skygear User", "onSaveFail: Fail with reason:" + error.getMessage());
     }
-});
+})
 ```
 
-If you only want to change one of the user fields, just replace the new username/email with `currentUser.getUsername()`/`currentUser.getEmail()`.
+To change the email of the current user:
 
-## Updating the password of a user
+```java
+Container skygear = Container.defaultContainer(this);
+Record currentUser = skygear.getAuth().getCurrentUser();
+currentUser.set("email", "new-email");
+skygear.getPublicDatabase().save(currentUser, new RecordSaveResponseHandler() {
+    @Override
+    public void onSaveSuccess(Record user) {
+        Log.i("Skygear User", "Email " + user.get("email"));
+        skygear.getAuth.whoami(null);
+    }
+
+    @Override
+    public void onSaveFail(Error error) {
+        Log.i("Skygear User", "onSaveFail: Fail with reason:" + error.getMessage());
+    }
+})
+```
+
+You can even change the username and email at the same time:
+
+```java
+Container skygear = Container.defaultContainer(this);
+Record currentUser = skygear.getAuth().getCurrentUser();
+currentUser.set("username", "new-username");
+currentUser.set("email", "new-email");
+skygear.getPublicDatabase().save(currentUser, new RecordSaveResponseHandler() {
+    @Override
+    public void onSaveSuccess(Record user) {
+        Log.i("Skygear User", "Username " + user.get("username"));
+        Log.i("Skygear User", "Email " + user.get("email"));
+        skygear.getAuth.whoami(null);
+    }
+
+    @Override
+    public void onSaveFail(Error error) {
+        Log.i("Skygear User", "onSaveFail: Fail with reason:" + error.getMessage());
+    }
+})
+```
+
+## Updating a user's password
+
 Coming Soon
+
+## Forgot password
+
+Coming soon.
 
 ## What's next from here?
 
 You may want to learn more about:
-- [Social Login using Skygear (Coming soon)](https://docs.skygear.io/guides/auth/social-login/android/)
-- [Setting User Profile (Coming soon)](https://docs.skygear.io/guides/auth/user-profile/android/)
+- [Social Login using Skygear (Coming soon)](/guides/auth/social-login/android/)
+- [Setting User Profile](/guides/auth/user-profile/android/)
+
+[`Record`]: https://docs.skygear.io/android/reference/v1/io/skygear/skygear/Record.html
+[`getCurrentUser`]: https://docs.skygear.io/android/reference/v1/io/skygear/skygear/AuthContainer.html#getCurrentUser--
+[`logout`]: https://docs.skygear.io/android/reference/v1/io/skygear/skygear/AuthContainer.html#logout-io.skygear.skygear.LogoutResponseHandler-
+[`signupAnonymously`]: https://docs.skygear.io/android/reference/v1/io/skygear/skygear/AuthContainer.html#signupAnonymously-io.skygear.skygear.AuthResponseHandler-
+[`signupWithEmail`]: https://docs.skygear.io/android/reference/v1/io/skygear/skygear/AuthContainer.html#signupWithEmail-java.lang.String-java.lang.String-io.skygear.skygear.AuthResponseHandler-
+[`signupWithUsername`]: https://docs.skygear.io/android/reference/v1/io/skygear/skygear/AuthContainer.html#signupWithUsername-java.lang.String-java.lang.String-io.skygear.skygear.AuthResponseHandler-
+[`save`]: https://docs.skygear.io/android/reference/v1/io/skygear/skygear/Database.html#save-io.skygear.skygear.Record:A-io.skygear.skygear.RecordSaveResponseHandler-
+[`whoami`]: https://docs.skygear.io/android/reference/v1/io/skygear/skygear/AuthContainer.html#whoami-io.skygear.skygear.AuthResponseHandler-

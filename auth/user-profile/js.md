@@ -1,67 +1,72 @@
 ---
-title: User Profile
+title: User Record
 ---
 
 [[toc]]
 
 
-## User Profile
+## Introduction
 
-Whenever a new user signs up, a user profile is automatically created for
-you to track user information other than their username, email or password.
+Whenever a new user signs up, a user record is automatically created for
+you to track user information other than their username, email or other
+user data.
 
-The user profile is created using the record type [`user`](https://docs.skygear.io/js/reference/v1.0/class/packages/skygear-core/lib/user.js~User.html) with
+The user record is created using the record type `user` with
 the column `_id` storing the user ID, so you can use it
 in the same way as using any other record types.
-You can query and update a user's profile by manipulating using
-the [`User`](https://docs.skygear.io/js/reference/v1.0/class/packages/skygear-core/lib/user.js~User.html) record type.
+You can query and update a user record by manipulating using
+the `user` record type.
 
-Important note: This user profile is created in the public database, i.e.
+Important note: This user record is created in the public database, i.e.
 it is visible to any other user. Therefore you should not store any sensitive
 information in this record type. You will need to create another record type
 with the private database for information that can only be accessed by the
 owner.
 
-### Saving to the current user's profile
+## Saving to the current user record
 
 ``` javascript
 // skygear.UserRecord is equivalent to skygear.Record.extend('user')
-const modifiedProfile = new skygear.UserRecord({
+const modifiedRecord = new skygear.UserRecord({
   '_id': 'user/' + skygear.currentUser.id,
   'language': 'en-US',
   'gender': 'male',
   'age': 20,
 });
-skygear.publicDB.save(modifiedProfile).then((profile) => {
-  console.log(profile); // updated user record
+skygear.publicDB.save(modifiedRecord).then((record) => {
+  console.log(record); // updated user record
 });
 ```
 
-### Retrieving the current user's profile
+## Retrieving the current user record
 
 ``` javascript
 const query = new skygear.Query(skygear.UserRecord);
 query.equalTo('_id', skygear.currentUser.id);
 skygear.publicDB.query(query).then((records) => {
-  const profile = records[0];
-  console.log(profile);
+  const record = records[0];
+  console.log(record);
 }, (error) => {
   console.error(error);
 });
 ```
 
 <a id="search-users"></a>
-### Retrieving another user's profile by email or username
 
-You can retrieve the public profiles of other users by using their emails or
+## Retrieving another user record by email or username
+
+You can retrieve the public records of other users by using their emails or
 usernames. You can provide either a single email/username or an array of
 emails/usernames.
-The promise will be resolved by an array of matched user profiles.
+The promise will be resolved by an array of matched user records.
 
 ``` javascript
 // you can also pass an array of emails
-skygear.auth.discoverUserByEmails('ben@skygear.com').then((users) => {
-  console.log(users); // array of profiles (user records)
+const query = new skygear.Query(skygear.UserRecord);
+query.equalTo('email', 'ben@oursky.com');
+skygear.publicDB.query(query).then((records) => {
+  const record = records[0];
+  console.log(record);
 }, (error) => {
   console.error(error);
 });
@@ -69,8 +74,11 @@ skygear.auth.discoverUserByEmails('ben@skygear.com').then((users) => {
 
 ``` javascript
 // you can also pass an array of usernames
-skygear.auth.discoverUserByUsernames('ben').then((users) => {
-  console.log(users); // array of profiles (user records)
+const query = new skygear.Query(skygear.UserRecord);
+query.equalTo('username', 'ben');
+skygear.publicDB.query(query).then((records) => {
+  const record = records[0];
+  console.log(record);
 }, (error) => {
   console.error(error);
 });
