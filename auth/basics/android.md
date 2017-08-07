@@ -256,8 +256,6 @@ skygear.getAuth().whoami(new AuthResponseHandler() {
 });
 ```
 
-## Updating the username / email of a user
-
 ## Updating a user's username and email
 
 Username and email is saved to the user record. You can modify the username
