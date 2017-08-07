@@ -336,6 +336,10 @@ skygear.getPublicDatabase().save(currentUser, new RecordSaveResponseHandler() {
 
 Coming Soon
 
+## Forgot password
+
+Coming soon.
+
 ## What's next from here?
 
 You may want to learn more about:

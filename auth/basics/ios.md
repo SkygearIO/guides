@@ -472,9 +472,9 @@ SKYContainer.default().auth.setNewPassword("newPassword", oldPassword: "oldPassw
 Note: Changing the password of the current user will not cause
 [`SKYContainerDidChangeCurrentUserNotification`] notification to be posted.
 
-## Resetting password
+## Forgot password
 
-Not yet implemented.
+Coming soon.
 
 ## User Verification
 

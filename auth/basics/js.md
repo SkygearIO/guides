@@ -380,9 +380,9 @@ skygear.auth.changePassword(currentPassword, newPassword, invalidate=true)
 });
 ```
 
-## Resetting password
+## Forgot password
 
-Not yet implemented.
+Coming soon.
 
 ## User Verification
 
