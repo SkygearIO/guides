@@ -148,7 +148,7 @@ This is how your data browser will look like.
 You can access Skygear database in 3 ways.
 1. Web data browser: It can be found from the _info_ page in your [developer portal](https://portal.skygear.io/apps).
 2. PostgreSQL client: Skygear database can be viewed in any PostgreSQL client. Get the connection string from the _info_ page in your [developer portal](https://portal.skygear.io/apps). We recommend using [Postico](https://eggerapps.at/postico/).
-3. Skygear CMS: Skygear CMS is a business-user friendly web interface that allows users to edit the data in the database. To use the CMS, you have to enable it in the _plug-ins_ page in the [developer portal](https://portal.skygear.io/apps). Your CMS URL is https://insert-your-app-name.skygeario.com/cms.
+3. Skygear CMS: Skygear CMS is a business-user friendly web interface that allows users to edit the data in the database. To use the CMS, you have to enable it in the _plug-ins_ page in the [developer portal](https://portal.skygear.io/apps). Your CMS URL is `https://insert-your-app-name.skygeario.com/cms`.
 
 :::
 
