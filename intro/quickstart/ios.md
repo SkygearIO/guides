@@ -94,30 +94,30 @@ Practically the codes should not be structured this way. It is for demo only.
 // Visit the user authetication documentation to learn more
 // https://docs.skygear.io/guides/auth/basics/ios/
 
- SKYContainer *skygear = [SKYContainer defaultContainer];
-    [[skygear auth] signupAnonymouslyWithCompletionHandler:^(SKYUser *user, NSError *error) {
+SKYContainer *skygear = [SKYContainer defaultContainer];
+[[skygear auth] signupAnonymouslyWithCompletionHandler:^(SKYUser *user, NSError *error) {
+    if (error != nil) {
+        NSLog(@"Signup Error: %@", error.localizedDescription);
+        return;
+    }
+
+    // Create Record Type "test" and put "Hello world" as value of key "content"
+    // Advanced: Skygear Server will create a table "test" and appropriate
+    //           columns in PostgreSQL in Development mode.
+    SKYRecord *test = [SKYRecord recordWithRecordType:@"test"];
+    test[@"content"] = @"Hello world";
+
+    [skygear.publicCloudDatabase saveRecord:test completion:^(SKYRecord *record, NSError *error) {
         if (error != nil) {
-            NSLog(@"Signup Error: %@", error.localizedDescription);
+            NSLog(@"Failed to save a record: %@", error.localizedDescription);
             return;
         }
 
-        // Create Record Type "test" and put "Hello world" as value of key "content"
-        // Advanced: Skygear Server will create a table "test" and appropriate
-        //           columns in PostgreSQL in Development mode.
-        SKYRecord *test = [SKYRecord recordWithRecordType:@"test"];
-        test[@"content"] = @"Hello world";
-
-        [skygear.publicCloudDatabase saveRecord:test completion:^(SKYRecord *record, NSError *error) {
-            if (error != nil) {
-                NSLog(@"Failed to save a record: %@", error.localizedDescription);
-                return;
-            }
-
-            NSLog(@"Record saved with ID: %@", record.recordID.recordName);
-        }];
+        NSLog(@"Record saved with ID: %@", record.recordID.recordName);
     }];
-
+}];
 ```
+
 ```swift
 // Every record in Skygear must be owned by a user
 // For testing purpose, we have used signupAnonmously to create a record
