@@ -94,7 +94,7 @@ skygearChat.createConversation(participants, 'Greeting')
 :::tips
 **Fetching a user**
 
-From the above example, you can see we that need a user object to create a conversation. To get a user, you can either use [`discoverUserByEmails`](https://docs.skygear.io/js/reference/v1.0/class/lib/auth.js~AuthContainer.html#instance-method-discoverUserByEmails) or [`discoverUserByUsernames`](https://docs.skygear.io/js/reference/v1.0/class/lib/auth.js~AuthContainer.html#instance-method-discoverUserByUsernames), depending on the credential you use for user authentication (i.e. [`signupWithEmail`](https://docs.skygear.io/js/reference/v1.0/class/lib/auth.js~AuthContainer.html#instance-method-discoverUserByEmails) or [`signupWithUsername`](https://docs.skygear.io/js/reference/v1.0/class/lib/auth.js~AuthContainer.html#instance-method-signupWithUsername)).
+From the above example, you can see we that need a user object to create a conversation. To get a user, you can either use [`discoverUserByEmails`](https://docs.skygear.io/js/reference/v1/class/lib/auth.js~AuthContainer.html#instance-method-discoverUserByEmails) or [`discoverUserByUsernames`](https://docs.skygear.io/js/reference/v1/class/lib/auth.js~AuthContainer.html#instance-method-discoverUserByUsernames), depending on the credential you use for user authentication (i.e. [`signupWithEmail`](https://docs.skygear.io/js/reference/v1/class/lib/auth.js~AuthContainer.html#instance-method-discoverUserByEmails) or [`signupWithUsername`](https://docs.skygear.io/js/reference/v1/class/lib/auth.js~AuthContainer.html#instance-method-signupWithUsername)).
 
 If you are using a 3rd party login provider, you need create write your own user identifier. Check out the user profile guide for more details.
 :::
