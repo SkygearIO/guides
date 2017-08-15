@@ -168,7 +168,7 @@ You can also delete multiple records at one time.
 const query = new skygear.Query(Note);
 query.lessThan('rating', 3);
 
-const foundNotes = [];
+let foundNotes = [];
 skygear.publicDB.query(query)
 .then((notes) => {
   console.log(`Found ${notes.length} notes, going to delete them.`);
