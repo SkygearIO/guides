@@ -224,3 +224,30 @@ pamelafox
 
 # brand
 asciiflow
+
+# chat
+im
+SKYChatExtension
+createDirectConversationWithUserID
+createConversationWithParticipantIDs
+subscribeToTypingIndicatorInConversation
+timestamps
+toConversation
+fetchMessagesWithConversation
+fetchUnreadCountWithConversation
+fetchTotalUnreadCount
+fetchConversationsWithCompletion
+fetchLastMessage
+fetchConversationWithConversationID
+addParticipantsWithUserIDs
+removeParticipantsWithUserIDs
+fromConversation
+addAdminsWithUserIDs
+addMessage
+editMessage
+withBody
+deleteMessage
+inConversation
+subscribeToMessagesInConversation
+subscribeToUserChannelWithCompletion
+fetchTotalUnreadCount
