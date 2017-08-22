@@ -90,7 +90,7 @@ import skygear from 'skygear';
 
 skygear.auth.signupWithUsername(username, password).then((user) => {
   console.log(user); // user record
-  console.log(user["username"); // username of the user
+  console.log(user["username"]); // username of the user
 }, (error) => {
   console.error(error);
   if (error.error.code === skygear.ErrorCodes.Duplicated) {
@@ -108,7 +108,7 @@ import skygear from 'skygear';
 
 skygear.auth.signupWithEmail(email, password).then((user) => {
   console.log(user); // user record
-  console.log(user["email"); // email of the user
+  console.log(user["email"]); // email of the user
 }, (error) => {
   console.error(error);
   if (error.error.code === skygear.ErrorCodes.Duplicated) {
