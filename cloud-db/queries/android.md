@@ -102,6 +102,54 @@ Besides the operations shown above, the following list out all operations suppor
 
 ## Relational Queries
 
+This example shows how to query all notes (`Note` record) who has an `account` field reference to a user record. In this example, we will query all notes where `account` equals to the current user.
+
+```java
+Record currentUser = Container.defaultContainer(this).getAuth().getCurrentUser(); // Get the current user
+Query noteQuery = new Query("Note").equalTo("account", currentUser.getId());
+
+Database publicDB = Container.defaultContainer(this).getPublicDatabase();
+
+publicDB.query(noteQuery, new RecordQueryResponseHandler() {
+    @Override
+    public void onQuerySuccess(Record[] records) {
+        Log.i("Record Query", String.format("Successfully got %d records", records.length));
+
+        for (Record record : records){
+            Log.i("Record Query", record.toJson().toString());
+        }
+    }
+
+    @Override
+    public void onQueryError(Error error) {
+        Log.i("Record Query", String.format("Fail with reason:%s", error.getLocalizedMessage()));
+    }
+```
+
+If you haven't have the corresponding record in hand (in this example, we will use the User record `182654c9-d205-43aa-8e74-d465c830087a`), you can reference with a specify `id` without making another query in this way:
+
+```java
+Query noteQuery = new Query("Note").equalTo("account", "182654c9-d205-43aa-8e74-d465c830087a");
+
+Database publicDB = Container.defaultContainer(this).getPublicDatabase();
+
+publicDB.query(noteQuery, new RecordQueryResponseHandler() {
+    @Override
+    public void onQuerySuccess(Record[] records) {
+        Log.i("Record Query", String.format("Successfully got %d records", records.length));
+
+        for (Record record : records){
+            Log.i("Record Query", record.toJson().toString());
+        }
+    }
+
+    @Override
+    public void onQueryError(Error error) {
+        Log.i("Record Query", String.format("Fail with reason:%s", error.getLocalizedMessage()));
+    }
+
+```
+
 ### Eager Loading
 
 Skygear supports eager loading of referenced records when you are querying the
