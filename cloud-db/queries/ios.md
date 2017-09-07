@@ -37,7 +37,7 @@ SKYDatabase *privateDB = [[SKYContainer defaultContainer] privateCloudDatabase];
 ```swift
 let query = SKYQuery(recordType: "todo", predicate: nil)
 let sortDescriptor = NSSortDescriptor(key: "order", ascending: true)
-query?.sortDescriptors = [sortDescriptor]
+query.sortDescriptors = [sortDescriptor]
 
 SKYContainer.default().privateCloudDatabase.perform(query) { (results, error) in
     if error != nil {
@@ -302,7 +302,7 @@ query.sortDescriptors = @[sortDescriptor];     // apply the NSSortDescriptor to 
 ```swift
 let query = SKYQuery(recordType: "order", predicate: nil)
 let sortDescriptor = NSSortDescriptor(key: "_updated_at", ascending: false)     // sorted by modificationDate
-query?.sortDescriptors = [sortDescriptor]     // apply the NSSortDescriptor to the query
+query.sortDescriptors = [sortDescriptor]     // apply the NSSortDescriptor to the query
 ```
 
 `SKYQuery` utilizes `NSPredicate` to apply filtering on query results. You can use other parameters to sort your queries.
@@ -316,7 +316,7 @@ query.limit = 10;     // only show the top 10 records
 ```
 
 ```swift
-query?.limit = 10	  // only show the top 10 records
+query.limit = 10	  // only show the top 10 records
 ```
 
 We can also set an offset number to the query by:
@@ -326,7 +326,7 @@ query.offset = 5;     // ignore the first 5 records
 ```
 
 ```swift
-query?.offset = 5	  // ignore the first 5 records
+query.offset = 5	  // ignore the first 5 records
 ```
 
 Setting an `offset` number means skipping that many rolls before beginning to return rows. If the `offset` number is 0, then no rows will be skipped. If you use both `limit` and `offset`, then `offset` numbers of rows will be skipped before starting to limit the number of rows returned.
@@ -371,7 +371,7 @@ query.transientIncludes = @{@"parentRecord": keyPath};
 ```swift
 let query = SKYQuery(recordType: "child", predicate: nil)
 let keyPath = NSExpression(forKeyPath: "parent")
-query?.transientIncludes = ["parentRecord": keyPath]
+query.transientIncludes = ["parentRecord": keyPath]
 
 SKYContainer.default().privateCloudDatabase.perform(query) { (results, error) in
     if error != nil {

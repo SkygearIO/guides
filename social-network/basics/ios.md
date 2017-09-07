@@ -22,7 +22,7 @@ operation.container = [SKYContainer defaultContainer];
 
 ```swift
 let operation = SKYQueryOperation.queryUsersOperation(by: SKYRelation.following())
-operation?.container = SKYContainer.default()
+operation.container = SKYContainer.default()
 SKYContainer.default().add(operation)
 ```
 
@@ -36,7 +36,7 @@ operation.container = [SKYContainer defaultContainer];
 
 ```swift
 let operation = SKYQueryOperation.queryUsersOperation(by: SKYRelation.friend())
-operation?.container = SKYContainer.default()
+operation.container = SKYContainer.default()
 SKYContainer.default().add(operation)
 ```
 
@@ -53,7 +53,7 @@ operation.container = [SKYContainer defaultContainer];
 
 ```swift
 let operation = SKYAddRelationsOperation(type: "friend", usersToRelated: [rick!, ben!])
-operation?.container = SKYContainer.default()
+operation.container = SKYContainer.default()
 SKYContainer.default().add(operation)
 ```
 
@@ -70,7 +70,7 @@ operation.container = [SKYContainer defaultContainer];
 
 ```swift
 let operation = SKYQueryOperation.queryUsersOperation(by: SKYRelation.friend())
-operation?.container = SKYContainer.default()
+operation.container = SKYContainer.default()
 SKYContainer.default().add(operation)
 ```
 
@@ -89,10 +89,10 @@ operation.queryRecordsCompletionBlock = ^(NSArray *users, SKYQueryCursor *queryC
 
 ```swift
 let operation = SKYQueryOperation.queryUsersOperation(by: SKYRelation.followed())
-operation?.container = SKYContainer.default()
+operation.container = SKYContainer.default()
 weak var weakOperation = operation
-operation?.queryRecordsCompletionBlock = { (users, queryCursor, error) in
-    print ("Operation will have overall count after execution, \(weakOperation?.overallCount)")
+operation.queryRecordsCompletionBlock = { (users, queryCursor, error) in
+    print ("Operation will have overall count after execution, \(weakOperation.overallCount)")
 }
 
 SKYContainer.default().add(operation)
@@ -111,6 +111,6 @@ operation.container = [SKYContainer defaultContainer];
 
 ```swift
 let operation = SKYRemoveRelationsOperation(type: "follower", usersToRemove: [faseng!, chima!])
-operation?.container = SKYContainer.default()
+operation.container = SKYContainer.default()
 SKYContainer.default().add(operation)
 ```

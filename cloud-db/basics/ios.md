@@ -70,9 +70,9 @@ SKYDatabase *privateDB = [[SKYContainer defaultContainer] privateCloudDatabase];
 
 ```swift
 let todo = SKYRecord(recordType: "todo")
-todo?.setObject("Write documents for Skygear", forKey: "title" as NSCopying!)
-todo?.setObject(1, forKey: "order" as NSCopying!)
-todo?.setObject(false, forKey: "done" as NSCopying!)
+todo.setObject("Write documents for Skygear", forKey: "title" as NSCopying!)
+todo.setObject(1, forKey: "order" as NSCopying!)
+todo.setObject(false, forKey: "done" as NSCopying!)
 
 let privateDB = SKYContainer.default().privateCloudDatabase
 privateDB.save(todo, completion: { (record, error) in
@@ -219,9 +219,9 @@ SKYDatabase *privateDB = [[SKYContainer defaultContainer] privateCloudDatabase];
 
 ```swift
 let todo = SKYRecord(recordType: "todo")
-todo?.setObject("Write documents for Skygear", forKey: "title" as NSCopying!)
-todo?.setObject(1, forKey: "order" as NSCopying!)
-todo?.setObject(false, forKey: "done" as NSCopying!)
+todo.setObject("Write documents for Skygear", forKey: "title" as NSCopying!)
+todo.setObject(1, forKey: "order" as NSCopying!)
+todo.setObject(false, forKey: "done" as NSCopying!)
 
 let privateDB = SKYContainer.default().privateCloudDatabase
 privateDB.save(todo, completion: { (record, error) in
@@ -253,7 +253,7 @@ todo[@"done"] = @YES;
 
 ```swift
 let todo = SKYRecord(recordType: "todo", name: "CCD9C879-E45D-4377-8D86-562A04E4D2CD")
-todo?.setObject(true, forKey: "done" as NSCopying!)
+todo.setObject(true, forKey: "done" as NSCopying!)
 SKYContainer.default().privateCloudDatabase.save(todo, completion: nil)
 ```
 
@@ -361,10 +361,10 @@ NSString *recordType = [record recordType];
 ```
 
 ```swift
-let creationDate = noteObject?.creationDate
-let creatorID = noteObject?.creatorUserRecordID
-let record = record?.recordID
-let recordType = record?.recordType
+let creationDate = noteObject.creationDate
+let creatorID = noteObject.creatorUserRecordID
+let record = record.recordID
+let recordType = record.recordType
 ```
 
 Please head to [Database Schema][doc-database-schema] to read more about Reserved Columns, Record Tables and Reserved Tables.
@@ -406,7 +406,7 @@ SKYRecordStorage* recordStorage = [coordinator recordStorageWithDatabase:self.da
 ```swift
 let query = SKYQuery(recordType: "note", predicate: nil)
 let coordinator = SKYRecordStorageCoordinator.default()
-let recordStorage = coordinator?.recordStorage(with: SKYContainer.default().privateCloudDatabase,
+let recordStorage = coordinator.recordStorage(with: SKYContainer.default().privateCloudDatabase,
 											  query: query, options: nil)
 ```
 
@@ -420,8 +420,8 @@ note[@"content"] = @"record storage is fun!";
 
 ```swift
 let note = SKYRecord(recordType: "note")
-note?.setValue("record storage is fun!", forKey: "content" as NSCopying!)
-recordStorage?.save(note)
+note.setValue("record storage is fun!", forKey: "content" as NSCopying!)
+recordStorage.save(note)
 ```
 
 
@@ -432,7 +432,7 @@ recordStorage?.save(note)
 ```
 
 ```swift
-recordStorage?.delete(note)
+recordStorage.delete(note)
 ```
 
 ### Fetching records
@@ -442,7 +442,7 @@ SKYRecord *record = [recordStorage recordWithRecordID:recordID];
 ```
 
 ```swift
-let record = recordStorage?.record(with: recordID)
+let record = recordStorage.record(with: recordID)
 ```
 
 ### Querying records
@@ -455,7 +455,7 @@ for (SKYRecord *note in [recordStorage recordsWithType:@"note"]) {
 }
 ```
 ```swift
-let notes = recordStorage?.records(withType: "note")
+let notes = recordStorage.records(withType: "note")
 for note in notes as! [SKYRecord]{
     // do something with note
 }
@@ -474,7 +474,7 @@ for (SKYRecord *note in records) {
 ```
 ```swift
 let predicate = NSPredicate(format: "done == false")
-let records = recordStorage?.records(withType: "todo", predicate: predicate, sortDescriptors: nil)
+let records = recordStorage.records(withType: "todo", predicate: predicate, sortDescriptors: nil)
 for note in records as! [SKYRecord] {
     // do something with note
 }
@@ -497,7 +497,7 @@ NotificationCenter.default.addObserver(
 	forName: Notification.Name.SKYRecordStorageDidUpdate,
 	object: recordStorage,
 	queue: OperationQueue.main) { (note) in
-   		notes = categoryStorage?.records(withType: "note")
+   		notes = categoryStorage.records(withType: "note")
     	self.tableView.reloadData()
 }
 ```

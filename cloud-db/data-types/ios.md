@@ -49,7 +49,7 @@ bRecord[@"parent"] = aRef;
 
 ```swift
 // bRecord is a placeholder of Record B's object
-bRecord?.setObject(aRef, forKey: "parent" as NSCopying!)
+bRecord.setObject(aRef, forKey: "parent" as NSCopying!)
 ```
 
 
@@ -82,8 +82,8 @@ SKYDatabase *privateDB = [[SKYContainer defaultContainer] privateCloudDatabase];
 
 ```swift
 let todo = SKYRecord(recordType: "todo")
-todo?.setObject("Write documents for Skygear", forKey: "title" as NSCopying!)
-todo?.setObject(SKYSequence(), forKey: "noteID" as NSCopying!)
+todo.setObject("Write documents for Skygear", forKey: "title" as NSCopying!)
+todo.setObject(SKYSequence(), forKey: "noteID" as NSCopying!)
 
 let privateDB = SKYContainer.default().privateCloudDatabase
 privateDB.save(todo, completion: { (record, error) in
@@ -122,8 +122,8 @@ SKYDatabase *privateDB = [[SKYContainer defaultContainer] privateCloudDatabase];
 ```
 ```swift
 let todo = SKYRecord(recordType: "todo")
-todo?.setObject("Write documents for Skygear", forKey: "title" as NSCopying!)
-todo?.setObject(43, forKey: "noteID" as NSCopying!)
+todo.setObject("Write documents for Skygear", forKey: "title" as NSCopying!)
+todo.setObject(43, forKey: "noteID" as NSCopying!)
 
 let privateDB = SKYContainer.default().privateCloudDatabase
 privateDB.save(todo, completion: { (record, error) in
@@ -155,7 +155,7 @@ record[@"location"] = location;
 import CoreLocation
 
 let location = CLLocation(latitude: 22.283, longitude: 114.15)
-record?.setObject(location, forKey: "location" as NSCopying!)
+record.setObject(location, forKey: "location" as NSCopying!)
 ```
 
 See
@@ -212,7 +212,7 @@ query.sortDescriptors = @[[SKYLocationSortDescriptor locationSortDescriptorWithK
 ```
 
 ```swift
-query?.sortDescriptors = [SKYLocationSortDescriptor.init(key: "location",
+query.sortDescriptors = [SKYLocationSortDescriptor.init(key: "location",
                                                          relativeLocation: distanceFromLoc,
                                                          ascending: true)]
 ```
@@ -228,7 +228,7 @@ query.transientIncludes = @{@"distance": distanceFunction};
 
 ```swift
 let distanceFunction = NSExpression(format: "distanceToLocation:fromLocation:(location, %@)", distanceFromLoc)
-query?.transientIncludes = ["distance": distanceFunction]
+query.transientIncludes = ["distance": distanceFunction]
 ```
 
 Then we can access the distance in `completionHandler` like this:
@@ -297,17 +297,17 @@ didFinishPickingMediaWithInfo:(NSDictionary<NSString *, id> *)info
 func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
     if let url = info[UIImagePickerControllerReferenceURL] as? URL {
         let asset = SKYAsset(name: "profile-picture", fileURL: url)
-        asset?.mimeType = "image/png"
+        asset.mimeType = "image/png"
 
         let container = SKYContainer.default()
-        container?.uploadAsset(asset, completionHandler: { (asset, error) in
+        container.uploadAsset(asset, completionHandler: { (asset, error) in
             if error != nil {
                 print ("error uploading asset: \(error)")
                 return
             }
 
             self.photoRecord?.setObject(asset, forKey: "image" as NSCopying!)
-            container?.privateCloudDatabase.save(self.photoRecord, completion: nil)
+            container.privateCloudDatabase.save(self.photoRecord, completion: nil)
         })
     }
 }

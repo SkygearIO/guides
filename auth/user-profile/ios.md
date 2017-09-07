@@ -46,10 +46,10 @@ record[@"age"] = @20;
 
 ```swift
 let container = SKYContainer.default()
-let record = SKYRecord.init(recordType: "user", name: container.auth.currentUserRecordID)
-record?.setObject("en-US", forKey: "language" as NSCopying)
-record?.setObject("male", forKey: "gender" as NSCopying)
-record?.setObject(20, forKey: "age" as NSCopying)
+let record = SKYRecord(recordType: "user", name: container.auth.currentUserRecordID)
+record.setObject("en-US", forKey: "language" as NSCopying)
+record.setObject("male", forKey: "gender" as NSCopying)
+record.setObject(20, forKey: "age" as NSCopying)
 container.publicCloudDatabase.save(record!) { (record, error) in
     if error != nil {
         print(error!)

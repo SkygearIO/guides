@@ -49,7 +49,7 @@ SKYRecord *document = [SKYRecord recordWithRecordType:@"doc"];
 ```swift
 // supervisor is a placeholder of user id
 let document = SKYRecord(recordType: "doc")
-document?.accessControl.setReadWriteAccessFor(supervisor)
+document.accessControl.setReadWriteAccessFor(supervisor)
 ```
 
 
@@ -211,9 +211,9 @@ SKYRecord *article = [SKYRecord recordWithRecordType:@"article"];
 
 ```swift
 let article = SKYRecord(recordType: "article")
-article?.accessControl.setReadWriteAccessFor(webmaster)
-article?.accessControl.setReadWriteAccessFor(author)
-article?.accessControl.setReadOnlyFor(visitor)
+article.accessControl.setReadWriteAccessFor(webmaster)
+article.accessControl.setReadWriteAccessFor(author)
+article.accessControl.setReadOnlyFor(visitor)
 SKYContainer.default().publicCloudDatabase.save(article, completion: nil)
 ```
 

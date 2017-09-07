@@ -135,7 +135,7 @@ skygear.auth.signupAnonymously(completionHandler: { (user, error) in
     // Advanced: Skygear Server will create a table "test" and appropriate
     //           columns in PostgreSQL in Development mode.
     let test = SKYRecord(recordType: "test")
-    test?.setObject("Hello world", forKey: "content" as NSCopying!)
+    test.setObject("Hello world", forKey: "content" as NSCopying!)
     skygear.publicCloudDatabase.save(test, completion: { (record, error) in
         if error != nil {
             print("Failed to save a record: \(error?.localizedDescription)")

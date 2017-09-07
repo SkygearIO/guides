@@ -136,7 +136,7 @@ let info = SKYNotificationInfo()
 info.apsNotificationInfo = apsInfo
 
 let operation = SKYSendPushNotificationOperation(notificationInfo: info, userIDsToSend: [kenji, rick])
-operation?.sendCompletionHandler = { (userIDs, error) in
+operation.sendCompletionHandler = { (userIDs, error) in
     if error != nil {
         print ("error sending push notification")
         return
@@ -192,7 +192,7 @@ info.apsNotificationInfo = apsInfo
 info.gcmNotificationInfo = gcmInfo
 
 let operation = SKYSendPushNotificationOperation(notificationInfo: info, deviceIDsToSend: ["device0", "device1"])
-operation?.sendCompletionHandler = { (deviceIDs, error) in
+operation.sendCompletionHandler = { (deviceIDs, error) in
     if error != nil {
         print ("error sending push notification")
         return
