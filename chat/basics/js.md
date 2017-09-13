@@ -28,7 +28,7 @@ There are two types of conversations in Skygear Chat:
 
 ### Creating direct conversations 
 
-You can use [`createDirectConveesrsation`](https://docs.skygear.io/js/chat/reference/latest/class/lib/container.js~SkygearChatContainer.html#instance-method-createDirectConversation) to create a conversation with another user. Please specify the user ID as `userID`. 
+You can use [`createDirectConversation`](https://docs.skygear.io/js/chat/reference/latest/class/lib/container.js~SkygearChatContainer.html#instance-method-createDirectConversation) to create a conversation with another user. Please specify the user ID as `userID`. 
 
 ```javascript
 skygearChat.createDirectConversation(userBen, 'Greeting')
