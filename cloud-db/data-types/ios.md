@@ -281,7 +281,7 @@ didFinishPickingMediaWithInfo:(NSDictionary<NSString *, id> *)info
     asset.mimeType = @"image/png";
 
     SKYContainer *container = [SKYContainer defaultContainer];
-    [container uploadAsset:asset completionHandler:^(SKYAsset *asset, NSError *error) {
+    [container.privateCloudDatabase uploadAsset:asset completionHandler:^(SKYAsset *asset, NSError *error) {
         if (error) {
             NSLog(@"error uploading asset: %@", error);
             return;
@@ -300,7 +300,7 @@ func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMe
         asset.mimeType = "image/png"
 
         let container = SKYContainer.default()
-        container.uploadAsset(asset, completionHandler: { (asset, error) in
+        container.privateCloudDatabase.uploadAsset(asset, completionHandler: { (asset, error) in
             if error != nil {
                 print ("error uploading asset: \(error)")
                 return
