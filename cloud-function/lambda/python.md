@@ -180,5 +180,16 @@ NSArray *argv = @[@"foo@bar.com", @"Hi there!"];
 }];
 ```
 
+```swift
+let argv = ["foo@bar.com", "Hi there!"]
+SKYContainer.default().callLambda("send_invitation_email", arguments: argv) { (response, error) in
+    if let error = error {
+        print("error calling send_invitation_email:someone: \(error)")
+        return
+    }
+    print("Received response = \(response)")
+}
+```
+
 [lambda-example]: #lambda-example
 [sendgrid]: https://sendgrid.com
