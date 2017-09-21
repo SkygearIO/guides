@@ -114,7 +114,7 @@ let p = SKYRelationPredicate(relation: SKYRelation.following(), keyPath: "_owner
 
 This example shows how to query all notes (`Note` record) who has an `account` field reference to a user record. In this example, we will query all notes where `account` equals to the current user.
 
-```objective-c
+```obj-c
 // You should have logged in
 SKYRecord *currentUser = [SKYContainer defaultContainer].auth.currentUser;
 SKYReference *nameRef = [SKYReference referenceWithRecord:currentUser];
@@ -163,7 +163,7 @@ SKYContainer.default().publicCloudDatabase.perform(query) { (results, error) in
 
 If you haven't have the corresponding record in hand (in this example, we will use the User record `182654c9-d205-43aa-8e74-d465c830087a`), you can reference with a specify `id` without making another query in this way:
 
-```objective-c
+```obj-c
 SKYReference *nameRef = [SKYReference referenceWithRecordID:[SKYRecordID recordIDWithCanonicalString:@"account/182654c9-d205-43aa-8e74-d465c830087a"]];
 
 NSPredicate *accountPredicate = [NSPredicate predicateWithFormat:@"account = %@", nameRef];
