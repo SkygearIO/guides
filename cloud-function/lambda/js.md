@@ -18,12 +18,12 @@ Typical usages include:
 
 A lambda function can be created using the `@skygear.op` decorator.
 
-### Decorator Parameters
+### Method
 
-The decorator syntax is:
+The method is:
 
-```python
-@skygear.op(name, user_required=False, key_required=False)
+```javascript
+op(name: String, func: function(param: Object, options: *), authRequired: Boolean, userRequire: Boolean)
 ```
 
 - **`name`** (String)
@@ -33,20 +33,20 @@ The decorator syntax is:
 
 - **`user_required`** (boolean, optional)
 
-  If `user_required` is set to `True`, only authenticated user
+  If `user_required` is set to `true`, only authenticated user
   can call this function. Skygear will return an `PermissionDenied`
   error if an unauthenticated user tries to call this function.
 
-  The default value is `False`.
+  The default value is `false`.
 
 - **`key_required`** (boolean, optional)
 
-  If `key_required` is set to `True`, only authenticated user
+  If `key_required` is set to `true`, only authenticated user
   or client with API key can call this function. Skygear will return a
   `NotAuthenticated` error if an unauthenticated user and a client
   without API key tries to call this function.
 
-  The default value is `False`. If `user_required` is set to `True`, this
+  The default value is `false`. If `user_required` is set to `true`, this
   parameter is ignored.
 
 ### Passing arguments to Lambda Functions
@@ -57,21 +57,12 @@ and the SDK must provide those arguments when calling the lambda
 function. You can refer to the [example][lambda-example] for
 how to pass arguments to lambda functions.
 
-If a function takes no parameters, its signature should look like:
+To retrieve the parameters passed from SDK, you can access the `args` properties from the JavaScript object.
 
-```python
-@skygear.op('foo')
-def my_func():
-    pass
-```
-
-If a function takes two arguments, `song_name` and `singer`, its
-signature should look like:
-
-```python
-@skygear.op('bar')
-def my_func_two(song_name, singer):
-    pass
+```javascript
+skygearCloud.op('foo', function (param) {
+	console.log(param['args']);
+});
 ```
 
 Each of the arguments can be one of the following types.
@@ -86,17 +77,9 @@ They are similar to the available types in a JSON object.
 Depending on the SDKs, the supplied arguments will be
 passed to the lambda function as the corresponding data type.
 
-::: tips
-
-**Tips:** In the JS SDK, the parameters are parsed using the `toJSON`
-method. For example, a `Date` object in JS SDK will be passed to
-the lambda function in Python as a string like `'2016-10-28T03:23:11.600Z'`.
-
-:::
-
 ### Return Value
 
-A lambda function should return a JSON-serializable Python dictionary or `None`.
+A lambda function should return a JavaScript object or `null`.
 It will be the response the client SDK receives.
 
 
@@ -106,25 +89,28 @@ The following lambda function, named `send_invitation_email`,
 accepts two parameters: `to_user_email` and `custom_message`.
 It sends the email using [SendGrid][sendgrid].
 
-```python
-import skygear
-# need to include sendgrid in requirements.txt
-import sendgrid
+```javascript
+// Remeber also install and save sendgrid as dependencies in package.json
+var helper = require('sendgrid').mail;
+var sg = require('sendgrid')('my_api_key');
 
+skygearCloud.op('send_invitation_email', function(param) {
+	var fromEmail = new helper.Email('admin@skygeario.com');
+	var toEmail = new helper.Email(param['args']['to_user_email']);
+	var subject = 'You are invited to try the app!';
+	var content = new helper.Content('text/plain', param['args']['custom_message']);
+	var mail = new helper.Mail(fromEmail, subject, toEmail, content);
 
-@skygear.op('send_invitation_email')
-def send_invitation_email(to_user_email, custom_message):
-    email = sendgrid.Mail()
-    email.add_to(to_user_eail)
-    email.set_from('admin@skygeario.com')
-    email.set_subject('You are invited to try the app!')
-    email.set_text(custom_message)
+	var request = sg.emptyRequest({
+	  method: 'POST',
+	  path: '/v3/mail/send',
+	  body: mail.toJSON()
+	});
 
-    client = sendgrid.SendGridClient('my_api_key')
-    client.send(email)
-    return {
-      'result': 'OK',
-    }
+	sg.API(request, function (error, response) {
+		return {'result': 'OK'};
+	});
+})
 ```
 
 This function can be invoked from the client SDKs by the followings:
