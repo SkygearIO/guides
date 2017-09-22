@@ -91,7 +91,7 @@ NSPredicate *inPredicate =
 let inPredicate = NSPredicate(format: "%@ IN attribute", aValue)
 ```
 
-### Relation Predicate
+### Social Relation Predicate
 
 The `SKYRelationPredicate` can be used to query for records having a relation with
 the current user. For this kind of query, the record have an relation with
@@ -110,7 +110,60 @@ NSPredicate *p =
 let p = SKYRelationPredicate(relation: SKYRelation.following(), keyPath: "_owner")
 ```
 
-### Relational Queries
+## Pagination and Ordering
+
+### Sorting the records
+We can sort records returned by:
+
+```obj-c
+SKYQuery *query = [SKYQuery queryWithRecordType:@"order" predicate:nil];
+NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"_updated_at" ascending:NO];     // sorted by modificationDate
+query.sortDescriptors = @[sortDescriptor];     // apply the NSSortDescriptor to the query
+```
+
+```swift
+let query = SKYQuery(recordType: "order", predicate: nil)
+let sortDescriptor = NSSortDescriptor(key: "_updated_at", ascending: false)     // sorted by modificationDate
+query.sortDescriptors = [sortDescriptor]     // apply the NSSortDescriptor to the query
+```
+
+`SKYQuery` utilizes `NSPredicate` to apply filtering on query results. You can use other parameters to sort your queries.
+
+### Limiting and Offset
+
+We can limit the numbers of records returned by:
+
+```obj-c
+query.limit = 10;     // only show the top 10 records
+```
+
+```swift
+query.limit = 10	  // only show the top 10 records
+```
+
+We can also set an offset number to the query by:
+
+```obj-c
+query.offset = 5;     // ignore the first 5 records
+```
+
+```swift
+query.offset = 5	  // ignore the first 5 records
+```
+
+Setting an `offset` number means skipping that many rolls before beginning to return rows. If the `offset` number is 0, then no rows will be skipped. If you use both `limit` and `offset`, then `offset` numbers of rows will be skipped before starting to limit the number of rows returned.
+
+Now the first 5 records in the result list are skipped. The query result starts with the 6th record. It works just like SQL offset.
+
+## Record Count
+
+To get the number of all records matching a query, set the property
+`overallCount` property of `SKYQuery` to `YES`. The record count can be
+retrieved from `overallCount` property of `SKYQueryOperation` when
+`perRecordCompletionBlock` is first called.
+
+
+## Relational Queries
 
 This example shows how to query all notes (`Note` record) who has an `account` field reference to a user record. In this example, we will query all notes where `account` equals to the current user.
 
@@ -161,6 +214,47 @@ SKYContainer.default().publicCloudDatabase.perform(query) { (results, error) in
 }
 ```
 
+### Relational query by fields of reference record
+You can query by fields on a referenced record. Following the above example, if
+we want to query all notes where account's role is editor only:
+
+```obj-c
+NSPredicate *accountPredicate = [NSPredicate predicateWithFormat:@"account.role = %@", @"editor"];
+SKYQuery *query = [SKYQuery queryWithRecordType:@"Note" predicate: accountPredicate];
+
+SKYDatabase *publicDB = [[SKYContainer defaultContainer] publicCloudDatabase];
+
+[publicDB performQuery:query completionHandler:^(NSArray *results, NSError *error) {
+    if (error) {
+        NSLog(@"error querying notes: %@", error);
+        return;
+    }
+
+    NSLog(@"Received %@ notes.", @(results.count));
+    for (SKYRecord *note in results) {
+        NSLog(@"Got a note: %@", note[@"title"]);
+    }
+}];
+```
+
+```swift
+let accountPredicate = NSPredicate(format: "account.role = %@", "editor")
+let query = SKYQuery(recordType: "Note", predicate: accountPredicate)
+
+SKYContainer.default().publicCloudDatabase.perform(query) { (results, error) in
+    if error != nil {
+        print ("error querying note: \(error)")
+        return
+    }
+
+    print ("Received \(results?.count) notes.")
+    for note in results as! [SKYRecord] {
+        print ("Got a Note  \(note["content"])")
+    }
+})
+```
+
+### Relational query by record's ID
 If you haven't have the corresponding record in hand (in this example, we will use the User record `182654c9-d205-43aa-8e74-d465c830087a`), you can reference with a specify `id` without making another query in this way:
 
 ```obj-c
@@ -205,143 +299,6 @@ SKYContainer.default().publicCloudDatabase.perform(query) { (results, error) in
 }
 
 ```
-
-
-### Full-text search (**NOT IMPLEMENTED**)
-
-`SKYKit` query supports filtering records by the reference field of records:
-
-```obj-c
-SKYReference *restaurantRef = [SKYReference referenceWithRecordID:[SKYRecordID recordIDWithRecordType:@"restaurant" name:@"my restaurant"]];
-NSPredicate *predicate = [NSPredicate predicateWithFormat:@"restaurant = %@", restaurantRef];
-SKYQuery *query = [SKYQuery queryWithRecordType:@"order" predicate:predicate];
-
-SKYDatabase *privateDB =  [[SKYContainer defaultContainer] privateCloudDatabase];
-
-[privateDB performQuery:query completionHandler:^(NSArray *orders, NSError *error) {
-    if (error) {
-        NSLog(@"error querying orders: %@", error);
-        return;
-    }
-
-    for (SKYRecord *order in orders) {
-        // work with the fetched order
-    }
-}];
-```
-```swift
-let restaurantRef = SKYReference(recordID: SKYRecordID(recordType: "restaurant", name: "my restaurant"))
-let predicate = NSPredicate(format: "restaurant = %@", restaurantRef!)
-let query = SKYQuery(recordType: "order", predicate: predicate)
-
-let privateDB = SKYContainer.default().privateCloudDatabase
-
-privateDB.perform(query, completionHandler: { (orders, error) in
-    if error != nil {
-        print ("error querying orders: \(error)")
-        return
-    }
-
-    for order in orders as! [SKYRecord] {
-        // work with the fetched order
-    }
-})
-```
-
-You can query by fields on a referenced record. Following the above example, if
-we want to narrow orders placed in Italian restaurants only:
-
-```obj-c
-NSPredicate *predicate = [NSPredicate predicateWithFormat:@"restaurant.cuisine = %@", @"italian"];
-SKYQuery *query = [SKYQuery queryWithRecordType:@"order" predicate:predicate];
-
-SKYDatabase *privateDB =  [[SKYContainer defaultContainer] privateCloudDatabase];
-
-[privateDB performQuery:query completionHandler:^(NSArray *orders, NSError *error) {
-    if (error) {
-        NSLog(@"error querying orders: %@", error);
-        return;
-    }
-
-    for (SKYRecord *order in orders) {
-        // work with the fetched order
-    }
-}];
-```
-
-```swift
-let predicate = NSPredicate(format: "restaurant.cuisine = %@", "italian")
-let query = SKYQuery(recordType: "order", predicate: predicate)
-
-let privateDB = SKYContainer.default().privateCloudDatabase
-
-privateDB.perform(query, completionHandler: { (orders, error) in
-    if error != nil {
-        print ("error querying orders: \(error)")
-        return
-    }
-
-    for order in orders as! [SKYRecord] {
-        // work with the fetched order
-    }
-})
-```
-
-
-## Pagination and Ordering
-
-### Sorting the records
-We can sort records returned by:
-
-```obj-c
-SKYQuery *query = [SKYQuery queryWithRecordType:@"order" predicate:nil];
-NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"_updated_at" ascending:NO];     // sorted by modificationDate
-query.sortDescriptors = @[sortDescriptor];     // apply the NSSortDescriptor to the query
-```
-
-```swift
-let query = SKYQuery(recordType: "order", predicate: nil)
-let sortDescriptor = NSSortDescriptor(key: "_updated_at", ascending: false)     // sorted by modificationDate
-query.sortDescriptors = [sortDescriptor]     // apply the NSSortDescriptor to the query
-```
-
-`SKYQuery` utilizes `NSPredicate` to apply filtering on query results. You can use other parameters to sort your queries.
-
-### Limiting and Offset
-
-We can limit the numbers of records returned by:
-
-```obj-c
-query.limit = 10;     // only show the top 10 records
-```
-
-```swift
-query.limit = 10	  // only show the top 10 records
-```
-
-We can also set an offset number to the query by:
-
-```obj-c
-query.offset = 5;     // ignore the first 5 records
-```
-
-```swift
-query.offset = 5	  // ignore the first 5 records
-```
-
-Setting an `offset` number means skipping that many rolls before beginning to return rows. If the `offset` number is 0, then no rows will be skipped. If you use both `limit` and `offset`, then `offset` numbers of rows will be skipped before starting to limit the number of rows returned.
-
-Now the first 5 records in the result list are skipped. The query result starts with the 6th record. It works just like SQL offset.
-
-### Record Count
-
-To get the number of all records matching a query, set the property
-`overallCount` property of `SKYQuery` to `YES`. The record count can be
-retrieved from `overallCount` property of `SKYQueryOperation` when
-`perRecordCompletionBlock` is first called.
-
-
-## Relational Queries
 
 ### Eager Loading
 

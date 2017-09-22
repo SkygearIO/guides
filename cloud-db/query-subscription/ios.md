@@ -4,15 +4,18 @@ title: Query Subscriptions
 
 [[toc]]
 
-
-## Subscribe to Query Change
+Skygear make it easy for you to subscribe to changes on the Database for
+real-time update. For example, you can create a query of all photos uploaded by
+a user Ben, and when the result set of query updated (for example a new photo
+was uploaded, or a photo uploaded by the user is deleted), your app will receive
+a notification.
 
 Creating a subscription requires your application to register the current device
 on remote server. This is required for subscription to notify the client that
 a subscription is triggered.
 
 When a subscription is triggered, remote server notifies the client through
-the publish-subscribe (pubsub) mechanism). It is also recommended that your
+the publish-subscribe (pubsub) mechanism. It is also recommended that your
 application requests a remote notification through the
 `-registerForRemoteNotifications`. When a device token is available for
 a device, the remote server also send a remote notification through Apple Push
@@ -22,9 +25,9 @@ Having registered a device, your application should create a subscription by
 specifying a query. The container will associate the device to the subscription
 when you call the `-saveSubscription:completionHandler:` on the database.
 
-### Registering device
+## Registering device
 
-Please refer to [Registering device][doc-registering-device] section to register the device first.
+Please refer to [Push Notification - Registering device][doc-registering-device] section to register the device first.
 
 After you have registered device, you can then create a subscription.
 
@@ -66,7 +69,7 @@ func application(_ application: UIApplication, didReceiveRemoteNotification user
     // Other application initialization logic here
 }
 ```
-#### Register for Push Notifications
+## Register for Push Notifications
 ```obj-c
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
@@ -99,7 +102,7 @@ func application(_ application: UIApplication, didRegisterForRemoteNotifications
 ```
 
 
-### Adding subscription
+## Adding subscription
 
 ```obj-c
 SKYQuery *query = [[SKYQuery alloc] initWithRecordType:@"note" predicate:nil];
@@ -130,7 +133,7 @@ SKYContainer.default().privateCloudDatabase.save(subscription) { (subscription, 
 }
 ```
 
-### Implementing `SKYContainerDelegate` to receive notification
+## Implementing `SKYContainerDelegate` to receive notification
 
 In Objective-C, add protocol declaration in `AppDelegate`.
 

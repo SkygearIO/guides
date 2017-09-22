@@ -98,7 +98,7 @@ available to the client application. If you register the current device
 using the above convenient methods, the device ID is returned from
 `registeredDeviceID` property on the container.
 
-## Send push notification from cloud code
+## Sending push notification from cloud code
 
 To send push notifications through cloud code, please refer to the
 [Cloud Code Guide: Push Notifications][doc-cloud-function-push-notifications].

@@ -5,13 +5,12 @@ title: Cloud Database Basics
 [[toc]]
 
 
-## Overview
-
 Please make sure you know about and have already configured your
 `SKYContainer` before you proceed.
+
 You can follow the steps in [Setup Skygear][doc-setup-skygear] to set it up.
 
-### The Record Class
+## The Record Class
 
 `SKYRecord` is the data storage unit in Skygear.
 
@@ -27,7 +26,7 @@ A record can store whatever values that are JSON-serializable. Possible values i
 strings, numbers, booleans, dates, and several other custom types that Skygear
 supports.
 
-### Record Database
+## Record Database
 
 `SKYDatabase` is the central hub of data storage in `SKYKit`. The main responsibility of database is to store `SKYRecord`s.
 
@@ -42,10 +41,7 @@ To control the access, you may set different access control entity to the record
 
 Head to [Access Control][doc-access-control] to read more about it.
 
-
-## Basic CRUD
-
-### Creating a record
+## Creating a record
 
 Let's imagine we are writing a To-Do app with Skygear. When user creates
 an to-do item, we want to save that item on server. We probably will save that
@@ -94,7 +90,12 @@ There are couples of things we have done here:
 3. We actually saved the `todo` record and registered a block to be executed
    after the action is done. When you have successfully saved a _record_, there are several fields automatically filled in for you, such as `SKYRecordID`, `recordName`,`creationDate` and `modificationDate`. A `SKYRecord` will be returned and you can make use of the block to add additional logic which will run after the save completes.
 
-You can also save multiple `SKYRecord`s at once:
+## Saving multiple records
+
+You can also save multiple `SKYRecord`s at once with
+[`saveRecords`](api-save-records) or
+[`saveRecordsAtomically`](api-save-records-atomically) which make sure the save
+operation either succeeds or fails as a whole:
 
 ```obj-c
 SKYRecord *noteOne = [SKYRecord recordWithRecordType:@"note"];
@@ -149,7 +150,7 @@ privateDB.saveRecords(notesToSave, completionHandler: { (savedRecords, operation
 ```
 
 
-### Reading a record
+## Reading a record
 
 With the `recordID` we could also fetch the record from a database:
 
@@ -196,7 +197,7 @@ NSNumber *done = [record objectForKey: @"done"];
 
 You can construct a `SKYQuery` object by providing a `recordType`. You can configure the `SKYQuery` by mutating its state. Read the [Query][doc-queries] section to learn more.
 
-### Updating a record
+## Updating a record
 
 Now let's return to our to-do item example. This is how you save a `SKYRecord`:
 
@@ -261,7 +262,7 @@ Note that the data in the returned record in the completion block may be
 different from the originally saved record. This is because additional
 fields maybe applied on the server side when the record is saved (e.g. the updated `modificationDate`). You may want to inspect the returned record for any changes applied on the server side.
 
-### Deleting a record
+## Deleting a record
 
 Deleting a record requires its `recordID` too:
 
@@ -332,7 +333,7 @@ SKYContainer.default().privateCloudDatabase.deleteRecords(withIDs: notesToDelete
 
 
 
-### Reserved Columns
+## Reserved Columns
 
 For each record type stored in the database, a table with the same name as the record type is created. For example, if your record type is called `note`, there is a table called `note` in the database. Each row in the table corresponds to one record.
 
@@ -508,3 +509,5 @@ NotificationCenter.default.addObserver(
 [doc-access-control]: /guides/cloud-db/acl/ios/
 [doc-database-schema]: /guides/advanced/database-schema/
 [doc-queries]: /guides/cloud-db/queries/ios/
+[api-save-records]: https://docs.skygear.io/ios/reference/latest/Classes/SKYDatabase.html#/c:objc(cs)SKYDatabase(im)saveRecords:completionHandler:perRecordErrorHandler:
+[api-save-records-atomically]: https://docs.skygear.io/ios/reference/latest/Classes/SKYDatabase.html#/c:objc(cs)SKYDatabase(im)saveRecordsAtomically:completionHandler:

@@ -23,8 +23,6 @@ There are also four other types provided by Skygear SDK:
 
 ## Record Relations
 
-### What Skygear provides
-
 Skygear supports many-to-one (aka. parent-child) relation between records via _reference_.
 `SKYReference` is a pointer to a record in database. Let's say we are going to
 reference _Record A_ in _Record B_, we first construct a reference of Record A
@@ -35,7 +33,7 @@ using its id.
 SKYReference *aRef = [SKYReference referenceWithRecordID:aID];
 ```
 
-``swift
+```swift
 // aID is a placeholder of Record A's id
 let aRef = SKYReference(recordID: aID)
 ```

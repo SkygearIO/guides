@@ -21,8 +21,6 @@ There are also four other types provided by Skygear JS SDK:
 
 ## Record Relations
 
-### What Skygear provides
-
 Skygear supports parent-child relation between records via _reference_.
 `skygear.Reference` is a pointer class, which will translate to foreign key in
 skygear server database for efficient query.
@@ -66,12 +64,11 @@ still be saved!
 you might use `transientInclude`. Read the [Queries][doc-relational-queries]
 section to learn more about eager loading.
 
-### Deleting Referenced Record
+## Deleting Referenced Record
 
-Yet to be implemented. For now, you have to delete the referencing record
-first and then the referenced record.
+For now, you have to delete the referencing record first and then the referenced record.
 
-## Auto-Incrementing Sequence Fields
+## Auto-Increment Sequence Fields
 
 Skygear reserves the `id` field in the top level of all record as a primary key.
 `id` must be unique and default to be Version 4 UUID. If you want to
@@ -181,7 +178,7 @@ An asset can only be saved with a record but not as a standalone upload.
 Skygear automatically uploads the files to a server that you specify,
 like Amazon S3.
 
-### Create an Asset via the File API
+### Creating an Asset via the File API
 
 The common use case is to create an asset using the File API using
 an HTML form with a file input field.
@@ -201,7 +198,7 @@ const picture = new skygear.Asset({
 });
 ```
 
-### Create an Asset with a base64 string
+### Creating an Asset with a base64 string
 
 Apart from creating an Asset through the File API, you can also create one using
 a base64 string.
@@ -214,8 +211,7 @@ const picture = new skygear.Asset({
 });
 ```
 
-### Saving the asset
-
+### Saving an asset
 
 After creating an Asset, you need to attach it to a record.
 Skygear will upload the asset when the record is saved.

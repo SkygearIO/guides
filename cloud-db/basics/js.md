@@ -4,15 +4,12 @@ title: Cloud Database Basics
 
 [[toc]]
 
-
-## Overview
-
 Please make sure you know about and have already configured your skygear
 container before you proceed.
+
 You can follow the steps in [Setup Skygear][doc-setup-skygear] to set it up.
 
-
-### The Record Class
+## The Record Class
 
 - `Record` must have a type.
 - Each `Record` object is like a dictionary with keys and values; keys will be
@@ -41,7 +38,7 @@ const Blog = skygear.Record.extend('blog');
 
 ```
 
-### Record Database
+## Record Database
 
 Please note Skygear database uses PostgreSQL. You can review our [tips](https://docs.skygear.io/guides/intro/quickstart/js/#tips-anchor) on the 3 ways you can access the Skygear database. 
 
@@ -56,10 +53,7 @@ To control the access, you may set different access control to the record.
 - The database objects can be accessed with `skygear.publicDB` and
 `skygear.privateDB`.
 
-
-## Basic CRUD
-
-### Creating a record
+## Creating a record
 
 You can save a public record to server as the following: 
 
@@ -75,7 +69,7 @@ skygear.publicDB.save(new Note({
 Here we created a new record in 'Note' and under the 'content' column, we added the record value: 'Hello World!'. Your data browser should look similar to the following, but with the 'note' record type instead of the 'test' record type. 
 ![Web database viewer](/assets/common/quickstart-database-viewer.png)
 
-#### Batch save
+## Saving multiple records
 
 You can also batch save multiple records at one time.
 
@@ -98,7 +92,7 @@ skygear.publicDB.save([goodNote, badNote], { atomic: true });
 // neither of the notes are saved
 ```
 
-### Reading a record
+## Reading a record
 
 You can construct a Query object by providing a Record Type.
 You can config the query by mutating its state.
@@ -117,7 +111,7 @@ skygear.publicDB.query(query).then((records) => {
 })
 ```
 
-### Updating a record
+## Updating a record
 
 ``` javascript
 const query = new skygear.Query(Note);
@@ -150,7 +144,7 @@ skygear.publicDB.save(new Note({
 }));
 ```
 
-### Deleting a record
+## Deleting a record
 
 ``` javascript
 skygear.publicDB.delete({
@@ -187,7 +181,7 @@ skygear.publicDB.query(query)
 ```
 
 
-### Reserved Columns
+## Reserved Columns
 
 There are quite a few reserved columns for storing records into the database.
 The column names are written as **snake_case** while the JS object attributes

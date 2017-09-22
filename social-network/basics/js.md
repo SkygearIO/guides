@@ -109,7 +109,7 @@ skygear.relation.query(query).then((users) => {
 ```
 
 
-### Removing Relations
+## Removing Relations
 
 ``` javascript
 const unFollow = new skygear.relation.Follower([ben]);

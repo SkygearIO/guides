@@ -10,7 +10,7 @@ to implement a custom [restful][restful-wiki] backend using cloud codes.
 The decorator `skygear.rest` helps you create the necessary routes
 for this purpose.
 
-### Using the decorator
+## Using the decorator
 
 To implement the restful resource, you need to create a `class`
 that inherits one of the Skygear restful classes:

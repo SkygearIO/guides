@@ -99,6 +99,8 @@ Besides the operations shown above, the following list out all operations suppor
 
 ## Pagination and Ordering
 
+Refer to [`Query`](api-query) class reference for pagination and order in query
+result.
 
 ## Relational Queries
 
@@ -184,3 +186,5 @@ Record shippingAddress = (Record) transientMap.get("shipping");
 
 
 ## Subscribing to Query Change
+
+[api-query]: https://docs.skygear.io/android/reference/latest/io/skygear/skygear/Query.html

@@ -17,7 +17,7 @@ Most real-time chat apps require a user login system and you can do it with the 
 
 Check out the guide for [User Authentication Basics](https://docs.skygear.io/guides/auth/basics/ios/) and [User Profile Best Practices](https://docs.skygear.io/guides/auth/user-profile/ios/).
 
-## Creating conversations
+## Conversations
 
 In order to send messages, you need to create a conversation first. You can consider conversations as chatrooms or channels in your application.
 
@@ -259,7 +259,7 @@ SKYContainer.default().chatExtension?.removeAdmins(
     print("Admins removed")
 })
 ```
-## Messages basics
+## Messages
 Skygear Chat supports real time messaging. A message is the real content of a conversation. Skygear Chat supports 2 types of messages, one is plain text, the other one is assets. Assets include files, images, voice message and video.
 
 ### Loading messages from a conversation 

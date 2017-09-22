@@ -13,7 +13,7 @@ A custom HTTP endpoint can be useful for the followings:
 - receiving requests from outside the Skygear SDK
 - allowing a third party webhook to call upon (e.g. payment service)
 
-### Method
+## Defining a HTTP Handler
 
 The decorator syntax is:
 
@@ -108,7 +108,7 @@ handler(path: string, func: function(request: *, options: *): object, authRequir
   `skygear.auth.currentUser()`.
 
 
-### Return Value
+## Return Value
 
 You can return either of the followings in the handler.
 The Skygear server will create the corresponding HTTP response to the request.
@@ -125,7 +125,7 @@ The Skygear server will create the corresponding HTTP response to the request.
   where the response body will be a JSON-serialized representation
   of the value returned from the handler.
 
-### Examples
+## Examples
 
 To obtain the parameters passed through HTTP GET in the URL:
 

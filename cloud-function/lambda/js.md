@@ -5,7 +5,7 @@ title: Cloud code triggered by Client SDK
 [[toc]]
 
 You will need lambda functions if you want to have codes written on the backend
-server instead of inside the SDK. The client SDK calls the cloud codes which
+server instead of client side. The client SDK calls the cloud codes which
 in turn return the response back to the client.
 
 Typical usages include:
@@ -18,7 +18,7 @@ Typical usages include:
 
 A lambda function can be created using the `@skygear.op` decorator.
 
-### Method
+## Defining a Lambda
 
 The method is:
 
@@ -49,7 +49,7 @@ op(name: String, func: function(param: Object, options: *), authRequired: Boolea
   The default value is `false`. If `user_required` is set to `true`, this
   parameter is ignored.
 
-### Passing arguments to Lambda Functions
+## Passing arguments to Lambda Functions
 
 The lambda function can accept arguments.
 The list of arguments are defined in the function signature;
@@ -77,13 +77,13 @@ They are similar to the available types in a JSON object.
 Depending on the SDKs, the supplied arguments will be
 passed to the lambda function as the corresponding data type.
 
-### Return Value
+## Return Value
 
 A lambda function should return a JavaScript object or `null`.
 It will be the response the client SDK receives.
 
 
-### Example
+## Example
 
 The following lambda function, named `send_invitation_email`,
 accepts two parameters: `to_user_email` and `custom_message`.

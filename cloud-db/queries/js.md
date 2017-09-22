@@ -124,7 +124,7 @@ Please visit [Data Types: Location][doc-data-type-location] section for more.
 
 ## Pagination and Ordering
 
-### Ordering of records
+### Order of records
 
 You can sort the records based on certain field in ascending or descending order.
 You can also sort on multiple fields as well.
@@ -164,7 +164,7 @@ query.page = 8;
 /* 106th to 120th records */
 ```
 
-### Counting the records
+## Counting records
 
 To get the number of records matching a query, set the `overallCount`
 of the Query to `true`.

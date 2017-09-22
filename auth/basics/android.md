@@ -14,7 +14,7 @@ The global `Container` named `skygear` will be used throughout the examples in t
 Container skygear = Container.defaultContainer(this); // Global Container
 ```
 
-**Some basic concepts**
+## Basic concept
 
 ### Access token
 
