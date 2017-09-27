@@ -9,10 +9,10 @@ cache:
 before_install:
   - export PATH=$PATH:$HOME/.local/bin
   - pip install --user awscli
-  - git clone -b $TRAVIS_BRANCH --depth 1 https://github.com/SkygearIO/skygear-doc.git dist
+  - git clone -b ${TRAVIS_BRANCH:-master} --depth 1 https://github.com/SkygearIO/skygear-doc.git dist
   - cd dist
-  - ln -s ../node_modules
-  - rm -rf content && ln -s ../content
+  - mkdir -p ../node_modules && ln -s ../node_modules
+  - rm -rf content && ln -s ../ content
 
 script:
   - npm run spell-check
