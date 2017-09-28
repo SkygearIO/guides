@@ -4,15 +4,21 @@ node_js: 6
 
 cache:
   directories:
-    - node_modules
+    - ../skygear-doc/node_modules
 
 before_install:
+  # Install AWS CLI
   - export PATH=$PATH:$HOME/.local/bin
   - pip install --user awscli
-  - git clone -b ${TRAVIS_BRANCH:-master} --depth 1 https://github.com/SkygearIO/skygear-doc.git dist
-  - cd dist
-  - mkdir -p ../node_modules && ln -s ../node_modules
-  - rm -rf content && ln -s ../ content
+  # Checkout SkygearIO/skygear-doc while preserving node_modules cache
+  - mkdir -p ../skygear-doc
+  - cd ../skygear-doc
+  - git clone -b ${TRAVIS_BRANCH:-master} --depth 1 --no-checkout https://github.com/SkygearIO/skygear-doc.git tmp
+  - mv tmp/.git .
+  - rm -rf tmp
+  - git reset --hard HEAD
+  # Create soft link on content folder
+  - rm -rf content && ln -s $TRAVIS_BUILD_DIR content
 
 script:
   - npm run spell-check
