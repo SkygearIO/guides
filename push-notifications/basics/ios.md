@@ -232,6 +232,8 @@ container.unregisterDeviceCompletionHandler({ (deviceID, error) in
 })
 ```
 
+<!--
+
 ### TODO: Problems with the interface
 
 1. There are no exported interfaces for SDK to fetch device ids. Sending to device
@@ -242,5 +244,7 @@ container.unregisterDeviceCompletionHandler({ (deviceID, error) in
 3. The first array argument of `sendCompletionHandler` is always of `NSString`
    In the case of sending to users, it would be expected to be an array of
    `SKYUserRecordID`.
+
+-->
 
 [doc-cloud-function-push-notifications]: /guides/cloud-function/calling-skygear-api/python/#push-notifications
