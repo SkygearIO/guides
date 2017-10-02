@@ -118,6 +118,17 @@ runtime in your local machine as well. Here shows you how:
 	$(npm bin)/skygear-node
 	```
 
+::: tips
+
+If you want to configure multiple skygear-node, you may encounter the error
+`http: multiple registrations for /static/`. This is because each skygear-node
+by default try to serve static assets and register the same HTTP endpoint.
+
+In that case, set the environment variable of `SERVE_STATIC_ASSETS` to `false`
+at the instance that don't serve static asset.
+
+:::
+
 ## Configurations of Skygear Server
 
 As mentioned above, all configuration are via environment variables. Here are
