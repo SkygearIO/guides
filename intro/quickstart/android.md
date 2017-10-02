@@ -133,7 +133,6 @@ import io.skygear.skygear.Record;
 import io.skygear.skygear.RecordSaveResponseHandler;
 import io.skygear.skygear.SkygearApplication;
 import io.skygear.skygear.Container;
-import io.skygear.skygear.User;
 
 // Every record in Skygear must be owned by a user
 // For testing purpose, we have used signupAnonmously to create a record
@@ -145,7 +144,7 @@ public void onCreate() {
     final Container skygear = Container.defaultContainer(this);
     skygear.getAuth().signupAnonymously(new AuthResponseHandler() {
         @Override
-        public void onAuthSuccess(User user) {
+        public void onAuthSuccess(Record user) {
             Log.i("MyApplication", "Signup successfully");
 
             // Create Record Type "test" and put "Hello world" as value of key "content"
