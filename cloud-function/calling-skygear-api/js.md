@@ -9,7 +9,14 @@ title: Calling Skygear API
 
 Besides using the SDKs to interact with Skygear,
 you can also call the Skygear APIs directly using the Skygear
-`skygearCloud.CloudCodeContainer()` from the cloud code.
+`skygearCloud.getContainer()` from the cloud code.
+
+```javascript
+const container = skygearCloud.getContainer();
+```
+
+You can create Skygear Container object by `CloudCodeContainer()`
+from `skygearCloud`. And configure it with `apiKey`, `endPoint` and `userId`.
 
 ```javascript
 const container = new skygearCloud.CloudCodeContainer();
@@ -17,17 +24,12 @@ container.apiKey = 'your-api-key';
 container.endPoint = skygearCloud.settings.skygearEndpoint + '/';
 ```
 
-You can create Skygear Container object by `CloudCodeContainer()` from `skygearCloud`. And configure it with `apiKey`, `endPoint` and `userId`.
-
 Query can be done similar to JS SDK.
 
 As an example, you can perform a query through Skygear with the following:
 
 ```javascript
-const container = new skygearCloud.CloudCodeContainer();
-container.apiKey = skygearCloud.settings.masterKey;
-container.endPoint = skygearCloud.settings.skygearEndpoint + '/';
-container.asUserId = 'admin';
+const container = skygearCloud.getContainer('admin'); // act as `admin`
 const TaskRecord = skygear.Record.extend('task');
 const query = new skygear.Query(TaskRecord);
 query.equalTo('_id', 'cdfc7bb4-afd3-464c-a430-c9564c2202cf');
@@ -81,10 +83,7 @@ The following example demonstrates saving a record on behalf of
 the authenticated user:
 
 ```javascript
-const container = new skygearCloud.CloudCodeContainer();
-container.apiKey = 'your-api-key';
-container.endPoint = skygearCloud.settings.skygearEndpoint + '/';
-container.asUserId = 'admin';
+const container = skygearCloud.getContainer('admin');
 
 // When you call container to save the record,
 // the action will be done on behalf of the given user
@@ -99,10 +98,7 @@ container.publicDB.save(TaskRecord).then((result) => {
 Deleting a record can be done in a similar fashion:
 
 ```javascript
-const container = new skygearCloud.CloudCodeContainer();
-container.apiKey = 'your-api-key';
-container.endPoint = skygearCloud.settings.skygearEndpoint + '/';
-container.asUserId = 'admin';
+const container = skygearCloud.getContainer('admin');
 
 container.publicDB.delete({
 	id: 'note/cdfc7bb4-afd3-464c-a430-c9564c2202cf'
