@@ -148,7 +148,80 @@ The `publish` function has no return values and takes two arguments:
 
 ## Push Notifications
 
-Not yet implemented in JS.
+You can send push notifications to users from the cloud code
+using the `sendToUser` function in the `skygear` package.
+
+```javascript
+const container = skygearCloud.getContainer();
+container.push.sendToUser(
+  ['2aa4af2a-699a-4e43-8d67-7598757fc7ed'], // User IDs
+  {
+    'apns': {
+        'aps': {
+            'alert': {
+                'title': title,
+                'body': message,
+            }
+        },
+        'from': 'skygear',
+        'operation': 'notification',
+    },
+    'gcm': {
+         'notification': {
+              'title': title,
+              'body': message,
+          }
+    },
+  }
+);
+```
+
+## Parameters
+
+```javascript
+sendToUser(users, notification, topic)
+```
+
+- **users** (string or array of string)
+
+  An array of User IDs. If you are sending a notification to a single
+  user, you can also specify the User ID in string instead of array.
+
+- **notification** (dictionary)
+
+  It should be a Python dictionary with two keys, `apns` and `gcm`,
+  representing the argument for
+  [Apple Push Notification Service][apns]
+  and [Google Cloud Messaging][gcm]
+  respectively.
+
+- **topic** (string)
+
+  The device topic, refer to application bundle
+  identifier on iOS and application package name on Android
+
+
+```javascript
+sendToDevice(users, notification, topic)
+```
+
+- **devices** (string or array of string)
+
+  An array of Device IDs. If you are sending a notification to a single
+  device, you can also specify the Device ID in string instead of array.
+
+- **notification** (dictionary)
+
+  It should be a Python dictionary with two keys, `apns` and `gcm`,
+  representing the argument for
+  [Apple Push Notification Service][apns]
+  and [Google Cloud Messaging][gcm]
+  respectively.
+
+- **topic** (string)
+
+  The device topic, refer to application bundle
+  identifier on iOS and application package name on Android
 
 ### Return Value
 

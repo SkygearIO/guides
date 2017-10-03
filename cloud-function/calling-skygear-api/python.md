@@ -198,7 +198,6 @@ The `publish` function has no return values and takes two arguments:
 
 You can send push notifications to users from the cloud code
 using the `push_user` function in the `skygear.action` module.
-Below sample code use the notification payload for GCM, which is default for Skygear Android SDK.
 
 ```python
 from skygear.container import SkygearContainer
