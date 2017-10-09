@@ -106,7 +106,7 @@ skygear.push.sendToUser(
 var skygear = require('skygear');
 
 skygear.push.sendToDevice(
-  ['2aa4af2a-699a-4e43-8d67-7598757fc7ed'], // User IDs
+  ['2aa4af2a-699a-4e43-8d67-7598757fc7ed'], // Device IDs
   {
     'apns': {
         'aps': {
