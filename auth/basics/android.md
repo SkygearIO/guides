@@ -334,7 +334,26 @@ skygear.getPublicDatabase().save(currentUser, new RecordSaveResponseHandler() {
 
 ## Updating a user's password
 
-Coming Soon
+The currently logged-in user can change his/her own password.
+This can be done using the [`changePassword`] method.
+
+If the current password is incorrect, the SDK will return an
+`INVALID_CREDENTIALS` error.
+
+```java
+Container skygear = Container.defaultContainer(this);
+skygear.getAuth().changePassword("new-password", "old-password", new AuthResponseHandler() {
+    @Override
+    public void onAuthSuccess(Record user) {
+        Log.i("Change Password", "onAuthSuccess: Changed password successfully.);
+    }
+
+    @Override
+    public void onAuthFail(Error error) {
+        Log.i("Change Password", "onAuthFail: Fail with reason: " + error.getMessage());
+    }
+})
+```
 
 ## Forgot password
 
@@ -354,3 +373,4 @@ You may want to learn more about:
 [`signupWithUsername`]: https://docs.skygear.io/android/reference/v1/io/skygear/skygear/AuthContainer.html#signupWithUsername-java.lang.String-java.lang.String-io.skygear.skygear.AuthResponseHandler-
 [`save`]: https://docs.skygear.io/android/reference/v1/io/skygear/skygear/Database.html#save-io.skygear.skygear.Record:A-io.skygear.skygear.RecordSaveResponseHandler-
 [`whoami`]: https://docs.skygear.io/android/reference/v1/io/skygear/skygear/AuthContainer.html#whoami-io.skygear.skygear.AuthResponseHandler-
+[`changePassword`]: https://docs.skygear.io/android/reference/latest/io/skygear/skygear/AuthContainer.html#changePassword-java.lang.String-java.lang.String-io.skygear.skygear.AuthResponseHandler-
