@@ -111,11 +111,21 @@ RecordSaveResponseHandler handler = new RecordSaveResponseHandler(){
 database.save(aNote, handler);
 ```
 
+## Saving multiple records
+
 Also, you can save multiple records at one time:
 
 ```java
 Record[] records = new Record[]{ note1, note2, note3 };
 database.save(records, handler);
+```
+
+You can also save multiple records atomically, which make sure the save
+operation either succeeds or fails as a whole: 
+
+```java
+Record[] records = new Record[]{ note1, note2, note3 };
+database.saveAtomically(records, handler);
 ```
 
 ## Reading a record
