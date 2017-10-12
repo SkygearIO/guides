@@ -59,8 +59,11 @@ skygear.getAuth().signupWithUsername(username, password, new AuthResponseHandler
 
     @Override
     public void onAuthFail(Error error) {
-        if(error.getCode() == Error.Code.DUPLICATED) Log.i("Skygear Signup", "Duplicated Username");
-        else Log.i("Skygear Signup", "onAuthFail: Fail with reason: " + error.getMessage());
+        if (error.getCode() == Error.Code.DUPLICATED) {
+            Log.i("Skygear Signup", "Duplicated Username");
+        } else {
+            Log.i("Skygear Signup", "onAuthFail: Fail with reason: " + error.getMessage());
+        }
     }
 });
 ```
@@ -79,8 +82,11 @@ skygear.getAuth().signupWithEmail(email, password, new AuthResponseHandler() {
 
     @Override
     public void onAuthFail(Error error) {
-        if(error.getCode() == Error.Code.DUPLICATED) Log.i("Skygear Signup", "Duplicated Email");
-        else Log.i("Skygear Signup", "onAuthFail: Fail with reason: " + error.getMessage());
+        if (error.getCode() == Error.Code.DUPLICATED) {
+            Log.i("Skygear Signup", "Duplicated Email");
+        } else {
+            Log.i("Skygear Signup", "onAuthFail: Fail with reason: " + error.getMessage());
+        }
     }
 });
 ```
@@ -104,8 +110,11 @@ skygear.getAuth().signupWithUsername(username, password, new AuthResponseHandler
 
     @Override
     public void onAuthFail(Error error) {
-        if(error.getCode() == Error.Code.DUPLICATED) Log.i("Skygear Signup", "Duplicated Username");
-        else Log.i("Skygear Signup", "onAuthFail: Fail with reason: " + error.getMessage());
+        if(error.getCode() == Error.Code.DUPLICATED) {
+            Log.i("Skygear Signup", "Duplicated Username");
+        } else {
+            Log.i("Skygear Signup", "onAuthFail: Fail with reason: " + error.getMessage());
+        }
     }
 });
 ```
@@ -166,9 +175,13 @@ skygear.getAuth().loginWithUsername(username, password, new AuthResponseHandler(
 
     @Override
     public void onAuthFail(Error error) {
-        if(error.getCode() == Error.Code.INVALID_CREDENTIALS) Log.i("Skygear Login", "Password incorrect");
-        else if(error.getCode() == Error.Code.RESOURCE_NOT_FOUND) Log.i("Skygear Login", "No such username");
-        else Log.i("Skygear Login", "onAuthFail: Fail with reason: " + error.getCode());
+        if (error.getCode() == Error.Code.INVALID_CREDENTIALS) {
+            Log.i("Skygear Login", "Password incorrect");
+        } else if {
+            (error.getCode() == Error.Code.RESOURCE_NOT_FOUND) Log.i("Skygear Login", "No such username");
+        } else {
+            Log.i("Skygear Login", "onAuthFail: Fail with reason: " + error.getCode());
+        }
     }
 });
 ```
@@ -187,9 +200,13 @@ skygear.getAuth().loginWithUsername(email, password, new AuthResponseHandler() {
 
     @Override
     public void onAuthFail(Error error) {
-        if(error.getCode() == Error.Code.INVALID_CREDENTIALS) Log.i("Skygear Login", "Password incorrect");
-        else if(error.getCode() == Error.Code.RESOURCE_NOT_FOUND) Log.i("Skygear Login", "No such email");
-        else Log.i("Skygear Login", "onAuthFail: Fail with reason: " + error.getCode());
+        if (error.getCode() == Error.Code.INVALID_CREDENTIALS) {
+            Log.i("Skygear Login", "Password incorrect");
+        } else if (error.getCode() == Error.Code.RESOURCE_NOT_FOUND) {
+            Log.i("Skygear Login", "No such email");
+        } else {
+            Log.i("Skygear Login", "onAuthFail: Fail with reason: " + error.getCode());
+        }
     }
 });
 ```
@@ -203,16 +220,15 @@ from the local storage.
 
 ```java
 skygear.getAuth().logout(new LogoutResponseHandler() {
-   @Override
-   public void onLogoutSuccess() {
+    @Override
+    public void onLogoutSuccess() {
        Log.i("Skygear Logout", "Successfully logged out");
-   }
+    }
 
-   @Override
-   public void onLogoutFail(Error error) {
+    @Override
+    public void onLogoutFail(Error error) {
         Log.i("Skygear Logout", "onLogoutFail: Fail with reason:" + error.getMessage());
-   }
-
+    }
 });
 ```
 
