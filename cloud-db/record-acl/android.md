@@ -37,9 +37,9 @@ skygear.getPublicDatabase().save(publicNote, /* ... */);
 
 Suppose you have three user records: `Tak`, `Benson` and `Rick`. And this is the security setting you want to apply:
 
-- Tak has no access to the note.
-- Benson can only read the note.
-- Rick can both read and write the note.
+- `Tak` has no access to the note.
+- `Benson` can only read the note.
+- `Rick` can both read and write the note.
 
 ```java
 Record note = new Record("note");
@@ -52,7 +52,7 @@ skygear.getPublicDatabase().save(note, /* ... */);
 ```
 
 :::tips
-The default ACL in Skygear is public read. So if you didn't assign any ACL to Tak, he will be able to read the note.
+The default ACL in Skygear is public read. So if you didn't assign any ACL to `Tak`, he will be able to read the note.
 :::
 
 ## Record-based ACL By Role

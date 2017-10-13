@@ -38,9 +38,9 @@ skygear.publicDB.save(publicNote);
 
 Suppose you have three user records: `Tak`, `Benson` and `Rick`. And this is the security setting you want to apply:
 
-- Tak has no access to the note.
-- Benson can only read the note.
-- Rick can both read and write the note.
+- `Tak` has no access to the note.
+- `Benson` can only read the note.
+- `Rick` can both read and write the note.
 
 ```javascript
 const Note = skygear.Record.extend('note');
@@ -57,7 +57,7 @@ note.hasWriteAccessForUser(Benson); // false
 ```
 
 :::tips
-The default ACL in Skygear is public read. So if you didn't assign any ACL to Tak, he will be able to read the note.
+The default ACL in Skygear is public read. So if you didn't assign any ACL to `Tak`, he will be able to read the note.
 :::
 
 ## Record-based ACL By Role
@@ -127,9 +127,9 @@ skygear.publicDB.save(newPlan).then(() => {
 });
 ```
 
-## Example: An Inhouse Collaborative Editing Application
+## Example: An In-house Collaborative Editing Application
 
-For example, you want to design the security model for an inhouse collaborative
+For example, you want to design the security model for an in-house collaborative
 editing application. Each employee may join a group and create files, only
 group member have access to the files of the group.
 

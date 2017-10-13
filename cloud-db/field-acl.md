@@ -76,7 +76,7 @@ you can only see the reserved fields of the records.
 
 ### Save
 
-They work together similarily when you use save a record.
+They work together similarly when you use save a record.
 
 In atomic save, when a single record or a single field is failed to save,
 the whole operation will be rolled back.

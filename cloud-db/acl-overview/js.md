@@ -34,7 +34,7 @@ skygear.publicDB.query(noteQuery).then((records) => {
 });
 ```
 
-If you want to customise these security settings, Skygear supports access control on records. You can use it to control whether a user can query, update or delete a record.
+If you want to customize these security settings, Skygear supports access control on records. You can use it to control whether a user can query, update or delete a record.
 
 Skygear uses [Access Control List][wiki-acl] (ACL) as the model of access control.
 An ACL is a list of Access Control Entry (ACE), each ACE describes which
@@ -95,7 +95,7 @@ updating and removing all the fields (**EXCEPT** [reserved columns][doc-reserved
 
 ## ACL User Target
 
-User Target defines *who* can perform the specified actions. It can be aspecific user or a group of users. Below are the types of User Target you can define.
+User Target defines *who* can perform the specified actions. It can be a specific user or a group of users. Below are the types of User Target you can define.
 
 - **Public**: refers to all other users of the app, unauthenticated (not logged in) users included
 - **By User**: users specified by User ID
