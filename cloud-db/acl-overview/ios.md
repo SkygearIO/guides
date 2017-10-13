@@ -4,27 +4,16 @@ title: Access Control Overview
 
 [[toc]]
 
-Skygear supports access control on records. You can use it to control whether
-a user can query, update or delete a record.
-
-Skygear uses Access Control List (ACL) as the model of access control.
-An ACL is a list of Access Control Entry (ACE), each ACE describes which
-access rights a user target has to a record.
-
-On top of ACL, each record has an owner, and **the owner has full
-access** to the record.
-
-There are 2 types of ACL in Skygear:
-
-- Record-based ACL
-- Field-based ACL
-
-## Default ACL Settings
+Skygear has provided a default security setting on all records.
 
 By default,
 
-- read access is granted to the public, and
-- write access is granted only to owner of the record.
+- [read access][doc-read-access] is granted to the public, and
+- [write access][doc-write-access] is granted only to owner of the record.
+
+Read access includes access to **query** and **fetch**. Write access includes access to **update** and **delete**. More details below.
+
+For example:
 
 ```obj-c
 // not logged in as any user
@@ -78,42 +67,90 @@ publicDB.perform(query) { (results, queryError) in
 }
 ```
 
+If you want to customise these security settings, Skygear supports access control on records. You can use it to control whether a user can query, update or delete a record.
+
+Skygear uses [Access Control List][wiki-acl] (ACL) as the model of access control.
+An ACL is a list of Access Control Entry (ACE), each ACE describes which
+access rights a user target has to a record.
+
+Each ACE consists of:
+- **Access level**, which defines what actions can be performed (for example, read or write).
+- **User Target**, which defines who can perform the specified actions (for example, a specific user or group of users).
+
+
+These are the concepts you need to know:
+- Record ownership, **the owner has full access** to the record.
+- The 2 types of ACL in Skygear: [Record-based ACL][doc-record-acl] and [Field-based ACL][doc-field-acl].
+
+:::tips
+When you should use Record-based ACL or Field-based ACL?
+
+If every single record has the same ACL, that the same  have the same access rights to a record, you can use Record-based ACL.
+
+Otherwise, if a set of users have has different access rights for each field of a record, you would need to use Field-based ACL.
+:::
+
+Before diving into Record-based ACL and Field-based ACL, let's learn about the basic concepts of Skygear ACL.
+
 ## ACL Access Level
 
-ACL in Skygear have 3 access level:
+There are 3 access levels in Skygear ACL:
 
 - No Access
-- Read Only Access
 - Read Write Access
+- Read Only Access
 
-### Read access
+This is how you can set it:
 
-Read access allows querying and fetching records, which includes getting
-all the fields of records as well as the access control settings.
+```obj-c
+SKYAccessControl *acl = [SKYAccessControl emptyAccessControl];
 
-### Write access
+[acl setNoAccessForPublic];
+[acl setReadOnlyForPublic];
+[acl setReadWriteAccessForPublic];
 
-Write access allows saving and deleting records, which includes adding,
-updating and removing all fields (**EXCEPT**
-[reserved columns][doc-reserved-columns]) of records
-as well as access control settings for the record.
+// and more...
+```
+
+```swift
+let acl = SKYAccessControl.empty()
+
+acl?.setNoAccessForPublic()
+acl?.setReadOnlyForPublic()
+acl?.setReadWriteAccessForPublic()
+
+// and more...
+```
+
+:::tips
+
+**Read access**
+
+Read access grants users right to *query* and *fetch* records, which includes getting all the fields of a record as well as the ACL of the record.
+
+
+**Write access**
+
+Write access grants users right to *save* and *delete* records, which includes adding,
+updating and removing all the fields (**EXCEPT** [reserved columns][doc-reserved-columns]) of a record as well as the ACL of the record.
+
+:::
 
 ## ACL User Target
 
-### Public
+User Target defines *who* can perform the specified actions. It can be aspecific user or a group of users. Below are the types of User Target you can define.
 
-Public means all other users and unauthenticated (not logged in) users.
+- **Public**: refers to all other users of the app, unauthenticated (not logged in) users included
+- **By User**: users specified by User ID
+- **By Role**: users grouped into specific roles by admin
 
-### By User
+Below we will talk about how to create roles and assign a role to users.
 
-Users are specified by User ID
+### Role Configuration
 
-### By Role
+#### Define role
 
-#### Define Roles
-
-You can create different roles and later use them to design ACL targeting users
-of specific roles.
+You can create different roles and later use them to design ACL targeting users of specific roles.
 
 ```obj-c
 SKYRole *manager = [SKYRole roleWithName:@"manager"];
@@ -125,8 +162,25 @@ let manager = SKYRole(name: "manager")
 let visitor = SKYRole(name: "visitor")
 ```
 
-You can set certain roles as admin so that they have the power to change other
-users' roles.
+#### Admin role
+
+In Skygear roles are either admin role or non-admin role. By default, there is an admin role called `Admin`.
+
+What only admin role can do:
+
+- Assign role to user
+- Revoke role to user
+
+:::tips
+For security concern, only admin can change the role of a user, thus the user must request another user with admin role to change the role for him.
+
+Do not abuse role to model user grouping. If a group can be joined by other users without requesting permission, that should be a public group, which does not require ACL.
+:::
+
+
+#### Setting admin role and default role in debug mode
+
+You define new roles to be admin role.
 
 ```obj-c
 SKYAuthContainer *auth = [[SKYContainer defaultContainer] auth];
@@ -153,8 +207,7 @@ if let manager = manager as SKYRole! {
 }
 ```
 
-You can also set the default roles so that newly signed up user would start
-with these roles.
+You can also set the default roles so that newly signed up user would start with these roles.
 
 ```obj-c
 [auth setUserDefaultRole:@[visitor]
@@ -199,16 +252,16 @@ SKYAuthContainer *auth = [[SKYContainer defaultContainer] auth];
                     }
 
                     NSLog(@"Roles revoked");
-                    [auth assignRoles:rolesToAssign
-                              toUsers:userIDs
-                           completion:^(NSError * _Nullable assignError) {
-                               if (assignError) {
-                                   NSLog(@"Error: %@", assignError.localizedDescription);
-                                   return;
-                               }
+                    [auth assignRolesWithNames:rolesToAssign
+                                toUsersWithIDs:userIDs
+                                    completion:^(NSError * _Nullable assignError) {
+                                        if (assignError) {
+                                            NSLog(@"Error: %@", assignError.localizedDescription);
+                                            return;
+                                        }
 
-                               NSLog(@"Roles assigned");
-                           }];
+                                         NSLog(@"Roles assigned");
+                                    }];
                 }];
 ```
 
@@ -241,15 +294,16 @@ auth.revokeRoles(withNames: rolesToRevoke, fromUsersWihtIDs: userIDs) { (revokeE
 You can change the default ACL settings:
 
 ```obj-c
-SKYAccessControl *acl = [[SKYContainer defaultContainer] defaultAccessControl];
-[acl setReadOnlyForPublic];
-[acl setReadWriteAccessForRole:manager];
+// giving admin role read write access to all new records
+SKYRole *admin = [SKYRole roleWithName:@"manager"];
+[acl setReadWriteAccessForRole:admin];
 [[[SKYContainer defaultContainer] publicCloudDatabase] setDefaultAccessControl:acl];
 ```
 
 ```swift
-let acl = SKYContainer.default().defaultAccessControl
-acl?.setReadOnlyForPublic()
+// giving admin role read write access to all new records
+let admin = SKYRole(name: "admin")
+acl?.setReadWriteAccessFor(admin)
 SKYContainer.default().publicCloudDatabase.defaultAccessControl = acl
 ```
 
@@ -257,4 +311,10 @@ After changing the default ACL setting, all records created in the future
 will automatically have this ACL setting; however, ACL setting for existing
 records created before this update will remain unchanged.
 
-[doc-reserved-columns]: /guides/cloud-db/basics/js/#reserved-columns
+## Next Part
+- [Record-based ACL][doc-record-acl]
+
+[wiki-acl]: https://en.wikipedia.org/wiki/Access_control_list
+[doc-reserved-columns]: /guides/cloud-db/basics/ios/#reserved-columns
+[doc-record-acl]: /guides/cloud-db/record-acl/ios/
+[doc-field-acl]: /guides/cloud-db/field-acl/ios/
