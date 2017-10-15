@@ -7,9 +7,12 @@ description: Adding Skygear to your web apps
 
 ## Try Skygear
 
-If you are interested in having a sneak peek, you can play around with Skygear using this [code snippet](https://jsfiddle.net/0bu7urc6/). You can obtain your own server endpoints and API keys by signing up for a free Skygear account [here](https://portal.skygear.io/signup).
+You may try out Skygear JS SDK quickly by these two ways:
 
-If you would prefer to use your own text editor, you can use this simple React [scaffolding](https://github.com/SkygearIO/generator-skygear) and follow the guide to set up your Skygear app. 
+* [JSFiddle code snippet](https://jsfiddle.net/oursky/8paqqvq4/): To take a quick sneak peek of how the API works.
+* [React scaffolding](https://github.com/SkygearIO/generator-skygear): Start with a React.js template.
+
+You can obtain your own server endpoints and API keys by signing up for a free Skygear account [here](https://portal.skygear.io/signup).
 
 ## Get started with JS Demo Projects
 
