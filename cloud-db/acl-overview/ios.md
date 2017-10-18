@@ -8,8 +8,8 @@ Skygear has provided a default security setting on all records.
 
 By default,
 
-- [read access][doc-read-access] is granted to the public, and
-- [write access][doc-write-access] is granted only to owner of the record.
+- read access is granted to the public, and
+- write access is granted only to owner of the record.
 
 Read access includes access to **query** and **fetch**. Write access includes access to **update** and **delete**. More details below.
 
@@ -74,6 +74,7 @@ An ACL is a list of Access Control Entry (ACE), each ACE describes which
 access rights a user target has to a record.
 
 Each ACE consists of:
+- **Resource**, which defines what is affected by the entry.
 - **Access level**, which defines what actions can be performed (for example, read or write).
 - **User Target**, which defines who can perform the specified actions (for example, a specific user or group of users).
 
@@ -92,6 +93,18 @@ Otherwise, if a set of users have has different access rights for each field of 
 
 Before diving into Record-based ACL and Field-based ACL, let's learn about the basic concepts of Skygear ACL.
 
+## ACL Resource
+
+### Record-based
+
+Resource is defined in each record. Thus the ACL affects the record itself.
+
+### Field-based
+
+Resource in is specified by record type and record field.
+
+You may find more details about resource matching in [Field-based ACL][doc-field-acl-matching].
+
 ## ACL Access Level
 
 There are 3 access levels in Skygear ACL:
@@ -108,8 +121,6 @@ SKYAccessControl *acl = [SKYAccessControl emptyAccessControl];
 [acl setNoAccessForPublic];
 [acl setReadOnlyForPublic];
 [acl setReadWriteAccessForPublic];
-
-// and more...
 ```
 
 ```swift
@@ -118,8 +129,6 @@ let acl = SKYAccessControl.empty()
 acl?.setNoAccessForPublic()
 acl?.setReadOnlyForPublic()
 acl?.setReadWriteAccessForPublic()
-
-// and more...
 ```
 
 :::tips
@@ -174,11 +183,17 @@ What only admin role can do:
 :::tips
 For security concern, only admin can change the role of a user, thus the user must request another user with admin role to change the role for him.
 
-Do not abuse role to model user grouping. If a group can be joined by other users without requesting permission, that should be a public group, which does not require ACL.
+If a group is just used for display purpose, like group member. Then the group is a public group. Users actually do not need permission from Admin to join the group.
+
+Do NOT overload user roles to model group if no access control is necessary. It will have performance penalty since it involves an extra check during query/save.
 :::
 
 
-#### Setting admin role and default role in debug mode
+#### Setting admin role and default role in development
+
+:::caution
+Admin role and default role must be set during development. The two operations are banned in production environment.
+:::
 
 You define new roles to be admin role.
 
@@ -289,28 +304,6 @@ auth.revokeRoles(withNames: rolesToRevoke, fromUsersWihtIDs: userIDs) { (revokeE
 }
 ```
 
-## Changing Default ACL Settings
-
-You can change the default ACL settings:
-
-```obj-c
-// giving admin role read write access to all new records
-SKYRole *admin = [SKYRole roleWithName:@"manager"];
-[acl setReadWriteAccessForRole:admin];
-[[[SKYContainer defaultContainer] publicCloudDatabase] setDefaultAccessControl:acl];
-```
-
-```swift
-// giving admin role read write access to all new records
-let admin = SKYRole(name: "admin")
-acl?.setReadWriteAccessFor(admin)
-SKYContainer.default().publicCloudDatabase.defaultAccessControl = acl
-```
-
-After changing the default ACL setting, all records created in the future
-will automatically have this ACL setting; however, ACL setting for existing
-records created before this update will remain unchanged.
-
 ## Next Part
 - [Record-based ACL][doc-record-acl]
 
@@ -318,3 +311,4 @@ records created before this update will remain unchanged.
 [doc-reserved-columns]: /guides/cloud-db/basics/ios/#reserved-columns
 [doc-record-acl]: /guides/cloud-db/record-acl/ios/
 [doc-field-acl]: /guides/cloud-db/field-acl/ios/
+[doc-field-acl-matching]: /guides/cloud-db/field-acl/#resource-matching

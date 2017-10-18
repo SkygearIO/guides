@@ -25,7 +25,6 @@ You can change the record ACL by calling the ACL API on the record and saving it
 ```obj-c
 SKYDatabase *publicDB = [[SKYContainer defaultContainer] publicCloudDatabase];
 
-// this will be the same as saving the record to privateDB
 SKYRecord *secretNote = [SKYRecord recordWithRecordType:@"note"];
 secretNote[@"content"] = @"I am your father";
 [[secretNote.accessControl setNoAccessForPublic];];
@@ -40,7 +39,6 @@ publicNote[@"content"] = @"Hello world!";
 ```swift
 let publicDB = SKYContainer.default().publicCloudDatabase
 
-// this will be the same as saving the record to privateDB
 let secretNote = SKYRecord(recordType: "note")
 secretNote.setObject("I am your father", forKey: "content" as NSCopying!)
 [secretNote.accessControl?.setNoAccessForPublic];()
@@ -151,6 +149,29 @@ let acl = SKYAccessControl.empty()
 acl?.setReadOnlyFor(Visitor)
 SKYContainer.default().publicCloudDatabase.defineDefaultAccess(withRecordType: "note", access: acl) { /* ... */ }
 ```
+
+## SDK Default ACL
+
+On top of setting Record Default ACL, you can also change the default ACL settings locally.
+You may consider this as a convenient method of the SDK.
+
+```obj-c
+// giving admin role read write access to all new records
+SKYRole *admin = [SKYRole roleWithName:@"manager"];
+[acl setReadWriteAccessForRole:admin];
+[[[SKYContainer defaultContainer] publicCloudDatabase] setDefaultAccessControl:acl];
+```
+
+```swift
+// giving admin role read write access to all new records
+let admin = SKYRole(name: "admin")
+acl?.setReadWriteAccessFor(admin)
+SKYContainer.default().publicCloudDatabase.defaultAccessControl = acl
+```
+
+After changing the default ACL setting, all records created in the future
+will automatically have this ACL setting; however, ACL setting for existing
+records created before this update will remain unchanged.
 
 ## Record Creation Access
 

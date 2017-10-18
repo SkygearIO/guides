@@ -26,7 +26,6 @@ You can change the record ACL by calling the ACL API on the record and saving it
 const secretNote = new Note({ content: 'I am your father' });
 const publicNote = new Note({ content: 'Hello world!' });
 
-// this will be the same as saving the record to privateDB
 secretNote.setPublicNoAccess();
 skygear.publicDB.save(secretNote);
 
@@ -107,6 +106,22 @@ acl.setReadOnlyForRole(Visitor);
 
 skygear.publicDB.setRecordDefaultAccess(Note, acl);
 ```
+
+## SDK Default ACL
+
+On top of setting Record Default ACL, you can also change the default ACL settings locally.
+You may consider this as a convenient method of the SDK.
+
+```javascript
+// giving admin role read write access to all new records
+const Admin = new skygear.Role('admin');
+acl.setReadWriteAccessForRole(Admin);
+skygear.publicDB.setDefaultACL(acl);
+```
+
+After changing the default ACL setting, all records created in the future
+will automatically have this ACL setting; however, ACL setting for existing
+records created before this update will remain unchanged.
 
 ## Record Creation Access
 

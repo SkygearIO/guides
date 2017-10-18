@@ -21,7 +21,6 @@ To understand record-based ACL you need basic Skygear ACL concepts. Learn about 
 You can change the record ACL by calling the ACL API on the record and saving it afterwards.
 
 ```java
-// this will be the same as saving the record to privateDB
 Record secretNote = new Record("note");
 secretNote.set("content", "I am your father");
 secretNote.setPublicNoAccess();
@@ -97,6 +96,22 @@ skygear.getAuth().fetchUserRole(users, new FetchUserRoleResponseHandler(){
 ## Record Default ACL
 
 Coming Soon
+
+## SDK Default ACL
+
+On top of setting Record Default ACL, you can also change the default ACL settings locally.
+You may consider this as a convenient method of the SDK.
+
+```java
+Container skygear = Container.defaultContainer(this);
+AccessControl acl = /* construct your own access control */
+
+skygear.setDefaultAccessControl(acl);
+```
+
+After changing the default ACL setting, all records created in the future
+will automatically have this ACL setting; however, ACL setting for existing
+records created before this update will remain unchanged.
 
 ## Record Creation Access
 
