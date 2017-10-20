@@ -43,6 +43,6 @@ skygear.publicDB.save(new Note({
 
 ## Error codes
 
-Detailed error code can be found in [here](https://github.com/SkygearIO/skygear-SDK-JS/blob/master/lib/error.js).
+Detailed error code can be found in [here](https://github.com/SkygearIO/skygear-SDK-JS/blob/master/packages/skygear-core/lib/error.js).
 Each of them concisely describe the error, you should compare error against
 error codes if you want to handle them manually.
