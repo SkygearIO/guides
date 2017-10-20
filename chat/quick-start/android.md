@@ -23,7 +23,7 @@ allprojects {
 }
 ```
 
-2. Add `io.skygear.plugins:chat:+` dependency in your `build.gradle` **of the module**.
+2. Then, in `build.gradle` of the **module**, add `io.skygear.plugins:chat:+` dependency.
 
 ```Java
 dependencies {
