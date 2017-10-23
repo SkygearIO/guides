@@ -18,6 +18,10 @@ You also need to install the Chat plugin SDK into your project via Gradle.
 allprojects {
     repositories {
         jcenter()
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
         maven { url 'https://jitpack.io' }
     }
 }

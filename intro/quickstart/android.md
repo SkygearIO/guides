@@ -26,9 +26,13 @@ Alternatively, you might want to get started with Skygear using:
 
 ```java
 allprojects {
-   repositories {
-       jcenter()
-   }
+    repositories {
+        jcenter()
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
+    }
 }
 ```
 
