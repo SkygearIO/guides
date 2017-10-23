@@ -17,10 +17,13 @@ Follow the [iOS quick start](/guides/intro/quickstart/iOS/) guide to add Skygear
 
 ```bash
 # This line should exists after you follow the iOS Quick Start guide
-pod 'SKYKit', :git => 'https://github.com/SkygearIO/skygear-SDK-iOS.git'
+pod 'SKYKit', '~> 1.1'
 
 # Add this line
-pod 'SKYKitChat', :git => 'https://github.com/SkygearIO/chat-SDK-iOS.git'
+pod 'SKYKitChat', '~> 1.1'
+
+# If you want to use UIKit too, include this line:
+# pod 'SKYKitChat/UI', '~> 1.1'
 ```
 2. Save your `Podfile` and run `pod install` in the terminal.
 
