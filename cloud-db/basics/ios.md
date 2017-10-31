@@ -93,8 +93,8 @@ There are couples of things we have done here:
 ## Saving multiple records
 
 You can also save multiple `SKYRecord`s at once with
-[`saveRecords`](api-save-records) or
-[`saveRecordsAtomically`](api-save-records-atomically) which make sure the save
+[`saveRecords`][api-save-records] or
+[`saveRecordsAtomically`][api-save-records-atomically] which make sure the save
 operation either succeeds or fails as a whole:
 
 ```obj-c

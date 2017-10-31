@@ -241,5 +241,5 @@ skygear.getAuth().revokeUserRole(targetUserIDs, rolesToRevoke, new SetUserRoleRe
 [wiki-acl]: https://en.wikipedia.org/wiki/Access_control_list
 [doc-reserved-columns]: /guides/cloud-db/basics/android/#reserved-columns
 [doc-record-acl]: /guides/cloud-db/record-acl/android/
-[doc-field-acl]: /guides/cloud-db/field-acl/android/
+[doc-field-acl]: /guides/cloud-db/field-acl/
 [doc-field-acl-matching]: /guides/cloud-db/field-acl/#resource-matching

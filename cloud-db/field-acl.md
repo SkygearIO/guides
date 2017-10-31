@@ -117,7 +117,7 @@ that part would be skipped, and the rest of the operation will still succeed.
 
 
 [doc-access-level]: /guides/cloud-db/acl-overview/js/#acl-access-level
-[doc-record-acl]: /guides/cloud-db/record-acl/
+[doc-record-acl]: /guides/cloud-db/record-acl/js/
 [doc-field-acl-discovery-level]: /guides/cloud-db/field-acl/#acl-discovery-level
 [doc-field-acl-user-target]: /guides/cloud-db/field-acl/#advanced-acl-user-target-of-field-based-acl
 [doc-record-save]: /guides/cloud-db/basics/js/#saving-multiple-records

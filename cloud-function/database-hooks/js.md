@@ -402,7 +402,7 @@ demonstrates:
 // Todo
 ```
 
-[doc-acl]: /guides/cloud-db/acl/ios/
+[doc-acl]: /guides/cloud-db/record-acl/ios/
 [before-save-metadata]: #before-save-metadata
 [before-save-func-record]: #before-save-func-record
 [cloud-function-container]: /guides/cloud-function/calling-skygear-api/js/#skygear-container

@@ -99,7 +99,7 @@ Besides the operations shown above, the following list out all operations suppor
 
 ## Pagination and Ordering
 
-Refer to [`Query`](api-query) class reference for pagination and order in query
+Refer to [`Query`][api-query] class reference for pagination and order in query
 result.
 
 ## Relational Queries

@@ -9,7 +9,7 @@ Follow the steps below to add Skygear Chat to your app.
 
 Skygear Core provides you the [cloud database](https://docs.skygear.io/guides/cloud-db/basics/js/) and the [user authentication](https://docs.skygear.io/guides/auth/basics/js/) modules. They are required modules for Skygear Chat.
 
-Follow the [iOS quick start](/guides/intro/quickstart/iOS/) guide to add Skygear Core to your app if you haven't.
+Follow the [iOS quick start](/guides/intro/quickstart/ios/) guide to add Skygear Core to your app if you haven't.
 
 ## Step 2: Add Skygear Chat to your app using CocoaPods
 

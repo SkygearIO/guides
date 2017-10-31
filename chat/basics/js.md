@@ -151,7 +151,7 @@ skygearChat.updateConversation(conversation, "new title", null)
 
 ### Leaving a conversation
 
-To leave a conversation, you can call [`leaveConversation`](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/container.js~SkygearChatContainer.html#instance-method-leaveConversation).
+To leave a conversation, you can call [`leaveConversation`](https://docs.skygear.io/js/chat/reference/latest/class/lib/container.js%7ESkygearChatContainer.html#instance-method-leaveConversation).
 
 ```javascript!
 skygearChat.leaveConversation(conversation)

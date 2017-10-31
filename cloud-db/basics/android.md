@@ -13,7 +13,7 @@ You can follow the steps in [Setup Skygear][doc-setup-skygear] to set it up.
 
 ## The Record Class
 
-[Record](api-record) is the data storage unit in Skygear.
+[Record][api-record] is the data storage unit in Skygear.
 
 - `Record` must have a type.
 - Each `Record` object contains a `java.util.Map`; keys will be mapped to database column names, and values will be stored appropriately
