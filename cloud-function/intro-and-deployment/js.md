@@ -33,7 +33,7 @@ If not, it will raise an exception and will not save the record.
 // Reject empty 'name' before saving a cat to the database
 const skygearCloud = require('skygear/cloud');
 skygearCloud.beforeSave('cat', function(record, original, pool, options) {
-    if record["name"] == nil {
+    if (record["name"] == nil) {
     	console.log("error")
     }
     return;
