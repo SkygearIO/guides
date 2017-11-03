@@ -4,6 +4,16 @@ title: Skygear Command Line Interface
 
 [[toc]]
 
+::: caution
+skycli is obsoleted with the new version focus solely on deploying Cloud Functions. If you wish to
+use it for DB schema management, you can still download it from
+[go-skycli](https://github.com/skygeario/go-skycli).
+
+Due to the change of name, `go get` command described below would not works. Plesae use the binary
+from github if you're not sure.
+:::
+
+
 Skygear provides a default command-line interface `skycli` to interact with
 Skygear's handlers and PostgreSQL backend to facilitate application development
 and some common administration works.
