@@ -9,8 +9,8 @@ skycli is obsoleted with the new version focus solely on deploying Cloud Functio
 use it for DB schema management, you can still download it from
 [go-skycli](https://github.com/skygeario/go-skycli).
 
-Due to the change of name, `go get` command described below would not works. Plesae use the binary
-from github if you're not sure.
+Due to the change of name, `go get` command described below would not works. Please use the binary
+from GitHub if you're not sure.
 :::
 
 
