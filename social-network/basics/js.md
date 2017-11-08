@@ -70,19 +70,19 @@ skygear.relation.queryFollower(ben).then((users) => {
 To get the current user's friend list:
 
 ``` javascript
-skygear.relation.queryFriend(skygear.currentUser).then(...);
+skygear.relation.queryFriend(skygear.auth.currentUser).then(...);
 ```
 
 To get the current user's following list:
 
 ``` javascript
-skygear.relation.queryFollowing(skygear.currentUser).then(...);
+skygear.relation.queryFollowing(skygear.auth.currentUser).then(...);
 ```
 
 To get the 101-200th friends of the current user:
 
 ``` javascript
-skygear.relation.queryFriend(skygear.currentUser, {
+skygear.relation.queryFriend(skygear.auth.currentUser, {
   page: 2, limit: 100,
 }).then((users) => {
   console.log(users);

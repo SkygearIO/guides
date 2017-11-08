@@ -10,13 +10,13 @@ title: Query Subscriptions
 ### Creating a subscription
 
 The following code creates a subscription of all the `Note` created by
-`skygear.currentUser`. Notice that creating a subscription does not involve
+`skygear.auth.currentUser`. Notice that creating a subscription does not involve
 the use of the `new` keyword.
 
 ```javascript
 const Note = skygear.Record.extend('note');
 const query = new skygear.Query(Note);
-query.equalTo('_created_by', skygear.currentUser.id);
+query.equalTo('_created_by', skygear.auth.currentUser.id);
 
 subscription = skygear.Subscription('my notes');
 subscription.query = query;

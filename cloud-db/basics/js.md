@@ -225,7 +225,7 @@ Query on reserved columns example:
 
 ``` javascript
 let query = new skygear.Query(Note);
-query.equalTo('_owner', skygear.currentUser.id);
+query.equalTo('_owner', skygear.auth.currentUser.id);
 // '_owner' is an alias for '_owner_id'
 skygear.publicDB.query(query);
 ```

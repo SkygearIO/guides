@@ -28,7 +28,7 @@ owner.
 ``` javascript
 // skygear.UserRecord is equivalent to skygear.Record.extend('user')
 const modifiedRecord = new skygear.UserRecord({
-  '_id': 'user/' + skygear.currentUser.id,
+  '_id': 'user/' + skygear.auth.currentUser.id,
   'language': 'en-US',
   'gender': 'male',
   'age': 20,
@@ -42,7 +42,7 @@ skygear.publicDB.save(modifiedRecord).then((record) => {
 
 ``` javascript
 const query = new skygear.Query(skygear.UserRecord);
-query.equalTo('_id', skygear.currentUser.id);
+query.equalTo('_id', skygear.auth.currentUser.id);
 skygear.publicDB.query(query).then((records) => {
   const record = records[0];
   console.log(record);
