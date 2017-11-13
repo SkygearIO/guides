@@ -52,6 +52,6 @@ Cool your are all set now.
 ## What's next from here
 
 You got the basic. Next, learn more about:
-* [Skygear Chat](https://docs.skygear.io/guides/chat/basics/js/) or [API reference](https://doc.esdoc.org/github.com/skygeario/chat-SDK-JS/class/lib/container.js~SkygearChatContainer.html)
+* [Skygear Chat](https://docs.skygear.io/guides/chat/basics/js/) or [API reference](https://docs.skygear.io/js/chat/reference/latest/)
 * [Skygear User Authentication](https://docs.skygear.io/guides/auth/basics/js/)
 * [Chat Demo Projects in JavaScript](https://github.com/search?q=topic%3Ajavascript+topic%3Askygear-chat+org%3Askygear-demo&type=Repositories)

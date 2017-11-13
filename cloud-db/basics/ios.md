@@ -39,7 +39,7 @@ private database, and only himself have access to it.
 To control the access, you may set different access control entity to the record. However, only logged in user can do write operation on databases
 - The database objects can be accessed with `[[SKYContainer defaultContainer] publicCloudDatabase]` and `[[SKYContainer defaultContainer] privateCloudDatabase]`.
 
-Head to [Access Control][doc-access-control] to read more about it.
+Head to [Record-based ACL][doc-record-acl] and [Field-based ACL][doc-field-acl] to read more about it.
 
 ## Creating a record
 
@@ -506,7 +506,8 @@ NotificationCenter.default.addObserver(
 [doc-setup-skygear]: /guides/get-started/ios/
 [doc-data-type]: /guides/cloud-db/data-types/ios/
 [doc-reserved-columns]: #reserved-columns
-[doc-access-control]: /guides/cloud-db/acl/ios/
+[doc-record-acl]: /guides/cloud-db/record-acl/ios/
+[doc-field-acl]: /guides/cloud-db/field-acl/
 [doc-database-schema]: /guides/advanced/database-schema/
 [doc-queries]: /guides/cloud-db/queries/ios/
 [api-save-records]: https://docs.skygear.io/ios/reference/latest/Classes/SKYDatabase.html#/c:objc(cs)SKYDatabase(im)saveRecords:completionHandler:perRecordErrorHandler:
