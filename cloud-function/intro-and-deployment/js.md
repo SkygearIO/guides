@@ -42,8 +42,122 @@ skygearCloud.beforeSave('cat', function(record, original, pool, options) {
 });
 ```
 
-## Cloud Functions deployment
+## Deploy Cloud Functions
+<a name="deploy-cloud-functions"></a>
+#### [Skycli][skycli-github] is the recommended way to deploy Skygear Cloud Functions.
 
+
+`skycli` is the command line interface to Skygear Portal. You can use `skycli` to deploy your cloud functions to Skygear Cloud.
+
+(Note: `skycli` for database schema editing is obsoleted. This guide is for the rewritten version to deploy cloud functions to Skygear Cloud.)
+
+### Install Skycli
+
+Firstly, you have to install `skycli` into your local machine. It only takes a few commands.
+
+You can install Skycli via Homebrew (macOS) or NPM (macOS, Linux and Windows); You can also download a pre-built executable binaries.
+
+#### Using Homebrew (for macOS)
+
+```
+$ brew tap skygeario/tap
+$ brew install skycli
+```
+
+#### Using npm (for macOS, Linux and Windows)
+
+```
+$ npm install -g skycli
+```
+
+#### Download executable binaries
+
+You can also download a pre-built executable binaries from [GitHub Releases][skycli-github-release]. We have pre-built executable binaries for macOS, Linux and Windows.
+
+
+### Authenticate in Skycli
+
+To init or deploy using `skycli`, you have to have an Skygear account (sign up for free at [Skygear Portal](https://portal.skygear.io/signup)).
+
+#### Log in the command line tool
+
+1. Open your command line interface. 
+2. Run `skycli login`
+3. You will be prompt your email and password. 
+
+![Login to Skycli][skycli-login]
+4. After logging in, you can then initialize or deploy your cloud code via skycli. The login session persist on your machine. If you want to switch to another account, you shall logout first.
+
+#### Log out
+
+1. Open your command line interface. 
+2. Run `skycli logout`
+
+![Logging out Skycli][skycli-logout]
+3. You are now logged out on your local machine. To use `skycli deploy` and `skycli init`, you have to log into a Skygear account.
+
+
+### Initialize a local project for Skygear Cloud
+
+You can write cloud functions in Python or JavaScript to run custom functions on Skygear Server. Learn more about [Cloud Functions](https://docs.skygear.io/guides/cloud-function/intro-and-deployment/python/). 
+
+Initialize an template project that helps you to get started with Skygear Cloud Function. Here is how you can do so.
+
+1. Open your command line interface. Go to a destination for your project to init. e.g. `~/skyapp-cloud`
+2. Run `skycli init`
+3. **Select an app** - After confirmation on the project path, you will be asked which app to associate the local project with. (You can create a new app on [Skygear Portal](https://portal.skygear.io/))
+
+![Init a cloud code folder][skycli-init]
+4. **Whether to create static hosting directory** - Next, you can choose if you want to create your public static hosting directory. It is a directory for you to host assets or HTML files on Skygear statically.
+5. **Select your language** - You will be prompted to choose use JavaScript or Python for your cloud code. A sample entry point will be set up (`index.js` for JavaScript and  `__init__.py` for Python).
+
+![Logging out Skycli][skycli-choose-lang]
+6. **Completed!** - skycli will then create files and configure your app info. **You can start to write your Cloud Functions now.**
+
+![Init done][skycli-init-done]
+
+### Deploying Cloud Function via skycli
+
+Before using `skycli`, you have to push your code to master branch of Skygear Cloud Function git repository. Now you can just run `skycli deploy` in your project folder to get the code deployed.
+
+It's recommended to use `skycli` to deploy Skygear Cloud Functions.
+
+Here showing the steps to deploy to a sample app **skyapp**. We have written a hello function in index.js (JavaScript version):
+
+![Sample cloud code][skycli-demo-cloud-code]
+
+It's now ready to deploy this function to Skygear Cloud. 
+
+1. Open your command line interface. Go to your project folder. e.g. `~/skyapp-cloud`
+2. Check that you have updated your code and it's ready for deployment.
+3. Run `skycli deploy`
+4. **Skycli will archive your project and deploy.** You will see `Build completed successfully.` upon successful deployment.
+
+![Deploying cloud functions][skycli-deploy]
+5. Done! You should now see the new version of your Cloud Functions running.
+
+### Updating skycli config
+
+In the project folder, you can find `skygear.json` which contains config for the current project.
+
+This is a sample for `skyapp` app:
+
+```
+{
+  "version": 1,
+  "app": "skyapp"
+}
+```
+
+You can update `app` value to deploy skygear to a different app. Please make sure you are a collaborator of the specified project.
+
+### Showing Skycli help menu
+
+You can find out how to use `skycli` by running `skycli help`.
+
+## Deploy Cloud Functions using Git
+
+Note: `skycli` is the recommended way to deploy your cloud functions to Skygear Cloud. Please consider using `skycli` instead of Git, read [skycli guides][skycli-guide] for detail.
 
 To have your Cloud Functions running on your Skygear server,
 you need to deploy the Cloud Functions as a git repository to the Skygear cloud
@@ -341,3 +455,13 @@ The following flowchart summarizes the process for the Cloud Functions.
 [doc-cloud-code-lambda]: /guides/cloud-function/lambda/js/
 [doc-cloud-code-http-handler]: /guides/cloud-function/http-endpoint/js/
 [doc-request-flow-chart]: /assets/cloud-function/request-flow.svg
+[skycli-github]: https://github.com/SkygearIO/skycli
+[skycli-guide]: #deploy-cloud-functions
+[skycli-github-release]: https://github.com/SkygearIO/skycli/releases
+[skycli-choose-lang]:/assets/cloud-function/skycli-choose-lang.png
+[skycli-demo-cloud-code]:/assets/cloud-function/skycli-demo-cloud-code.png
+[skycli-deploy]:/assets/cloud-function/skycli-deploy.png
+[skycli-init-done]:/assets/cloud-function/skycli-init-done.png
+[skycli-init]:/assets/cloud-function/skycli-init.png
+[skycli-login]:/assets/cloud-function/skycli-login.png
+[skycli-logout]:/assets/cloud-function/skycli-logout.png
