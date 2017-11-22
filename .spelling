@@ -45,6 +45,7 @@ hostname
 HTML5
 http
 HTTP2
+index.js
 iOS
 IP
 JavaScript
@@ -169,6 +170,7 @@ backend
 bundler
 metadata
 natively
+pre-built
 programmatically
 publickey
 README
@@ -224,6 +226,7 @@ kyperoslo
 lscache
 node-postgres
 pamelafox
+skyapp
 
 # brand
 asciiflow
