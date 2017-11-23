@@ -40,7 +40,7 @@ var { PushNotificationIOS } = require('react-native');
 var skygear = require('skygear');
 
 PushNotificationIOS.addEventListener('register', function(token) {
-  skygear.registerDevice(arg);
+  skygear.push.registerDevice(arg);
 });
 ```
 
@@ -59,7 +59,7 @@ var GcmAndroid = require('react-native-gcm-android');
 var skygear = require('skygear');
 
 GcmAndroid.addEventListener('register', function(token) {
-  skygear.registerDevice(arg);
+  skygear.push.registerDevice(arg);
 });
 ```
 
