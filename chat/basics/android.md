@@ -40,8 +40,8 @@ chatContainer.createDirectConversation(userBen.getId(), "Chat with Ben", null, n
     }
 
     @Override
-    public void onFail(@Nullable String failReason) {
-        Log.w("MyApplication", "Failed to save: " + failReason);
+    public void onFail(@NonNull Error error) {
+        Log.w("MyApplication", "Failed to save: " + error.getMessage());
     }
 });
 ```
@@ -72,8 +72,8 @@ chatContainer.createConversation(users, "Random Conversation", null, null, new S
     }
 
     @Override
-    public void onFail(@Nullable String failReason) {
-        Log.w("MyApplication", "Failed to save: " + failReason);
+    public void onFail(@NonNull Error error) {
+        Log.w("MyApplication", "Failed to save: " + error.getMessage());
     }
 });
 ```
@@ -113,8 +113,8 @@ chatContainer.createConversation(participants, conversationTitle null, options, 
     }
 
     @Override
-    public void onFail(@Nullable String failReason) {
-        Log.w("MyApplication", "Failed to save: " + failReason);
+    public void onFail(@NonNull Error error) {
+        Log.w("MyApplication", "Failed to save: " + error.getMessage());
     }
 });
 ```
@@ -146,8 +146,8 @@ chatContainer.createConversation(participants, conversationTitle, null, options,
     }
 
     @Override
-    public void onFail(@Nullable String failReason) {
-        Log.w("MyApplication", "Failed to save: " + failReason);
+    public void onFail(@NonNull Error error) {
+        Log.w("MyApplication", "Failed to save: " + error.getMessage());
     }
 });
 ```
@@ -177,7 +177,7 @@ chatContainer.getConversations(new GetCallback<List<Conversation>>() {
     }
 
     @Override
-    public void onFail(String failReason) {
+    public void onFail(String error.getMessage()) {
         Log.i("MyApplication", "Failed to getConversations: " + error.getLocalizedMessage());
     }
 });
@@ -197,7 +197,7 @@ chatContainer.setConversationTitle(conversation, "New Title", new SaveCallback<C
     }
 
     @Override
-    public void onFail(String failReason) {
+    public void onFail(String error.getMessage()) {
         Log.i("MyApplication", "Failed to setConversationTitle: " + error.getLocalizedMessage());
     }
 });
@@ -242,8 +242,8 @@ chatContainer.addConversationParticipant(conversation, userPeter.getId(), new Sa
     }
 
     @Override
-    public void onFail(@Nullable String failReason) {
-        Log.i("MyApplication", "Failed to add participant: " + failReason);
+    public void onFail(@NonNull Error error) {
+        Log.i("MyApplication", "Failed to add participant: " + error.getMessage());
     }
 });
 ```
@@ -263,8 +263,8 @@ chatContainer.removeConversationParticipant(conversation, userBen.getId(), new S
     }
 
     @Override
-    public void onFail(@Nullable String failReason) {
-        Log.i("MyApplication", "Failed to remove participant: " + failReason);
+    public void onFail(@NonNull Error error) {
+        Log.i("MyApplication", "Failed to remove participant: " + error.getMessage());
     }
 });
 ```
@@ -296,8 +296,8 @@ chatContainer.addConversationAdmin(conversation,
             }
 
             @Override
-            public void onFail(@Nullable String failReason) {
-                Log.w("MyApplication", "Failed to save: " + failReason);
+            public void onFail(@NonNull Error error) {
+                Log.w("MyApplication", "Failed to save: " + error.getMessage());
             }
         });
 ```
@@ -327,8 +327,8 @@ chatContainer.getMessages(conversation,
     }
 
     @Override
-    public void onFail(@Nullable String failReason) {
-        Log.i("MyApplication", "Failed to get message list: " + failReason);
+    public void onFail(@NonNull Error error) {
+        Log.i("MyApplication", "Failed to get message list: " + error.getMessage());
     }
 });
 ```
@@ -354,8 +354,8 @@ chatContainer.sendMessage(conversation,
     }
 
     @Override
-    public void onFail(@Nullable String failReason) {
-        Log.i("MyApplication", "Message Failed to be sent: " + failReason);
+    public void onFail(@NonNull Error error) {
+        Log.i("MyApplication", "Message Failed to be sent: " + error.getMessage());
     }
 });
 ```
@@ -381,8 +381,8 @@ chatContainer.sendMessage(conversation,
     }
 
     @Override
-    public void onFail(@Nullable String failReason) {
-        Log.i("MyApplication", "Message Failed to be sent: " + failReason);
+    public void onFail(@NonNull Error error) {
+        Log.i("MyApplication", "Message Failed to be sent: " + error.getMessage());
     }
 });
 
@@ -409,8 +409,8 @@ chatContainer.sendMessage(conversation, "Message Body", null, meta, new SaveCall
     }
 
     @Override
-    public void onFail(@Nullable String failReason) {
-        Log.i("MyApplication", "Message Failed to be sent: " + failReason);
+    public void onFail(@NonNull Error error) {
+        Log.i("MyApplication", "Message Failed to be sent: " + error.getMessage());
     }
 });
 ```
@@ -436,8 +436,8 @@ chatContainer.sendMessage(conversation,
     }
 
     @Override
-    public void onFail(@Nullable String failReason) {
-        Log.i("MyApplication", "Message Failed to be sent: " + failReason);
+    public void onFail(@NonNull Error error) {
+        Log.i("MyApplication", "Message Failed to be sent: " + error.getMessage());
     }
 });
 ```
@@ -455,8 +455,8 @@ chatContainer.editMessage(message, "New Body", new SaveCallback<Message>() {
     }
 
     @Override
-    public void onFail(@Nullable String failReason) {
-        Log.i("MyApplication", "Cannot edit message: " + failReason);
+    public void onFail(@NonNull Error error) {
+        Log.i("MyApplication", "Cannot edit message: " + error.getMessage());
     }
 });
 ```
@@ -474,8 +474,8 @@ chatContainer.deleteMessage(message, new DeleteCallback<Message>() {
     }
 
     @Override
-    public void onFail(@Nullable String failReason) {
-        Log.i("MyApplication", "Cannot delete message: " + failReason);
+    public void onFail(@NonNull Error error) {
+        Log.i("MyApplication", "Cannot delete message: " + error.getMessage());
     }
 });
 ```
@@ -602,8 +602,8 @@ chatContainer.getTotalUnreadMessageCount(new GetCallback<Integer>() {
     }
 
     @Override
-    public void onFail(@Nullable String failReason) {
-        Log.i("MyApplication", "Failed to get unread count: " + failReason);
+    public void onFail(@NonNull Error error) {
+        Log.i("MyApplication", "Failed to get unread count: " + error.getMessage());
     }
 });
 ```
