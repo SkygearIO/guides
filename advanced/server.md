@@ -269,6 +269,9 @@ $ export SENTRY_LEVEL=warn
 * `ASSET_STORE_SECRET_KEY` - `s3` secret key
 * `ASSET_STORE_REGION` - `s3` region, with the default as `us-east-1`
 * `ASSET_STORE_BUCKET` - `s3` bucket name
+* `ASSET_STORE_S3_URL_PREFIX` - the URL prefix Skygear will generate for `s3`
+  asset, it only works with public `s3` asset. Useful for CloudFront or custom
+  domain setup.
 
 #### Apple Push notification related
 * `APNS_ENABLE` - string, `YES` or `NO`
