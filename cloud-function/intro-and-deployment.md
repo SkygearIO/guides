@@ -14,7 +14,7 @@ They are useful when:
   provided in the SDK
 - you do not want to expose your codes in the front end client
 
-On skygear.io, you can also host static website for your apps with Cloud Functions.
+On Skygear.io, you can also host static website for your apps with Cloud Functions.
 
 Under the hood, Cloud Functions communicate with the Skygear server
 using a micro-services architecture through [ZeroMQ][zeromq]
@@ -110,7 +110,7 @@ After skycli init, you will find a `skygear.json` in the root of project directo
 
 ### Deploy and upload Cloud Function
 
-You can deploy by running `skycli deploy` in the directory initilized with a Skygear endpoint. You will see `Build completed successfully.` upon successful deployment.
+You can deploy by running `skycli deploy` in the directory initialized with a Skygear endpoint. You will see `Build completed successfully.` upon successful deployment.
 
 ![Deploying cloud functions][skycli-deploy]
 
