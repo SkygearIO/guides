@@ -121,6 +121,30 @@ chatContainer.createConversation(participants, conversationTitle null, options, 
 
 Since we have set [`DISTINCT_BY_PARTICIPANTS`](https://docs.skygear.io/android/chat/reference/latest/io/skygear/plugins/chat/Conversation.OptionKey.html#DISTINCT_BY_PARTICIPANTS) to be true, upon calling the above function twice, you will receive an error as duplicated conversations.
 
+If the conversation already exists, then `onFail(@NonNull Error error)` callback returns a `ConversationAlreadyExistsError` error object. You can retrieve the original conversation ID via casting `error` object to  a `ConversationAlreadyExistsError` object and calling `getConversationId()` method.
+
+```Java
+chatContainer.createConversation(participants, conversationTitle null, options, new SaveCallback<Conversation>() {
+    @Override
+    public void onSucc(@Nullable Conversation conversation) {
+        Log.i("MyApplication", "Created: " + conversation.getId());
+
+    }
+
+    @Override
+    public void onFail(@NonNull Error error) {
+        if (error instanceof ConversationAlreadyExistsError) {
+            ConversationAlreadyExistsError alreadyExistsError = (ConversationAlreadyExistsError) error;
+            Log.w("MyApplication", "Conversation Already Exists " + alreadyExistsError.getConversationId());
+        } else {
+            Log.w("MyApplication", "Failed to save: " + error.getMessage());
+        }
+    }
+});
+```
+
+
+
 There are a few more attributes you can specify in [`createConversation`](https://docs.skygear.io/android/chat/reference/latest/io/skygear/plugins/chat/ChatContainer.html#createConversation-java.util.Set-java.lang.String-java.util.Map-java.util.Map-io.skygear.plugins.chat.SaveCallback-) :
 
 - **title**: That's the title of a conversation. It can be omitted.
