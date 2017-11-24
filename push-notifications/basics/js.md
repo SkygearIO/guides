@@ -33,14 +33,14 @@ you by requesting permission to obtain push notification token.
 
 When the device obtained the push notification token, the `register`
 event is fired. Add an event listener for this event and use the
-`registerDevice` function to register the token with Skygear.
+[`registerDevice`][api-register-device] function to register the token with Skygear.
 
 ```js
 var { PushNotificationIOS } = require('react-native');
 var skygear = require('skygear');
 
 PushNotificationIOS.addEventListener('register', function(token) {
-  skygear.push.registerDevice(arg);
+  skygear.push.registerDevice(token, 'ios', 'CHANGE-ME-bundleID');
 });
 ```
 
@@ -52,14 +52,14 @@ notification token.
 
 When the device obtained the push notification token, the `register`
 event is fired. Add an event listener for this event and use the
-`registerDevice` function to register the token with Skygear.
+[`registerDevice`][api-register-device] function to register the token with Skygear.
 
 ```js
 var GcmAndroid = require('react-native-gcm-android');
 var skygear = require('skygear');
 
 GcmAndroid.addEventListener('register', function(token) {
-  skygear.push.registerDevice(arg);
+  skygear.push.registerDevice(token, 'android', 'CHANGE-ME-packagename');
 });
 ```
 
@@ -146,3 +146,4 @@ skygear.unregisterDevice();
 [ios-client]: https://facebook.github.io/react-native/docs/pushnotificationios.html
 [gcm-client]: https://developers.google.com/cloud-messaging/android/client
 [react-native-gcm-android]: https://github.com/oney/react-native-gcm-android
+[api-register-device]: /js/reference/latest/class/packages/skygear-core/lib/push.js~PushContainer.html#instance-method-registerDevice
