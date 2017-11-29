@@ -8,6 +8,7 @@
 ACL
 API
 APIs
+APN
 APNS
 Auth
 AWS
@@ -35,6 +36,7 @@ ES6
 ES7
 ES2015
 env
+FCM
 filename
 GCM
 GitBash
