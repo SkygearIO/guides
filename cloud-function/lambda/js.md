@@ -23,7 +23,7 @@ A lambda function can be created using the `@skygear.op` decorator.
 The method is:
 
 ```javascript
-op(name: String, func: function(param: Object, options: *), authRequired: Boolean, userRequire: Boolean)
+op(name: String, func: function(param: Object, options: *), authRequired: Boolean, userRequired: Boolean)
 ```
 
 - **`name`** (String)
@@ -38,6 +38,18 @@ op(name: String, func: function(param: Object, options: *), authRequired: Boolea
   error if an unauthenticated user tries to call this function.
 
   The default value is `false`.
+
+  ```javascript
+  skygearCloud.op('foo', function (param, options) {
+    const {
+      context
+    } = options;
+  	console.log(param['args']);
+  	console.log(context.user_id);
+  }, {
+    userRequired: true
+  });
+  ```
 
 - **`key_required`** (boolean, optional)
 

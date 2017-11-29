@@ -104,9 +104,22 @@ handler(path: string, func: function(request: *, options: *): object, authRequir
   https://your-server-endpoint/your-handler-endpoint
   ```
 
-  You can obtain the user ID of the authenticated user by
-  `skygear.auth.currentUser()`.
+  You can obtain the user ID of the authenticated user by:
 
+  ```javascript
+  skygearCloud.handler('your-handler-endpoint', (req, options) => {
+    const {
+      context
+    } = options;
+    return {
+    	'key': req.url.query['key'],
+    	'value': req.url.query['value'],
+        'user_id': context.user_id
+    };
+  }, {
+    userRequired: true
+  });
+  ```
 
 ## Return Value
 

@@ -39,6 +39,9 @@ The decorator syntax is:
 
   The default value is `False`.
 
+  You can obtain the user ID of the authenticated user by
+  `skygear.utils.context.current_user_id()`.
+
 - **`key_required`** (boolean, optional)
 
   If `key_required` is set to `True`, only authenticated user
