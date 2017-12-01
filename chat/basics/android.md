@@ -344,10 +344,15 @@ ChatContainer chatContainer = ChatContainer.getInstance(skygear);
 chatContainer.getMessages(conversation,
     -1, // -1 as default limit
     null, // Date before
-    new GetCallback<List<Message>>() {
+    new GetMessagesCallback() {
     @Override
     public void onSuccess(@Nullable List<Message> messageList) {
-        Log.i("MyApplication", "Messages Retrieved: " + messageList);
+        Log.i("MyApplication", "Messages Retrieved from server: " + messageList);
+    }
+
+    @Override
+    public void onGetCachedResult(@Nullable List<Message> messageList) {
+        Log.i("MyApplication", "Messages Retrieved from cache: " + messageList);
     }
 
     @Override
@@ -383,6 +388,48 @@ chatContainer.sendMessage(conversation,
     }
 });
 ```
+
+When adding a message to a conversation, the message is first added
+to the local cache store. The callback function is called
+when the message is added to server.
+
+These callbacks allow you to have separate logic to handle the case
+for cached result and non-cached result.
+
+Added messages that are not yet synchronized is included in the result
+of `fetchMessages`. If added messages failed to synchronize, the messages
+is included in `fetchUnsentMessages` instead.
+
+#### Handling failed messages
+
+Messages that failed to synchronize are also called unsent messages.
+They exist in the
+local cache store but they are not included in the result of `fetchMessages`.
+If your app need to show unsent messages in the message view, or if
+you want to handle the unsent messages programmatically. Use
+`fetchUnsetMessages` instead. Unsent messages remain available across
+application restarts.
+
+```Java
+Container skygear = Container.defaultContainer(getApplicationContext());
+ChatContainer chatContainer = ChatContainer.getInstance(skygear);
+
+chatContainer.getUnsentMessages(conversation, new GetCallback<List<Message>>() {
+    @Override
+    public void onSucc(@Nullable List<Message> messageList) {
+        Log.i("MyApplication", "Unsent Messages Retrieved: " + messageList);
+    }
+
+    @Override
+    public void onFail(@NonNull Error error) {
+        Log.i("MyApplication", "Failed to get unsent messages: " + error.getMessage());
+    }
+});
+```
+
+It is also typical to retry adding a message so that the message will
+be synchronized again. You should use `addMessage` to do that. To
+discard an unsent message, use `deleteMessage`.
 
 #### Plain Text
 
@@ -485,6 +532,10 @@ chatContainer.editMessage(message, "New Body", new SaveCallback<Message>() {
 });
 ```
 
+The `editMessage` function also save the message to local cache store.
+`editMessage` is similar to `addMessage` in that there are different
+callbacks indicating whether the result is a cached one.
+
 ### Deleting a message
 You can delete a message with [`deleteMessage`](https://docs.skygear.io/android/chat/reference/latest/io/skygear/plugins/chat/ChatContainer.html#deleteMessage-io.skygear.plugins.chat.Message-io.skygear.plugins.chat.DeleteCallback-).
 
@@ -503,6 +554,11 @@ chatContainer.deleteMessage(message, new DeleteCallback<Message>() {
     }
 });
 ```
+
+The delete message API would delete messages from local cache store as well.
+Messages are deleted from local cache store when they are successfully deleted
+from server. Unsent messages are simply deleted from local cache without
+deleting them from server.
 
 ## Subscribing to new messages
 ### Subscribing to messages in a conversation
