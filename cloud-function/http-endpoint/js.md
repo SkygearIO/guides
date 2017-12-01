@@ -33,7 +33,7 @@ handler(path: string, func: function(request: *, options: *): object, authRequir
   // not accepting:
   // - https://<your-end-point>/foo/
   // - https://<your-end-point>/foo/bar
-  
+
   skygearCloud.handler('foo/')
   // accepting:
   // - https://<your-end-point>/foo/
@@ -42,7 +42,7 @@ handler(path: string, func: function(request: *, options: *): object, authRequir
   // - https://<your-end-point>/foo/a/b
   // it will redirect to https://<your-end-point>/foo/ upon a request to:
   // - https://<your-end-point>/foo
-  
+
   skygearCloud.handler('abc/def')
   // accepting:
   // - https://<your-end-point>/abc/def
@@ -72,13 +72,13 @@ handler(path: string, func: function(request: *, options: *): object, authRequir
 
   You can create different functions to handle different request methods
   for the same endpoint, for example:
-  
+
   ```javascript
   skygearCloud.handler('my_endpoint', (req) => {
   }, {
     method: ['GET']
   });
-  
+
   skygearCloud.handler('my_endpoint', (req) => {
   }, {
     method: ['POST']
@@ -86,9 +86,9 @@ handler(path: string, func: function(request: *, options: *): object, authRequir
   ```
   :::
 
-- **`user_required` (boolean, default `False`)**
+- **`userRequired` (boolean, default `false`)**
 
-  Setting `user_required` to `True` means that the only authenticated users
+  Setting `userRequired` to `true` means that the only authenticated users
   are allowed to access the endpoint.
 
   Since the handler accepts requests from third parties,
@@ -112,9 +112,9 @@ handler(path: string, func: function(request: *, options: *): object, authRequir
       context
     } = options;
     return {
-    	'key': req.url.query['key'],
-    	'value': req.url.query['value'],
-        'user_id': context.user_id
+      'key': req.url.query['key'],
+      'value': req.url.query['value'],
+      'user_id': context.user_id
     };
   }, {
     userRequired: true
@@ -146,8 +146,8 @@ To obtain the parameters passed through HTTP GET in the URL:
 // curl "https://<your-endpoint>/get_query_string?key=month&value=10"
 skygearCloud.handler('get_query_string', (req) => {
   return {
-  	'key': req.url.query['key'],
-  	'value': req.url.query['value']
+    'key': req.url.query['key'],
+    'value': req.url.query['value']
   };
 }, {
   userRequired: false
@@ -159,12 +159,12 @@ To parse data from a `Content-Type=application/x-www-form-urlencoded` header:
 ```javascript
 // curl -H "Content-Type: application/x-www-form-urlencoded" -d "a=3&b=at" https://<your-endpoint>/form
 skygearCloud.handler('form', (req) => {
-	req.form(function (formError, fields) {
-		console.log(fields.a);
-		console.log(fields.b);
-	});
+  req.form(function (formError, fields) {
+    console.log(fields.a);
+    console.log(fields.b);
+  });
 }, {
-	userRequired: false
+  userRequired: false
 });
 ```
 
@@ -173,10 +173,10 @@ To parse data from a JSON request body:
 ```javascript
 // curl -H "Content-Type: application/json" -d '{"name": "John"}' https://<your-endpoint>/json
 skygearCloud.handler('json', (req) => {
-	let body = JSON.parse(req.body);
-	return { 'name': body.name};
+  let body = JSON.parse(req.body);
+  return { 'name': body.name};
 }, {
-	userRequired: false
+  userRequired: false
 });
 ```
 
@@ -185,9 +185,9 @@ To obtain the full request URL:
 ```javascript
 // curl https://<your-endpoint>/url/more/levels?level=3
 skygearCloud.handler('url/', (req) => {
-	return { 'path': req.url.path};
+  return { 'path': req.url.path};
 }, {
-	userRequired: false
+  userRequired: false
 });
 ```
 

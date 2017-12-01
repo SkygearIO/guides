@@ -31,9 +31,9 @@ op(name: String, func: function(param: Object, options: *), authRequired: Boolea
   It is an identifier for the lambda function. The client SDKs call
   this function using this `name` identifier.
 
-- **`user_required`** (boolean, optional)
+- **`userRequired`** (boolean, optional)
 
-  If `user_required` is set to `true`, only authenticated user
+  If `userRequired` is set to `true`, only authenticated user
   can call this function. Skygear will return an `PermissionDenied`
   error if an unauthenticated user tries to call this function.
 
@@ -44,21 +44,21 @@ op(name: String, func: function(param: Object, options: *), authRequired: Boolea
     const {
       context
     } = options;
-  	console.log(param['args']);
-  	console.log(context.user_id);
+    console.log(param['args']);
+    console.log(context.user_id);
   }, {
     userRequired: true
   });
   ```
 
-- **`key_required`** (boolean, optional)
+- **`keyRequired`** (boolean, optional)
 
-  If `key_required` is set to `true`, only authenticated user
+  If `keyRequired` is set to `true`, only authenticated user
   or client with API key can call this function. Skygear will return a
   `NotAuthenticated` error if an unauthenticated user and a client
   without API key tries to call this function.
 
-  The default value is `false`. If `user_required` is set to `true`, this
+  The default value is `false`. If `userRequired` is set to `true`, this
   parameter is ignored.
 
 ## Passing arguments to Lambda Functions
@@ -73,7 +73,7 @@ To retrieve the parameters passed from SDK, you can access the `args` properties
 
 ```javascript
 skygearCloud.op('foo', function (param) {
-	console.log(param['args']);
+  console.log(param['args']);
 });
 ```
 
@@ -107,21 +107,21 @@ var helper = require('sendgrid').mail;
 var sg = require('sendgrid')('my_api_key');
 
 skygearCloud.op('send_invitation_email', function(param) {
-	var fromEmail = new helper.Email('admin@skygeario.com');
-	var toEmail = new helper.Email(param['args']['to_user_email']);
-	var subject = 'You are invited to try the app!';
-	var content = new helper.Content('text/plain', param['args']['custom_message']);
-	var mail = new helper.Mail(fromEmail, subject, toEmail, content);
+  var fromEmail = new helper.Email('admin@skygeario.com');
+  var toEmail = new helper.Email(param['args']['to_user_email']);
+  var subject = 'You are invited to try the app!';
+  var content = new helper.Content('text/plain', param['args']['custom_message']);
+  var mail = new helper.Mail(fromEmail, subject, toEmail, content);
 
-	var request = sg.emptyRequest({
-	  method: 'POST',
-	  path: '/v3/mail/send',
-	  body: mail.toJSON()
-	});
+  var request = sg.emptyRequest({
+    method: 'POST',
+    path: '/v3/mail/send',
+    body: mail.toJSON()
+  });
 
-	sg.API(request, function (error, response) {
-		return {'result': 'OK'};
-	});
+  sg.API(request, function (error, response) {
+    return {'result': 'OK'};
+  });
 })
 ```
 
