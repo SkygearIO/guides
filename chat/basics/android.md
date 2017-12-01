@@ -334,7 +334,7 @@ To remove admins from a conversation, you can call [`removeConversationAdmin`](h
 ## Messages
 Skygear Chat supports real time messaging. A message is the real content of a conversation. Skygear Chat supports 2 types of messages, one is plain text, the other one is assets. Assets include files, images, voice message and video.
 
-### Loading messages from a conversation 
+### Loading messages from a conversation
 When users get into the chatroom, you may call [`getMessages`](https://docs.skygear.io/android/chat/reference/latest/io/skygear/plugins/chat/ChatContainer.html#getMessages-io.skygear.plugins.chat.Conversation-int-java.util.Date-java.lang.String-io.skygear.plugins.chat.GetCallback-) to load the messages of the conversation. You can specify the limit of the messages in `limit` and the time constraint for the message in `before`.
 
 ```Java
@@ -561,7 +561,7 @@ Coming soon
 
 ## Receipt
 Skygear Chat provides you with message receipt which includes status and timestamps information.
- 
+
 ### Message status
 You can make use of the following receipt status to indicate your message status.
 
@@ -679,7 +679,7 @@ chatContainer.sendTypingIndicator(conversation, Typing.State.FINISH);
 ```
 
 
-## User online 
+## User online
 Coming soon
 
 ## Best practices

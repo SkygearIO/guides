@@ -28,7 +28,7 @@ There are two types of conversations in Skygear Chat:
 
 ### Creating direct conversations
 
-You can use [`createDirectConversation`](https://docs.skygear.io/ios/chat/reference/latest/Classes/SKYChatExtension.html#/c:objc(cs)SKYChatExtension(im)createDirectConversationWithUserID:title:metadata:completion:) to create a conversation with another user. Please specify the user ID as `userID`. 
+You can use [`createDirectConversation`](https://docs.skygear.io/ios/chat/reference/latest/Classes/SKYChatExtension.html#/c:objc(cs)SKYChatExtension(im)createDirectConversationWithUserID:title:metadata:completion:) to create a conversation with another user. Please specify the user ID as `userID`.
 
 ```swift
 SKYContainer.default().chatExtension?.createDirectConversation(userID: userBen,
@@ -409,7 +409,7 @@ SKYContainer.default().chatExtension?.subscribeToMessages(
 
 ### Subscribing to messages in all conversations
 
-Besides a specific conversation, you might want to get notified whenever there are new messages in any conversation you belong to. 
+Besides a specific conversation, you might want to get notified whenever there are new messages in any conversation you belong to.
 
 You can subscribe to all messages in your own user channel with  [`subscribeToUserChannelWithCompletion:`](https://docs.skygear.io/ios/chat/reference/latest/Classes/SKYChatExtension.html#/c:objc(cs)SKYChatExtension(im)subscribeToUserChannelWithCompletion:)
 
