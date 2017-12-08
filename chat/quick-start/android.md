@@ -34,6 +34,7 @@ dependencies {
     // other dependencies
     compile 'io.skygear:skygear:+' // from Android Quickstart
     compile 'io.skygear.plugins:chat:+'
+    compile 'io.skygear.plugins:chat_ui:+'
 }
 ```
 
