@@ -143,7 +143,7 @@ chatContainer.createConversation(participants, conversationTitle null, options, 
 });
 ```
 
-
+Note: `DISTINCT_BY_PARTICIPANTS ` will be `false` automatically after participant list is being altered.
 
 There are a few more attributes you can specify in [`createConversation`](https://docs.skygear.io/android/chat/reference/latest/io/skygear/plugins/chat/ChatContainer.html#createConversation-java.util.Set-java.lang.String-java.util.Map-java.util.Map-io.skygear.plugins.chat.SaveCallback-) :
 
