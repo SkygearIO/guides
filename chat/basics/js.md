@@ -26,9 +26,9 @@ There are two types of conversations in Skygear Chat:
 - **Direct Conversation**, a chatting group between one and another user
 - **Group Conversation**,  a chatting group among 2 or more users
 
-### Creating direct conversations 
+### Creating direct conversations
 
-You can use [`createDirectConversation`](https://docs.skygear.io/js/chat/reference/latest/class/lib/container.js~SkygearChatContainer.html#instance-method-createDirectConversation) to create a conversation with another user. Please specify the user ID as `userID`. 
+You can use [`createDirectConversation`](https://docs.skygear.io/js/chat/reference/latest/class/lib/container.js~SkygearChatContainer.html#instance-method-createDirectConversation) to create a conversation with another user. Please specify the user ID as `userID`.
 
 ```javascript
 skygearChat.createDirectConversation(userBen, 'Greeting')
@@ -43,10 +43,10 @@ skygearChat.createDirectConversation(userBen, 'Greeting')
 The above example creates a direct chat between the current user and `userBen`.
 
 You can also set up an optional parameter, `metadata`, for customization.
-  
+
 ### Creating group conversations
 
-Besides direct chats, you can also create a group conversation with 2 or more people. 
+Besides direct chats, you can also create a group conversation with 2 or more people.
 
 Instead of a single `userID` parameter, [`createConversation`](https://docs.skygear.io/js/chat/reference/latest/class/lib/container.js~SkygearChatContainer.html#instance-method-createConversation) accepts a list of users called `participantIDs`. A new conversation will be created with the given participant IDs.
 
@@ -82,9 +82,15 @@ skygearChat.createConversation(participants, conversationTitle, conversationMeta
 
     console.log('Conversation created!', conversation);
   }, function (err) {
-    console.log('Failed to create conversation');
+    if (err.error.info.conversation_id) {
+      console.log('Conversation Already Exists ' + err.error.info.conversation_id);
+    } else {
+      console.log('Failed to create conversation');
+    }
   });
 ```
+
+If the conversation already exists, then `function (err)` callback returns an error object. You can retrieve the original conversation ID via `err.error.info.conversation_id`.
 
 Note: `distinctByParticipants` will be `false` automatically after participant list is being altered.
 
@@ -167,7 +173,7 @@ skygearChat.leaveConversation(conversation)
 ## Managing conversation participants
 At some point of your conversation, you may wish to update the participant list. You may add or remove participants in a conversation.
 
-### Adding users to conversation 
+### Adding users to conversation
 
 You can add users to an existing conversation with [`addParticipants`](https://docs.skygear.io/js/chat/reference/latest/class/lib/container.js~SkygearChatContainer.html#instance-method-addParticipants). In the following code, `userBen`, `userCharles`, `userDavid` and `userEllen` will be added to `conversation`.
 
@@ -175,11 +181,11 @@ You can add users to an existing conversation with [`addParticipants`](https://d
 skygearChat.addParticipants(conversation, [userBen, userCharles, userDavid, userEllen])
   .then(function (conversation) {
     console.log('Users added to the conversation.');
-  });                   
+  });
 });
 ```
 
-### Removing users from conversation 
+### Removing users from conversation
 
 To remove users from a conversation, you can call [`removeParticipants`](https://docs.skygear.io/js/chat/reference/latest/class/lib/container.js~SkygearChatContainer.html#instance-method-removeParticipants). In the following code, `userBen` and `userCharles` will be removed from `conversation`.
 
@@ -187,16 +193,16 @@ To remove users from a conversation, you can call [`removeParticipants`](https:/
 skygearChat.removeParticipants(conversation, [userBen, userCharles])
   .then(function (conversation) {
     console.log('Users removed from the conversation.');
-  });                   
+  });
 });
 ```
 
 
-### Admin 
+### Admin
 
 An admin of the conversation has the following permissions:
 
-1. add or remove participants from to conversation, 
+1. add or remove participants from to conversation,
 2. add or remove admins from the conversation and
 3. delete the conversation
 
@@ -210,7 +216,7 @@ You can add admins to a conversation via calling [`addAdmins`](https://docs.skyg
 skygearChat.addAdmins(conversation, [userDavid, userEllen])
   .then(function (conversation) {
     console.log('Admins added to the conversation.');
-  });                   
+  });
 });
 ```
 
@@ -221,7 +227,7 @@ To remove admins from a conversation, use [`removeAdmins`](https://docs.skygear.
 skygearChat.removeAdmins(conversation, [userDavid, userEllen])
   .then(function (conversation) {
     console.log('Admins removed from the conversation.');
-  });                   
+  });
 });
 ```
 
@@ -229,7 +235,7 @@ skygearChat.removeAdmins(conversation, [userDavid, userEllen])
 ## Messages
 Skygear Chat supports real time messaging. A message is the real content of a conversation. Skygear Chat supports 2 types of messages, one is plain text, the other one is assets. Assets include files, images, voice message and video.
 
-### Loading messages from a conversation 
+### Loading messages from a conversation
 When users get into the chatroom, you may call [`getMessages`](https://docs.skygear.io/js/chat/reference/latest/class/lib/container.js~SkygearChatContainer.html#instance-method-getMessages) to load the messages of the conversation. You can specify the limit of the messages in `limit` and the time constraint for the message in `beforeTime`.
 
 
@@ -342,9 +348,9 @@ skygearChat.subscribe(function handler(msgData) {
 });
 ```
 
-### Subscribing to messages in all conversations 
+### Subscribing to messages in all conversations
 
-Besides a specific conversation, you might want to get notified whenever there are new messages in any conversation you belong to. 
+Besides a specific conversation, you might want to get notified whenever there are new messages in any conversation you belong to.
 
 You can subscribe to all messages in your own user channel with  [`subscribe`](https://docs.skygear.io/js/chat/reference/latest/class/lib/container.js~SkygearChatContainer.html#instance-method-subscribe)
 
@@ -411,7 +417,7 @@ You can make use of the following receipt status to indicate your message status
 By subscribing to the status of a message, you can get the latest status of the message sent to other recipients with [`subscribe`](https://docs.skygear.io/js/chat/reference/latest/class/lib/container.js~SkygearChatContainer.html#instance-method-subscribe).
 
 ### Marking messages as read
-On the recipient client side, you need to update the message status if the message is read. 
+On the recipient client side, you need to update the message status if the message is read.
 
 ```Java
 skygearChat.markAsRead(messages, function handler(response) {

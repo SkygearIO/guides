@@ -5,7 +5,7 @@ title: Skygear Chat
 [[toc]]
 
 # Skygear Chat Basic (iOS)
-Skygear Chat is a collection of APIs to help you build Chat apps much easier. 
+Skygear Chat is a collection of APIs to help you build Chat apps much easier.
 
 Skygear Chat is built on top of the cloud database and the PubSub module. If you want to know more about how the underlying works, check out the guide for [cloud database](https://docs.skygear.io/guides/cloud-db/basics/ios/) and [PubSub](https://docs.skygear.io/guides/pubsub/basics/ios/).
 
@@ -26,7 +26,7 @@ There are two types of conversations in Skygear Chat:
 - **Direct Conversation**, a chatting group between one and another user
 - **Group Conversation**,  a chatting group among 2 or more users
 
-### Creating direct conversations 
+### Creating direct conversations
 
 You can use [`createDirectConversation`](https://docs.skygear.io/ios/chat/reference/latest/Classes/SKYChatExtension.html#/c:objc(cs)SKYChatExtension(im)createDirectConversationWithUserID:title:metadata:completion:) to create a conversation with another user. Please specify the user ID as `userID`. 
 
@@ -40,7 +40,6 @@ SKYContainer.default().chatExtension?.createDirectConversation(userID: userBen,
                    "Error:\(error.localizedDescription)")
             return
         }
-        
         print ("Created direct conversation")
 })
 ```
@@ -48,10 +47,10 @@ SKYContainer.default().chatExtension?.createDirectConversation(userID: userBen,
 The above example creates a direct chat between the current user and `userBen`.
 
 You can also set up an optional parameter, `metadata`, for customization.
-  
+
 ### Creating group conversations
 
-Besides direct chats, you can also create a group conversation with 2 or more people. 
+Besides direct chats, you can also create a group conversation with 2 or more people.
 
 Instead of a single `userID` parameter, [`createConversation`](https://docs.skygear.io/ios/chat/reference/latest/Classes/SKYChatExtension.html#/c:objc(cs)SKYChatExtension(im)createConversationWithParticipantIDs:title:metadata:completion:) accepts a list of users called `participantIDs`. A new conversation will be created with the given participant IDs.
 
@@ -84,14 +83,20 @@ SKYContainer.default().chatExtension?.createConversation(
     adminIDs: nil,
     distinctByParticipants: true,
     completion: { (conversation, error) in
-        if error != nil {
-            print ("Create conversation failed. " +
+        if let err = error as NSError? {
+             if let conversationId = err.userInfo["conversation_id"] as? String {
+                 print("Conversation already exists " +
+                   conversationId)
+             } else {
+                 print ("Create conversation failed. " +
                    "Error:\(error.localizedDescription)")
-            return
+             }
         }
         print ("Created conversation")
 })
 ```
+
+If the conversation already exists, then `completion` callback returns an error object. You can retrieve the original conversation ID via `err.userInfo["conversation_id"]`.
 
 Note: `distinctByParticipants` will be `false` automatically after participant list is being altered.
 
@@ -116,7 +121,7 @@ SKYContainer.default().chatExtension?.createConversation(
                 "Error:\(error.localizedDescription)")
           return
       }
-      
+
       print("Added as admin")
 })
 ```
@@ -136,10 +141,10 @@ Fetch all conversations which involves the current user. The parameter `fetchLas
 
 ```swift
 SKYContainer.default().chatExtension?.fetchConversations(
-    fetchLastMessage: false, 
+    fetchLastMessage: false,
     completion: { (conversations, error) in
     if let err = error {
-        print ("Error when fetching conversations. " + 
+        print ("Error when fetching conversations. " +
                "Error:\(err.localizedDescription)")
         return
     }
@@ -175,7 +180,7 @@ SKYContainer.default().chatExtension?.leave(
 ## Managing conversation participants
 At some point of your conversation, you may wish to update the participant list. You may add or remove participants in a conversation.
 
-### Adding users to conversation 
+### Adding users to conversation
 
 You can add users to an existing conversation with [`addParticipantsWithUserIDs:toConversation:completion:`](https://docs.skygear.io/ios/chat/reference/latest/Classes/SKYChatExtension.html#/c:objc(cs)SKYChatExtension(im)addParticipantsWithUserIDs:toConversation:completion:). In the following code, `userBen`, `userCharles`, `userDavid` and `userEllen` will be added to `conversation`.
 
@@ -189,36 +194,36 @@ SKYContainer.default().chatExtension?.addParticipants(
                    "Error:\(error.localizedDescription)")
             return
         }
-        
-        print ("Users added to the conversation.")                     
+
+        print ("Users added to the conversation.")
 })
 ```
 
-### Removing users from conversation 
+### Removing users from conversation
 
 To remove users from a conversation, you can call [`removeParticipantsWithUserIDs:fromConversation:completion:`](https://docs.skygear.io/ios/chat/reference/latest/Classes/SKYChatExtension.html#/c:objc(cs)SKYChatExtension(im)removeParticipantsWithUserIDs:fromConversation:completion:). In the following code, `userBen` and `userCharles` will be removed from `conversation`.
 
 ```swift
 SKYContainer.default().chatExtension?.removeParticipants(
-    userIDs: [userBen, userCharles], 
-    from: conversation, 
+    userIDs: [userBen, userCharles],
+    from: conversation,
     completion: { (conversation, error) in
         if error != nil {
-            print ("Unable to remove the users. " + 
+            print ("Unable to remove the users. " +
                    "Error:\(error.localizedDescription)")
             return
         }
-        
+
         print ("Users removed from the conversation")
 })
 ```
 
 
-### Admin 
+### Admin
 
 An admin of the conversation has the following permissions:
 
-1. add or remove participants from to conversation, 
+1. add or remove participants from to conversation,
 2. add or remove admins from the conversation and
 3. delete the conversation
 
@@ -230,15 +235,15 @@ You can add admins to a conversation via calling [`addAdminsWithUserIDs:toConver
 
 ```swift
 SKYContainer.default().chatExtension?.addAdmins(
-    userIDs: [userDavid, userEllen], 
-    to: conversation, 
+    userIDs: [userDavid, userEllen],
+    to: conversation,
     completion: { (conversation, error) in
         if error != nil {
-            print("Unable to add the admins. " + 
+            print("Unable to add the admins. " +
                    "Error:\(error.localizedDescription)")
             return
     }
-    
+
     print("Admins added")
 })
 ```
@@ -247,22 +252,23 @@ To remove admins from a conversation, use [`removeAdminsWithUserIDs:fromConversa
 
 ```swift
 SKYContainer.default().chatExtension?.removeAdmins(
-    userIDs: [userDavid, userEllen], 
-    from: conversation, 
+    userIDs: [userDavid, userEllen],
+    from: conversation,
     completion: { (conversation, error) in
         if error != nil {
-            print("Unable to remove the admins. " + 
+            print("Unable to remove the admins. " +
                    "Error:\(error.localizedDescription)")
             return
     }
-    
+
     print("Admins removed")
 })
 ```
 ## Messages
 Skygear Chat supports real time messaging. A message is the real content of a conversation. Skygear Chat supports 2 types of messages, one is plain text, the other one is assets. Assets include files, images, voice message and video.
 
-### Loading messages from a conversation 
+### Loading messages from a conversation
+
 When users get into the chatroom, you may call [`fetchMessagesWithConversation:limit:beforeTime:order:completion:`](https://docs.skygear.io/ios/chat/reference/latest/Classes/SKYChatExtension.html#/c:objc(cs)SKYChatExtension(im)fetchMessagesWithConversation:limit:beforeTime:order:completion:) to load the messages of the conversation. You can specify the limit of the messages in `limit` and the time constraint for the message in `beforeTime`.
 
 ```swift
@@ -273,17 +279,17 @@ SKYContainer.default().chatExtension?.fetchMessages(
     order: nil,
     completion: { (messages, error) in
         if error != nil {
-            print ("Messages cannot be fetched. " + 
+            print ("Messages cannot be fetched. " +
                    "Error:\(error.localizedDescription)")
         }
-        
+
         print ("Messages fetched")
 })
 ```
 
 ### Sending messages
 
-A message in Skygear Chat is a `SKYMessage` record. 
+A message in Skygear Chat is a `SKYMessage` record.
 
 To send a text message, just create a `SKYMessage` and specify the `body` of your message. [`addMessage:toConversation:completion:`](https://docs.skygear.io/ios/chat/reference/latest/Classes/SKYChatExtension.html#/c:objc(cs)SKYChatExtension(im)addMessage:toConversation:completion:).
 
@@ -292,7 +298,7 @@ To send a text message, just create a `SKYMessage` and specify the `body` of you
 let message = SKYMessage()
 message.body = "Hello!"
 
-SKYContainer.default().chatExtension?.addMessage(message, 
+SKYContainer.default().chatExtension?.addMessage(message,
     to: conversation) { (message, error) in
         if let err = error {
             print("Send message error: \(err.localizedDescription)")
@@ -305,7 +311,7 @@ SKYContainer.default().chatExtension?.addMessage(message,
 }
 ```
 
-#### Plain Text 
+#### Plain Text
 
 To send a text message, just create a `SKYMessage` and specify the `body` of your message.
 
@@ -315,7 +321,7 @@ Then you can use the [`addMessage:toConversation:completion:`](https://docs.skyg
 let message = SKYMessage()
 message.body = "Hello!"
 
-SKYContainer.default().chatExtension?.addMessage(message, 
+SKYContainer.default().chatExtension?.addMessage(message,
     to: conversation) { (message, error) in
         if let err = error {
             print("Send message error: \(err.localizedDescription)")
@@ -330,9 +336,9 @@ SKYContainer.default().chatExtension?.addMessage(message,
 
 #### Metadata
 
-Besides the body of the message, you may wish to specify metadata in your message. For example, special format or color of your message. 
+Besides the body of the message, you may wish to specify metadata in your message. For example, special format or color of your message.
 
-`metadata` can contain a JSON format object 
+`metadata` can contain a JSON format object
 
 ```swift
 let message = SKYMessage()
@@ -341,7 +347,7 @@ let message = SKYMessage()
 
 // Then send the message
 ```
-#### Files 
+#### Files
 
 If you would like to send files via Skygear Chat, you can upload a file as [`SKYAsset`](https://docs.skygear.io/ios/reference/latest/Classes/SKYAsset.html).
 
@@ -352,7 +358,7 @@ guard let asset = SKYAsset(data: imageData) else {
 
 SKYContainer.default().uploadAsset(asset) { (uploadedAsset, error) in
     if error != nil {
-        print ("Upload Asset failed. " + 
+        print ("Upload Asset failed. " +
                "Error:\(error.localizedDescription)")
         return
     }
@@ -365,11 +371,11 @@ You can edit a message with [`editMessage:withBody:completion:`](https://docs.sk
 
 ```swift
 SKYContainer.default().editMessage(message, with: newMessageBody, completion: { (result, error) in
-	if let err = error {
-	    print(err.localizedDescription)
-	    return
-	}
-	print("Message Updated.")
+    if let err = error {
+        print(err.localizedDescription)
+        return
+    }
+    print("Message Updated.")
 })
 ```
 
@@ -378,11 +384,11 @@ You can delete a message with [`deleteMessage:inConversation:completion:`](https
 
 ```swift
 SKYContainer.default().chatExtension?.deleteMessage(message, in: conversation) { (conversation, error) in
-	if let err = error {
-		print(err.localizedDescription)
-		return
-	}
-	print("Message Deleted.")
+    if let err = error {
+        print(err.localizedDescription)
+        return
+    }
+    print("Message Deleted.")
 }
 ```
 
@@ -395,13 +401,13 @@ In order to get real time update of new messages, you can subscribe to a convers
 
 ```swift
 SKYContainer.default().chatExtension?.subscribeToMessages(
-    in: conversation, 
+    in: conversation,
     handler: { (event, message) in
         print("Received message event")
 })
 ```
 
-### Subscribing to messages in all conversations 
+### Subscribing to messages in all conversations
 
 Besides a specific conversation, you might want to get notified whenever there are new messages in any conversation you belong to. 
 
@@ -433,7 +439,7 @@ The event_type may contain the following strings:
 - delete - when a message was deleted
 
 ## Push notification
-### Sending push notifications to conversation participants 
+### Sending push notifications to conversation participants
 
 You can send the push notification to particular `userIds` and these can be retrieved by accessing the attribute `participantsIds` of `SKYConversation`.
 
@@ -445,11 +451,11 @@ let info = SKYNotificationInfo()
 info.apsNotificationInfo = apsInfo
 
 let operation = SKYSendPushNotificationOperation(
-    notificationInfo: info, 
+    notificationInfo: info,
     userIDsToSend: conversation.participantIds)
 operation?.sendCompletionHandler = { (userIds, error) in
     if error != nil {
-        print("Error on sending push notification. " + 
+        print("Error on sending push notification. " +
               "Error: \(error?.localizedDescription)")
         return
     }
@@ -462,12 +468,12 @@ operation?.sendCompletionHandler = { (userIds, error) in
 SKYContainer.default().add(operation)
 ```
 
-### Receiving push notifications 
+### Receiving push notifications
 Implement the handling of push notification in `AppDelegate`:
 ```swift
-func application(_ application: UIApplication, didReceiveRemoteNotification 
+func application(_ application: UIApplication, didReceiveRemoteNotification
     userInfo: [AnyHashable : Any],
-    fetchCompletionHandler completionHandler: 
+    fetchCompletionHandler completionHandler:
         @escaping (UIBackgroundFetchResult) -> Void) {
     let aps = userInfo["aps"] as! [String: AnyObject]
     print ("Received push notification: \(aps["alert"]?["body"])")
@@ -512,10 +518,10 @@ switch (message.conversationStatus) {
 On the recipient client side, you need to update the message status if the message is read. For example, in `viewDidAppear` method of your message view controller.
 
 ```swift
-SKYContainer.default().chatExtension?.markReadMessages(messages, 
+SKYContainer.default().chatExtension?.markReadMessages(messages,
     completion: { (error) in
         if error != nil {
-            print("Error on marking messages as read. " + 
+            print("Error on marking messages as read. " +
                   "Error: \(error.localizedDescription)")
             return
         }
@@ -527,16 +533,16 @@ Note: `messages` is an array of `SKYMessage`.
 
 ## Message unread count
 
-### Conversation unread count 
+### Conversation unread count
 You can show the unread count for different conversations in the conversation list.
 - [`fetchUnreadCountWithConversation:completion:`](https://docs.skygear.io/ios/chat/reference/latest/Classes/SKYChatExtension.html#/c:objc(cs)SKYChatExtension(im)fetchUnreadCountWithConversation:completion:)
 
 ```swift
 SKYContainer.default().chatExtension?.fetchUnreadCount(
-    conversation: conversation, 
+    conversation: conversation,
     completion: { (dict, error) in
         if error != nil {
-            print ("Unable to get the unread count. " + 
+            print ("Unable to get the unread count. " +
                    "Error: \(error.localizedDescription)")
             return
         }
@@ -546,7 +552,7 @@ SKYContainer.default().chatExtension?.fetchUnreadCount(
 })
 ```
 
-### Overall unread count 
+### Overall unread count
 You may wish to show the overall unread count of all conversations in the badge value of your app.
 
 - [`fetchTotalUnreadCount:`](https://docs.skygear.io/ios/chat/reference/latest/Classes/SKYChatExtension.html#/c:objc(cs)SKYChatExtension(im)fetchTotalUnreadCount:)
@@ -577,14 +583,14 @@ The [`SKYChatTypingEvent`](https://docs.skygear.io/ios/chat/reference/latest/Enu
 
 You can make good use of these events to implement the typing indicator feature in your app.
 
-### Subscribing to typing indicator 
+### Subscribing to typing indicator
 Skygear Chat provides real-time update to typing indicators in a particular conversation.
 
 [`subscribeToTypingIndicatorInConversation:handler:`](https://docs.skygear.io/ios/chat/reference/latest/Classes/SKYChatExtension.html#/c:objc(cs)SKYChatExtension(im)subscribeToTypingIndicatorInConversation:handler:)
 
 ```swift
 SKYContainer.default().chatExtension?.subscribeToTypingIndicator(
-    in: conversation, 
+    in: conversation,
     handler: { (indicator) in
         print("Receiving typing event")
 })
@@ -606,8 +612,8 @@ SKYContainer.default().chatExtension?.sendTypingIndicator(.finished, in: convers
 Most app developers should call the method: `sendTypingIndicator(_:in:at:completion:)`
 
 ```swift
-SKYContainer.default().chatExtension?.sendTypingIndicator(event, 
-    in: (conversation?conversation)!, 
+SKYContainer.default().chatExtension?.sendTypingIndicator(event,
+    in: (conversation?conversation)!,
     at: Date()) { (error) in
         if error != nil {
             print ("Error on sending typing indicator. " +
@@ -622,11 +628,11 @@ with the current date `Date()` in the `at` parameter.
 
 
 
-## User online 
+## User online
 Coming soon
 
 ## Best practices
-### Caching message history locally 
+### Caching message history locally
 Skygear Chat does not cache message history in client device. You may consider to use the following libraries.
 
 - [kyperoslo/Cache](https://github.com/hyperoslo/Cache)
