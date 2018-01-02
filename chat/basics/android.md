@@ -35,7 +35,7 @@ ChatContainer chatContainer = ChatContainer.getInstance(skygear);
 
 chatContainer.createDirectConversation(userBen.getId(), "Chat with Ben", null, new SaveCallback<Conversation>() {
     @Override
-    public void onSucc(@Nullable Conversation conversation) {
+    public void onSuccess(@Nullable Conversation conversation) {
         Log.i("MyApplication", "Created: " + conversation.getId());
     }
 
@@ -66,7 +66,7 @@ users.add(userChris.getId());
 
 chatContainer.createConversation(users, "Random Conversation", null, null, new SaveCallback<Conversation>() {
     @Override
-    public void onSucc(@Nullable Conversation conversation) {
+    public void onSuccess(@Nullable Conversation conversation) {
         Log.i("MyApplication", "Created: " + conversation.getId());
 
     }
@@ -107,7 +107,7 @@ options.put(Conversation.OptionKey.DISTINCT_BY_PARTICIPANTS, true);
 
 chatContainer.createConversation(participants, conversationTitle null, options, new SaveCallback<Conversation>() {
     @Override
-    public void onSucc(@Nullable Conversation conversation) {
+    public void onSuccess(@Nullable Conversation conversation) {
         Log.i("MyApplication", "Created: " + conversation.getId());
 
     }
@@ -126,7 +126,7 @@ If the conversation already exists, then `onFail(@NonNull Error error)` callback
 ```Java
 chatContainer.createConversation(participants, conversationTitle null, options, new SaveCallback<Conversation>() {
     @Override
-    public void onSucc(@Nullable Conversation conversation) {
+    public void onSuccess(@Nullable Conversation conversation) {
         Log.i("MyApplication", "Created: " + conversation.getId());
 
     }
@@ -164,7 +164,7 @@ options.put(Conversation.OptionKey.ADMIN_IDS, admins);
 
 chatContainer.createConversation(participants, conversationTitle, null, options, new SaveCallback<Conversation>() {
     @Override
-    public void onSucc(@Nullable Conversation conversation) {
+    public void onSuccess(@Nullable Conversation conversation) {
         Log.i("MyApplication", "Created: " + conversation.getId());
 
     }
@@ -196,7 +196,7 @@ ChatContainer chatContainer = ChatContainer.getInstance(skygear);
 
 chatContainer.getConversations(new GetCallback<List<Conversation>>() {
     @Override
-    public void onSucc(List<Conversation> result) {
+    public void onSuccess(List<Conversation> result) {
         Log.i("MyApplication", "Fetched " + result.count() + " conversations.");
     }
 
@@ -216,7 +216,7 @@ ChatContainer chatContainer = ChatContainer.getInstance(skygear);
 
 chatContainer.setConversationTitle(conversation, "New Title", new SaveCallback<Conversation>() {
     @Override
-    public void onSucc(Conversation result) {
+    public void onSuccess(Conversation result) {
         Log.i("MyApplication", "Conversation Updated.");
     }
 
@@ -261,7 +261,7 @@ ChatContainer chatContainer = ChatContainer.getInstance(skygear);
 
 chatContainer.addConversationParticipant(conversation, userPeter.getId(), new SaveCallback<Conversation>() {
     @Override
-    public void onSucc(@Nullable Conversation conversation) {
+    public void onSuccess(@Nullable Conversation conversation) {
         Log.i("MyApplication", "Conversation participant added");
     }
 
@@ -282,7 +282,7 @@ ChatContainer chatContainer = ChatContainer.getInstance(skygear);
 
 chatContainer.removeConversationParticipant(conversation, userBen.getId(), new SaveCallback<Conversation>() {
     @Override
-    public void onSucc(@Nullable Conversation conversation) {
+    public void onSuccess(@Nullable Conversation conversation) {
         Log.i("MyApplication", "Conversation participant removed");
     }
 
@@ -315,7 +315,7 @@ chatContainer.addConversationAdmin(conversation,
     userDavid.getId(),
     new SaveCallback<Conversation>() {
             @Override
-            public void onSucc(@Nullable Conversation conversation) {
+            public void onSuccess(@Nullable Conversation conversation) {
                 Log.i("MyApplication", "Admin set: " + conversation.getId());
             }
 
@@ -346,7 +346,7 @@ chatContainer.getMessages(conversation,
     null, // Date before
     new GetCallback<List<Message>>() {
     @Override
-    public void onSucc(@Nullable List<Message> messageList) {
+    public void onSuccess(@Nullable List<Message> messageList) {
         Log.i("MyApplication", "Messages Retrieved: " + messageList);
     }
 
@@ -373,7 +373,7 @@ chatContainer.sendMessage(conversation,
                           null,
                           new SaveCallback<Message>() {
     @Override
-    public void onSucc(@Nullable Message message) {
+    public void onSuccess(@Nullable Message message) {
         Log.i("MyApplication", "Message Sent: " + message.getBody());
     }
 
@@ -400,7 +400,7 @@ chatContainer.sendMessage(conversation,
                           null,
                           new SaveCallback<Message>() {
     @Override
-    public void onSucc(@Nullable Message message) {
+    public void onSuccess(@Nullable Message message) {
         Log.i("MyApplication", "Message Sent: " + message.getBody());
     }
 
@@ -428,7 +428,7 @@ meta.put("isImportant",new Boolean(true)); //custom metadata
 
 chatContainer.sendMessage(conversation, "Message Body", null, meta, new SaveCallback<Message>() {
     @Override
-    public void onSucc(@Nullable Message message) {
+    public void onSuccess(@Nullable Message message) {
         Log.i("MyApplication", "Message Sent: " + message.getBody());
     }
 
@@ -454,7 +454,7 @@ chatContainer.sendMessage(conversation,
                           asset,
                           new SaveCallback<Message>() {
     @Override
-    public void onSucc(@Nullable Message message) {
+    public void onSuccess(@Nullable Message message) {
         Log.i("MyApplication", "Message Sent: " + message.getBody());
         // You can call message.getAsset() to get the asset
     }
@@ -474,7 +474,7 @@ Container skygear = Container.defaultContainer(getApplicationContext());
 ChatContainer chatContainer = ChatContainer.getInstance(skygear);
 chatContainer.editMessage(message, "New Body", new SaveCallback<Message>() {
     @Override
-    public void onSucc(@Nullable Message message) {
+    public void onSuccess(@Nullable Message message) {
         Log.i("MyApplication", "Message Updated: " + message.body);
     }
 
@@ -493,7 +493,7 @@ Container skygear = Container.defaultContainer(getApplicationContext());
 ChatContainer chatContainer = ChatContainer.getInstance(skygear);
 chatContainer.deleteMessage(message, new DeleteCallback<Message>() {
     @Override
-    public void onSucc(@Nullable Message message) {
+    public void onSuccess(@Nullable Message message) {
         Log.i("MyApplication", "Message deleted.");
     }
 
@@ -621,7 +621,7 @@ ChatContainer chatContainer = ChatContainer.getInstance(skygear);
 
 chatContainer.getTotalUnreadMessageCount(new GetCallback<Integer>() {
     @Override
-    public void onSucc(@Nullable Integer count) {
+    public void onSuccess(@Nullable Integer count) {
         Log.i("MyApplication", "There are total " + count + " unreads");
     }
 
