@@ -259,3 +259,12 @@ inConversation
 subscribeToMessagesInConversation
 subscribeToUserChannelWithCompletion
 fetchTotalUnreadCount
+
+# jwt
+JWTs
+iat
+skyprofile
+jsonwebtoken
+PyJWT
+ruby-jwt
+jjwt
