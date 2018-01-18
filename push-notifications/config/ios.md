@@ -41,7 +41,7 @@ Then you can obtain an **Apple Push Notification Auth Key**. Click **+** on the 
 
 ![View you Auth Keys][apn-view-auth-key]
 
-Enter a name for your key, enable **APNs** and click Continue at the bottom of the page. 
+Enter a name for your key, enable **`APNs`** and click Continue at the bottom of the page. 
 
 ![Create Key][apn-view-create-key]
 
@@ -102,7 +102,7 @@ To test your Apps under development which is not on App Store yet, you will need
 6. Select the iOS Development certificate of the App ID you have chosen in the previous step, then click Continue.
 7. Select the iOS devices that you want to include in the Provisioning Profile, then click Continue. Make sure to select all the devices you want to use for your testing.
 8. Input a name for this provisioning profile, then click Generate.
-9. Download and open the Provisioning Profile file to install it on your Mac for XCode Development.
+9. Download and open the Provisioning Profile file to install it on your Mac for Xcode Development.
 
 [doc-push-basic-ios]: /guides/push-notifications/basics/ios/
 [apn-download-authkey]:/assets/push-notifications/apn-download-authkey.png
