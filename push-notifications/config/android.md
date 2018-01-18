@@ -4,11 +4,11 @@ title: Setting up FCM for Android Push Notification
 
 [[toc]]
 
-You can send Push Notification to your user's devices via Skygear Push Notification. Skygear uses the Firebase Cloud Messaging(FCM) interface to send push messages to client Android applications.
+You can send Push Notification to your user's devices via [Skygear Push API][doc-push-basic-android] or CMS Push Manager. Skygear uses the Firebase Cloud Messaging(FCM) service to send push messages to client Android applications.
 
 To enable sending Push Notifications through FCM, you need:
 
-* Have Skygear Android SDK installed. [Learn how to install SDK][doc-android-quickstart] if you haven't.
+* Install Skygear Android SDK on your app. [Learn how to install SDK][doc-android-quickstart] if you haven't.
 * Configure the FCM Server Key on Skygear Portal
 
 ![Overview of Skygear Push Notifications][push-overview-fcm]
@@ -47,6 +47,7 @@ To start sending message via FCM, remember to turn on `Enable Firebase Cloud Mes
 :::
 
 
+[doc-push-basic-android]: /guides/push-notifications/basics/android/
 [doc-android-quickstart]: /guides/intro/quickstart/android/
 [fcm-doc]: https://firebase.google.com/docs/cloud-messaging/
 [fcm-fill-in-server-key]:/assets/push-notifications/fcm-fill-in-server-key.png
