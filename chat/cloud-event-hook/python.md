@@ -123,7 +123,7 @@ def after_users_removed_from_conversation_hook(conversation, participants, old_u
 
 
 ## Real Life Example: Push Notification
-The following example demonstrates push notification implementation with Skygear API and Skygear Chat event hook. Function `after_message_sent_hook` is called after a message is sent. `participants` and `message` are then deserialized with `deserialize_record`. `other_user_ids` and `notification` are evaluated from `participants` and `message` respectively. Lastly, `push_users` is called and participants' devices receive a notification.
+The following example demonstrates push notification implementation with Skygear API and Skygear Chat event hook. Function `after_message_sent_hook` is called after a message is sent. `participants` and `message` are then deserialized with `deserialize_record`. `other_user_ids` and `notification` are evaluated from `participants` and `message` respectively. Lastly, `push_users` is called and participants' devices receive notifications.
 
 ```python
 from skygear.transmitter.encoding import deserialize_record
@@ -147,7 +147,21 @@ def after_message_sent_hook(message, conversation, participants):
         content = current_user['username'] + ": " + message['body']
     else:
         content = current_user['username'] + " sent you a file."
-    notification = {'gcm': {'notification': {'title': conversation['title'], 'body': content}}}
+    notification = {'gcm': {
+                       'notification': {
+                           'title': conversation['title'],
+                           'body': content
+                       }
+                    },
+                    'aps': {
+                        'alert': {
+                            'title': conversation['title'],
+                            'body': content
+                        },
+                        'from': 'skygear',
+                        'operation': 'notification'
+                    }
+                   }
     push_users(container, other_user_ids, notification)
 ```
 
