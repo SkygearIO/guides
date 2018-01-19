@@ -31,6 +31,9 @@ def after_message_sent_hook(message, conversation, participants):
 
 Note: Currently only one of the same kind hooks can be registered.
 
+## Skygear Cloud Function
+Please refer to [Introduction to Cloud Functions](https://docs.skygear.io/guides/cloud-function/intro-and-deployment/) for the basics of cloud function.
+
 ## Available Event Hooks
 Event hooks are implemented in [Skygear Chat plugin](https://github.com/skygeario/chat) project. Therefore, you need to import `chat.hooks` in order to use event hooks in cloud function.
 

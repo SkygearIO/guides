@@ -30,6 +30,9 @@ skygearChatCloud.afterMessageSent((message, conversation, participants, context)
 
 Note: Currently only one of the same kind hooks can be registered.
 
+## Skygear Cloud Function
+Please refer to [Introduction to Cloud Functions](https://docs.skygear.io/guides/cloud-function/intro-and-deployment/) for the basics of cloud function.
+
 ## Installing `skygear-chat` in cloud
 Skygear Chat SDK JS is not included in cloud function by default. Therefore, you need to specify the dependency in `package.json`
 
