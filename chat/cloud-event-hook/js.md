@@ -15,7 +15,7 @@ Skygear Chat event hooks are executed after any of the following actions are exe
     - Updating a conversation
     - Deleting a conversation
     - Adding participants to a conversation
-    - Removeing participants from a conversation
+    - Removing participants from a conversation
 
 The below code snippet prints a message to server log after an user send a message.
 
@@ -68,7 +68,7 @@ All decorated functions are not required to return any value.
 
 ### Decorated Function Interfaces and Parameters
 
-Depending on decorators, decorated functions contain any of the following paramters.
+Depending on decorators, decorated functions contain any of the following parameters.
 
 | Tables        | Description                 |
 | ------------- |:---------------------------:|
