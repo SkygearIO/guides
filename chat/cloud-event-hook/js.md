@@ -14,8 +14,8 @@ Skygear Chat event hooks are executed after any of the following actions are exe
     - Creating a conversation
     - Updating a conversation
     - Deleting a conversation
-    - Adding participants to conversation
-    - Removeing participants to conversation
+    - Adding participants to a conversation
+    - Removeing participants from a conversation
 
 The below code snippet prints a message to server log after an user send a message.
 
