@@ -137,7 +137,7 @@ requests. For example, you can use the `before_save` hook to perform data valida
 ```javascript
 // Reject empty 'name' before saveing a cat to the database
 skygearCloud.beforeSave('cat', function(record, original, pool, options) {
-    if (record["name"] === undefined || record["name"] === null || record["name"] === '') {
+    if (!record['name']) {
     	return new Promise((resolve, reject) => {
     		reject(new Error('Missing cat name'));
     	});

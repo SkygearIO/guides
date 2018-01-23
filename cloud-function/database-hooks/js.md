@@ -15,7 +15,7 @@ sending emails based on the change in database records,
 ```javascript
 // Reject empty 'name' before saveing a cat to the database
 skygearCloud.beforeSave('cat', function(record, original, pool, options) {
-    if (record["name"] === undefined || record["name"] === null || record["name"] === '') {
+    if (!record["name"]) {
     	return new Promise((resolve, reject) => {
     		reject(new Error('Missing cat name'));
     	});
@@ -201,19 +201,19 @@ demonstrates:
 ```javascript
 skygearCloud.beforeSave('selfie', function(record, original, pool, options) {
 	// Check for non-empty image URL
-	if (record['image_url'] === undefined || record['image_url'] === null || record['image_url'] === '') {
+	if (!record['image_url']) {
 		 return new Promise((resolve, reject) => {
     		reject(new Error('Empty Selfie URL'));
     	});
 	}
 
 	// Set initial "like" count if it's a new record
-	if (original === undefined || original === null) {
+	if (!original) {
 		console.log('Original record is null');
 		record['likes_count'] = 0;
 	}
 	pool.query(`UPDATE app_hello_world.user SET last_seen = CURRENT_TIMESTAMP WHERE _id ='${record.ownerID}'`, function(err, result) {
-		if (err !== undefined && err !== null) {
+		if (err) {
 			console.log(err);
 			return;
 		}
@@ -287,9 +287,9 @@ demonstrates:
 
 ```javascript
 skygearCloud.afterSave('selfie', function(record, original, pool, options) {
-	if (original === undefined || original === null) {
+	if (!original) {
 		pool.query(`UPDATE app_hello_world.user SET selfie_count = selfie_count + 1, _updated_at = CURRENT_TIMESTAMP WHERE '_id' = '${record.createdBy}'`, function(err, result) {
-			if (err !== undefined && err !== null) {
+			if (err) {
 				console.log(err);
 				return;
 			}
