@@ -67,7 +67,7 @@ publicDB.perform(query) { (results, queryError) in
 }
 ```
 
-If you want to customize these security settings, Skygear supports access control on records. You can use it to control whether a user can query, update or delete a record.
+If you want to customize these security settings, Skygear supports access control on records and fields level. You can use it to control whether a user can query, update or delete a record or a field in the record.
 
 Skygear uses [Access Control List][wiki-acl] (ACL) as the model of access control.
 An ACL is a list of Access Control Entry (ACE), each ACE describes which
@@ -83,71 +83,35 @@ These are the concepts you need to know:
 - Record ownership, **the owner has full access** to the record.
 - The 2 types of ACL in Skygear: [Record-based ACL][doc-record-acl] and [Field-based ACL][doc-field-acl].
 
-:::tips
-When you should use Record-based ACL or Field-based ACL?
+## How Field-based ACL works with Record-based ACL
 
-If every single record has the same ACL, that the same  have the same access rights to a record, you can use Record-based ACL.
+Default Field-based ACL is read and write access for public. So if you use Record-based ACL 
+**WITHOUT** Field-based ACL, you will be able to read or save all fields of the record as long 
+as you have read or write access in Record-based ACL respectively.
 
-Otherwise, if a set of users have has different access rights for each field of a record, you would need to use Field-based ACL.
-:::
+### Fetch and Query
 
-Before diving into Record-based ACL and Field-based ACL, let's learn about the basic concepts of Skygear ACL.
+For each fetch or query operation, Record-based ACL will affect **if you can, or cannot,
+successfully get the record**, while Field-based ACL will affect **what you can see** in the
+record.
 
-## ACL Resource
+For e.g. you set a record with public read write, and all the record's
+field are no access to everyone. You will still get a list of records, but
+you can only read the reserved fields of the records.
 
-### Record-based
+### Save
 
-Resource is defined in each record. Thus the ACL affects the record itself.
+In atomic save, when a single record or a single field is failed to save,
+the whole operation will be rolled back.
 
-### Field-based
-
-Resource in is specified by record type and record field.
-
-You may find more details about resource matching in [Field-based ACL][doc-field-acl-matching].
-
-## ACL Access Level
-
-There are 3 access levels in Skygear ACL:
-
-- No Access
-- Read Write Access
-- Read Only Access
-
-This is how you can set it:
-
-```obj-c
-SKYAccessControl *acl = [SKYAccessControl emptyAccessControl];
-
-[acl setNoAccessForPublic];
-[acl setReadOnlyForPublic];
-[acl setReadWriteAccessForPublic];
-```
-
-```swift
-let acl = SKYAccessControl.empty()
-
-acl?.setNoAccessForPublic()
-acl?.setReadOnlyForPublic()
-acl?.setReadWriteAccessForPublic()
-```
-
-:::tips
-
-**Read access**
-
-Read access grants users right to *query* and *fetch* records, which includes getting all the fields of a record as well as the ACL of the record.
-
-
-**Write access**
-
-Write access grants users right to *save* and *delete* records, which includes adding,
-updating and removing all the fields (**EXCEPT** [reserved columns][doc-reserved-columns]) of a record as well as the ACL of the record.
-
-:::
+In non-atomic save, when a single record or a single field is failed to save,
+that part would be skipped, and the rest of the operation will still succeed.
 
 ## ACL User Target
 
-User Target defines *who* can perform the specified actions. It can be a specific user or a group of users. Below are the types of User Target you can define.
+Both [Record-based ACL][doc-record-acl] and [Field-based ACL][doc-field-acl] allow you to set
+specific permission toward different user target. Below are the types of User Target you can
+define.
 
 - **Public**: refers to all other users of the app, unauthenticated (not logged in) users included
 - **By User**: users specified by User ID
@@ -155,9 +119,13 @@ User Target defines *who* can perform the specified actions. It can be a specifi
 
 Below we will talk about how to create roles and assign a role to users.
 
-### Role Configuration
+## Role in Skygear
 
-#### Define role
+Roles can only be defined, assigned or revoked by user in **admin** role. You can create the first
+admin user of your application by calling Cloud Functions with master key. Another way to define
+your first admin users are by the User Management in the CMS of Skygear.io
+
+### Define role
 
 You can create different roles and later use them to design ACL targeting users of specific roles.
 
@@ -171,7 +139,7 @@ let manager = SKYRole(name: "manager")
 let visitor = SKYRole(name: "visitor")
 ```
 
-#### Admin role
+### Admin role
 
 In Skygear roles are either admin role or non-admin role. By default, there is an admin role called `Admin`.
 
@@ -189,7 +157,7 @@ Do NOT overload user roles to model group if no access control is necessary. It 
 :::
 
 
-#### Setting admin role and default role in development
+### Setting admin role and default role in development
 
 :::caution
 Admin role and default role must be set during development. The two operations are banned in production environment.
@@ -248,7 +216,7 @@ if let visitor = visitor as SKYRole! {
 }
 ```
 
-#### Assign and Revoke Roles
+### Assign and Revoke Roles
 
 For admin user to change roles of other users:
 
@@ -306,6 +274,7 @@ auth.revokeRoles(withNames: rolesToRevoke, fromUsersWihtIDs: userIDs) { (revokeE
 
 ## Next Part
 - [Record-based ACL][doc-record-acl]
+- [Field-based ACL][doc-field-acl]
 
 [wiki-acl]: https://en.wikipedia.org/wiki/Access_control_list
 [doc-reserved-columns]: /guides/cloud-db/basics/ios/#reserved-columns

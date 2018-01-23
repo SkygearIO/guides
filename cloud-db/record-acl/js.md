@@ -20,22 +20,44 @@ To understand record-based ACL you need basic Skygear ACL concepts. Learn about 
 
 ## Record-based ACL of Public
 
-You can change the record ACL by calling the ACL API on the record and saving it afterwards.
+Public ACL (including `PublicNoAccess`, `PublicReadOnly` and
+`PublicReadWriteAccess`) define the permission unauthenticated users have. You can change the record
+ACL for Public users as follows:
 
 ```javascript
 const secretNote = new Note({ content: 'I am your father' });
 const publicNote = new Note({ content: 'Hello world!' });
+const acl = new skygear.ACL();
 
 secretNote.setPublicNoAccess();
-skygear.publicDB.save(secretNote);
-
 publicNote.setPublicReadWriteAccess();
+acl.setPublicReadOnly();
+
 skygear.publicDB.save(publicNote);
+skygear.publicDB.save(secretNote);
+skygear.publicDB.setDefaultACL(acl)
 ```
+
+:::tips
+
+**Read access**
+
+Read access grants users right to *query* and *fetch* records, which includes getting all the fields of a record as well as the ACL of the record.
+
+
+**Write access**
+
+Write access grants users right to *save* and *delete* records, which includes adding,
+updating and removing all the fields (**EXCEPT** [reserved columns][doc-reserved-columns]) of a record as well as the ACL of the record.
+
+:::
 
 ## Record-based ACL By User
 
-Suppose you have three user records: `Tak`, `Benson` and `Rick`. And this is the security setting you want to apply:
+Similarly with ACL of Public, you can set the `NoAccessForUser`, `ReadOnlyForUser` and 
+`ReadWriteAccessForUser`) for each records.
+
+Suppose you have three user records: `Tak`, `Benson` and `Rick`. And this is the security setting you want to apply to a `note` record:
 
 - `Tak` has no access to the note.
 - `Benson` can only read the note.
@@ -61,7 +83,7 @@ The default ACL in Skygear is public read. So if you didn't assign any ACL to `T
 
 ## Record-based ACL By Role
 
-Suppose you have three roles: `Manager`, `Employee` and `Visitor`. (Learn how to set roles [here][doc-role-acl].)
+Similar to ACL by User, suppose you have three roles: `Manager`, `Employee` and `Visitor`. (Learn how to set roles [here][doc-role-acl].)
 
 ```javascript
 const Plan = skygear.Record.extend('plan');
@@ -96,9 +118,10 @@ skygear.auth.fetchUserRole(users).then((results) => {
 });
 ```
 
-## Record Default ACL
+## Set default ACL for a record type
 
-You may set the default ACL of a newly created record of a record type.
+Instead of setting ACL of each record object as mentioned above, you may set the default ACL of
+all newly created records of a record type.
 
 ```javascript
 const acl = new skygear.ACL();

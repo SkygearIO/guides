@@ -12,8 +12,6 @@ Field-based ACL is a more advanced feature of Skygear, it gives finer control
 to the access, with [Discovery Level][doc-field-acl-discovery-level] and
 [More User Target][doc-field-acl-user-target].
 
-Field-based ACL also provide control on [Access Level][doc-access-level].
-
 ## Setting Field-based ACL
 
 The simplest way to edit Field-based ACL is to use Skygear Developer Portal.
@@ -77,43 +75,16 @@ If you choose `Default` on Skygear Developer Portal ACL setting form, you may se
 
 There are 2 cases when calling [record save API][doc-record-save]:
 
-### atomic: `True`
+#### atomic: `True`
 
 If you change a field that you do not have access to write, those field will
 not be changed, while others will be updated.
 
 The SDK will provide partial update callback for record save API.
 
-### atomic: `False`
+#### atomic: `False`
 
 You will simply get an error, for not having access right to update the field.
-
-## Working Together with Access Level of Record-based ACL
-
-The default is read and write access for public. So if you use Record-based ACL
-**WITHOUT** Field-based ACL, you will be able to read all fields of a record as
-long as you have read access to the record, and save all fields of a record as
-long as you have write access to the record.
-
-### Fetch and Query
-
-They work on different level. Record-based ACL will affect **if you can, or cannot,
-successfully get the record**, while Field-based ACL will affect **what you
-can see** in the record.
-
-Imagine that you set a record with public read write, and all the record's
-field are no access to everyone. You will still get a list of records, but
-you can only see the reserved fields of the records.
-
-### Save
-
-They work together similarly when you use save a record.
-
-In atomic save, when a single record or a single field is failed to save,
-the whole operation will be rolled back.
-
-In non-atomic save, when a single record or a single field is failed to save,
-that part would be skipped, and the rest of the operation will still succeed.
 
 
 [doc-access-level]: /guides/cloud-db/acl-overview/js/#acl-access-level

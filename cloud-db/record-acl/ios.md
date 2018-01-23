@@ -1,5 +1,5 @@
 ---
-title: Record-based ACL
+
 ---
 
 [[toc]]
@@ -20,7 +20,9 @@ To understand record-based ACL you need basic Skygear ACL concepts. Learn about 
 
 ## Record-based ACL of Public
 
-You can change the record ACL by calling the ACL API on the record and saving it afterwards.
+Public ACL (including `NoAccessForPublic`, `ReadOnlyForPublic` and
+`ReadWriteAccessForPublic`) define the permission unauthenticated users have. You can change the record
+ACL for Public users as follows:
 
 ```obj-c
 SKYDatabase *publicDB = [[SKYContainer defaultContainer] publicCloudDatabase];
@@ -35,7 +37,6 @@ publicNote[@"content"] = @"Hello world!";
 [publicNote.accessControl setReadWriteAccessForPublic];
 [publicDB saveRecord:publicNote completion:/* ... */];
 ```
-
 ```swift
 let publicDB = SKYContainer.default().publicCloudDatabase
 
@@ -50,7 +51,24 @@ publicNote.accessControl?.setReadWriteAccessForPublic()
 publicDB.save(publicNote) { /* ... */ }
 ```
 
+:::tips
+
+**Read access**
+
+Read access grants users right to *query* and *fetch* records, which includes getting all the fields of a record as well as the ACL of the record.
+
+
+**Write access**
+
+Write access grants users right to *save* and *delete* records, which includes adding,
+updating and removing all the fields (**EXCEPT** [reserved columns][doc-reserved-columns]) of a record as well as the ACL of the record.
+
+:::
+
 ## Record-based ACL By User
+
+Similarly with ACL of Public, you can set the `NoAccessForUser`, `ReadOnlyForUser` and 
+`ReadWriteAccessForUser`) for each records.
 
 Suppose you have three user records: `Tak`, `Benson` and `Rick`. And this is the security setting you want to apply:
 
@@ -82,7 +100,7 @@ The default ACL in Skygear is public read. So if you didn't assign any ACL to `T
 
 ## Record-based ACL By Role
 
-Suppose you have three roles: `Manager`, `Employee` and `Visitor`. (Learn how to set roles [here][doc-role-acl].)
+Similar to ACL by User, suppose you have three roles: `Manager`, `Employee` and `Visitor`. (Learn how to set roles [here][doc-role-acl].)
 
 ```obj-c
 SKYRecord *plan = [SKYRecord recordWithRecordType:@"plan"];
@@ -134,9 +152,10 @@ SKYContainer.default().auth.fetchRoles(ofUsers: users) { (userRoles, error) in
 }
 ```
 
-## Record Default ACL
+## Set default ACL for a record type 
 
-You may set the default ACL of a newly created record of a record type.
+Instead of setting ACL of each record object as mentioned above, you may set the default ACL of 
+all newly created records of a record type.
 
 ```obj-c
 SKYAccessControl *acl = [SKYAccessControl emptyAccessControl];
