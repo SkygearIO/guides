@@ -29,7 +29,7 @@ SKYDatabase *publicDB = [[SKYContainer defaultContainer] publicCloudDatabase];
 
 SKYRecord *secretNote = [SKYRecord recordWithRecordType:@"note"];
 secretNote[@"content"] = @"I am your father";
-[[secretNote.accessControl setNoAccessForPublic];];
+[secretNote.accessControl setNoAccessForPublic];
 [publicDB filed:secretNote completion:/* ... */];
 
 SKYRecord *publicNote = [SKYRecord recordWithRecordType:@"note"];
@@ -42,7 +42,7 @@ let publicDB = SKYContainer.default().publicCloudDatabase
 
 let secretNote = SKYRecord(recordType: "note")
 secretNote.setObject("I am your father", forKey: "content" as NSCopying!)
-[secretNote.accessControl?.setNoAccessForPublic];()
+secretNote.accessControl?.setNoAccessForPublic()
 publicDB.save(secretNotefile{ /* ... */ }
 
 let publicNote = SKYRecord(recordType: "note")
