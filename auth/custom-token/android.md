@@ -1,5 +1,5 @@
 ---
-title: User Authentication With Custom Token
+title: Authenticate With a Custom Authentication System
 ---
 
 [[toc]]
