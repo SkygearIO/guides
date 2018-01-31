@@ -43,7 +43,8 @@ Skygear Chat SDK JS is not included in cloud function by default. Therefore, you
     "description": "Describe your project here.",
     "main": "index.js",
     "dependencies": {
-        "skygear-chat": "^1.2.0"
+        "skygear-chat": "^1.3.1",
+        "skygear": "^1.3.0"
     }
 }
 ```
@@ -153,7 +154,7 @@ skygearChatCloud.afterUsersRemovedFromConversation(
 The following example demonstrates push notification implementation with Skygear API and Skygear Chat event hook. Function `after_message_sent_hook` is called after a message is sent. `otherUserIds` and `notification` are evaluated from `participants` and `message` respectively. Lastly, `sendToUser ` is called and participants' devices receive notifications.
 
 ```javascript
-const skygearChatCloud = require('skygear-chat/cloud');
+const skygearChatCloud = require('skygear-chat/dist/cloud');
 const skygearCloud = require('skygear/cloud');
 const container = new skygearCloud.CloudCodeContainer();
 container.apiKey = skygearCloud.settings.apiKey;
