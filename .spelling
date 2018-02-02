@@ -12,6 +12,7 @@ APN
 APNS
 Auth
 AWS
+Bool
 boolean
 booleans
 camelCase
@@ -42,6 +43,7 @@ GCM
 GitBash
 GitHub
 Gradle
+gradle
 github.com
 homebrew
 hostname
@@ -257,6 +259,9 @@ after_delete
 event_type
 im
 SKYChatExtension
+MessageSentListener
+MessageFetchListener
+ConnectionListener
 createDirectConversationWithUserID
 createConversationWithParticipantIDs
 subscribeToTypingIndicatorInConversation
@@ -277,9 +282,12 @@ editMessage
 withBody
 deleteMessage
 inConversation
+shouldShowCameraButton
 subscribeToMessagesInConversation
 subscribeToUserChannelWithCompletion
 fetchTotalUnreadCount
+UICustomization
+SKYChatUIModelCustomization
 
 # jwt
 JWTs
