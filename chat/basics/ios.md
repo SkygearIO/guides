@@ -320,37 +320,51 @@ SKYContainer.default().chatExtension?.addMessage(message,
 }
 ```
 
-When adding a message to a conversation, the message is first added
+When adding a message to a conversation, the operation is created and is added
 to the local cache store. The completion handler is called
 when the message is added to server.
 
-Added messages that are not yet synchronized is included in the result
-of `fetchMessages`. If added messages failed to synchronize, the messages
-is included in `fetchUnsentMessages` instead.
-
 #### Handling failed messages
 
-Messages that failed to synchronize are also called unsent messages.
-They exist in the
-local cache store but they are not included in the result of `fetchMessages`.
-If your app need to show unsent messages in the message view, or if
-you want to handle the unsent messages programmatically. Use
-`fetchUnsetMessages` instead. Unsent messages remain available across
-application restarts.
+If messages failed to save, you can obtain them from
+`fetchOutstandingMessageOperations(conversationID:operationType:completion:)`.
+
+Outstanding message operations contain messages that are not yet synchronized
+to the server. You can fetch outstanding message operations to display to
+the user which messages are failed to synchronize, so that you can present
+user with options whether to retry or cancel the operation.
+
+Here is an example:
 
 ```swift
-SKYContainer.default().chatExtension?.fetchUnsentMessages(
+SKYContainer.default().chatExtension?.fetchOutstandingMessageOperations(
     conversationID: self.conversation!.recordID().recordName,
-    completion: { (unsentMessages) in
-        // Handle unsent messages here. A typical example is to show
+    operationType: SKYMessageOperationType.add
+    completion: { (operations) in
+        // Handle operation here. A typical example is to show
         // these messages alongside sent ones.
-        addUnsentMessagesToView(unsentMessages)
+        for operation in operations {
+            addFailedMessagesToView(operation.message)
+        }
     })
 ```
 
-It is also typical to retry adding a message so that the message will
-be synchronized again. You should use `addMessage` to do that. To
-discard an unsent message, use `deleteMessage`.
+To retry a message operation, calls `retry(messageOperation:completion:)`:
+
+```swift
+SKYContainer.default().chatExtension?.fetchOutstandingMessageOperations(
+    messageID: message.recordID().recordName,
+    operationType: SKYMessageOperationType.add
+    completion: { (operations) in
+        guard let operation = operations.first else {
+            return
+        }
+
+        SKYContainer.default().chatExtension?.retry(messageOperation: operation, completion: nil)
+    })
+```
+
+Calls `cancel(messageOperation:)` to cancel the message operation instead.
 
 #### Plain Text
 
@@ -421,9 +435,6 @@ SKYContainer.default().editMessage(message, with: newMessageBody, completion: { 
 })
 ```
 
-The `editMessage` function also save the message to local cache store before
-sending the changes to server.
-
 ### Deleting a message
 You can delete a message with [`deleteMessage:inConversation:completion:`](https://docs.skygear.io/ios/chat/reference/latest/Classes/SKYChatExtension.html#/c:objc(cs)SKYChatExtension(im)deleteMessage:inConversation:completion:).
 
@@ -436,12 +447,6 @@ SKYContainer.default().chatExtension?.deleteMessage(message, in: conversation) {
     print("Message Deleted.")
 }
 ```
-
-The delete message API would delete messages from local cache store as well.
-Messages are deleted from local cache store when they are successfully deleted
-from server. Unsent messages are simply deleted from local cache without
-deleting them from server.
-
 
 ## Subscribing to new messages
 ### Subscribing to messages in a conversation
@@ -674,15 +679,5 @@ SKYContainer.default().chatExtension?.sendTypingIndicator(event,
 ```
 with the current date `Date()` in the `at` parameter.
 
-
-
-
 ## User online
 Coming soon
-
-## Best practices
-### Caching message history locally
-Skygear Chat does not cache message history in client device. You may consider to use the following libraries.
-
-- [kyperoslo/Cache](https://github.com/hyperoslo/Cache)
-- [aschuch/AwesomeCache](https://github.com/aschuch/AwesomeCache)
