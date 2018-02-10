@@ -43,7 +43,7 @@ Skygear Chat SDK JS is not included in cloud function by default. Therefore, you
     "description": "Describe your project here.",
     "main": "index.js",
     "dependencies": {
-        "skygear-chat": "^1.3.1",
+        "skygear-chat": "^1.3.4",
         "skygear": "^1.3.0"
     }
 }
@@ -154,16 +154,17 @@ skygearChatCloud.afterUsersRemovedFromConversation(
 The following example demonstrates push notification implementation with Skygear API and Skygear Chat event hook. Function `after_message_sent_hook` is called after a message is sent. `otherUserIds` and `notification` are evaluated from `participants` and `message` respectively. Lastly, `sendToUser ` is called and participants' devices receive notifications.
 
 ```javascript
-const skygearChatCloud = require('skygear-chat/dist/cloud');
+const skygearChatCloud = require('skygear-chat/cloud');
 const skygearCloud = require('skygear/cloud');
 const container = new skygearCloud.CloudCodeContainer();
+
 container.apiKey = skygearCloud.settings.apiKey;
 container.endPoint = skygearCloud.settings.skygearEndpoint + '/';
 
 skygearChatCloud.afterMessageSent((message, conversation, participants, context) => {
   const title = conversation.title;
-  const otherUserIds = participants.map((p) => p._id && p._id != context.userId);
-  const currentUser = participants.find((p) => p._id == context.userId);
+  const otherUserIds = participants.filter(p => p._id && p._id != context.userId).map(p => p._id);
+  const currentUser = participants.find(p => p._id == context.userId);
   let body = '';
   if (message.body) {
     body = currentUser.username + ": " + message.body;
@@ -195,9 +196,10 @@ skygearChatCloud.afterMessageSent((message, conversation, participants, context)
       'body': body
     }
   }
-  const notification = {'gcm': gcmPayload, 'apns': apnsPayload};
-  container.push.sendToUser(otherUserIds, notification);
+  const payload = {'gcm': gcmPayload, 'apns': apnsPayload};
+  container.push.sendToUser(otherUserIds, payload);
 });
+
 ```
 
 
