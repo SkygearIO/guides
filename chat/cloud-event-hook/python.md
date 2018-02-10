@@ -27,7 +27,7 @@ def after_message_sent_hook(message, conversation, participants):
     message = deserialize_record(message)
     conversation = deserialize_record(conversation)
     print('Message [%s] is sent to conversation [%s].' % (message['body'], conversation['title']))
-```    
+```
 
 Note: Currently only one of the same kind hooks can be registered.
 
@@ -43,7 +43,7 @@ The followings are the available event hooks.
 - `after_message_updated`: to run after a message is updated
 - `after_message_deleted`: to run after a message is deleted
 - `typing_started`: to run after typing is started
-- `after_conversation_created`: to run after a conversation is created 
+- `after_conversation_created`: to run after a conversation is created
 - `after_conversation_updated`: to run after a conversation is update
 - `after_conversation_deleted`: to run after a conversation deleted
 - `after_users_added_to_conversation`: to run after one or more users are added to a conversation
@@ -54,7 +54,7 @@ All decorated functions are not required to return any value.
 
 ### Decorated Function Interfaces and Parameters
 
-Depending on decorators, decorated functions contain any of the following parameters. All passing values are serialized values, therefore you need to call `derserialize_record` from `skygear.encoding` to retrieve corresponding Skygear record in python. 
+Depending on decorators, decorated functions contain any of the following parameters. All passing values are serialized values, therefore you need to call `derserialize_record` from `skygear.encoding` to retrieve corresponding Skygear record in python.
 
 | Tables        | Description            |
 | ------------- |:----------------------:|
