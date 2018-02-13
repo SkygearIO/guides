@@ -11,10 +11,10 @@ Skygear allows you to authenticate users using their 3rd party accounts.
 
 Currently following providers are supported. Please find the setup instruction below.
 
-- Google
-- Facebook
-- LinkedIn
-- Instagram
+- [Google][google]
+- [Facebook][facebook]
+- [LinkedIn][linkedin]
+- [Instagram][instagram]
 
 ### Login with 3rd party account
 
@@ -293,3 +293,8 @@ SKYContainer.default().auth.getOAuthProviderProfiles {(result, error) in
 
 [login-with-web-flow]: #login-with-web-flow
 [login-with-access-token]: #login-with-access-token
+[facebook]: /guides/auth/social-login/facebook/
+[google]: /guides/auth/social-login/google/
+[linkedin]: /guides/auth/social-login/linkedin/
+[instagram]: /guides/auth/social-login/instagram/
+
