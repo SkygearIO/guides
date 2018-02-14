@@ -164,7 +164,7 @@ container.endPoint = skygearCloud.settings.skygearEndpoint + '/';
 skygearChatCloud.afterMessageSent((message, conversation, participants, context) => {
   const title = conversation.title;
   const otherUserIds = participants.filter(p => p._id && p._id != context.userId).map(p => p._id);
-  const currentUser = participants.find(p => p._id == context.userId);
+  const currentUser = participants.find(p => p._id == message.ownerID);
   let body = '';
   if (message.body) {
     body = currentUser.username + ": " + message.body;
