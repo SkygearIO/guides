@@ -26,12 +26,13 @@ owner.
 ## Saving to the current user record
 
 ```java
+Container skygear = Container.defaultContainer(this);
+
 Record user = new Record("user", skygear.getAuth().getCurrentUser().getId());
 user.set("language", "en-US")
 user.set("gender", "male")
 user.set("age", 20)
 
-Container skygear = Container.defaultContainer(this);
 Database publicDB = skygear.getPublicDatabase();
 publicDB.save(user, new RecordSaveResponseHandler() {
     @Override
@@ -45,14 +46,34 @@ publicDB.save(user, new RecordSaveResponseHandler() {
     }
 })
 ```
+```kotlin
+val skygear = Container.defaultContainer(this)
+
+val user = Record("user", skygear.auth.currentUser.id)
+user.set("language", "en-US")
+user.set("gender", "male")
+user.set("age", 20)
+
+val publicDB = skygear.publicDatabase
+publicDB.save(user, object : RecordSaveResponseHandler() {
+  override fun onSaveSuccess(_: Array<out Record>) {
+    Log.i("Skygear User", "Saved")
+  }
+
+  override fun onSaveFail(error: Error) {
+    Log.i("Skygear User", "onSaveFail: Fail with reason: ${error.message}")
+  }
+})
+```
 
 ## Retrieving the current user record
 
 ```java
+Container skygear = Container.defaultContainer(this);
+
 Query userQuery = new Query("user")
         .equalTo("_id", skygear.getAuth().getCurrentUser().getId())
 
-Container skygear = Container.defaultContainer(this);
 Database publicDB = skygear.getPublicDatabase();
 publicDB.query(userQuery, new RecordQueryResponseHandler() {
     @Override
@@ -65,6 +86,22 @@ publicDB.query(userQuery, new RecordQueryResponseHandler() {
         Log.i("User Query", String.format("Fail with reason:%s", reason));
     }
 });
+```
+```kotlin
+val skygear = Container.defaultContainer(this)
+
+val userQuery = Query("user").equalTo("_id", skygear.auth.currentUser.id)
+
+val publicDB = skygear.publicDatabase
+publicDB.query(userQuery, object : RecordQueryResponseHandler() {
+  override fun onQuerySuccess(records: Array<out Record>) {
+    Log.i("User Query", "Successfully got ${records.size} records")
+  }
+
+  override fun onQueryError(error: Error) {
+    Log.i("User Query", "Fail with reason: ${error.message}")
+  }
+})
 ```
 
 <a id="search-users"></a>
@@ -77,10 +114,11 @@ emails/usernames.
 The promise will be resolved by an array of matched user records.
 
 ```java
-Query userQuery = new Query("user")
-        .equalTo("email", "ben@oursky.com)
-
 Container skygear = Container.defaultContainer(this);
+
+Query userQuery = new Query("user")
+        .equalTo("email", "ben@oursky.com")
+
 Database publicDB = skygear.getPublicDatabase();
 publicDB.query(userQuery, new RecordQueryResponseHandler() {
     @Override
@@ -94,12 +132,29 @@ publicDB.query(userQuery, new RecordQueryResponseHandler() {
     }
 });
 ```
+```kotlin
+val skygear = Container.defaultContainer(this)
+
+val userQuery = Query("user").equalTo("email", "ben@oursky.com")
+
+val publicDB = skygear.publicDatabase
+publicDB.query(userQuery, object : RecordQueryResponseHandler() {
+  override fun onQuerySuccess(records: Array<out Record>) {
+    Log.i("User Query", "Successfully got ${records.size} records")
+  }
+
+  override fun onQueryError(error: Error) {
+    Log.i("User Query", "Fail with reason: ${error.message}")
+  }
+})
+```
 
 ```java
-Query userQuery = new Query("user")
-        .equalTo("username", "ben)
-
 Container skygear = Container.defaultContainer(this);
+
+Query userQuery = new Query("user")
+        .equalTo("username", "ben")
+
 Database publicDB = skygear.getPublicDatabase();
 publicDB.query(userQuery, new RecordQueryResponseHandler() {
     @Override
@@ -112,4 +167,20 @@ publicDB.query(userQuery, new RecordQueryResponseHandler() {
         Log.i("User Query", String.format("Fail with reason:%s", reason));
     }
 });
+```
+```kotlin
+val skygear = Container.defaultContainer(this)
+
+val userQuery = Query("user").equalTo("email", "ben")
+
+val publicDB = skygear.publicDatabase
+publicDB.query(userQuery, object : RecordQueryResponseHandler() {
+  override fun onQuerySuccess(records: Array<out Record>) {
+    Log.i("User Query", "Successfully got ${records.size} records")
+  }
+
+  override fun onQueryError(error: Error) {
+    Log.i("User Query", "Fail with reason: ${error.message}")
+  }
+})
 ```
