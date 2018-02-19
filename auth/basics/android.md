@@ -13,6 +13,9 @@ The global `Container` named `skygear` will be used throughout the examples in t
 ```java
 Container skygear = Container.defaultContainer(this); // Global Container
 ```
+```kotlin
+val skygear = Container.defaultContainer(this)
+```
 
 ## Basic concept
 
@@ -20,7 +23,7 @@ Container skygear = Container.defaultContainer(this); // Global Container
 
 Skygear handles the user login session using an access token stored in the local storage.
 
-Each user, when logged in, will be given a generated String called `Access Token`, which is like a identification card for the user. It is used by the Skygear server to identify who you are.
+Each user, when logged in, will be given a generated String called `Access Token`, which is like an identification card for the user. It is used by the Skygear server to identify who you are.
 
 The method `whoami` illustrates the usage of `Access Token`. When it is called, Skygear will send the current `Access Token` to the server and the server will return a `User` object.
 
@@ -67,6 +70,23 @@ skygear.getAuth().signupWithUsername(username, password, new AuthResponseHandler
     }
 });
 ```
+```kotlin
+val username: String = getUsername() // get from user input
+val password: String = getPassword() // get from user input
+
+skygear.auth.signupWithUsername(username, password, object : AuthResponseHandler() {
+  override fun onAuthSuccess(user: Record) {
+    Log.i("Skygear Signup", "onAuthSuccess: Got token: ${user.getAccessToken()}")
+  }
+
+  override fun onAuthFail(error: Error) {
+    when (error.code) {
+      Error.Code.DUPLICATED -> Log.i("Skygear Signup", "Duplicated Username")
+      else -> Log.i("Skygear Signup", "onAuthFail: Fail with reason: ${error.message}")
+    }
+  }
+})
+```
 
 [`signupWithEmail`] sample code:
 
@@ -89,6 +109,23 @@ skygear.getAuth().signupWithEmail(email, password, new AuthResponseHandler() {
         }
     }
 });
+```
+```kotlin
+val email: String = getEmail() // get from user input
+val password: String = getPassword() // get from user input
+
+skygear.auth.signupWithEmail(email, password, object : AuthResponseHandler() {
+  override fun onAuthSuccess(user: Record) {
+    Log.i("Skygear Signup", "onAuthSuccess: Got token: ${user.getAccessToken()}")
+  }
+
+  override fun onAuthFail(error: Error) {
+    when (error.code) {
+      Error.Code.DUPLICATED -> Log.i("Skygear Signup", "Duplicated Email")
+      else -> Log.i("Skygear Signup", "onAuthFail: Fail with reason: ${error.message}")
+    }
+  }
+})
 ```
 
 It is common to add other data to user record when signing up, you can do that
@@ -118,6 +155,26 @@ skygear.getAuth().signupWithUsername(username, password, new AuthResponseHandler
     }
 });
 ```
+```kotlin
+val username: String = getUsername() // get from user input
+val password: String = getPassword() // get from user input
+val profile = HashMap<String, Any>()
+profile.put("interest", "reading")
+
+skygear.auth.signupWithUsername(username, password, object : AuthResponseHandler() {
+  override fun onAuthSuccess(user: Record) {
+    Log.i("Skygear Signup", "onAuthSuccess: Got token: ${user.getAccessToken()}")
+    Log.i("Skygear Signup", user.get("interest") as? String)
+  }
+
+  override fun onAuthFail(error: Error) {
+    when (error.code) {
+      Error.Code.DUPLICATED -> Log.i("Skygear Signup", "Duplicated Username")
+      else -> Log.i("Skygear Signup", "onAuthFail: Fail with reason: ${error.message}")
+    }
+  }
+})
+```
 
 ### Signing up anonymously
 
@@ -135,7 +192,7 @@ an anonymous user has no username, email, nor password. Because of the absence
 of username and email, the account will be lost when the access token is lost.
 
 ```java
-skygear.getAuth().signupAninymously(new AuthResponseHandler() {
+skygear.getAuth().signupAnonymously(new AuthResponseHandler() {
     @Override
     public void onAuthSuccess(Record user) {
         Log.i("Skygear Signup", "onAuthSuccess: Got token: " + user.getAccessToken());
@@ -146,6 +203,17 @@ skygear.getAuth().signupAninymously(new AuthResponseHandler() {
         Log.i("Skygear Signup", "onAuthFail: Fail with reason: " + error.getMessage());
     }
 });
+```
+```kotlin
+skygear.auth.signupAnonymously(object : AuthResponseHandler() {
+  override fun onAuthSuccess(user: Record) {
+    Log.i("Skygear Signup", "onAuthSuccess: Got token: ${user.getAccessToken()}")
+  }
+
+  override fun onAuthFail(error: Error) {
+    Log.i("Skygear Signup", "onAuthFail: Fail with reason: ${error.message}")
+  }
+})
 ```
 
 ## Logging in
@@ -185,6 +253,24 @@ skygear.getAuth().loginWithUsername(username, password, new AuthResponseHandler(
     }
 });
 ```
+```kotlin
+val username: String = getUsername() // get from user input
+val password: String = getPassword() // get from user input
+
+skygear.auth.loginWithUsername(username, password, object : AuthResponseHandler() {
+  override fun onAuthSuccess(user: Record) {
+    Log.i("Skygear Login", "onAuthSuccess: Got token: ${user.getAccessToken()}")
+  }
+
+  override fun onAuthFail(error: Error) {
+    when (error.code) {
+      Error.Code.INVALID_CREDENTIALS -> Log.i("Skygear Login", "Password incorrect")
+      Error.Code.RESOURCE_NOT_FOUND -> Log.i("Skygear Login", "No such username")
+      else -> Log.i("Skygear Login", "onAuthFail: Fail with reason: ${error.code}")
+    }
+  }
+})
+```
 
 ### Logging in using an email
 
@@ -210,6 +296,24 @@ skygear.getAuth().loginWithUsername(email, password, new AuthResponseHandler() {
     }
 });
 ```
+```kotlin
+val email: String = getEmail() // get from user input
+val password: String = getPassword() // get from user input
+
+skygear.auth.loginWithUsername(email, password, object : AuthResponseHandler() {
+  override fun onAuthSuccess(user: Record) {
+    Log.i("Skygear Login", "onAuthSuccess: Got token: ${user.getAccessToken()}")
+  }
+
+  override fun onAuthFail(error: Error) {
+    when (error.code) {
+      Error.Code.INVALID_CREDENTIALS -> Log.i("Skygear Login", "Password incorrect")
+      Error.Code.RESOURCE_NOT_FOUND -> Log.i("Skygear Login", "No such email")
+      else -> Log.i("Skygear Login", "onAuthFail: Fail with reason: ${error.code}")
+    }
+  }
+})
+```
 
 ## Logging out
 
@@ -231,6 +335,17 @@ skygear.getAuth().logout(new LogoutResponseHandler() {
     }
 });
 ```
+```kotlin
+skygear.auth.logout(object : LogoutResponseHandler() {
+  override fun onLogoutSuccess() {
+    Log.i("Skygear Logout", "Successfully logged out")
+  }
+
+  override fun onLogoutFail(error: Error) {
+    Log.i("Skygear Logout", "onLogoutFail: Fail with reason: ${error.message}")
+  }
+})
+```
 
 ## Getting the current User
 
@@ -243,6 +358,14 @@ Record currentUser = skygear.getAuth().getCurrentUser();
 Log.i("Skygear User", "User access token: " + currentUser.getAccessToken());
 Log.i("Skygear User", "User ID: " + currentUser.getId());
 Log.i("Skygear User", "Username: " + currentUser.getUsername());
+```
+```kotlin
+val skygear = Container.defaultContainer(this)
+val currentUser = skygear.auth.currentUser
+
+Log.i("Skygear User", "User access token: ${currentUser.getAccessToken()}")
+Log.i("Skygear User", "User ID: ${currentUser.id}")
+Log.i("Skygear User", "Username: ${currentUser.getUsername()}")
 ```
 
 If there is an authenticated user, it will give you a [`Record`] which
@@ -278,6 +401,19 @@ skygear.getAuth().whoami(new AuthResponseHandler() {
     }
 });
 ```
+```kotlin
+val skygear = Container.defaultContainer(this)
+
+skygear.auth.whoami(object : AuthResponseHandler() {
+  override fun onAuthSuccess(user: Record) {
+    Log.i("Skygear User", "I am ${user.getUsername()}")
+  }
+
+  override fun onAuthFail(error: Error) {
+    Log.i("Skygear User", "onAuthFail: Fail with reason: ${error.message}")
+  }
+})
+```
 
 ## Updating a user's username and email
 
@@ -312,6 +448,26 @@ skygear.getPublicDatabase().save(currentUser, new RecordSaveResponseHandler() {
     }
 })
 ```
+```kotlin
+val skygear = Container.defaultContainer(this)
+val currentUser = skygear.auth.currentUser
+currentUser.set("username", "new-username")
+skygear.publicDatabase.save(currentUser, object : RecordSaveResponseHandler() {
+  override fun onPartiallySaveSuccess(successRecords: MutableMap<String, Record>, errors: MutableMap<String, Error>) {}
+
+
+  override fun onSaveSuccess(users: Array<out Record>) {
+    users.forEach { user ->
+      Log.i("Skygear User", "Username ${user.get("username")}")
+      skygear.auth.whoami(null)
+    }
+  }
+
+  override fun onSaveFail(error: Error) {
+    Log.i("Skygear User", "onSaveFail: Fail with reason: ${error.message}")
+  }
+})
+```
 
 To change the email of the current user:
 
@@ -330,6 +486,25 @@ skygear.getPublicDatabase().save(currentUser, new RecordSaveResponseHandler() {
     public void onSaveFail(Error error) {
         Log.i("Skygear User", "onSaveFail: Fail with reason:" + error.getMessage());
     }
+})
+```
+```kotlin
+val skygear = Container.defaultContainer(this)
+val currentUser = skygear.auth.currentUser
+currentUser.set("email", "new-email")
+skygear.publicDatabase.save(currentUser, object : RecordSaveResponseHandler() {
+  override fun onPartiallySaveSuccess(successRecords: MutableMap<String, Record>, errors: MutableMap<String, Error>) {}
+
+  override fun onSaveSuccess(users: Array<out Record>) {
+    users.forEach { user ->
+      Log.i("Skygear User", "Email ${user.get("Email")}")
+      skygear.auth.whoami(null)
+    }
+  }
+
+  override fun onSaveFail(error: Error) {
+    Log.i("Skygear User", "onSaveFail: Fail with reason: ${error.message}")
+  }
 })
 ```
 
@@ -354,6 +529,27 @@ skygear.getPublicDatabase().save(currentUser, new RecordSaveResponseHandler() {
     }
 })
 ```
+```kotlin
+val skygear = Container.defaultContainer(this)
+val currentUser = skygear.auth.currentUser
+currentUser.set("username", "new-username")
+currentUser.set("email", "new-email")
+skygear.publicDatabase.save(currentUser, object : RecordSaveResponseHandler() {
+  override fun onPartiallySaveSuccess(successRecords: MutableMap<String, Record>, errors: MutableMap<String, Error>) {}
+
+  override fun onSaveSuccess(users: Array<out Record>) {
+    users.forEach { user ->
+      Log.i("Skygear User", "Username ${user.get("username")}")
+      Log.i("Skygear User", "Email ${user.get("Email")}")
+      skygear.auth.whoami(null)
+    }
+  }
+
+  override fun onSaveFail(error: Error) {
+    Log.i("Skygear User", "onSaveFail: Fail with reason: ${error.message}")
+  }
+})
+```
 
 ## Updating a user's password
 
@@ -368,13 +564,25 @@ Container skygear = Container.defaultContainer(this);
 skygear.getAuth().changePassword("new-password", "old-password", new AuthResponseHandler() {
     @Override
     public void onAuthSuccess(Record user) {
-        Log.i("Change Password", "onAuthSuccess: Changed password successfully.);
+        Log.i("Change Password", "onAuthSuccess: Changed password successfully.");
     }
 
     @Override
     public void onAuthFail(Error error) {
         Log.i("Change Password", "onAuthFail: Fail with reason: " + error.getMessage());
     }
+})
+```
+```kotlin
+val skygear = Container.defaultContainer(this)
+skygear.auth.changePassword("new-password", "old-password", object : AuthResponseHandler() {
+  override fun onAuthSuccess(user: Record) {
+    Log.i("Change Password", "onAuthSuccess: Changed password successfully.")
+  }
+
+  override fun onAuthFail(error: Error) {
+    Log.i("Change Password", "onAuthFail: Fail with reason: ${error.message}")
+  }
 })
 ```
 
