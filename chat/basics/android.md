@@ -433,7 +433,7 @@ chatContainer.fetchOutstandingMessageOperations(message, MessageOperation.Type.A
     @Override
     public void onSuccess(@Nullable List<MessageOperationOperation> operations) {
         for (MessageOperation operation : operations) {
-            chatContainer.retryMessageOperation(message, new MessageOperationCallback() {
+            chatContainer.retryMessageOperation(operation, new MessageOperationCallback() {
                 @Override
                 public void onSuccess(MessageOperation operation, Message message) {
                     Log.i("MyApplication", "Retried message operation: " + operation);
