@@ -9,7 +9,7 @@ Skygear allows you to authenticate users using their 3rd party accounts.
 
 ## Setup
 
-Currently following providers are supported. Please find the setup instruction below.
+Currently following providers are supported. Please find the setup instructions below:
 
 - [Google][google]
 - [Facebook][facebook]
@@ -18,7 +18,7 @@ Currently following providers are supported. Please find the setup instruction b
 
 ### Login with 3rd party account
 
-Skygear SDK supports two kinds of login flow.
+Skygear SDK supports two kinds of login flow:
 
 - [Login with web flow][login-with-web-flow]
 - [Login with access token][login-with-access-token]
@@ -27,7 +27,7 @@ Skygear SDK supports two kinds of login flow.
 
 1. Configure Callback URLs
 
-    The callback URL is URL of your application that skygear redirects after user authenticated. You can configure the app scheme by adding following lines into the `Info.plist` and replace `${YOUR_APP_SCHEME}` with your URL scheme.
+    The callback URL is URL of your application that Skygear redirects to after user is authenticated. You can configure the app scheme by adding following lines into the `Info.plist` and replace `${YOUR_APP_SCHEME}` with your URL scheme.
 
     ```xml
     <key>CFBundleURLTypes</key>
@@ -43,7 +43,7 @@ Skygear SDK supports two kinds of login flow.
     </array>
     ```
 
-    Skygear SDK will redirect back to your application after user authenticated through following link. For production app, please make sure your skygear portal *Allow redirect URLs* contains the below link. All URLs will be allowed, if *Allow redirect URLs* are empty.
+    Skygear SDK will redirect back to your application after user is authenticated through the following link. For production app, please make sure your Skygear portal *Allow redirect URLs* contains the below link. All URLs will be allowed, if *Allow redirect URLs* is empty.
 
     ```
     ${YOUR_APP_SCHEME}://skygeario.com/auth_handler
@@ -53,15 +53,15 @@ Skygear SDK supports two kinds of login flow.
 
 2. Trigger login with web flow
 
-    By calling `loginOAuthProvider`, Skygear SDK will complete the login flow by using browser login user.
+    By calling `loginOAuthProvider`, Skygear SDK will complete the login flow by using browser to login user.
 
     ```obj-c
     NSString *providerID = @"google"; // the provider name in lowercase
 
-    // scheme - you app scheme
-    // scope - optional, overwrite the portal default permissions if it is provided
     NSDictionary *options = @{
+        // scheme: you app scheme
         @"scheme": @"${YOUR_APP_SCHEME}",
+        // scope (optional): overwrite the portal default permissions if it is provided
         @"scope": @[@"email"]
     };
 
@@ -82,10 +82,10 @@ Skygear SDK supports two kinds of login flow.
     ```swift
     let providerID = "google"; // the provider name in lowercase
 
-    // scheme - you app scheme
-    // scope - optional, will overwrite portal default permissions if it is provided
     let options = [
+        // scheme: you app scheme
         "scheme": "skygearexample",
+        // scope (optional): will overwrite portal default permissions if it is provided
         "scope": ["email"]
     ] as [String: Any]
 
@@ -103,7 +103,7 @@ Skygear SDK supports two kinds of login flow.
 
 ## Login with access token
 
-If you obtain the access token by 3rd party provider SDK, you can login to provider as follows:
+If you obtain the access token from 3rd party provider SDK, you can login to provider as follows:
 
 ```obj-c
 NSString *providerID = @"google"; // the provider name in lowercase
@@ -144,10 +144,10 @@ Follow steps in [Login with web flow][login-with-web-flow] and call `linkOAuthPr
 ```obj-c
 NSString *providerID = @"google"; // the provider name in lowercase
 
-// scheme - you app scheme
-// scope - optional, will overwrite portal default permissions if it is provided
 NSDictionary *options = @{
+    // scheme: you app scheme
     @"scheme": @"${YOUR_APP_SCHEME}",
+    // scope (optional): will overwrite portal default permissions if it is provided
     @"scope": @[@"email"]
 };
 
@@ -168,10 +168,10 @@ SKYContainer *container = [SKYContainer defaultContainer];
 ```swift
 let providerID = "google"; // the provider name in lowercase
 
-// scheme - you app scheme
-// scope - optional, will overwrite portal default permissions if it is provided
 let options = [
+    // scheme: you app scheme
     "scheme": "skygearexample",
+    // scope (optional): will overwrite portal default permissions if it is provided
     "scope": ["email"]
 ] as [String: Any]
 
@@ -187,7 +187,7 @@ SKYContainer.default().auth.linkOAuthProvider(providerID, options: options) {(er
 
 ## Link current user with access token
 
-If you obtain the access token by 3rd party provider SDK, you can link the current user to provider as follows:
+If you obtain the access token from 3rd party provider SDK, you can link the current user to provider as follows:
 
 ```obj-c
 NSString *providerID = @"google"; // the provider name in lowercase
@@ -297,4 +297,3 @@ SKYContainer.default().auth.getOAuthProviderProfiles {(result, error) in
 [google]: /guides/auth/social-login/google/
 [linkedin]: /guides/auth/social-login/linkedin/
 [instagram]: /guides/auth/social-login/instagram/
-
