@@ -217,6 +217,9 @@ _read
 _message
 _status
 _type
+snake_case
+new_password
+user_id
 100m
 v0.12
 v1.5
@@ -236,7 +239,14 @@ skyapp
 asciiflow
 JSFiddle
 
+# database-hooks
+before_save
+after_save
+before_delete
+after_delete
+
 # chat
+event_type
 im
 SKYChatExtension
 createDirectConversationWithUserID
