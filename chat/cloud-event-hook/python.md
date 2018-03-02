@@ -143,14 +143,14 @@ def after_message_sent_hook(message, conversation, participants):
                                  user_id=current_user_id())
     message = deserialize_record(message)
     conversation = deserialize_record(conversation)
-    participants = [deserialize_record(p) for p in participants]
     other_user_ids = []
     current_user = None
-    for p in participants:
-        if p.id.key == current_user_id():
-            current_user = p
+    for record in participants:
+        participant = deserialize_record(record)
+        if participant.id.key == current_user_id():
+            current_user = participant
         else:
-            other_user_ids.append(p.id.key)
+            other_user_ids.append(participant.id.key)
     content = ''
     if 'body' in message:
         content = current_user['username'] + ": " + message['body']
