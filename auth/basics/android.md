@@ -63,9 +63,9 @@ skygear.getAuth().signupWithUsername(username, password, new AuthResponseHandler
   @Override
   public void onAuthFail(Error error) {
       if (error.getCode() == Error.Code.DUPLICATED) {
-          Log.i("Skygear Signup", "Duplicated Username");
+          Log.e("Skygear Signup", "Duplicated Username");
       } else {
-          Log.i("Skygear Signup", "onAuthFail: Fail with reason: " + error.getMessage());
+          Log.e("Skygear Signup", "onAuthFail: Fail with reason: " + error.getMessage());
       }
   }
 });
@@ -81,8 +81,8 @@ skygear.auth.signupWithUsername(username, password, object : AuthResponseHandler
 
   override fun onAuthFail(error: Error) {
     when (error.code) {
-      Error.Code.DUPLICATED -> Log.i("Skygear Signup", "Duplicated Username")
-      else -> Log.i("Skygear Signup", "onAuthFail: Fail with reason: ${error.message}")
+      Error.Code.DUPLICATED -> Log.e("Skygear Signup", "Duplicated Username")
+      else -> Log.e("Skygear Signup", "onAuthFail: Fail with reason: ${error.message}")
     }
   }
 })
@@ -103,9 +103,9 @@ skygear.getAuth().signupWithEmail(email, password, new AuthResponseHandler() {
   @Override
   public void onAuthFail(Error error) {
       if (error.getCode() == Error.Code.DUPLICATED) {
-          Log.i("Skygear Signup", "Duplicated Email");
+          Log.e("Skygear Signup", "Duplicated Email");
       } else {
-          Log.i("Skygear Signup", "onAuthFail: Fail with reason: " + error.getMessage());
+          Log.e("Skygear Signup", "onAuthFail: Fail with reason: " + error.getMessage());
       }
   }
 });
@@ -121,8 +121,8 @@ skygear.auth.signupWithEmail(email, password, object : AuthResponseHandler() {
 
   override fun onAuthFail(error: Error) {
     when (error.code) {
-      Error.Code.DUPLICATED -> Log.i("Skygear Signup", "Duplicated Email")
-      else -> Log.i("Skygear Signup", "onAuthFail: Fail with reason: ${error.message}")
+      Error.Code.DUPLICATED -> Log.e("Skygear Signup", "Duplicated Email")
+      else -> Log.e("Skygear Signup", "onAuthFail: Fail with reason: ${error.message}")
     }
   }
 })
@@ -148,9 +148,9 @@ skygear.getAuth().signupWithUsername(username, password, new AuthResponseHandler
   @Override
   public void onAuthFail(Error error) {
       if(error.getCode() == Error.Code.DUPLICATED) {
-          Log.i("Skygear Signup", "Duplicated Username");
+          Log.e("Skygear Signup", "Duplicated Username");
       } else {
-          Log.i("Skygear Signup", "onAuthFail: Fail with reason: " + error.getMessage());
+          Log.e("Skygear Signup", "onAuthFail: Fail with reason: " + error.getMessage());
       }
   }
 });
@@ -169,8 +169,8 @@ skygear.auth.signupWithUsername(username, password, object : AuthResponseHandler
 
   override fun onAuthFail(error: Error) {
     when (error.code) {
-      Error.Code.DUPLICATED -> Log.i("Skygear Signup", "Duplicated Username")
-      else -> Log.i("Skygear Signup", "onAuthFail: Fail with reason: ${error.message}")
+      Error.Code.DUPLICATED -> Log.e("Skygear Signup", "Duplicated Username")
+      else -> Log.e("Skygear Signup", "onAuthFail: Fail with reason: ${error.message}")
     }
   }
 })
@@ -200,7 +200,7 @@ skygear.getAuth().signupAnonymously(new AuthResponseHandler() {
 
   @Override
   public void onAuthFail(Error error) {
-      Log.i("Skygear Signup", "onAuthFail: Fail with reason: " + error.getMessage());
+      Log.e("Skygear Signup", "onAuthFail: Fail with reason: " + error.getMessage());
   }
 });
 ```
@@ -211,7 +211,7 @@ skygear.auth.signupAnonymously(object : AuthResponseHandler() {
   }
 
   override fun onAuthFail(error: Error) {
-    Log.i("Skygear Signup", "onAuthFail: Fail with reason: ${error.message}")
+    Log.e("Skygear Signup", "onAuthFail: Fail with reason: ${error.message}")
   }
 })
 ```
@@ -243,13 +243,13 @@ skygear.getAuth().loginWithUsername(username, password, new AuthResponseHandler(
 
   @Override
   public void onAuthFail(Error error) {
-      if (error.getCode() == Error.Code.INVALID_CREDENTIALS) {
-          Log.i("Skygear Login", "Password incorrect");
-      } else if {
-          (error.getCode() == Error.Code.RESOURCE_NOT_FOUND) Log.i("Skygear Login", "No such username");
-      } else {
-          Log.i("Skygear Login", "onAuthFail: Fail with reason: " + error.getCode());
-      }
+    if (error.getCode() == Error.Code.INVALID_CREDENTIALS) {
+      Log.e("Skygear Login", "Password incorrect");
+    } else if (error.getCode() == Error.Code.RESOURCE_NOT_FOUND) {
+      Log.e("Skygear Login", "No such username");
+    } else {
+      Log.e("Skygear Login", "onAuthFail: Fail with reason: " + error.getCode());
+    }
   }
 });
 ```
@@ -264,9 +264,9 @@ skygear.auth.loginWithUsername(username, password, object : AuthResponseHandler(
 
   override fun onAuthFail(error: Error) {
     when (error.code) {
-      Error.Code.INVALID_CREDENTIALS -> Log.i("Skygear Login", "Password incorrect")
-      Error.Code.RESOURCE_NOT_FOUND -> Log.i("Skygear Login", "No such username")
-      else -> Log.i("Skygear Login", "onAuthFail: Fail with reason: ${error.code}")
+      Error.Code.INVALID_CREDENTIALS -> Log.e("Skygear Login", "Password incorrect")
+      Error.Code.RESOURCE_NOT_FOUND -> Log.e("Skygear Login", "No such username")
+      else -> Log.e("Skygear Login", "onAuthFail: Fail with reason: ${error.code}")
     }
   }
 })
@@ -287,11 +287,11 @@ skygear.getAuth().loginWithUsername(email, password, new AuthResponseHandler() {
   @Override
   public void onAuthFail(Error error) {
       if (error.getCode() == Error.Code.INVALID_CREDENTIALS) {
-          Log.i("Skygear Login", "Password incorrect");
+          Log.e("Skygear Login", "Password incorrect");
       } else if (error.getCode() == Error.Code.RESOURCE_NOT_FOUND) {
-          Log.i("Skygear Login", "No such email");
+          Log.e("Skygear Login", "No such email");
       } else {
-          Log.i("Skygear Login", "onAuthFail: Fail with reason: " + error.getCode());
+          Log.e("Skygear Login", "onAuthFail: Fail with reason: " + error.getCode());
       }
   }
 });
@@ -307,9 +307,9 @@ skygear.auth.loginWithUsername(email, password, object : AuthResponseHandler() {
 
   override fun onAuthFail(error: Error) {
     when (error.code) {
-      Error.Code.INVALID_CREDENTIALS -> Log.i("Skygear Login", "Password incorrect")
-      Error.Code.RESOURCE_NOT_FOUND -> Log.i("Skygear Login", "No such email")
-      else -> Log.i("Skygear Login", "onAuthFail: Fail with reason: ${error.code}")
+      Error.Code.INVALID_CREDENTIALS -> Log.e("Skygear Login", "Password incorrect")
+      Error.Code.RESOURCE_NOT_FOUND -> Log.e("Skygear Login", "No such email")
+      else -> Log.e("Skygear Login", "onAuthFail: Fail with reason: ${error.code}")
     }
   }
 })
@@ -331,7 +331,7 @@ skygear.getAuth().logout(new LogoutResponseHandler() {
 
   @Override
   public void onLogoutFail(Error error) {
-      Log.i("Skygear Logout", "onLogoutFail: Fail with reason:" + error.getMessage());
+      Log.e("Skygear Logout", "onLogoutFail: Fail with reason:" + error.getMessage());
   }
 });
 ```
@@ -342,7 +342,7 @@ skygear.auth.logout(object : LogoutResponseHandler() {
   }
 
   override fun onLogoutFail(error: Error) {
-    Log.i("Skygear Logout", "onLogoutFail: Fail with reason: ${error.message}")
+    Log.e("Skygear Logout", "onLogoutFail: Fail with reason: ${error.message}")
   }
 })
 ```
@@ -397,7 +397,7 @@ skygear.getAuth().whoami(new AuthResponseHandler() {
 
   @Override
   public void onAuthFail(Error error) {
-      Log.i("Skygear User", "onAuthFail: Fail with reason:" + error.getMessage());
+      Log.e("Skygear User", "onAuthFail: Fail with reason:" + error.getMessage());
   }
 });
 ```
@@ -410,7 +410,7 @@ skygear.auth.whoami(object : AuthResponseHandler() {
   }
 
   override fun onAuthFail(error: Error) {
-    Log.i("Skygear User", "onAuthFail: Fail with reason: ${error.message}")
+    Log.e("Skygear User", "onAuthFail: Fail with reason: ${error.message}")
   }
 })
 ```
@@ -464,7 +464,7 @@ skygear.getPublicDatabase().save(currentUser, new RecordSaveResponseHandler() {
 
   @Override
   public void onSaveFail(Error error) {
-    Log.i("Skygear User", "onSaveFail: Fail with reason:" + error.getMessage());
+    Log.e("Skygear User", "onSaveFail: Fail with reason:" + error.getMessage());
   }
 });
 ```
@@ -492,7 +492,7 @@ skygear.publicDatabase.save(currentUser, object : RecordSaveResponseHandler() {
 
 
   override fun onSaveFail(error: Error) {
-    Log.i("Skygear User", "onSaveFail: Fail with reason: ${error.message}")
+    Log.e("Skygear User", "onSaveFail: Fail with reason: ${error.message}")
   }
 })
 ```
@@ -532,7 +532,7 @@ skygear.getPublicDatabase().save(currentUser, new RecordSaveResponseHandler() {
 
   @Override
   public void onSaveFail(Error error) {
-    Log.i("Skygear User", "onSaveFail: Fail with reason:" + error.getMessage());
+    Log.e("Skygear User", "onSaveFail: Fail with reason:" + error.getMessage());
   }
 });
 ```
@@ -559,7 +559,7 @@ skygear.publicDatabase.save(currentUser, object : RecordSaveResponseHandler() {
   }
 
   override fun onSaveFail(error: Error) {
-    Log.i("Skygear User", "onSaveFail: Fail with reason: ${error.message}")
+    Log.e("Skygear User", "onSaveFail: Fail with reason: ${error.message}")
   }
 })
 ```
@@ -607,7 +607,7 @@ skygear.getPublicDatabase().save(currentUser, new RecordSaveResponseHandler() {
 
   @Override
   public void onSaveFail(Error error) {
-    Log.i("Skygear User", "onSaveFail: Fail with reason:" + error.getMessage());
+    Log.e("Skygear User", "onSaveFail: Fail with reason:" + error.getMessage());
   }
 });
 ```
@@ -636,7 +636,7 @@ skygear.publicDatabase.save(currentUser, object : RecordSaveResponseHandler() {
   }
 
   override fun onSaveFail(error: Error) {
-    Log.i("Skygear User", "onSaveFail: Fail with reason: ${error.message}")
+    Log.e("Skygear User", "onSaveFail: Fail with reason: ${error.message}")
   }
 })
 ```
@@ -659,7 +659,7 @@ skygear.getAuth().changePassword("new-password", "old-password", new AuthRespons
 
   @Override
   public void onAuthFail(Error error) {
-      Log.i("Change Password", "onAuthFail: Fail with reason: " + error.getMessage());
+      Log.e("Change Password", "onAuthFail: Fail with reason: " + error.getMessage());
   }
 })
 ```
@@ -671,7 +671,7 @@ skygear.auth.changePassword("new-password", "old-password", object : AuthRespons
   }
 
   override fun onAuthFail(error: Error) {
-    Log.i("Change Password", "onAuthFail: Fail with reason: ${error.message}")
+    Log.e("Change Password", "onAuthFail: Fail with reason: ${error.message}")
   }
 })
 ```
