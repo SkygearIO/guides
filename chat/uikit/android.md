@@ -56,12 +56,14 @@ The following code block creates a `ConversationActivity` of a conversation `c`.
 
 ```java
 Intent intent = new Intent(this, ConversationActivity.class);
-intent.putExtra(ConversationActivity.ConversationIntentKey, c.toJson().toString()); // c is an instance of an io.skygear.plugins.chat.Conversation
+// c is an instance of an io.skygear.plugins.chat.Conversation
+intent.putExtra(ConversationActivity.ConversationIntentKey, c.toJson().toString());
 startActivity(intent);
 ```
 
 ```kotlin
 val intent = Intent(this, ConversationActivity::class.java)
+// c is an instance of an io.skygear.plugins.chat.Conversation
 intent.putExtra(ConversationActivity.ConversationIntentKey, c.toJson().toString())
 startActivity(intent)
 ```
@@ -248,6 +250,23 @@ val adapter = object : ConversationViewAdapter() {
     }
 }
 ```
+
+We can set the adapter via intent.
+
+```java
+Intent intent = new Intent(this, ConversationActivity.class);
+intent.putExtra(ConversationActivity.ConversationIntentKey, c.toJson().toString());
+intent.putExtra(ConversationActivity.ConversationViewAdapterIntentKey, adapter);
+startActivity(intent);
+```
+
+```kotlin
+val intent = Intent(this, ConversationActivity::class.java)
+intent.putExtra(ConversationActivity.ConversationIntentKey, c.toJson().toString())
+intent.putExtra(ConversationActivity.ConversationViewAdapterIntentKey, adapter)
+startActivity(intent)
+```
+
 
 ## Avatar Adapter
 Alternatively, an avatar can also be customized via defining a `AvatarAdapter`.

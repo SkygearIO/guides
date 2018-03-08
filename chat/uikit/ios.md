@@ -141,15 +141,13 @@ You can change `userNameField` and `userAvatarField` via `SKYChatUIModelCustomiz
 
 
 ```obj-c
-[[[SKYChatUIModelCustomization default]
-    updateWithUserNameField:@"name"]
-    updateWithUserAvatarField:@"profile_pic"];
+[[SKYChatUIModelCustomization default] updateWithUserNameField:@"name"];
+[[SKYChatUIModelCustomization default] updateWithUserAvatarField:@"profile_pic"];
 ```
 
 ```swift
-SKYChatUIModelCustomization.default()
-    .update(userNameField: "name")
-    .update(userAvatarField: "profile_pic")
+SKYChatUIModelCustomization.default().update(userNameField: "name")
+SKYChatUIModelCustomization.default().update(userAvatarField: "profile_pic")
 ```
 
 |Attribute|`Description`|Type|
@@ -211,10 +209,34 @@ optional func conversationViewController(
     dateStringAt indexPath: IndexPath) -> NSAttributedString
 ```
 
+- Example Code
+
+```obj-c
+- (NSAttributedString *) conversationViewController:(SKYChatConversationViewController *)controller dateStringAt:(NSIndexPath *)indexPath {
+    SKYMessage* msg = [self messageList] messageAt: indexPath.row];
+    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat: @"yyyy-MM-dd"];
+    NSString *dateString = [formatter stringFromDate: [msg creationDate]];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:dateString];
+    [attributedString setTextColor:[UIColor blueColor]];
+    return attributedString;
+}
+```
+
+```swift
+func conversationViewController(_ controller: SKYChatConversationViewController, dateStringAt indexPath: IndexPath) -> NSAttributedString {
+    let msg = controller.messageList.messageAt(indexPath.row)
+    let formatter = DateFormatter()
+    let attributedStringColor : NSDictionary = [NSForegroundColorAttributeName : UIColor.blue]
+    formatter.dateFormat = "yyyy-MM-dd"
+    return NSAttributedString(string: formatter.string(from: msg.creationDate()), attributes: attributedStringColor as? [String : AnyObject])
+}
+```
+
 - To enable or disable date
 
 ```obj-c
-(bool) conversationViewController:(SKYChatConversationViewController *)controller shouldShowDateAt:(NSIndexPath *)indexPath
+- (bool) conversationViewController:(SKYChatConversationViewController *)controller shouldShowDateAt:(NSIndexPath *)indexPath
 ```
 
 ```swift
