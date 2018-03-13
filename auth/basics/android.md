@@ -54,19 +54,21 @@ you can access the currently logged-in user using [`getCurrentUser`].
 String username = getUsername(); // get from user input
 String password = getPassword(); // get from user input
 
+final String accessToken = skygear.getAuth().getCurrentAccessToken();
+
 skygear.getAuth().signupWithUsername(username, password, new AuthResponseHandler() {
   @Override
   public void onAuthSuccess(Record user) {
-      Log.i("Skygear Signup", "onAuthSuccess: Got token: " + user.getAccessToken());
+    Log.i("Skygear Signup", "onAuthSuccess: Got token: " + accessToken);
   }
 
   @Override
   public void onAuthFail(Error error) {
-      if (error.getCode() == Error.Code.DUPLICATED) {
-          Log.e("Skygear Signup", "Duplicated Username");
-      } else {
-          Log.e("Skygear Signup", "onAuthFail: Fail with reason: " + error.getMessage());
-      }
+    if (error.getCode() == Error.Code.DUPLICATED) {
+      Log.e("Skygear Signup", "Duplicated Username");
+    } else {
+      Log.e("Skygear Signup", "onAuthFail: Fail with reason: " + error.getMessage());
+    }
   }
 });
 ```
@@ -74,9 +76,11 @@ skygear.getAuth().signupWithUsername(username, password, new AuthResponseHandler
 val username: String = getUsername() // get from user input
 val password: String = getPassword() // get from user input
 
+val accessToken = skygear.auth.currentAccessToken
+
 skygear.auth.signupWithUsername(username, password, object : AuthResponseHandler() {
   override fun onAuthSuccess(user: Record) {
-    Log.i("Skygear Signup", "onAuthSuccess: Got token: ${user.getAccessToken()}")
+    Log.i("Skygear Signup", "onAuthSuccess: Got token: $accessToken")
   }
 
   override fun onAuthFail(error: Error) {
@@ -94,19 +98,21 @@ skygear.auth.signupWithUsername(username, password, object : AuthResponseHandler
 String email = getEmail(); // get from user input
 String password = getPassword(); // get from user input
 
+final String accessToken = skygear.getAuth().getCurrentAccessToken();
+
 skygear.getAuth().signupWithEmail(email, password, new AuthResponseHandler() {
   @Override
   public void onAuthSuccess(Record user) {
-      Log.i("Skygear Signup", "onAuthSuccess: Got token: " + user.getAccessToken());
+    Log.i("Skygear Signup", "onAuthSuccess: Got token: " + accessToken);
   }
 
   @Override
   public void onAuthFail(Error error) {
-      if (error.getCode() == Error.Code.DUPLICATED) {
-          Log.e("Skygear Signup", "Duplicated Email");
-      } else {
-          Log.e("Skygear Signup", "onAuthFail: Fail with reason: " + error.getMessage());
-      }
+    if (error.getCode() == Error.Code.DUPLICATED) {
+      Log.e("Skygear Signup", "Duplicated Email");
+    } else {
+      Log.e("Skygear Signup", "onAuthFail: Fail with reason: " + error.getMessage());
+    }
   }
 });
 ```
@@ -114,9 +120,11 @@ skygear.getAuth().signupWithEmail(email, password, new AuthResponseHandler() {
 val email: String = getEmail() // get from user input
 val password: String = getPassword() // get from user input
 
+val accessToken = skygear.auth.currentAccessToken
+
 skygear.auth.signupWithEmail(email, password, object : AuthResponseHandler() {
   override fun onAuthSuccess(user: Record) {
-    Log.i("Skygear Signup", "onAuthSuccess: Got token: ${user.getAccessToken()}")
+    Log.i("Skygear Signup", "onAuthSuccess: Got token: $accessToken")
   }
 
   override fun onAuthFail(error: Error) {
@@ -138,20 +146,22 @@ String password = getPassword(); // get from user input
 Map<String, Object> profile = new HashMap<String, Object>();
 profile.put("interest", "reading");
 
-skygear.getAuth().signupWithUsername(username, password, new AuthResponseHandler() {
+final String accessToken = skygear.getAuth().getCurrentAccessToken();
+
+skygear.getAuth().signupWithUsername(username, password, profile, new AuthResponseHandler() {
   @Override
   public void onAuthSuccess(Record user) {
-      Log.i("Skygear Signup", "onAuthSuccess: Got token: " + user.getAccessToken());
-      Log.i("Skygear Signup", user.get("interest"));
+    Log.i("Skygear Signup", "onAuthSuccess: Got token: " + accessToken);
+    Log.i("Skygear Signup", "interest: " + user.get("interest"));
   }
 
   @Override
   public void onAuthFail(Error error) {
-      if(error.getCode() == Error.Code.DUPLICATED) {
-          Log.e("Skygear Signup", "Duplicated Username");
-      } else {
-          Log.e("Skygear Signup", "onAuthFail: Fail with reason: " + error.getMessage());
-      }
+    if(error.getCode() == Error.Code.DUPLICATED) {
+      Log.e("Skygear Signup", "Duplicated Username");
+    } else {
+      Log.e("Skygear Signup", "onAuthFail: Fail with reason: " + error.getMessage());
+    }
   }
 });
 ```
@@ -161,10 +171,12 @@ val password: String = getPassword() // get from user input
 val profile = HashMap<String, Any>()
 profile.put("interest", "reading")
 
-skygear.auth.signupWithUsername(username, password, object : AuthResponseHandler() {
+val accessToken = skygear.auth.currentAccessToken
+
+skygear.auth.signupWithUsername(username, password, profile, object : AuthResponseHandler() {
   override fun onAuthSuccess(user: Record) {
-    Log.i("Skygear Signup", "onAuthSuccess: Got token: ${user.getAccessToken()}")
-    Log.i("Skygear Signup", user.get("interest") as? String)
+    Log.i("Skygear Signup", "onAuthSuccess: Got token: $accessToken")
+    Log.i("Skygear Signup", "interest: ${user.get("interest")}")
   }
 
   override fun onAuthFail(error: Error) {
@@ -192,22 +204,26 @@ an anonymous user has no username, email, nor password. Because of the absence
 of username and email, the account will be lost when the access token is lost.
 
 ```java
+final String accessToken = skygear.getAuth().getCurrentAccessToken();
+
 skygear.getAuth().signupAnonymously(new AuthResponseHandler() {
   @Override
   public void onAuthSuccess(Record user) {
-      Log.i("Skygear Signup", "onAuthSuccess: Got token: " + user.getAccessToken());
+    Log.i("Skygear Signup", "onAuthSuccess: Got token: " + accessToken);
   }
 
   @Override
   public void onAuthFail(Error error) {
-      Log.e("Skygear Signup", "onAuthFail: Fail with reason: " + error.getMessage());
+    Log.e("Skygear Signup", "onAuthFail: Fail with reason: " + error.getMessage());
   }
 });
 ```
 ```kotlin
+val accessToken = skygear.auth.currentAccessToken
+
 skygear.auth.signupAnonymously(object : AuthResponseHandler() {
   override fun onAuthSuccess(user: Record) {
-    Log.i("Skygear Signup", "onAuthSuccess: Got token: ${user.getAccessToken()}")
+    Log.i("Skygear Signup", "onAuthSuccess: Got token: $accessToken")
   }
 
   override fun onAuthFail(error: Error) {
@@ -235,10 +251,12 @@ you can access the currently logged-in user using [`getCurrentUser`].
 String username = getUsername(); // get from user input
 String password = getPassword(); // get from user input
 
+final String accessToken = skygear.getAuth().getCurrentAccessToken();
+
 skygear.getAuth().loginWithUsername(username, password, new AuthResponseHandler() {
   @Override
   public void onAuthSuccess(Record user) {
-      Log.i("Skygear Login", "onAuthSuccess: Got token: " + user.getAccessToken());
+    Log.i("Skygear Login", "onAuthSuccess: Got token: " + accessToken);
   }
 
   @Override
@@ -257,9 +275,11 @@ skygear.getAuth().loginWithUsername(username, password, new AuthResponseHandler(
 val username: String = getUsername() // get from user input
 val password: String = getPassword() // get from user input
 
+val accessToken = skygear.auth.currentAccessToken
+
 skygear.auth.loginWithUsername(username, password, object : AuthResponseHandler() {
   override fun onAuthSuccess(user: Record) {
-    Log.i("Skygear Login", "onAuthSuccess: Got token: ${user.getAccessToken()}")
+    Log.i("Skygear Login", "onAuthSuccess: Got token: $accessToken")
   }
 
   override fun onAuthFail(error: Error) {
@@ -278,21 +298,23 @@ skygear.auth.loginWithUsername(username, password, object : AuthResponseHandler(
 String email = getEmail(); // get from user input
 String password = getPassword(); // get from user input
 
-skygear.getAuth().loginWithUsername(email, password, new AuthResponseHandler() {
+final String accessToken = skygear.getAuth().getCurrentAccessToken();
+
+skygear.getAuth().loginWithEmail(email, password, new AuthResponseHandler() {
   @Override
   public void onAuthSuccess(Record user) {
-      Log.i("Skygear Login", "onAuthSuccess: Got token: " + user.getAccessToken());
+    Log.i("Skygear Login", "onAuthSuccess: Got token: " + accessToken);
   }
 
   @Override
   public void onAuthFail(Error error) {
-      if (error.getCode() == Error.Code.INVALID_CREDENTIALS) {
-          Log.e("Skygear Login", "Password incorrect");
-      } else if (error.getCode() == Error.Code.RESOURCE_NOT_FOUND) {
-          Log.e("Skygear Login", "No such email");
-      } else {
-          Log.e("Skygear Login", "onAuthFail: Fail with reason: " + error.getCode());
-      }
+    if (error.getCode() == Error.Code.INVALID_CREDENTIALS) {
+      Log.e("Skygear Login", "Password incorrect");
+    } else if (error.getCode() == Error.Code.RESOURCE_NOT_FOUND) {
+      Log.e("Skygear Login", "No such email");
+    } else {
+      Log.e("Skygear Login", "onAuthFail: Fail with reason: " + error.getCode());
+    }
   }
 });
 ```
@@ -300,9 +322,11 @@ skygear.getAuth().loginWithUsername(email, password, new AuthResponseHandler() {
 val email: String = getEmail() // get from user input
 val password: String = getPassword() // get from user input
 
-skygear.auth.loginWithUsername(email, password, object : AuthResponseHandler() {
+val accessToken = skygear.auth.currentAccessToken
+
+skygear.auth.loginWithEmail(email, password, object : AuthResponseHandler() {
   override fun onAuthSuccess(user: Record) {
-    Log.i("Skygear Login", "onAuthSuccess: Got token: ${user.getAccessToken()}")
+    Log.i("Skygear Login", "onAuthSuccess: Got token: $accessToken")
   }
 
   override fun onAuthFail(error: Error) {
