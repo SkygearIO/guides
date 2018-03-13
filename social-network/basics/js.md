@@ -3,7 +3,9 @@ title: User Relations Basics
 ---
 
 [[toc]]
-
+:::caution
+This is an experimental feature. Official support not available.
+:::
 
 ## Introduction
 

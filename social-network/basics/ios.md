@@ -3,6 +3,9 @@ title: User Relations Basics
 ---
 
 [[toc]]
+:::caution
+This is an experimental feature. Official support not available.
+:::
 
 
 ## User Relations (Friends & Followers)
@@ -83,7 +86,7 @@ __weak SKYQueryOperation *weakOperation = operation;
 operation.queryRecordsCompletionBlock = ^(NSArray *users, SKYQueryCursor *queryCursor, NSError *error) {
     NSLog(@"Operation will have overallCount after execution, %d", weakOperation.overallCount);
 };
-    
+
 [[SKYContainer defaultContainer] addOperation:operation];
 ```
 
