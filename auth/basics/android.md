@@ -349,23 +349,26 @@ skygear.auth.logout(object : LogoutResponseHandler() {
 
 ## Getting the current User
 
-You can retrieve the current user from [`getCurrentUser`].
+You can retrieve the current user from [`getCurrentUser`]. Please make sure the
+current user has already signed up and had a username specified.
 
 ```java
 Container skygear = Container.defaultContainer(this);
 Record currentUser = skygear.getAuth().getCurrentUser();
+String accessToken = skygear.getAuth().getCurrentAccessToken();
 
-Log.i("Skygear User", "User access token: " + currentUser.getAccessToken());
+Log.i("Skygear User", "User access token: " + accessToken);
 Log.i("Skygear User", "User ID: " + currentUser.getId());
-Log.i("Skygear User", "Username: " + currentUser.getUsername());
+Log.i("Skygear User", "Username: " + currentUser.get("username"));
 ```
 ```kotlin
 val skygear = Container.defaultContainer(this)
 val currentUser = skygear.auth.currentUser
+val accessToken = skygear.auth.currentAccessToken
 
-Log.i("Skygear User", "User access token: ${currentUser.getAccessToken()}")
-Log.i("Skygear User", "User ID: ${currentUser.id}")
-Log.i("Skygear User", "Username: ${currentUser.getUsername()}")
+Log.i("Skygear User", "User access token: $accessToken")
+Log.i("Skygear User", "User ID: " + currentUser.id)
+Log.i("Skygear User", "Username: " + currentUser.get("username"))
 ```
 
 If there is an authenticated user, it will give you a [`Record`] which
@@ -392,12 +395,17 @@ Container skygear = Container.defaultContainer(this);
 skygear.getAuth().whoami(new AuthResponseHandler() {
   @Override
   public void onAuthSuccess(Record user) {
-      Log.i("Skygear User", "I am " + user.getUsername());
+    Object username = user.get("username");
+    if (username != null) {
+      Log.i("Skygear User", "I am " + username);
+    } else {
+      Log.w("Skygear User", "The user doesn't have a username!");
+    }
   }
 
   @Override
   public void onAuthFail(Error error) {
-      Log.e("Skygear User", "onAuthFail: Fail with reason:" + error.getMessage());
+    Log.e("Skygear User", "onAuthFail: Fail with reason:" + error.getMessage());
   }
 });
 ```
@@ -406,7 +414,12 @@ val skygear = Container.defaultContainer(this)
 
 skygear.auth.whoami(object : AuthResponseHandler() {
   override fun onAuthSuccess(user: Record) {
-    Log.i("Skygear User", "I am ${user.getUsername()}")
+    val username = user.get("username")
+    if (username != null) {
+      Log.i("Skygear User", "I am $username")
+    } else {
+      Log.w("Skygear User", "The user doesn't have a username!")
+    }
   }
 
   override fun onAuthFail(error: Error) {
