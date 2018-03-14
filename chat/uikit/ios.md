@@ -28,10 +28,10 @@ Please follow the steps at [Quick Start](https://docs.skygear.io/guides/chat/qui
 ### Step 2: Add Skygear Chat UIKit to your project
 
 
-1. add `pod 'SKYKitChat/UI', '~> 1.1'` in `Podfile`.
+1. add `pod 'SKYKitChat/UI', '~> 1.4'` in `Podfile`.
 
 ```bash
-pod 'SKYKitChat/UI', '~> 1.1'
+pod 'SKYKitChat/UI', '~> 1.4'
 ```
 
 2. Save your `Podfile` and run pod install in the terminal.

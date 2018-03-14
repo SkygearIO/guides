@@ -17,13 +17,13 @@ Follow the [iOS quick start](/guides/intro/quickstart/ios/) guide to add Skygear
 
 ```bash
 # This line should exists after you follow the iOS Quick Start guide
-pod 'SKYKit', '~> 1.1'
+pod 'SKYKit', '~> 1.4'
 
 # Add this line
-pod 'SKYKitChat', '~> 1.1'
+pod 'SKYKitChat', '~> 1.4'
 
 # If you want to use UIKit too, include this line:
-# pod 'SKYKitChat/UI', '~> 1.1'
+# pod 'SKYKitChat/UI', '~> 1.4'
 ```
 
 Note: It is not a must to specify the version number (i.e. 1.1). If you don't, your app will be using the latest SDK version automatically. Check out all the version numbers [here](https://github.com/SkygearIO/skygear-SDK-iOS/releases).
