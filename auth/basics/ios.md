@@ -238,7 +238,7 @@ SKYRecord *user = [[container auth] currentUser]; // if not logged in, it will b
 ```
 
 ```swift
-SKYRecord *user = SKYContainer.default().auth.currentUser // if not logged in, it will be null
+let user = SKYContainer.default().auth.currentUser // if not logged in, it will be null
 ```
 
 If there is an authenticated user, it will give you a [`SKYRecord`] which
@@ -258,15 +258,6 @@ Please be reminded that the [`currentUser`]
 
 To get the latest information of the current user,
 you can call [`getWhoAmIWithCompletionHandler:`]:
-
-``` javascript
-skygear.auth.whoami().then((user) => {
-    console.log(`Oh. I am ${user.username}.`);
-}, (err) => {
-    // Error handling...
-})
-
-```
 
 ```obj-c
 SKYContainer *container = [SKYContainer defaultContainer];

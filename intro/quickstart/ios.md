@@ -42,6 +42,8 @@ pod init
 pod 'SKYKit', '~> 1.1'
 ```
 
+Note: It is not a must to specify the version number (i.e. 1.1). If you don't, your app will be using the latest SDK version automatically. Check out all the version numbers [here](https://github.com/SkygearIO/skygear-SDK-iOS/releases).
+
 3. Lastly, run `pod install` in your terminal.
 
 ```bash

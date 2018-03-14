@@ -25,6 +25,9 @@ pod 'SKYKitChat', '~> 1.1'
 # If you want to use UIKit too, include this line:
 # pod 'SKYKitChat/UI', '~> 1.1'
 ```
+
+Note: It is not a must to specify the version number (i.e. 1.1). If you don't, your app will be using the latest SDK version automatically. Check out all the version numbers [here](https://github.com/SkygearIO/skygear-SDK-iOS/releases).
+
 2. Save your `Podfile` and run `pod install` in the terminal.
 
 ```bash
