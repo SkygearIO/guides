@@ -272,7 +272,7 @@ SKYContainer *container = [SKYContainer defaultContainer];
 ```
 
 ```swift
-SKYContainer.default().auth.setNewPassword("newPassword", oldPassword: "oldPassword") { (user, error) in
+SKYContainer.default().auth.getWhoAmI { (user, error) in
     if error != nil {
         // Error handling...
         return
