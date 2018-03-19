@@ -112,14 +112,32 @@ container.publicDB.delete({
 
 ## Database Queries
 
-In the [database hooks][doc-cloud-code-db-hooks], you receive the `db` argument
+In the [database hooks][doc-cloud-code-db-hooks], you receive the `pool` argument
 which is an instance of the [SQLAlchemy engine connection].
-In other types of cloud code functions, 
-you can obtain such an instance by importing `db` and call
-`db.conn()` from the `skygear.utils` module.
+In other types of cloud code functions,
+you can obtain such an instance by calling:
 
-(TODO)
+```javaScript
+const skygearCloud = require('skygear/cloud');
+const skygear = require('skygear');
 
+const container = new skygearCloud.CloudCodeContainer();
+container.apiKey = '<your-app-api-key>';
+container.endPoint = '<your-app-endpoint';
+
+skygearCloud.poolConnect(function (err,client,done) {
+  client.query(`SELECT * FROM app_sample.sampleTable WHERE x IN y`, function(err, res){
+    done();
+    if (err) {
+      console.log(err);
+      return;
+    }
+    console.log(res);
+  })
+  return;
+})
+```
+Note: you should fill in `app_sample.sampleTable` as `app_<your-app-name>.<table-name>`.
 
 ## PubSub Events
 
