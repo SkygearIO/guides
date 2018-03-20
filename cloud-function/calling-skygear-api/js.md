@@ -114,28 +114,27 @@ container.publicDB.delete({
 
 In the [database hooks][doc-cloud-code-db-hooks], you receive the `pool` argument
 which is an instance of the [SQLAlchemy engine connection].
-In other types of cloud code functions,
-you can obtain such an instance by calling:
+In other types of cloud code functions, you can obtain such an instance by calling `pool`.
+In this below example, we have connected to the Skygear database and made a raw SQL query in a lambda function.
 
 ```javaScript
 const skygearCloud = require('skygear/cloud');
-const skygear = require('skygear');
 
-const container = new skygearCloud.CloudCodeContainer();
-container.apiKey = '<your-app-api-key>';
-container.endPoint = '<your-app-endpoint';
-
-skygearCloud.poolConnect(function (err,client,done) {
-  client.query(`SELECT * FROM app_sample.sampleTable WHERE x IN y`, function(err, res){
-    done();
-    if (err) {
-      console.log(err);
-      return;
-    }
-    console.log(res);
-  })
-  return;
-})
+skygearCloud.op('queryX', () =>
+  skygearCloud.pool
+    .query(
+      `SELECT * FROM app_sample.sampleTable WHERE x='y'`
+    )
+    .then(res => {
+      return {
+        results: res.rows
+      };
+    })
+    .catch(err => {
+      console.error(err.stack);
+      return null;
+    })
+);
 ```
 Note: you should fill in `app_sample.sampleTable` as `app_<your-app-name>.<table-name>`.
 
