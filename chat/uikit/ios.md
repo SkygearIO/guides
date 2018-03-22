@@ -98,25 +98,22 @@ The following properties are supported.
 |---------|-----------|------|
 |`avatarBackgroundColor`|Background color of the avatar|Color|
 |`avatarTextColor`|Text color of the avatar|Color|
-|`userAvatarType`|Avatar Type, either showing initial of the username field or image|`SKYChatConversationViewUserAvatarType`, "initial" or "image"|
+|`avatarType`|Avatar Type, either showing initial of the username field or image|`SKYChatConversationViewUserAvatarType`, "`initial`" or "`image`"|
 |`avatarHiddenForIncomingMessages`|Hide incoming message avatar if true|Boolean, default False|
-|`avatarHiddenForOutgoingMessages`|Hide outgoing message avatar if true|Boolean, default True|
+|`avatarHiddenForOutgoingMessages`|Hide outgoing message avatar if true|Boolean, default False|
 
-### Status Text & Date Time Format
+### Background
 |Attribute|`Description`|Type|
 |---------|-----------|------|
-|`messageStatusDelivering`|Delivering text|String, default "Delivering"|
-|`messageStatusDelivered`|Delivered text|String, default "Delivered"|
-|`messageStatusSomeRead`|Some read text|String, default "Some Read"|
-|`messageStatusAllRead`|All read text|String, default "All Read"|
-|`messageSentFailed`|Failed text|String, default "Failed"|
-|`messageDateFormatter`|Message delivery time date formatter|`DateFormatter`|
+|`backgroundColor`|Background color of the conversation view|Color|
+|`backgroundImage`|Background image of the conversation view|UIImage|
+|`backgroundImageURL`|Remote background image of the conversation view|NSURL|
+
 
 ### Title
 |Attribute|`Description`|Type|
 |---------|-----------|------|
 |`titleDisplayType`|See below|`SKYChatConversationViewTitleOptions`|
-
 
 If `default` is set, then the title bar displays `title` field value of the conversation record. If  `otherParticipants` is set,
 then the title bar displays participants' usernames (excluding the current user) in the title bar.
@@ -129,12 +126,50 @@ then the title bar displays participants' usernames (excluding the current user)
 SKYChatConversationView.UICustomization().titleDisplayType = .otherParticipants
 ```
 
+### Date
+|Attribute|`Description`|Type|
+|---------|-----------|------|
+|`messageDateFormatter`|Message delivery time date formatter|`DateFormatter`|
 
 ### Message
 |`attribute`|description|type|
 |---------|-----------|------|
 |`messageSenderTextColor`|text color of the message sender|Color|
+|`incomingMessageBubbleColor`|Incoming messages background color|Color|
+|`outgoingMessageBubbleColor`|Outgoing messages background color|Color|
 
+
+### Feature On/Off
+|Attribute|`Description`|Type|
+|---------|-----------|------|
+|`cameraButtonShouldShow`|Show camera button if true|Bool, default: true|
+|`voiceMessageButtonShouldShow`|Show voice message button if true|Bool, default: true|
+|`typingIndicatorShouldShow`|Show typing indicators if true|Bool, default: true|
+|`messageStatusShouldShow`|Show message status if true|Bool, default: true|
+|`accessoryButtonShouldShow`|Show accessory button if true|Bool, default: true|
+
+
+## TextCustomization
+Texts such as message delivery status, date format and button label can be customized via `textCustomization`.
+
+```obj-c
+[[SKYChatConversationView UICustomization] textCustomization].sendButton = @"Send !";
+```
+
+```swift
+SKYChatConversationView.UICustomization().textCustomization.sendButton = "Send !"
+```
+
+Supported attributes:
+
+|Attribute|`Description`|Type|
+|---------|-----------|------|
+|`messageStatusDelivering`|Delivering text|String, default "Delivering"|
+|`messageStatusDelivered`|Delivered text|String, default "Delivered"|
+|`messageStatusSomeRead`|Some read text|String, default "Some Read"|
+|`messageStatusAllRead`|All read text|String, default "All Read"|
+|`messageSentFailed`|Failed text|String, default "Failed"|
+|`sendButton`|Send Button Text|String, default "Send"|
 
 ## SKYChatUIModelCustomization
 You can change `userNameField` and `userAvatarField` via `SKYChatUIModelCustomization.default()`.
@@ -154,43 +189,6 @@ SKYChatUIModelCustomization.default().update(userAvatarField: "profile_pic")
 |---------|-----------|------|
 |`userNameField`|Field name of the username in `user` table|String, default "username"|
 |`userAvatarField`|Field name of the avatar image in `user` table|String, default "avatar"|
-
-
-##### `SKYChatConversationViewController`''s properties
-
-You may also customize `SKYChatConversationViewController`s properties before it is displayed.
-
-```obj-c
-SKYChatConversationViewController* conversationViewController = [[SKYChatConversationViewController alloc] init];
-conversationViewController.conversation = c;
-conversationViewController.incomingMessageBubbleColor = [UIColor redColor];
-[self.navigationController pushViewController:conversationViewController animated:YES];
-```
-
-```swift
-let conversationViewController = SKYChatConversationViewController()
-conversationViewController.converation = c
-conversationViewController.incomingMessageBubbleColor = UIColor.red
-self.navigationController?.pushViewController(conversationViewController, animated: true)
-```
-
-
-##### Message
-|`attribute`|description|type|
-|---------|-----------|------|
-|`incomingMessageBubbleColor`|Incoming messages background color|Color|
-|`outgoingMessageBubbleColor`|Outgoing messages background color|Color|
-
-
-##### Feature On/Off
-|Attribute|`Description`|Type|
-|---------|-----------|------|
-|`shouldShowCameraButton`|Show camera button if true|Bool, default: True|
-|`shouldShowVoiceMessageButton`|Show voice message button if true|Bool, default: True|
-|`shouldShowTypingIndicator`|Show typing indicators if true|Bool, default: True|
-|`shouldShowMessageStatus`|Show message status if true|Bool, default: true|
-|`shouldShowAccessoryButton`|Show accessory button if true|Bool, default: true|
-
 
 
 ## Delegates
@@ -213,13 +211,13 @@ optional func conversationViewController(
 
 ```obj-c
 - (NSAttributedString *) conversationViewController:(SKYChatConversationViewController *)controller dateStringAt:(NSIndexPath *)indexPath {
-    SKYMessage* msg = [self messageList] messageAt: indexPath.row];
+    SKYMessage* msg = [[controller messageList] messageAt: indexPath.row];
     NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat: @"yyyy-MM-dd"];
     NSString *dateString = [formatter stringFromDate: [msg creationDate]];
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:dateString];
-    [attributedString setTextColor:[UIColor blueColor]];
-    return attributedString;
+    NSDictionary *attrs = @{ NSForegroundColorAttributeName : [UIColor blueColor] };
+    NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:dateString attributes:attrs];
+    return attrStr;
 }
 ```
 
@@ -305,6 +303,37 @@ optional func messageStatusShouldShowInConversationViewController(
     _ controller: SKYChatConversationViewController) -> Bool
 ```
 
+### Background Image
+
+- Background color
+
+```obj-c
+- (UIColor*) backgroundColorForConversationViewController:(SKYChatConversationViewController *)controller
+```
+
+
+```swift
+func backgroundColorForConversationViewController(_ controller: SKYChatConversationViewController) -> UIColor
+```
+
+- Background image
+```obj-c
+- (UIImage*) backgroundImageForConversationViewController:(SKYChatConversationViewController *)controller
+```
+
+```swift
+func backgroundImageForConversationViewController(_ controller: SKYChatConversationViewController) -> UIImage
+```
+
+- Remote background image
+```obj-c
+- (NSURL*) backgroundImageURLForConversationViewController:(SKYChatConversationViewController *)controller
+```
+
+```swift
+func backgroundImageURLForConversationViewController(_ controller: SKYChatConversationViewController)
+```
+
 ### Message sending hook
 
 - Before a message is sent
@@ -386,12 +415,12 @@ optional func conversationViewController(
 - After participant is fetched
 ```obj-c
 - (void) conversationViewController:(SKYChatConversationViewController *)controller
-         didFetchedParticipants:(NSArray<SKYRecord *> * _Nonnull)participants
+         didFetchParticipants:(NSArray<SKYParticipant *> * _Nonnull)participants
 ```
 
 ```swift
 optional func conversationViewController(_ controller: SKYChatConversationViewController,
-                                               didFetchedParticipants participants: [SKYRecord])
+                                               didFetchParticipants participants: [SKYParticipant])
 ```
 
 - After fetching is failed

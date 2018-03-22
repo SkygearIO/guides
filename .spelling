@@ -288,6 +288,9 @@ subscribeToUserChannelWithCompletion
 fetchTotalUnreadCount
 UICustomization
 SKYChatUIModelCustomization
+TextCustomization
+NSURL
+UIImage
 
 # jwt
 JWTs
