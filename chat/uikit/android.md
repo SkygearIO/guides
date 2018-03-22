@@ -176,61 +176,6 @@ intent.putExtra(ConversationActivity.TitleOptionIntentKey, ConversationTitleOpti
 startActivity(intent)
 ```
 
-
-
-## Event Hooks
-UIKit provides event hooks which enable you to implement specific feature when an event is fired.
-
-The below code segment passes a listener to a `ConversationActivity`.
-
-```kotlin
-i.putExtra(ConversationActivity.MessageFetchListenerIntentKey, object: MessageFetchListener {
-    override fun onBeforeMessageFetch(fragment: ConversationFragment) {
-
-    }
-
-    override fun onMessageFetchFailed(fragment: ConversationFragment, error: Error) {
-        Toast.makeText(fragment.activity, "Message Loading Failed", Toast.LENGTH_LONG).show()
-    }
-
-    override fun onMessageFetchSuccess(fragment: ConversationFragment, messages: List<Message>, isCached: Boolean) {
-        Toast.makeText(fragment.activity, "Message Loaded", Toast.LENGTH_LONG).show()
-    }
-})
-```
-
-
-
-### `MessageSentListener`
-`MessageSentListener` is an interface for callbacks to be involved when a message is sent.
-
-- `onBeforeMessageSent` is called before a message is sent to Skygear Chat server.
-- `onMessageSentSuccess` is called after a message is sent.
-- `onMessageSentFailed` is called after a message is failed.
-
-
-### `MessageFetchListener`
-`MessageFetchListener` is an interface for callbacks to be involved when messages of a conversation are fetched.
-
-- `onBeforeMessageFetch ` is called before messages are fetched.
-- `onMessageFetchSuccess` is called after messages are fetched.
-- `onMessageFetchFailed ` is called after fetching is failed.
-
-### `ConnectionListener`
-`ConnectionListener` is an interface for callbacks to be involved when connection to server is changed.
-
-- `onClose` is called when pubsub connection is closed.
-- `onOpen` is called when pubsub connection is established.
-
-### Intent Keys for each type of the listeners
-
-|Key|Listener|
-|---|--------|
-|`MessageSentListenerIntentKey`|MessageSentListener|
-|`MessageFetchListenerIntentKey`|MessageFetchListener|
-|`ConnectionListenerIntentKey`|ConnectionListener|
-
-
 ## Adapter
 UIKit provides `ConversationViewAdapter` to enable remote HTTP background image in `ConversationActivity`.
 
