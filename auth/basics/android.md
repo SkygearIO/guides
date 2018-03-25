@@ -54,11 +54,10 @@ you can access the currently logged-in user using [`getCurrentUser`].
 String username = getUsername(); // get from user input
 String password = getPassword(); // get from user input
 
-final String accessToken = skygear.getAuth().getCurrentAccessToken();
-
 skygear.getAuth().signupWithUsername(username, password, new AuthResponseHandler() {
   @Override
   public void onAuthSuccess(Record user) {
+    String accessToken = skygear.getAuth().getCurrentAccessToken();
     Log.i("Skygear Signup", "onAuthSuccess: Got token: " + accessToken);
   }
 
@@ -76,10 +75,9 @@ skygear.getAuth().signupWithUsername(username, password, new AuthResponseHandler
 val username: String = getUsername() // get from user input
 val password: String = getPassword() // get from user input
 
-val accessToken = skygear.auth.currentAccessToken
-
 skygear.auth.signupWithUsername(username, password, object : AuthResponseHandler() {
   override fun onAuthSuccess(user: Record) {
+    val accessToken = skygear.auth.currentAccessToken
     Log.i("Skygear Signup", "onAuthSuccess: Got token: $accessToken")
   }
 
@@ -98,11 +96,10 @@ skygear.auth.signupWithUsername(username, password, object : AuthResponseHandler
 String email = getEmail(); // get from user input
 String password = getPassword(); // get from user input
 
-final String accessToken = skygear.getAuth().getCurrentAccessToken();
-
 skygear.getAuth().signupWithEmail(email, password, new AuthResponseHandler() {
   @Override
   public void onAuthSuccess(Record user) {
+    String accessToken = skygear.getAuth().getCurrentAccessToken();
     Log.i("Skygear Signup", "onAuthSuccess: Got token: " + accessToken);
   }
 
@@ -120,10 +117,9 @@ skygear.getAuth().signupWithEmail(email, password, new AuthResponseHandler() {
 val email: String = getEmail() // get from user input
 val password: String = getPassword() // get from user input
 
-val accessToken = skygear.auth.currentAccessToken
-
 skygear.auth.signupWithEmail(email, password, object : AuthResponseHandler() {
   override fun onAuthSuccess(user: Record) {
+    val accessToken = skygear.auth.currentAccessToken
     Log.i("Skygear Signup", "onAuthSuccess: Got token: $accessToken")
   }
 
@@ -146,11 +142,10 @@ String password = getPassword(); // get from user input
 Map<String, Object> profile = new HashMap<String, Object>();
 profile.put("interest", "reading");
 
-final String accessToken = skygear.getAuth().getCurrentAccessToken();
-
 skygear.getAuth().signupWithUsername(username, password, profile, new AuthResponseHandler() {
   @Override
   public void onAuthSuccess(Record user) {
+    String accessToken = skygear.getAuth().getCurrentAccessToken();
     Log.i("Skygear Signup", "onAuthSuccess: Got token: " + accessToken);
     Log.i("Skygear Signup", "interest: " + user.get("interest"));
   }
@@ -171,10 +166,9 @@ val password: String = getPassword() // get from user input
 val profile = HashMap<String, Any>()
 profile.put("interest", "reading")
 
-val accessToken = skygear.auth.currentAccessToken
-
 skygear.auth.signupWithUsername(username, password, profile, object : AuthResponseHandler() {
   override fun onAuthSuccess(user: Record) {
+    val accessToken = skygear.auth.currentAccessToken
     Log.i("Skygear Signup", "onAuthSuccess: Got token: $accessToken")
     Log.i("Skygear Signup", "interest: ${user.get("interest")}")
   }
@@ -204,11 +198,10 @@ an anonymous user has no username, email, nor password. Because of the absence
 of username and email, the account will be lost when the access token is lost.
 
 ```java
-final String accessToken = skygear.getAuth().getCurrentAccessToken();
-
 skygear.getAuth().signupAnonymously(new AuthResponseHandler() {
   @Override
   public void onAuthSuccess(Record user) {
+    String accessToken = skygear.getAuth().getCurrentAccessToken();
     Log.i("Skygear Signup", "onAuthSuccess: Got token: " + accessToken);
   }
 
@@ -219,10 +212,9 @@ skygear.getAuth().signupAnonymously(new AuthResponseHandler() {
 });
 ```
 ```kotlin
-val accessToken = skygear.auth.currentAccessToken
-
 skygear.auth.signupAnonymously(object : AuthResponseHandler() {
   override fun onAuthSuccess(user: Record) {
+    val accessToken = skygear.auth.currentAccessToken
     Log.i("Skygear Signup", "onAuthSuccess: Got token: $accessToken")
   }
 
@@ -251,11 +243,10 @@ you can access the currently logged-in user using [`getCurrentUser`].
 String username = getUsername(); // get from user input
 String password = getPassword(); // get from user input
 
-final String accessToken = skygear.getAuth().getCurrentAccessToken();
-
 skygear.getAuth().loginWithUsername(username, password, new AuthResponseHandler() {
   @Override
   public void onAuthSuccess(Record user) {
+    String accessToken = skygear.getAuth().getCurrentAccessToken();
     Log.i("Skygear Login", "onAuthSuccess: Got token: " + accessToken);
   }
 
@@ -275,10 +266,9 @@ skygear.getAuth().loginWithUsername(username, password, new AuthResponseHandler(
 val username: String = getUsername() // get from user input
 val password: String = getPassword() // get from user input
 
-val accessToken = skygear.auth.currentAccessToken
-
 skygear.auth.loginWithUsername(username, password, object : AuthResponseHandler() {
   override fun onAuthSuccess(user: Record) {
+    val accessToken = skygear.auth.currentAccessToken
     Log.i("Skygear Login", "onAuthSuccess: Got token: $accessToken")
   }
 
@@ -298,11 +288,10 @@ skygear.auth.loginWithUsername(username, password, object : AuthResponseHandler(
 String email = getEmail(); // get from user input
 String password = getPassword(); // get from user input
 
-final String accessToken = skygear.getAuth().getCurrentAccessToken();
-
 skygear.getAuth().loginWithEmail(email, password, new AuthResponseHandler() {
   @Override
   public void onAuthSuccess(Record user) {
+    String accessToken = skygear.getAuth().getCurrentAccessToken();
     Log.i("Skygear Login", "onAuthSuccess: Got token: " + accessToken);
   }
 
@@ -322,10 +311,9 @@ skygear.getAuth().loginWithEmail(email, password, new AuthResponseHandler() {
 val email: String = getEmail() // get from user input
 val password: String = getPassword() // get from user input
 
-val accessToken = skygear.auth.currentAccessToken
-
 skygear.auth.loginWithEmail(email, password, object : AuthResponseHandler() {
   override fun onAuthSuccess(user: Record) {
+    val accessToken = skygear.auth.currentAccessToken
     Log.i("Skygear Login", "onAuthSuccess: Got token: $accessToken")
   }
 
