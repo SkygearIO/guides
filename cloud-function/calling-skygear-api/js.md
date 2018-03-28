@@ -129,11 +129,11 @@ skygearCloud.op('queryX', () =>
       return {
         results: res.rows
       };
-    });
+    })
     .catch(err => {
       console.error(err.stack);
-      return null;
-    });
+      return Promise.reject('Fail to execute the sql');
+    })
 );
 ```
 Note: you should fill in `app_sample.sampleTable` as `app_<your-app-name>.<table-name>`.
