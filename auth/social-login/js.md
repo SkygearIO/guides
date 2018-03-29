@@ -124,7 +124,7 @@ After calling `loginOAuthProviderWithRedirect`, user will be redirected to the 3
 Then you can retrieve the auth result by `getLinkRedirectResult` when your page loads.
 
 ```javascript
-skygear.auth.getLRedirectResult().then(function (result) {
+skygear.auth.getLinkRedirectResult().then(function (result) {
   if (result) {
     console.info('Link provider success');
   } else {
