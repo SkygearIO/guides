@@ -13,6 +13,9 @@ The global `Container` named `skygear` will be used throughout the examples in t
 ```java
 Container skygear = Container.defaultContainer(this); // Global Container
 ```
+```kotlin
+val skygear = Container.defaultContainer(this)
+```
 
 ## Basic concept
 
@@ -20,7 +23,7 @@ Container skygear = Container.defaultContainer(this); // Global Container
 
 Skygear handles the user login session using an access token stored in the local storage.
 
-Each user, when logged in, will be given a generated String called `Access Token`, which is like a identification card for the user. It is used by the Skygear server to identify who you are.
+Each user, when logged in, will be given a generated String called `Access Token`, which is like an identification card for the user. It is used by the Skygear server to identify who you are.
 
 The method `whoami` illustrates the usage of `Access Token`. When it is called, Skygear will send the current `Access Token` to the server and the server will return a `User` object.
 
@@ -52,20 +55,39 @@ String username = getUsername(); // get from user input
 String password = getPassword(); // get from user input
 
 skygear.getAuth().signupWithUsername(username, password, new AuthResponseHandler() {
-    @Override
-    public void onAuthSuccess(Record user) {
-        Log.i("Skygear Signup", "onAuthSuccess: Got token: " + user.getAccessToken());
-    }
+  @Override
+  public void onAuthSuccess(Record user) {
+    String accessToken = skygear.getAuth().getCurrentAccessToken();
+    Log.i("Skygear Signup", "onAuthSuccess: Got token: " + accessToken);
+  }
 
-    @Override
-    public void onAuthFail(Error error) {
-        if (error.getCode() == Error.Code.DUPLICATED) {
-            Log.i("Skygear Signup", "Duplicated Username");
-        } else {
-            Log.i("Skygear Signup", "onAuthFail: Fail with reason: " + error.getMessage());
-        }
+  @Override
+  public void onAuthFail(Error error) {
+    if (error.getCode() == Error.Code.DUPLICATED) {
+      Log.e("Skygear Signup", "Duplicated Username");
+    } else {
+      Log.e("Skygear Signup", "onAuthFail: Fail with reason: " + error.getMessage());
     }
+  }
 });
+```
+```kotlin
+val username: String = getUsername() // get from user input
+val password: String = getPassword() // get from user input
+
+skygear.auth.signupWithUsername(username, password, object : AuthResponseHandler() {
+  override fun onAuthSuccess(user: Record) {
+    val accessToken = skygear.auth.currentAccessToken
+    Log.i("Skygear Signup", "onAuthSuccess: Got token: $accessToken")
+  }
+
+  override fun onAuthFail(error: Error) {
+    when (error.code) {
+      Error.Code.DUPLICATED -> Log.e("Skygear Signup", "Duplicated Username")
+      else -> Log.e("Skygear Signup", "onAuthFail: Fail with reason: ${error.message}")
+    }
+  }
+})
 ```
 
 [`signupWithEmail`] sample code:
@@ -75,20 +97,39 @@ String email = getEmail(); // get from user input
 String password = getPassword(); // get from user input
 
 skygear.getAuth().signupWithEmail(email, password, new AuthResponseHandler() {
-    @Override
-    public void onAuthSuccess(Record user) {
-        Log.i("Skygear Signup", "onAuthSuccess: Got token: " + user.getAccessToken());
-    }
+  @Override
+  public void onAuthSuccess(Record user) {
+    String accessToken = skygear.getAuth().getCurrentAccessToken();
+    Log.i("Skygear Signup", "onAuthSuccess: Got token: " + accessToken);
+  }
 
-    @Override
-    public void onAuthFail(Error error) {
-        if (error.getCode() == Error.Code.DUPLICATED) {
-            Log.i("Skygear Signup", "Duplicated Email");
-        } else {
-            Log.i("Skygear Signup", "onAuthFail: Fail with reason: " + error.getMessage());
-        }
+  @Override
+  public void onAuthFail(Error error) {
+    if (error.getCode() == Error.Code.DUPLICATED) {
+      Log.e("Skygear Signup", "Duplicated Email");
+    } else {
+      Log.e("Skygear Signup", "onAuthFail: Fail with reason: " + error.getMessage());
     }
+  }
 });
+```
+```kotlin
+val email: String = getEmail() // get from user input
+val password: String = getPassword() // get from user input
+
+skygear.auth.signupWithEmail(email, password, object : AuthResponseHandler() {
+  override fun onAuthSuccess(user: Record) {
+    val accessToken = skygear.auth.currentAccessToken
+    Log.i("Skygear Signup", "onAuthSuccess: Got token: $accessToken")
+  }
+
+  override fun onAuthFail(error: Error) {
+    when (error.code) {
+      Error.Code.DUPLICATED -> Log.e("Skygear Signup", "Duplicated Email")
+      else -> Log.e("Skygear Signup", "onAuthFail: Fail with reason: ${error.message}")
+    }
+  }
+})
 ```
 
 It is common to add other data to user record when signing up, you can do that
@@ -101,22 +142,44 @@ String password = getPassword(); // get from user input
 Map<String, Object> profile = new HashMap<String, Object>();
 profile.put("interest", "reading");
 
-skygear.getAuth().signupWithUsername(username, password, new AuthResponseHandler() {
-    @Override
-    public void onAuthSuccess(Record user) {
-        Log.i("Skygear Signup", "onAuthSuccess: Got token: " + user.getAccessToken());
-        Log.i("Skygear Signup", user.get("interest"));
-    }
+skygear.getAuth().signupWithUsername(username, password, profile, new AuthResponseHandler() {
+  @Override
+  public void onAuthSuccess(Record user) {
+    String accessToken = skygear.getAuth().getCurrentAccessToken();
+    Log.i("Skygear Signup", "onAuthSuccess: Got token: " + accessToken);
+    Log.i("Skygear Signup", "interest: " + user.get("interest"));
+  }
 
-    @Override
-    public void onAuthFail(Error error) {
-        if(error.getCode() == Error.Code.DUPLICATED) {
-            Log.i("Skygear Signup", "Duplicated Username");
-        } else {
-            Log.i("Skygear Signup", "onAuthFail: Fail with reason: " + error.getMessage());
-        }
+  @Override
+  public void onAuthFail(Error error) {
+    if(error.getCode() == Error.Code.DUPLICATED) {
+      Log.e("Skygear Signup", "Duplicated Username");
+    } else {
+      Log.e("Skygear Signup", "onAuthFail: Fail with reason: " + error.getMessage());
     }
+  }
 });
+```
+```kotlin
+val username: String = getUsername() // get from user input
+val password: String = getPassword() // get from user input
+val profile = HashMap<String, Any>()
+profile.put("interest", "reading")
+
+skygear.auth.signupWithUsername(username, password, profile, object : AuthResponseHandler() {
+  override fun onAuthSuccess(user: Record) {
+    val accessToken = skygear.auth.currentAccessToken
+    Log.i("Skygear Signup", "onAuthSuccess: Got token: $accessToken")
+    Log.i("Skygear Signup", "interest: ${user.get("interest")}")
+  }
+
+  override fun onAuthFail(error: Error) {
+    when (error.code) {
+      Error.Code.DUPLICATED -> Log.e("Skygear Signup", "Duplicated Username")
+      else -> Log.e("Skygear Signup", "onAuthFail: Fail with reason: ${error.message}")
+    }
+  }
+})
 ```
 
 ### Signing up anonymously
@@ -135,17 +198,30 @@ an anonymous user has no username, email, nor password. Because of the absence
 of username and email, the account will be lost when the access token is lost.
 
 ```java
-skygear.getAuth().signupAninymously(new AuthResponseHandler() {
-    @Override
-    public void onAuthSuccess(Record user) {
-        Log.i("Skygear Signup", "onAuthSuccess: Got token: " + user.getAccessToken());
-    }
+skygear.getAuth().signupAnonymously(new AuthResponseHandler() {
+  @Override
+  public void onAuthSuccess(Record user) {
+    String accessToken = skygear.getAuth().getCurrentAccessToken();
+    Log.i("Skygear Signup", "onAuthSuccess: Got token: " + accessToken);
+  }
 
-    @Override
-    public void onAuthFail(Error error) {
-        Log.i("Skygear Signup", "onAuthFail: Fail with reason: " + error.getMessage());
-    }
+  @Override
+  public void onAuthFail(Error error) {
+    Log.e("Skygear Signup", "onAuthFail: Fail with reason: " + error.getMessage());
+  }
 });
+```
+```kotlin
+skygear.auth.signupAnonymously(object : AuthResponseHandler() {
+  override fun onAuthSuccess(user: Record) {
+    val accessToken = skygear.auth.currentAccessToken
+    Log.i("Skygear Signup", "onAuthSuccess: Got token: $accessToken")
+  }
+
+  override fun onAuthFail(error: Error) {
+    Log.e("Skygear Signup", "onAuthFail: Fail with reason: ${error.message}")
+  }
+})
 ```
 
 ## Logging in
@@ -168,22 +244,42 @@ String username = getUsername(); // get from user input
 String password = getPassword(); // get from user input
 
 skygear.getAuth().loginWithUsername(username, password, new AuthResponseHandler() {
-    @Override
-    public void onAuthSuccess(Record user) {
-        Log.i("Skygear Login", "onAuthSuccess: Got token: " + user.getAccessToken());
-    }
+  @Override
+  public void onAuthSuccess(Record user) {
+    String accessToken = skygear.getAuth().getCurrentAccessToken();
+    Log.i("Skygear Login", "onAuthSuccess: Got token: " + accessToken);
+  }
 
-    @Override
-    public void onAuthFail(Error error) {
-        if (error.getCode() == Error.Code.INVALID_CREDENTIALS) {
-            Log.i("Skygear Login", "Password incorrect");
-        } else if {
-            (error.getCode() == Error.Code.RESOURCE_NOT_FOUND) Log.i("Skygear Login", "No such username");
-        } else {
-            Log.i("Skygear Login", "onAuthFail: Fail with reason: " + error.getCode());
-        }
+  @Override
+  public void onAuthFail(Error error) {
+    if (error.getCode() == Error.Code.INVALID_CREDENTIALS) {
+      Log.e("Skygear Login", "Password incorrect");
+    } else if (error.getCode() == Error.Code.RESOURCE_NOT_FOUND) {
+      Log.e("Skygear Login", "No such username");
+    } else {
+      Log.e("Skygear Login", "onAuthFail: Fail with reason: " + error.getCode());
     }
+  }
 });
+```
+```kotlin
+val username: String = getUsername() // get from user input
+val password: String = getPassword() // get from user input
+
+skygear.auth.loginWithUsername(username, password, object : AuthResponseHandler() {
+  override fun onAuthSuccess(user: Record) {
+    val accessToken = skygear.auth.currentAccessToken
+    Log.i("Skygear Login", "onAuthSuccess: Got token: $accessToken")
+  }
+
+  override fun onAuthFail(error: Error) {
+    when (error.code) {
+      Error.Code.INVALID_CREDENTIALS -> Log.e("Skygear Login", "Password incorrect")
+      Error.Code.RESOURCE_NOT_FOUND -> Log.e("Skygear Login", "No such username")
+      else -> Log.e("Skygear Login", "onAuthFail: Fail with reason: ${error.code}")
+    }
+  }
+})
 ```
 
 ### Logging in using an email
@@ -192,23 +288,43 @@ skygear.getAuth().loginWithUsername(username, password, new AuthResponseHandler(
 String email = getEmail(); // get from user input
 String password = getPassword(); // get from user input
 
-skygear.getAuth().loginWithUsername(email, password, new AuthResponseHandler() {
-    @Override
-    public void onAuthSuccess(Record user) {
-        Log.i("Skygear Login", "onAuthSuccess: Got token: " + user.getAccessToken());
-    }
+skygear.getAuth().loginWithEmail(email, password, new AuthResponseHandler() {
+  @Override
+  public void onAuthSuccess(Record user) {
+    String accessToken = skygear.getAuth().getCurrentAccessToken();
+    Log.i("Skygear Login", "onAuthSuccess: Got token: " + accessToken);
+  }
 
-    @Override
-    public void onAuthFail(Error error) {
-        if (error.getCode() == Error.Code.INVALID_CREDENTIALS) {
-            Log.i("Skygear Login", "Password incorrect");
-        } else if (error.getCode() == Error.Code.RESOURCE_NOT_FOUND) {
-            Log.i("Skygear Login", "No such email");
-        } else {
-            Log.i("Skygear Login", "onAuthFail: Fail with reason: " + error.getCode());
-        }
+  @Override
+  public void onAuthFail(Error error) {
+    if (error.getCode() == Error.Code.INVALID_CREDENTIALS) {
+      Log.e("Skygear Login", "Password incorrect");
+    } else if (error.getCode() == Error.Code.RESOURCE_NOT_FOUND) {
+      Log.e("Skygear Login", "No such email");
+    } else {
+      Log.e("Skygear Login", "onAuthFail: Fail with reason: " + error.getCode());
     }
+  }
 });
+```
+```kotlin
+val email: String = getEmail() // get from user input
+val password: String = getPassword() // get from user input
+
+skygear.auth.loginWithEmail(email, password, object : AuthResponseHandler() {
+  override fun onAuthSuccess(user: Record) {
+    val accessToken = skygear.auth.currentAccessToken
+    Log.i("Skygear Login", "onAuthSuccess: Got token: $accessToken")
+  }
+
+  override fun onAuthFail(error: Error) {
+    when (error.code) {
+      Error.Code.INVALID_CREDENTIALS -> Log.e("Skygear Login", "Password incorrect")
+      Error.Code.RESOURCE_NOT_FOUND -> Log.e("Skygear Login", "No such email")
+      else -> Log.e("Skygear Login", "onAuthFail: Fail with reason: ${error.code}")
+    }
+  }
+})
 ```
 
 ## Logging out
@@ -220,29 +336,51 @@ from the local storage.
 
 ```java
 skygear.getAuth().logout(new LogoutResponseHandler() {
-    @Override
-    public void onLogoutSuccess() {
-       Log.i("Skygear Logout", "Successfully logged out");
-    }
+  @Override
+  public void onLogoutSuccess() {
+     Log.i("Skygear Logout", "Successfully logged out");
+  }
 
-    @Override
-    public void onLogoutFail(Error error) {
-        Log.i("Skygear Logout", "onLogoutFail: Fail with reason:" + error.getMessage());
-    }
+  @Override
+  public void onLogoutFail(Error error) {
+      Log.e("Skygear Logout", "onLogoutFail: Fail with reason:" + error.getMessage());
+  }
 });
+```
+```kotlin
+skygear.auth.logout(object : LogoutResponseHandler() {
+  override fun onLogoutSuccess() {
+    Log.i("Skygear Logout", "Successfully logged out")
+  }
+
+  override fun onLogoutFail(error: Error) {
+    Log.e("Skygear Logout", "onLogoutFail: Fail with reason: ${error.message}")
+  }
+})
 ```
 
 ## Getting the current User
 
-You can retrieve the current user from [`getCurrentUser`].
+You can retrieve the current user from [`getCurrentUser`]. Please make sure the
+current user has already signed up and had a username specified.
 
 ```java
 Container skygear = Container.defaultContainer(this);
 Record currentUser = skygear.getAuth().getCurrentUser();
+String accessToken = skygear.getAuth().getCurrentAccessToken();
 
-Log.i("Skygear User", "User access token: " + currentUser.getAccessToken());
+Log.i("Skygear User", "User access token: " + accessToken);
 Log.i("Skygear User", "User ID: " + currentUser.getId());
-Log.i("Skygear User", "Username: " + currentUser.getUsername());
+Log.i("Skygear User", "Username: " + currentUser.get("username"));
+```
+```kotlin
+val skygear = Container.defaultContainer(this)
+val currentUser = skygear.auth.currentUser
+val accessToken = skygear.auth.currentAccessToken
+
+Log.i("Skygear User", "User access token: $accessToken")
+Log.i("Skygear User", "User ID: " + currentUser.id)
+Log.i("Skygear User", "Username: " + currentUser.get("username"))
 ```
 
 If there is an authenticated user, it will give you a [`Record`] which
@@ -267,16 +405,39 @@ you can call [`whoami`]:
 Container skygear = Container.defaultContainer(this);
 
 skygear.getAuth().whoami(new AuthResponseHandler() {
-    @Override
-    public void onAuthSuccess(Record user) {
-        Log.i("Skygear User", "I am " + user.getUsername());
+  @Override
+  public void onAuthSuccess(Record user) {
+    Object username = user.get("username");
+    if (username != null) {
+      Log.i("Skygear User", "I am " + username);
+    } else {
+      Log.w("Skygear User", "The user doesn't have a username!");
     }
+  }
 
-    @Override
-    public void onAuthFail(Error error) {
-        Log.i("Skygear User", "onAuthFail: Fail with reason:" + error.getMessage());
-    }
+  @Override
+  public void onAuthFail(Error error) {
+    Log.e("Skygear User", "onAuthFail: Fail with reason:" + error.getMessage());
+  }
 });
+```
+```kotlin
+val skygear = Container.defaultContainer(this)
+
+skygear.auth.whoami(object : AuthResponseHandler() {
+  override fun onAuthSuccess(user: Record) {
+    val username = user.get("username")
+    if (username != null) {
+      Log.i("Skygear User", "I am $username")
+    } else {
+      Log.w("Skygear User", "The user doesn't have a username!")
+    }
+  }
+
+  override fun onAuthFail(error: Error) {
+    Log.e("Skygear User", "onAuthFail: Fail with reason: ${error.message}")
+  }
+})
 ```
 
 ## Updating a user's username and email
@@ -296,62 +457,212 @@ the record returned from [`getCurrentUser`], call [`whoami`].
 To change the username of the current user:
 
 ```java
-Container skygear = Container.defaultContainer(this);
+final Container skygear = Container.defaultContainer(this);
 Record currentUser = skygear.getAuth().getCurrentUser();
 currentUser.set("username", "new-username");
 skygear.getPublicDatabase().save(currentUser, new RecordSaveResponseHandler() {
-    @Override
-    public void onSaveSuccess(Record user) {
-        Log.i("Skygear User", "Username " + user.get("username"));
-        skygear.getAuth.whoami(null);
+  @Override
+  public void onSaveSuccess(Record[] records) {
+    for (int i = 0; i < records.length; i++) {
+      Record user = records[i];
+      Log.i("Skygear User", "Username: " + user.get("username"));
+      skygear.getAuth().whoami(null);
+    }
+  }
+
+  @Override
+  public void onPartiallySaveSuccess(Map<String, Record> successRecords, Map<String, Error> errors) {
+    for (Map.Entry<String, Record> entry : successRecords.entrySet()) {
+      String recordId = entry.getKey();
+      String username = entry.getValue().get("username").toString();
+
+      Log.i("Skygear User", "Successfully saved - recordId: " + recordId + ", username: " + username);
     }
 
-    @Override
-    public void onSaveFail(Error error) {
-        Log.i("Skygear User", "onSaveFail: Fail with reason:" + error.getMessage());
+    for (Map.Entry<String, Error> entry: errors.entrySet()) {
+      String recordId = entry.getKey();
+      String errorMessage = entry.getValue().getMessage();
+
+      Log.e("Skygear User", "Save error - recordId: " + recordId + ", reason: " + errorMessage);
     }
+  }
+
+  @Override
+  public void onSaveFail(Error error) {
+    Log.e("Skygear User", "onSaveFail: Fail with reason:" + error.getMessage());
+  }
+});
+```
+```kotlin
+val skygear = Container.defaultContainer(this)
+val currentUser = skygear.auth.currentUser
+currentUser.set("username", "new-username")
+skygear.publicDatabase.save(currentUser, object : RecordSaveResponseHandler() {
+  override fun onSaveSuccess(users: Array<out Record>) {
+    users.forEach { user ->
+      Log.i("Skygear User", "Username: ${user.get("username")}")
+      skygear.auth.whoami(null)
+    }
+  }
+
+  override fun onPartiallySaveSuccess(successRecords: MutableMap<String, Record>, errors: MutableMap<String, Error>) {
+    successRecords.forEach { (recordId, record) ->
+      Log.i("Skygear User", "Successfully saved - recordId: $recordId, username: ${record.get("username")}")
+    }
+
+    errors.forEach { (recordId, error) ->
+      Log.e("Skygear User", "Save error - recordId: $recordId, reason: ${error.message}")
+    }
+  }
+
+
+  override fun onSaveFail(error: Error) {
+    Log.e("Skygear User", "onSaveFail: Fail with reason: ${error.message}")
+  }
 })
 ```
 
 To change the email of the current user:
 
 ```java
-Container skygear = Container.defaultContainer(this);
+final Container skygear = Container.defaultContainer(this);
 Record currentUser = skygear.getAuth().getCurrentUser();
 currentUser.set("email", "new-email");
 skygear.getPublicDatabase().save(currentUser, new RecordSaveResponseHandler() {
-    @Override
-    public void onSaveSuccess(Record user) {
-        Log.i("Skygear User", "Email " + user.get("email"));
-        skygear.getAuth.whoami(null);
+  @Override
+  public void onSaveSuccess(Record[] records) {
+    for (int i = 0; i < records.length; i++) {
+      Record user = records[i];
+      Log.i("Skygear User", "Email: " + user.get("email"));
+      skygear.getAuth().whoami(null);
+    }
+  }
+
+  @Override
+  public void onPartiallySaveSuccess(Map<String, Record> successRecords, Map<String, Error> errors) {
+    for (Map.Entry<String, Record> entry : successRecords.entrySet()) {
+      String recordId = entry.getKey();
+      String email = entry.getValue().get("email").toString();
+
+      Log.i("Skygear User", "Successfully saved - recordId: " + recordId + ", email: " + email);
     }
 
-    @Override
-    public void onSaveFail(Error error) {
-        Log.i("Skygear User", "onSaveFail: Fail with reason:" + error.getMessage());
+    for (Map.Entry<String, Error> entry: errors.entrySet()) {
+      String recordId = entry.getKey();
+      String errorMessage = entry.getValue().getMessage();
+
+      Log.e("Skygear User", "Save error - recordId: " + recordId + ", reason: " + errorMessage);
     }
+  }
+
+  @Override
+  public void onSaveFail(Error error) {
+    Log.e("Skygear User", "onSaveFail: Fail with reason:" + error.getMessage());
+  }
+});
+```
+```kotlin
+val skygear = Container.defaultContainer(this)
+val currentUser = skygear.auth.currentUser
+currentUser.set("email", "new-email")
+skygear.publicDatabase.save(currentUser, object : RecordSaveResponseHandler() {
+  override fun onSaveSuccess(users: Array<out Record>) {
+    users.forEach { user ->
+      Log.i("Skygear User", "Email: ${user.get("email")}")
+      skygear.auth.whoami(null)
+    }
+  }
+
+  override fun onPartiallySaveSuccess(successRecords: MutableMap<String, Record>, errors: MutableMap<String, Error>) {
+    successRecords.forEach { (recordId, record) ->
+      Log.i("Skygear User", "Successfully saved - recordId: $recordId, email: ${record.get("email")}")
+    }
+
+    errors.forEach { (recordId, error) ->
+      Log.e("Skygear User", "Save error - recordId: $recordId, reason: ${error.message}")
+    }
+  }
+
+  override fun onSaveFail(error: Error) {
+    Log.e("Skygear User", "onSaveFail: Fail with reason: ${error.message}")
+  }
 })
 ```
 
 You can even change the username and email at the same time:
 
 ```java
-Container skygear = Container.defaultContainer(this);
+final Container skygear = Container.defaultContainer(this);
 Record currentUser = skygear.getAuth().getCurrentUser();
 currentUser.set("username", "new-username");
 currentUser.set("email", "new-email");
 skygear.getPublicDatabase().save(currentUser, new RecordSaveResponseHandler() {
-    @Override
-    public void onSaveSuccess(Record user) {
-        Log.i("Skygear User", "Username " + user.get("username"));
-        Log.i("Skygear User", "Email " + user.get("email"));
-        skygear.getAuth.whoami(null);
+  @Override
+  public void onSaveSuccess(Record[] records) {
+    for (int i = 0; i < records.length; i++) {
+      Record user = records[i];
+      Log.i("Skygear User", "Username: " + user.get("username"));
+      Log.i("Skygear User", "Email: " + user.get("email"));
+      skygear.getAuth().whoami(null);
+    }
+  }
+
+  @Override
+  public void onPartiallySaveSuccess(Map<String, Record> successRecords, Map<String, Error> errors) {
+    for (Map.Entry<String, Record> entry : successRecords.entrySet()) {
+      String recordId = entry.getKey();
+      String username = entry.getValue().get("username").toString();
+      String email = entry.getValue().get("email").toString();
+
+      Log.i("Skygear User", "Successfully saved - " +
+        "recordId: " + recordId +
+        ", username: " + username +
+        ", email: " + email
+      );
     }
 
-    @Override
-    public void onSaveFail(Error error) {
-        Log.i("Skygear User", "onSaveFail: Fail with reason:" + error.getMessage());
+    for (Map.Entry<String, Error> entry: errors.entrySet()) {
+      String recordId = entry.getKey();
+      String errorMessage = entry.getValue().getMessage();
+
+      Log.e("Skygear User", "Save error - recordId: " + recordId + ", reason: " + errorMessage);
     }
+  }
+
+
+  @Override
+  public void onSaveFail(Error error) {
+    Log.e("Skygear User", "onSaveFail: Fail with reason:" + error.getMessage());
+  }
+});
+```
+```kotlin
+val skygear = Container.defaultContainer(this)
+val currentUser = skygear.auth.currentUser
+currentUser.set("username", "new-username")
+currentUser.set("email", "new-email")
+skygear.publicDatabase.save(currentUser, object : RecordSaveResponseHandler() {
+  override fun onSaveSuccess(users: Array<out Record>) {
+    users.forEach { user ->
+      Log.i("Skygear User", "Username: ${user.get("username")}")
+      Log.i("Skygear User", "Email: ${user.get("email")}")
+      skygear.auth.whoami(null)
+    }
+  }
+
+  override fun onPartiallySaveSuccess(successRecords: MutableMap<String, Record>, errors: MutableMap<String, Error>) {
+    successRecords.forEach { (recordId, record) ->
+      Log.i("Skygear User", "Successfully saved - recordId: $recordId, email: ${record.get("username")}, email: ${record.get("email")}")
+    }
+
+    errors.forEach { (recordId, error) ->
+      Log.e("Skygear User", "Save error - recordId: $recordId, reason: ${error.message}")
+    }
+  }
+
+  override fun onSaveFail(error: Error) {
+    Log.e("Skygear User", "onSaveFail: Fail with reason: ${error.message}")
+  }
 })
 ```
 
@@ -366,15 +677,27 @@ If the current password is incorrect, the SDK will return an
 ```java
 Container skygear = Container.defaultContainer(this);
 skygear.getAuth().changePassword("new-password", "old-password", new AuthResponseHandler() {
-    @Override
-    public void onAuthSuccess(Record user) {
-        Log.i("Change Password", "onAuthSuccess: Changed password successfully.);
-    }
+  @Override
+  public void onAuthSuccess(Record user) {
+      Log.i("Change Password", "onAuthSuccess: Changed password successfully.");
+  }
 
-    @Override
-    public void onAuthFail(Error error) {
-        Log.i("Change Password", "onAuthFail: Fail with reason: " + error.getMessage());
-    }
+  @Override
+  public void onAuthFail(Error error) {
+      Log.e("Change Password", "onAuthFail: Fail with reason: " + error.getMessage());
+  }
+})
+```
+```kotlin
+val skygear = Container.defaultContainer(this)
+skygear.auth.changePassword("new-password", "old-password", object : AuthResponseHandler() {
+  override fun onAuthSuccess(user: Record) {
+    Log.i("Change Password", "onAuthSuccess: Changed password successfully.")
+  }
+
+  override fun onAuthFail(error: Error) {
+    Log.e("Change Password", "onAuthFail: Fail with reason: ${error.message}")
+  }
 })
 ```
 

@@ -223,6 +223,14 @@ user_id
 100m
 v0.12
 v1.5
+event_type
+new_password
+user_id
+before_save
+after_save
+before_delete
+after_delete
+snake_case
 
 # nouns (e.g. GitHub Repo)
 aschuch
