@@ -48,6 +48,20 @@ skygear.getAuth().adminDisableUser(
 );
 ```
 
+```kotlin
+val userID: String = "923b3d99-f21f-4e7c-a383-ffa319fe04c7"
+
+skygear.auth.adminDisableUser(userID, object : SetDisableUserResponseHandler() {
+    override fun onSetSuccess() {
+        Log.i("Skygear User", "user is disabled")
+    }
+
+    override fun onSetFail(error: Error) {
+        Log.i("Skygear User", "onSetFail: Fail with reason: ${error.getLocalizedMessage()}")
+    }
+})
+```
+
 ### Enable a disabled user account
 
 You can enable a disabled user account by calling
@@ -71,6 +85,20 @@ skygear.getAuth().adminEnableUser(
         }
     }
 );
+```
+
+```kotlin
+val userID: String = "923b3d99-f21f-4e7c-a383-ffa319fe04c7"
+
+skygear.auth.adminEnableUser(userID, object : SetDisableUserResponseHandler() {
+    override fun onSetSuccess() {
+        Log.i("Skygear User", "user is enabled")
+    }
+
+    override fun onSetFail(error: Error) {
+        Log.i("Skygear User", "onSetFail: Fail with reason: ${error.getLocalizedMessage()}")
+    }
+})
 ```
 
 ### Disable a user with a message and expiry period.
@@ -103,6 +131,24 @@ skygear.getAuth().adminDisableUser(
 );
 ```
 
+```kotlin
+val userID: String = "923b3d99-f21f-4e7c-a383-ffa319fe04c7"
+
+skygear.auth.adminDisableUser(
+    userID,
+    "Account disabled due to TOS violations.",
+    new Date(System.currentTimeMillis()+5*60*1000),
+    object : SetDisableUserResponseHandler() {
+        override fun onSetSuccess() {
+            Log.i("Skygear User", "user is disabled")
+        }
+
+        override fun onSetFail(error: Error) {
+            Log.i("Skygear User", "onSetFail: Fail with reason: ${error.getLocalizedMessage()}")
+        }
+})
+```
+
 ### Tell user that their account is disabled
 
 When a user is disabled, server may return `USER_DISABLED` error. This will only
@@ -132,6 +178,23 @@ skygear.getAuth().whoami(new AuthResponseHandler() {
         }
     }
 });
+```
+
+```kotlin
+val skygear = Container.defaultContainer(this)
+
+skygear.auth.whoami(object : AuthResponseHandler() {
+  override fun onAuthSuccess(user: Record) {
+    Log.i("Skygear User", "I am ${user.get("username")}")
+  }
+
+  override fun onAuthFail(error: Error) {
+    when (error.code) {
+      Error.Code.USER_DISABLED -> Log.e("Skygear Login", "User disabled")
+      else -> Log.e("Skygear Login", "onAuthFail: Fail with reason: ${error.code}")
+    }
+  }
+})
 ```
 
 [Error Handling in SDK]: /guides/advanced/sdk-error-handling/android/
