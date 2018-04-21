@@ -12,15 +12,16 @@ Some of you may wonder what's the difference between the CMS and the data browse
 |Difference	|Database Browser	|CMS	|
 |---	|---	|---	|
 |Target user	|Developers who need to view and alter database data and schema.	|System Admin or managers who need to view and update content of the system.	|
-|Data views	|Showing all tables, including Skygear default tables such as _auth, _role ,etc. Also shows every fields including default feilds in each table, such as _access, _id etc.	|Default hide all tables. Developers need to configure which table and fields to be shown at	|
-|Data export	|Yes	|No	|
+|Data views	|Showing all tables, including Skygear default tables such as _auth, _role ,etc. Also shows every fields including default fields in each table, such as _access, _id etc.	|Default hide all tables. Developers need to configure which table and fields to be shown at	|
+|Data export	|Yes	|Yes	|
+|Data import |No |Yes |
 |Who can access	|Collaborators of your app on Skygear	|Admin users in Skygear user role record	|
 |Customizable	|No. It default shows all tables and columns.	|Yes, with config in YML format.	|
 
 
 ## Enable CMS plugin at Skygear Portal
 
-By default, CMS is not enabled on the portal. You can turn on the the CMS plugin at ` Skygear Portal > CMS. `If you are not a new Skygear users and wanted to use this new version of CMS, re-enable the CMS plug-in 🤓
+By default, CMS is not enabled on the portal. You can turn on the the CMS plugin at `Skygear Portal > CMS. `If you are not a new Skygear users and wanted to use this new version of CMS, re-enable the CMS plug-in 🤓
 
 ## CMS configuration overview
 
@@ -30,21 +31,21 @@ The YML itself looks explanatory, still there are some details we want you to kn
 
 ```
 site:
-  // record to be displayed in the CMS. each record will take up one page in the CMS
+  // Pages in the CMS. Available pages will be shown on the left sidebar.
 
 records:
   user:
     // Configuring the user record
     list:
-      //displayable fields on the first page
+      //Displayable fields on the first page
       fiters:
-        //filtable fields on the first page
+        //Filtable fields on the first page
     show:
-      //displayable fields in the detial page
+      //Displayable fields in the detial page
     edit:
-      //editable fields
+      //Editable fields
     new:
-      //fill-in-able fields when creating a new record
+      //Fill-in-able fields when creating a new record
 ```
 
 ## Example: configuring a basic CMS
@@ -59,7 +60,15 @@ In the following examples, we will be using the below database structure as a sa
 
 ### Site
 
-**Site** defines which record to be shown. Each record takes up a page on the CMS. For example, if we want to display the **user** and the **blogpost** record, you should write:
+**Site** defines what pages to be shown in the CMS. All availabe pages will be shown on the left sidebar.
+
+There are 3 types of pages you can show:
+
+1. Record: a page to display all the records of a record type.
+2. Push Notifications: a page to broadcast push messages to your users. (Coming soon)
+3. User management: a page to manage your users, from creating a new user account, to blocking problemtics users. (Coming soon)
+
+For example, if you want to display all the records from **user** and the **blogpost**, you should write in the YML:
 
 ```
 site:
@@ -71,7 +80,7 @@ site:
     label: Blogpost
 ```
 
-`name` is the record name. `label` is the name to be shown on the CMS.
+`name` refers to the record type in the database. `label` refers to the name to be shown on the CMS.
 
 If you only have 'Site' in the YML config, you will only see a blank page in the CMS because we haven't defined what to display on the pages. Let see how to do it below  👇
 
@@ -241,15 +250,6 @@ records:
           label: Avatar
 
 ```
-
-## Explaining site types in CMS
-
-Site types defines the nature of the page. For example, if you are going to show a record on the page, the type is Record.
-
-Currently there are only two types: **Record** and **PushNotifications**.
-
-PushNotification provides you with a management interface to broadcast push messages to your users. This features is coming in June.
-
 ## Explaining record types in the CMS
 
 In our above examples, whenever you need to configure a field, you have to specify **its name**, **its label** and **its type**. Since **record types in the CMS is not equivalent to data type at database level**, in the section we will go into more details about the record types in CMS.
@@ -269,7 +269,7 @@ records:
 
 Here's a list of available types:
 
-* Skygear reserved columns (see **_created_at** in the above example)
+* Skygear reserved columns (see **_created_at** in the above example. more about Skygear reserved columns [here](https://docs.skygear.io/guides/advanced/database-schema/#records-table). )
 * String = short texts
 * TextArea = long texts
 * Dropdown = dropdown boxes
@@ -320,7 +320,6 @@ Records:
 ```
 
 Here's the results:
-
 
 **Back-referenced record**
 
