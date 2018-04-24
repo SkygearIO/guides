@@ -177,6 +177,29 @@ SKYContainer.default().chatExtension?.leave(
 )
 ```
 
+## Getting Participants
+Once you get conversation objects via `fetchConversationWithConversationID ` or `fetchConversationsWithCompletion `, you can get the IDs of participants from `participantIds` in a conversation object. Skygear Chat provides `fetchParticipants` API to retrieve `SKYParticipant` objects from participant IDs. Each `SKYParticipant` object contains an user record. For example,
+
+
+```swift
+SKYContainer.default()
+    .chatExtension?
+    .fetchParticipants(
+        participantIDs: conversation.participantIds,
+        completion: {[weak self] (result, isCached, error) in
+            guard error == nil else {
+                print(error.localizedDescription)
+                return
+            }
+            result.forEach({ (eachParticipantID, eachParticipant) in
+                print(eachParticipant.record["username"])
+              })
+    })
+```
+The above function gets participant objects and outputs the username of each participant object. `SKYParticipant` is fetched from skygear server, or from device cache if cache is available. `isCached` is `true` if data is loaded from cache.
+
+
+
 ## Managing conversation participants
 At some point of your conversation, you may wish to update the participant list. You may add or remove participants in a conversation.
 
@@ -426,10 +449,10 @@ You can edit a message with [`editMessage:withBody:completion:`](https://docs.sk
 
 ```swift
 SKYContainer.default().editMessage(message, with: newMessageBody, completion: { (result, error) in
-	if let err = error {
-	    print(err.localizedDescription)
-	    return
-	}
+    if let err = error {
+        print(err.localizedDescription)
+        return
+    }
 
     print("Edit message successful")
 })

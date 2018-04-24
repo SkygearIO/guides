@@ -248,6 +248,57 @@ chatContainer.leaveConversation(conversation, new LambdaResponseHandler() {
 });
 ```
 
+## Getting Participants
+Once you get conversation objects via `getConversation` or `getConversations`, you can get the IDs of participants from `participantIds` in a conversation object. Skygear Chat provides `getParticipants` API to retrieve `Participant` objects from participant IDs. Each `Participant` object contains an user record. For example,
+
+```java
+Container container = Container.defaultContainer(this);
+ChatContainer chatContainer = ChatContainer.getInstance(container);
+chatContainer.getParticipants(conversation.getParticipantIds(), new GetParticipantsCallback() {
+    @Override
+    public void onGetCachedResult(Map<String, Participant> participantsMap) {
+        for (Participant participant: participantsMap.values()) {
+            Log.i("MyApplication", "Participant: " + participant.getRecord().get("username"));
+        }
+    }
+
+    @Override
+    public void onSuccess(Map<String, Participant> participantsMap) {
+        for (Participant participant: participantsMap.values()) {
+            Log.i("MyApplication", "Participant from cache: " + participant.getRecord().get("username"));
+        }
+    }
+
+    @Override
+    public void onFail(@NonNull Error error) {
+        Log.e("MyApplication", "Failed to get participants: " + error.getMessage());
+    }
+});
+```
+
+```kotlin
+val container = Container.defaultContainer(this)
+val chatContainer = ChatContainer.getInstance(container)
+chatContainer.getParticipants(conversation.participantIds!!, object : GetParticipantsCallback {
+    override fun onGetCachedResult(participantsMap: Map<String, Participant>?) {
+        for (participant in participantsMap!!.values) {
+            Log.i("MyApplication", "Participant: " + participant.record.get("username"))
+        }
+    }
+
+    override fun onSuccess(participantsMap: Map<String, Participant>?) {
+        for (participant in participantsMap!!.values) {
+            Log.i("MyApplication", "Participant from cache: " + participant.record.get("username"))
+        }
+    }
+
+    override fun onFail(error: Error) {
+        Log.e("MyApplication", "Failed to get participants: " + error.message)
+    }
+})
+```
+The above function gets participant objects and outputs the username of each participant object. Apart from `onSuccess`,  `onGetCachedResult` is also called if there are participants available from the cache.
+
 ## Managing conversation participants
 At some point of your conversation, you may wish to update the participant list. You may add or remove participants in a conversation.
 
