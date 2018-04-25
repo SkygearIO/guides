@@ -92,4 +92,4 @@ Learn how to query the Skygear reserved columns in [More About Queries](/guides/
 [doc-relational-record]:/guides/cloud-db/relational-records/ios/
 [doc-files]:/guides/cloud-db/files/ios/
 [doc-record-acl]: /guides/acl/record-acl/ios/
-[Field-based ACL]: /guides/acl/field-acl/
+[doc-field-acl]: /guides/acl/field-acl/
