@@ -51,7 +51,7 @@ skygear.publicDB.query(query);
 You can use `skygear.Query.not(query)` to get a condition negated version of `query`.
 
 
-## Conditions
+## Query conditions
 
 Conditions are like `WHERE` clause in SQL query and `filter` in NoSQL query.
 You can certainly chain conditions together. Here is a list of simple
@@ -181,85 +181,58 @@ skygear.publicDB.query(query).then((notes) => {
 The count is not affected by the limit set on the query. So, if you only want
 to get the count without fetching any records, simply set `query.limit = 0`.
 
+## Querying Skygear reserved columns
 
-## Relational Queries
+There are quite a few reserved columns for storing records into the database.
+The column names are written as **snake_case** while the JS object attributes
+are mapped with **camelCase**. Please notice this one-to-one mapping. When you want
+to query on reserved columns, make sure to use **snake_case**; when you get records
+back as a JS object, make sure to access attributes with **camelCase**. When
+creating and saving records, please avoid using attribute that is the same
+as any one of the camelCase attribute names listed below.
 
-This example shows how to query all notes (`Note` record) who has an `account` field reference to a user record. In this example, we will query all notes where `account` equals to the current user.
+Column Name | Object Attribute | Description
+--- | --- | ---
+`_created_at` | `createdAt` | date object of when record is created
+`_updated_at` | `updatedAt` | date object of when record is updated last time
+`_created_by` | `createdBy` | user id of record creator
+`_updated_by` | `updatedBy` | user id of last record updater
+`_owner_id` | `ownerID` | user id of owner
+**N/A** | `id` | record type and record id
+`_id` | `_id` | record id
 
+One quick example:
 
 ``` javascript
-const Note = skygear.Record.extend('note');
+skygear.publicDB.query(new skygear.Query(Note))
+  .then((records) => console.log(records[0]));
+```
+
+``` javascript
+/* Type: RecordCls */ {
+  createdAt: new Date("Thu Jul 07 2016 12:12:42 GMT+0800 (CST)"),
+  updatedAt: new Date("Thu Jul 07 2016 12:42:17 GMT+0800 (CST)"),
+  createdBy: "118e0217-ffda-49b4-8564-c6c9573259bb",
+  updatedBy: "118e0217-ffda-49b4-8564-c6c9573259bb",
+  ownerID: "118e0217-ffda-49b4-8564-c6c9573259bb",
+  id: "note/3b9f8f98-f993-4e1d-81c3-a451e483306b",
+  _id: "3b9f8f98-f993-4e1d-81c3-a451e483306b",
+  recordType: "note",
+}
+```
+
+Query on reserved columns example:
+
+``` javascript
 let query = new skygear.Query(Note);
-query.equalTo('account', new skygear.Reference(skygear.auth.currentUser));
-
-skygear.publicDB.query(query).then((r) => {
-    console.log(r);
-});
-
+query.equalTo('_owner', skygear.auth.currentUser.id);
+// '_owner' is an alias for '_owner_id'
+skygear.publicDB.query(query);
 ```
 
-If you haven't have the corresponding record in hand (in this example, we will use the User record `182654c9-d205-43aa-8e74-d465c830087a`), you can reference with a specify `id` without making another query in this way:
+Check the server [database schema][doc-database-schema] page for more.
 
-``` javascript
-const Note = skygear.Record.extend('note');
-let query = new skygear.Query(Note);
-query.equalTo('account', new skygear.Reference({
-    id: 'user/182654c9-d205-43aa-8e74-d465c830087a'
-}));
 
-skygear.publicDB.query(query).then((r) => {
-    console.log(r);
-});
-
-```
-
-### Eager Loading
-
-If you have a record that with [reference][doc-data-type-reference] to
-another record, you can perform eager loading using the transient syntax.
-Here we have an example (notice that Delivery has reference to Address
-on key `destination`):
-
-``` javascript
-const Delivery = skygear.Record.extend('delivery');
-const Address = skygear.Record.extend('address');
-
-const address = new Address({ /* some key-value pairs */ });
-const delivery = new Delivery({ destination: new skygear.Reference(address) });
-skygear.publicDB.save([address, delivery]);
-```
-
-Now if you want to query delivery together with the address:
-
-``` javascript
-const query = new skygear.Query(Delivery);
-query.transientInclude('destination');
-skygear.publicDB.query(query).then((records) => {
-  console.log(records[0].destination);            // skygear.Reference object
-  console.log(records[0].$transient.destination); // Address record object
-}, (error) => {
-  console.error(error);
-});
-```
-
-You can also set an alias for transient-included field.
-
-``` javascript
-const query = new skygear.Query(Delivery);
-query.transientInclude('destination', 'deliveryAddress');
-skygear.publicDB.query(query).then((records) => {
-  console.log(records[0].$transient.deliveryAddress); // Address record object
-}, (error) => {
-  console.log(error);
-});
-```
-
-- It is possible to eager load records from multiple keys, but doing so
-will impair performance
-- If you have a record in the public database referencing a record in the
-private database (or the other way around), `transientInclude` would fail
-and give you `null` at the transient key. If you really need to do so, you
-have to make another query.
 
 [doc-cloud-db-basics]: /guides/cloud-db/basics/js/
 [doc-reserved-columns]: /guides/cloud-db/basics/js/#reserved-columns
