@@ -23,7 +23,7 @@ After completing these three steps, you will be able to receive push notificatio
 
 Here's how.
 
-It is suggested that you register a device when your app launches everytime. Since the Skygear container remembers the device ID, it will reuse the existing device ID whenever you try to register the current device more then once.
+It is suggested that you register a device when your app launches every time. Since the Skygear container remembers the device ID, it will reuse the existing device ID whenever you try to register the current device more then once.
 
 Now, you are able to request for a remote notification token at some point in your app.
 
@@ -76,7 +76,7 @@ You should make sure your app has the permission to send user push notifications
 
 ::: caution
 
-If you do not request and receive authorization for your app's interactions, the system delivers all remote notifications to your app silently. It is adviced to ask the user for permission before registering Apple Push Notification Service .
+If you do not request and receive authorization for your app's interactions, the system delivers all remote notifications to your app silently. It is advised to ask the user for permission before registering Apple Push Notification Service .
 
 :::
 
@@ -167,9 +167,9 @@ using the above convenient methods, the device ID is returned from
 
 ## Sending push notification to users
 
-Okay, now we are ready to send push notifiactions to the regiestered devices. If you have not registered your device on Skygear, please read the guide on device registeration.
+Okay, now we are ready to send push notifications to the registered devices. If you have not registered your device on Skygear, please read the guide on device registration.
 
-You can send Push Notfication to all devices belongs to your selected users.
+You can send Push Notification to all devices belongs to your selected users.
 
 ```obj-c
 // send notification through APNS
@@ -215,7 +215,7 @@ SKYContainer.default().add(operation)
 
 ## Sending push notification to devices
 
-You can send Push Notfications to selected devices by give `deviceId`s.
+You can send Push Notifications to selected devices by give `deviceId`s.
 
 ```obj-c
 // send notification through both APNS and GCM
