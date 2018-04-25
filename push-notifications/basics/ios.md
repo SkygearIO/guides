@@ -4,19 +4,30 @@ title: Skygear Push Basics
 
 [[toc]]
 
-You need to register the devices before sending them push notifications.
+::: tips
+
+You need to register the devices before sending push notifications to the devices.
+
+:::
+
+There are THREE platform specific steps to register for push notification on iOS to ensure Push Notification working with Skygear.
+
+1. Registering device at Skygear and Apple Push Notification Service
+2. Request authorization to display notifications
+3. Update your device token on Skygear 
+
+After completing these three steps, you will be able to receive push notification sent via Skygear.
 
 <a id="registering-device"></a>
-## Registering device
+## Registering device at Apple Push Notification Service
 
-It is suggested that you register a device with remote server on every launch.
-Since the container remembers the device ID when the device is registered
-on the remote server, it will reuse an existing device ID whenever you try
-to register the current device.
+Here's how.
 
-You should also request a remote notification token at some point in the
-program. If it is appropriate to ask the user for permission for remote
-notification, you can also do so when the application launches.
+It is suggested that you register a device when your app launches everytime. Since the Skygear container remembers the device ID, it will reuse the existing device ID whenever you try to register the current device more then once.
+
+Now, you are able to request for a remote notification token at some point in your app.
+
+This is an example on how you may register a remote notification when the application launches at `didFinishLaunchingWithOptions`.
 
 ```obj-c
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -58,9 +69,65 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 }
 ```
 
+<a id="request-authorization"></a>
+## Request authorization to display notifications
+
+You should make sure your app has the permission to send user push notifications when the app is in the background according to the [Apple's documentation][apple-doc-registerforremotenotifications].
+
+::: caution
+
+If you do not request and receive authorization for your app's interactions, the system delivers all remote notifications to your app silently. It is adviced to ask the user for permission before registering Apple Push Notification Service .
+
+:::
+
+Here's how you can request for notification handler events:
+
+```obj-c
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+
+
+	UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
+	[center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert + UNAuthorizationOptionSound)
+	   completionHandler:^(BOOL granted, NSError * _Nullable error) {
+	      // Enable or disable features based on authorization.
+	}];
+
+
+    [[[SKYContainer defaultContainer] push] registerDeviceCompletionHandler:^(NSString *deviceID, NSError *error) {
+        if (error) {
+            NSLog(@"Failed to register device: %@", error);
+            return;
+        }
+
+        // Anything you want to do in the callback can be added here
+    }];
+
+    // This will prompt the user for permission to send remote notification
+    [application registerForRemoteNotifications];
+
+    // Other application initialization logic here
+
+    return YES;
+}
+
+
+
+```
+
+```swift
+let center = UNUserNotificationCenter.current()
+center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
+    // Enable or disable features based on authorization
+}
+
+```
+
+## Update your device token on Skygear
+
 When a device token is registered with Apple Push Notification Service, you
 should register the device once again by updating the registration
-with a device token.
+with a device token at `didRegisterForRemoteNotificationsWithDeviceToken `
 
 ```obj-c
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
@@ -98,13 +165,11 @@ available to the client application. If you register the current device
 using the above convenient methods, the device ID is returned from
 `registeredDeviceID` property on the container.
 
-## Sending push notification from cloud code
-
-To send push notifications through cloud code, please refer to the
-[Cloud Code Guide: Push Notifications][doc-cloud-function-push-notifications].
-
-
 ## Sending push notification to users
+
+Okay, now we are ready to send push notifiactions to the regiestered devices. If you have not registered your device on Skygear, please read the guide on device registeration.
+
+You can send Push Notfication to all devices belongs to your selected users.
 
 ```obj-c
 // send notification through APNS
@@ -149,6 +214,8 @@ SKYContainer.default().add(operation)
 ```
 
 ## Sending push notification to devices
+
+You can send Push Notfications to selected devices by give `deviceId`s.
 
 ```obj-c
 // send notification through both APNS and GCM
@@ -202,6 +269,12 @@ operation.sendCompletionHandler = { (deviceIDs, error) in
 }
 ```
 
+## Sending push notification from cloud code
+
+To send push notifications through cloud code, please refer to the
+[Cloud Code Guide: Push Notifications][doc-cloud-function-push-notifications].
+
+
 ## Unregistering device
 
 When a device is registered, it is associated with the authenticated user.
@@ -248,3 +321,4 @@ container.unregisterDeviceCompletionHandler({ (deviceID, error) in
 -->
 
 [doc-cloud-function-push-notifications]: /guides/cloud-function/calling-skygear-api/python/#push-notifications
+[apple-doc-registerforremotenotifications]:https://developer.apple.com/documentation/uikit/uiapplication/1623078-registerforremotenotifications
