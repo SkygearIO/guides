@@ -136,16 +136,15 @@ publicDB.query(userQuery, object : RecordQueryResponseHandler() {
 
 ## Retrieving another user record by email or username
 
-You can retrieve the public records of other users by using their emails or
-usernames. You can provide either a single email/username or an array of
-emails/usernames.
+You can retrieve the public records of other users using their emails or usernames.
+You can provide either a single value or an array of emails/usernames.
 The promise will be resolved by an array of matched user records.
 
+Below is an example querying a record with email value `ben@oursky.com`.
 ```java
 Container skygear = Container.defaultContainer(this);
 
-Query userQuery = new Query("user")
-  .equalTo("email", "ben@oursky.com");
+Query userQuery = new Query("user").equalTo("email", "ben@oursky.com");
 
 Database publicDB = skygear.getPublicDatabase();
 publicDB.query(userQuery, new RecordQueryResponseHandler() {
@@ -177,11 +176,13 @@ publicDB.query(userQuery, object : RecordQueryResponseHandler() {
 })
 ```
 
+You can also retrieve user record(s) provided you have their usernames and
+the correct access level.
+
 ```java
 Container skygear = Container.defaultContainer(this);
 
-Query userQuery = new Query("user")
-  .equalTo("username", "ben");
+Query userQuery = new Query("user").equalTo("username", "ben");
 
 Database publicDB = skygear.getPublicDatabase();
 publicDB.query(userQuery, new RecordQueryResponseHandler() {
@@ -199,7 +200,7 @@ publicDB.query(userQuery, new RecordQueryResponseHandler() {
 ```kotlin
 val skygear = Container.defaultContainer(this)
 
-val userQuery = Query("user").equalTo("email", "ben")
+val userQuery = Query("user").equalTo("username", "ben")
 
 val publicDB = skygear.publicDatabase
 publicDB.query(userQuery, object : RecordQueryResponseHandler() {
