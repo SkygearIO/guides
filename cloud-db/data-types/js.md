@@ -4,7 +4,7 @@ title: Data Types
 
 [[toc]]
 
-Skygear supports almost all of the builtin JavaScript types, such as:
+Skygear supports most built-in JavaScript types:
 - String
 - Number
 - Boolean
@@ -21,15 +21,15 @@ There are also four other types provided by Skygear JS SDK:
 
 ## Record Relations
 
-Skygear supports parent-child relation between records via _reference_.
-`skygear.Reference` is a pointer class, which will translate to foreign key in
+Skygear supports parent-child relationship between records via _reference_.
+`skygear.Reference` is a pointer class, which translates to foreign key in
 skygear server database for efficient query.
 
 You can even reference a user from a record. To learn more about user object or
 how to retrieve user objects, you can read the
 [User Authentication Basics][doc-auth-basics].
-Notice that we are not using the `new` keyword creating reference. Assume you
-have the user record object `rick`.
+Notice that we are not using the `new` keyword when creating reference. Suppose you
+have the user record object `rick`:
 
 ``` javascript
 const note = new Note({
@@ -41,7 +41,7 @@ note.author = author;
 skygear.publicDB.save(note);
 ```
 
-You can build up reference between records.
+You can create reference between records:
 
 ``` javascript
 const note1 = new Note({
@@ -56,12 +56,12 @@ note1.nextPage = new skygear.Reference(note2);
 skygear.publicDB.save([note2, note1]);
 ```
 
-- Ordering of objects in batch save array matters if there are reference
-relationship between records. In the above case, if you perform batch save on
-`[note1, note2]`, there will be an error saving `note1`, but `note2` will
-still be saved!
-- If you wish to retrieve `note1` and `note2` at the same time in one query,
-you might use `transientInclude`. Read the [Queries][doc-relational-queries]
+- The order of objects in batch save array matters if there are reference
+relationship between records. In the above case, if you reverse the order
+`[note1, note2]` will produce an error. `note1` will not be saved, while `note2` will be saved.
+
+- To simultaneously retrieve `note1` and `note2` in one query,
+you may use `transientInclude`. Read the [Queries][doc-relational-queries]
 section to learn more about eager loading.
 
 ## Deleting Referenced Record
