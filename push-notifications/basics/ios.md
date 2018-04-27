@@ -79,21 +79,20 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
             print ("Failed to register device: \(error)")
             return
         }
-
+        
         // Anything you want to do in the callback can be added here
     }
-
+    
     let center = UNUserNotificationCenter.current()
     center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
-    // This will prompt the user for permission to send remote notification    
-    application.registerForRemoteNotifications()
+        // This will prompt the user for permission to send remote notification
+        application.registerForRemoteNotifications()
+        
+        // Enable or disable features based on authorization
+    }
     
-    // Enable or disable features based on authorization
-}
-    
-
     // Other application initialization logic here
-
+    
     return true
 }
 
