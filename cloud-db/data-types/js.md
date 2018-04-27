@@ -1,5 +1,5 @@
 ---
-title: Working with Other Data Types
+title: Location, Auto-increment sequence
 ---
 
 [[toc]]

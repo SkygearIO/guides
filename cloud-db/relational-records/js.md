@@ -1,5 +1,5 @@
 ---
-title: Working with Relational Records
+title: Relational Records
 ---
 
 [[toc]]
