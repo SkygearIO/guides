@@ -29,45 +29,7 @@ Now, you are able to request for a remote notification token at some point in yo
 
 This is an example on how you may register a remote notification when the application launches at `didFinishLaunchingWithOptions`.
 
-```obj-c
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [[[SKYContainer defaultContainer] push] registerDeviceCompletionHandler:^(NSString *deviceID, NSError *error) {
-        if (error) {
-            NSLog(@"Failed to register device: %@", error);
-            return;
-        }
-
-        // Anything you want to do in the callback can be added here
-    }];
-
-    // This will prompt the user for permission to send remote notification
-    [application registerForRemoteNotifications];
-
-    // Other application initialization logic here
-
-    return YES;
-}
-```
-
-```swift
-func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-    SKYContainer.default().push.registerDeviceCompletionHandler { (deviceID, error) in
-        if error != nil {
-            print ("Failed to register device: \(error)")
-            return
-        }
-
-        // Anything you want to do in the callback can be added here
-    }
-
-    // This will prompt the user for permission to send remote notification
-    application.registerForRemoteNotifications()
-
-    // Other application initialization logic here
-
-    return true
-}
-```
+Sample codes are shown together in the [Request authorization to display notifications](#request-authorization) session.
 
 <a id="request-authorization"></a>
 ## Request authorization to display notifications
@@ -80,20 +42,10 @@ If you do not request and receive authorization for your app's interactions, the
 
 :::
 
-Here's how you can request for notification handler events:
+Here's how you can request for APN and notification handler events:
 
 ```obj-c
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
-
-	UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
-	[center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert + UNAuthorizationOptionSound)
-	   completionHandler:^(BOOL granted, NSError * _Nullable error) {
-	      // Enable or disable features based on authorization.
-	}];
-
-
     [[[SKYContainer defaultContainer] push] registerDeviceCompletionHandler:^(NSString *deviceID, NSError *error) {
         if (error) {
             NSLog(@"Failed to register device: %@", error);
@@ -103,22 +55,46 @@ Here's how you can request for notification handler events:
         // Anything you want to do in the callback can be added here
     }];
 
-    // This will prompt the user for permission to send remote notification
-    [application registerForRemoteNotifications];
+    UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
+    [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert + UNAuthorizationOptionSound)
+        completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        
+        // This will prompt the user for permission to send remote notification
+        [application registerForRemoteNotifications];
+        
+        // Enable or disable features based on authorization.
+    }];
 
     // Other application initialization logic here
 
     return YES;
 }
-
-
-
 ```
 
 ```swift
-let center = UNUserNotificationCenter.current()
-center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
+
+func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    SKYContainer.default().push.registerDeviceCompletionHandler { (deviceID, error) in
+        if error != nil {
+            print ("Failed to register device: \(error)")
+            return
+        }
+
+        // Anything you want to do in the callback can be added here
+    }
+
+    let center = UNUserNotificationCenter.current()
+    center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
+    // This will prompt the user for permission to send remote notification    
+    application.registerForRemoteNotifications()
+    
     // Enable or disable features based on authorization
+}
+    
+
+    // Other application initialization logic here
+
+    return true
 }
 
 ```
