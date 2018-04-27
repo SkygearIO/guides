@@ -302,46 +302,6 @@ SKYContainer.default().privateCloudDatabase.deleteRecords(withIDs: notesToDelete
 ```
 
 
-
-
-## Reserved Columns
-
-For each record type stored in the database, a table with the same name as the record type is created. For example, if your record type is called `note`, there is a table called `note` in the database. Each row in the table corresponds to one record.
-
-For each record table there exists two types of columns, those that are reserved by Skygear and those that are user-defined. Reserved columns contain metadata of a record, such as record ID, record owner and creation time. Names of reserved columns are prefixed with underscore (`_`).
-
-It is possible to manipulate data in record tables directly. However, one should exercise cautions when modifying data directly in record tables.
-
-Each record table contains the following reserved columns:
-
-| Column Name   | Object Attribute           | Description                                     |
-|---------------|----------------------------|-------------------------------------------------|
-| `_created_at` | `creationDate`             | `NSDate` object of when record was created      |
-| `_updated_at` | `modificationDate`         | `NSDate` object of when record was updated      |
-| `_created_by` | `creatorUserRecordID`      | `NSString` object of user id of record creator  |
-| `_updated_by` | `lastModifiedUserRecordID` | `NSString` object of user id of record updater  |
-| `_owner`      | `ownerUserRecordID`        | `NSString` object of user id of owner           |
-| `_id`         | `recordID`                 | `SKYRecordID` object of record id               |
-
-You can retrieve the values from the object by accessing its properties:
-
-```obj-c
-NSDate *creationDate = [noteObject creationDate];
-NSString *creatorID = [noteObject creatorUserRecordID];
-SKYRecordID *recordID = [record recordID];
-NSString *recordType = [record recordType];
-```
-
-```swift
-let creationDate = noteObject.creationDate
-let creatorID = noteObject.creatorUserRecordID
-let record = record.recordID
-let recordType = record.recordType
-```
-
-Please head to [Database Schema][doc-database-schema] to read more about Reserved Columns, Record Tables and Reserved Tables.
-
-
 [doc-cloud-db-basics]:/guides/cloud-db/basics/js/
 [doc-setup-skygear]: /guides/get-started/ios/
 [doc-data-type]: /guides/cloud-db/data-types/ios/

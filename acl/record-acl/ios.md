@@ -1,5 +1,5 @@
 ---
-
+title: Record-based ACL
 ---
 
 [[toc]]
@@ -67,7 +67,7 @@ updating and removing all the fields (**EXCEPT** [reserved columns][doc-reserved
 
 ## Record-based ACL By User
 
-Similarly with ACL of Public, you can set the `NoAccessForUser`, `ReadOnlyForUser` and 
+Similarly with ACL of Public, you can set the `NoAccessForUser`, `ReadOnlyForUser` and
 `ReadWriteAccessForUser`) for each records.
 
 Suppose you have three user records: `Tak`, `Benson` and `Rick`. And this is the security setting you want to apply:
@@ -152,9 +152,9 @@ SKYContainer.default().auth.fetchRoles(ofUsers: users) { (userRoles, error) in
 }
 ```
 
-## Set default ACL for a record type 
+## Set default ACL for a record type
 
-Instead of setting ACL of each record object as mentioned above, you may set the default ACL of 
+Instead of setting ACL of each record object as mentioned above, you may set the default ACL of
 all newly created records of a record type.
 
 ```obj-c

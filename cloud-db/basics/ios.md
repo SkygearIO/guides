@@ -80,6 +80,7 @@ Each record table contains the following reserved columns:
 | `_owner`      | `ownerUserRecordID`        | `NSString` object of user id of owner           |
 | `_id`         | `recordID`                 | `SKYRecordID` object of record id               |
 
+Moare about Skygear database schema in [Database Schema][doc-database-schema].
 
 Learn how to query the Skygear reserved columns in [More About Queries](/guides/cloud-db/queries/ios/#querying-skygear-reserved-columns).
 
