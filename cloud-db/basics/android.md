@@ -5,11 +5,22 @@ title: Cloud Database Basics
 [[toc]]
 
 
-Please make sure you have already configured your skygear
-container before you proceed.
+## Introduction
 
-You can follow the steps in [Setup Skygear][doc-setup-skygear] to set it up.
+Skygear allows users to store records to Skygear's PostgreSQL cloud database.
+You can even define your own type of `Record` and add customized fields to suit
+you needs.
 
+Before you proceed, please make sure:
+- You have your Skygear container configured. Simply follows the guide at
+[Setup Skygear][doc-setup-skygear] if you haven't.
+
+- You have signed up as a `User` and logged in, as you have to be authenticated
+to perform any database operations. For guide on sign up and log in, go to
+[User Authentication Basics][doc-user-auth].
+
+To visualize your database with graphical presentation, you can go to the Database section in [Skygear Portal][skygear-portal]
+and open our web data browser.
 
 ## The Record Class
 
@@ -22,7 +33,6 @@ on the data type. Please refer to [Data Type][doc-data-type] for more informatio
 - There exist some reserved keys that cannot be used as a key for an attribute. Examples are `ownerUserRecordID ` and `recordType `. Please refer to [Reserved Columns][doc-reserved-columns] section for more information.
 - Each `Record` created will be owned by the currently logged in user.
 - Each `Record` object has a unique `id` (a string combination of record type and uuid is used).
-
 
 ## Record Database
 
@@ -55,7 +65,6 @@ val publicDatabase = skygear.publicDatabase
 // get private database
 val privateDatabase = skygear.privateDatabase
 ```
-
 
 ## Creating a Record
 
@@ -444,8 +453,10 @@ Each record table contains the following reserved columns:
 | `_owner`      | `ownerUserRecordID`        | `NSString` object of user id of owner           |
 | `_id`         | `recordID`                 | `SKYRecordID` object of record id               |
 
-
+[doc-setup-skygear]: /guides/intro/quickstart/android/
+[doc-user-auth]: /guides/auth/basics/android/
 [doc-reserved-columns]: #reserved-columns
 [doc-data-type]: /guides/cloud-db/data-types/android/
 [doc-queries]: /guides/cloud-db/queries/android/
+[skygear-portal]:https://portal.skygear.io/apps
 [api-record]: https://docs.skygear.io/android/reference/latest/io/skygear/skygear/Record.html
