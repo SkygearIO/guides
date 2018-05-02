@@ -197,7 +197,9 @@ The `publish` function has no return values and takes two arguments:
 ## Push Notifications
 
 You can send push notifications to users from the cloud code
-using the `push_user` function in the `skygear.action` module.
+using the `push_user`, `push_users`, `push_device` and `push_devices` function in the `skygear.action` module.
+
+Below example shows how you can push to a user using `push_user`
 
 ```python
 from skygear.container import SkygearContainer
@@ -229,8 +231,10 @@ response = push_user(container, user_id, notification)
 
 ## Parameters
 
+### Push to one user
+
 ```python
-push_user(container, user_id, notification)
+push_user(container, user_id, notification, topic=None)
 ```
 
 - **container** (`SkygearContainer`)
@@ -250,16 +254,98 @@ push_user(container, user_id, notification)
   and [Google Cloud Messaging][gcm]
   respectively.
 
-If you need to send push notifications to multiple users,
-you can pass a list of user IDs (Python list) to the `push_users` function
-(don't miss the ending "s" of `push_users`!).
-The other arguments remain the same.
+- **topic** (string)
+
+  [Optional] The device topic, refer to application bundle identifier on iOS and application package name on Android
+
+### Push to users
+
+```python
+push_users(container, user_ids, notification, topic=None)
+```
+
+- **container** (`SkygearContainer`)
+
+  An instance of the `SkygearContainer`, with the API key configured.
+
+- **user_ids** (List)
+
+  A list of Skygear user ID who will receive the push notification. The prefix
+  `user/` is not necessary for the user ID.
+
+- **notification** (dictionary)
+
+  It should be a Python dictionary with two keys, `apns` and `gcm`,
+  representing the argument for
+  [Apple Push Notification Service][apns]
+  and [Google Cloud Messaging][gcm]
+  respectively.
+
+- **topic** (string)
+
+  [Optional] The device topic, refer to application bundle identifier on iOS and application package name on Android
+
+Example:
 
 ```python
 user_ids = ["abcd-efgh", "efgh-abcd", "aceg-bdfh"]
 
 response = push_users(container, user_ids, notification)
 ```
+
+### Push to one device
+
+```python
+push_device(container, device_id, notification, topic=None)
+```
+
+- **container** (`SkygearContainer`)
+
+  An instance of the `SkygearContainer`, with the API key configured.
+
+- **device_id** (String)
+
+  The device ID which will receive the push notification. The prefix
+  `device/` is not necessary for the device ID.
+
+- **notification** (dictionary)
+
+  It should be a Python dictionary with two keys, `apns` and `gcm`,
+  representing the argument for
+  [Apple Push Notification Service][apns]
+  and [Google Cloud Messaging][gcm]
+  respectively.
+
+- **topic** (string)
+
+  [Optional] The device topic, refer to application bundle identifier on iOS and application package name on Android
+
+### Push to devices
+
+```python
+push_device(container, device_id, notification, topic=None)
+```
+
+- **container** (`SkygearContainer`)
+
+  An instance of the `SkygearContainer`, with the API key configured.
+
+- **device_ids** (List)
+
+  A list of device ID which will receive the push notification. The prefix
+  `device/` is not necessary for the device ID.
+
+- **notification** (dictionary)
+
+  It should be a Python dictionary with two keys, `apns` and `gcm`,
+  representing the argument for
+  [Apple Push Notification Service][apns]
+  and [Google Cloud Messaging][gcm]
+  respectively.
+
+- **topic** (string)
+
+  [Optional] The device topic, refer to application bundle identifier on iOS and application package name on Android
 
 ### Return Value
 
