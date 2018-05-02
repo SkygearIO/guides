@@ -34,7 +34,7 @@ const TaskRecord = skygear.Record.extend('task');
 const query = new skygear.Query(TaskRecord);
 query.equalTo('_id', 'cdfc7bb4-afd3-464c-a430-c9564c2202cf');
 container.publicDB.query(query).then((records) => {
-	console.log(records);
+  console.log(records);
 });
 ```
 
@@ -89,9 +89,9 @@ const container = skygearCloud.getContainer('admin');
 // the action will be done on behalf of the given user
 const Task = skygear.Record.extend('task');
 const TaskRecord = new Task({
-	description: 'Complete the sales report'});
+  description: 'Complete the sales report'});
 container.publicDB.save(TaskRecord).then((result) => {
-	console.log(result);
+  console.log(result);
 });
 ```
 
@@ -101,11 +101,11 @@ Deleting a record can be done in a similar fashion:
 const container = skygearCloud.getContainer('admin');
 
 container.publicDB.delete({
-	id: 'note/cdfc7bb4-afd3-464c-a430-c9564c2202cf'
+  id: 'note/cdfc7bb4-afd3-464c-a430-c9564c2202cf'
 }).then((record) => {
-	console.log(record);
+  console.log(record);
 }, (error) => {
-	console.error(error);
+  console.error(error);
 });
 ```
 
