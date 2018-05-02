@@ -88,7 +88,7 @@ you can access the currently logged-in user using [`skygear.auth.currentUser`].
 ``` javascript
 import skygear from 'skygear';
 let username = 'Ben';
-let password = '1234'; //very secure password
+let password = '1234'; // very secure password
 
 skygear.auth.signupWithUsername(username, password).then((user) => {
   console.log(user); // user record
@@ -108,7 +108,7 @@ skygear.auth.signupWithUsername(username, password).then((user) => {
 ``` javascript
 import skygear from 'skygear';
 let email = "hello@skygear.io";
-let password = "1234";
+let password = "1234"; // very secure password
 
 skygear.auth.signupWithEmail(email, password).then((user) => {
   console.log(user); // user record
@@ -130,7 +130,7 @@ functions:
 ``` javascript
 import skygear from 'skygear';
 let username = 'Ben';
-let password = '1234'; //very secure password
+let password = '1234'; // very secure password
 let otherData = { "interest": "reading" };
 
 // sign up with email and also add data to user record
@@ -184,7 +184,7 @@ you can access the currently logged-in user using [`skygear.auth.currentUser`].
 
 ``` javascript
 let username = 'Ben';
-let password = '1234'; //very secure password
+let password = '1234'; // very secure password
 
 skygear.auth.loginWithUsername(username, password).then((user) => {
   console.log(user); // user record
@@ -203,7 +203,7 @@ skygear.auth.loginWithUsername(username, password).then((user) => {
 
 ``` javascript
 let email = "hello@skygear.io";
-let password = "1234";
+let password = "1234"; // very secure password
 
 skygear.auth.loginWithEmail(email, password).then((user) => {
   console.log(user); // user record
