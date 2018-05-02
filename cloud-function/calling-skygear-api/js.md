@@ -215,7 +215,7 @@ sendToUser(users, notification, topic)
 
 
 ```javascript
-sendToDevice(users, notification, topic)
+sendToDevice(devices, notification, topic)
 ```
 
 - **devices** (string or array of string)
