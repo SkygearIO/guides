@@ -195,12 +195,12 @@ container.push.sendToUser(
 sendToUser(users, notification, topic)
 ```
 
-- **users** (string or array of string)
+- **`users`** (string or array of string)
 
   An array of User IDs. If you are sending a notification to a single
   user, you can also specify the User ID in string instead of array.
 
-- **notification** (dictionary)
+- **`notification`** (dictionary)
 
   It should be a Python dictionary with two keys, `apns` and `gcm`,
   representing the argument for
@@ -208,7 +208,7 @@ sendToUser(users, notification, topic)
   and [Google Cloud Messaging][gcm]
   respectively.
 
-- **topic** (string)
+- **`topic`** (string)
 
   The device topic, refer to application bundle
   identifier on iOS and application package name on Android
@@ -218,12 +218,12 @@ sendToUser(users, notification, topic)
 sendToDevice(devices, notification, topic)
 ```
 
-- **devices** (string or array of string)
+- **`devices`** (string or array of string)
 
   An array of Device IDs. If you are sending a notification to a single
   device, you can also specify the Device ID in string instead of array.
 
-- **notification** (dictionary)
+- **`notification`** (dictionary)
 
   It should be a Python dictionary with two keys, `apns` and `gcm`,
   representing the argument for
@@ -231,7 +231,7 @@ sendToDevice(devices, notification, topic)
   and [Google Cloud Messaging][gcm]
   respectively.
 
-- **topic** (string)
+- **`topic`** (string)
 
   The device topic, refer to application bundle
   identifier on iOS and application package name on Android

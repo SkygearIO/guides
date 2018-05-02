@@ -237,16 +237,16 @@ response = push_user(container, user_id, notification)
 push_user(container, user_id, notification, topic=None)
 ```
 
-- **container** (`SkygearContainer`)
+- **`container`** (`SkygearContainer`)
 
   An instance of the `SkygearContainer`, with the API key configured.
 
-- **user_id** (String)
+- **`user_id`** (String)
 
   The Skygear user ID who will receive the push notification. The prefix
   `user/` is not necessary for the user ID.
 
-- **notification** (dictionary)
+- **`notification`** (dictionary)
 
   It should be a Python dictionary with two keys, `apns` and `gcm`,
   representing the argument for
@@ -254,7 +254,7 @@ push_user(container, user_id, notification, topic=None)
   and [Google Cloud Messaging][gcm]
   respectively.
 
-- **topic** (string)
+- **`topic`** (string)
 
   [Optional] The device topic, refer to application bundle identifier on iOS and application package name on Android
 
@@ -264,16 +264,16 @@ push_user(container, user_id, notification, topic=None)
 push_users(container, user_ids, notification, topic=None)
 ```
 
-- **container** (`SkygearContainer`)
+- **`container`** (`SkygearContainer`)
 
   An instance of the `SkygearContainer`, with the API key configured.
 
-- **user_ids** (List)
+- **`user_ids`** (List)
 
   A list of Skygear user ID who will receive the push notification. The prefix
   `user/` is not necessary for the user ID.
 
-- **notification** (dictionary)
+- **`notification`** (dictionary)
 
   It should be a Python dictionary with two keys, `apns` and `gcm`,
   representing the argument for
@@ -281,7 +281,7 @@ push_users(container, user_ids, notification, topic=None)
   and [Google Cloud Messaging][gcm]
   respectively.
 
-- **topic** (string)
+- **`topic`** (string)
 
   [Optional] The device topic, refer to application bundle identifier on iOS and application package name on Android
 
@@ -299,16 +299,16 @@ response = push_users(container, user_ids, notification)
 push_device(container, device_id, notification, topic=None)
 ```
 
-- **container** (`SkygearContainer`)
+- **`container`** (`SkygearContainer`)
 
   An instance of the `SkygearContainer`, with the API key configured.
 
-- **device_id** (String)
+- **`device_id`** (String)
 
   The device ID which will receive the push notification. The prefix
   `device/` is not necessary for the device ID.
 
-- **notification** (dictionary)
+- **`notification`** (dictionary)
 
   It should be a Python dictionary with two keys, `apns` and `gcm`,
   representing the argument for
@@ -316,7 +316,7 @@ push_device(container, device_id, notification, topic=None)
   and [Google Cloud Messaging][gcm]
   respectively.
 
-- **topic** (string)
+- **`topic`** (string)
 
   [Optional] The device topic, refer to application bundle identifier on iOS and application package name on Android
 
@@ -330,12 +330,12 @@ push_device(container, device_id, notification, topic=None)
 
   An instance of the `SkygearContainer`, with the API key configured.
 
-- **device_ids** (List)
+- **`device_ids`** (List)
 
   A list of device ID which will receive the push notification. The prefix
   `device/` is not necessary for the device ID.
 
-- **notification** (dictionary)
+- **`notification`** (dictionary)
 
   It should be a Python dictionary with two keys, `apns` and `gcm`,
   representing the argument for
@@ -343,7 +343,7 @@ push_device(container, device_id, notification, topic=None)
   and [Google Cloud Messaging][gcm]
   respectively.
 
-- **topic** (string)
+- **`topic`** (string)
 
   [Optional] The device topic, refer to application bundle identifier on iOS and application package name on Android
 
