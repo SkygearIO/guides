@@ -323,7 +323,7 @@ push_device(container, device_id, notification, topic=None)
 ### Push to devices
 
 ```python
-push_device(container, device_id, notification, topic=None)
+push_devices(container, device_ids, notification, topic=None)
 ```
 
 - **container** (`SkygearContainer`)
