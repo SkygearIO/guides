@@ -34,7 +34,7 @@ const TaskRecord = skygear.Record.extend('task');
 const query = new skygear.Query(TaskRecord);
 query.equalTo('_id', 'cdfc7bb4-afd3-464c-a430-c9564c2202cf');
 container.publicDB.query(query).then((records) => {
-	console.log(records);
+  console.log(records);
 });
 ```
 
@@ -89,9 +89,9 @@ const container = skygearCloud.getContainer('admin');
 // the action will be done on behalf of the given user
 const Task = skygear.Record.extend('task');
 const TaskRecord = new Task({
-	description: 'Complete the sales report'});
+  description: 'Complete the sales report'});
 container.publicDB.save(TaskRecord).then((result) => {
-	console.log(result);
+  console.log(result);
 });
 ```
 
@@ -101,11 +101,11 @@ Deleting a record can be done in a similar fashion:
 const container = skygearCloud.getContainer('admin');
 
 container.publicDB.delete({
-	id: 'note/cdfc7bb4-afd3-464c-a430-c9564c2202cf'
+  id: 'note/cdfc7bb4-afd3-464c-a430-c9564c2202cf'
 }).then((record) => {
-	console.log(record);
+  console.log(record);
 }, (error) => {
-	console.error(error);
+  console.error(error);
 });
 ```
 
@@ -195,12 +195,12 @@ container.push.sendToUser(
 sendToUser(users, notification, topic)
 ```
 
-- **users** (string or array of string)
+- **`users`** (string or array of string)
 
   An array of User IDs. If you are sending a notification to a single
   user, you can also specify the User ID in string instead of array.
 
-- **notification** (dictionary)
+- **`notification`** (dictionary)
 
   It should be a Python dictionary with two keys, `apns` and `gcm`,
   representing the argument for
@@ -208,22 +208,22 @@ sendToUser(users, notification, topic)
   and [Google Cloud Messaging][gcm]
   respectively.
 
-- **topic** (string)
+- **`topic`** (string)
 
   The device topic, refer to application bundle
   identifier on iOS and application package name on Android
 
 
 ```javascript
-sendToDevice(users, notification, topic)
+sendToDevice(devices, notification, topic)
 ```
 
-- **devices** (string or array of string)
+- **`devices`** (string or array of string)
 
   An array of Device IDs. If you are sending a notification to a single
   device, you can also specify the Device ID in string instead of array.
 
-- **notification** (dictionary)
+- **`notification`** (dictionary)
 
   It should be a Python dictionary with two keys, `apns` and `gcm`,
   representing the argument for
@@ -231,7 +231,7 @@ sendToDevice(users, notification, topic)
   and [Google Cloud Messaging][gcm]
   respectively.
 
-- **topic** (string)
+- **`topic`** (string)
 
   The device topic, refer to application bundle
   identifier on iOS and application package name on Android
