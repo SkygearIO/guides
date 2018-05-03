@@ -13,7 +13,7 @@ Some of you may wonder what's the difference between the CMS and the data browse
 |---	|---	|---	|
 |Target user	|Developers who need to view and alter database data and schema.	|System Admin or managers who need to view and update content of the system.	|
 |Data views	|Showing all tables, including Skygear default tables such as _auth, _role ,etc. Also shows every fields including default fields in each table, such as _access, _id etc.	|Default hide all tables. Developers need to configure which table and fields to be shown at	|
-|Data export	|Yes	|Yes	|
+|Data export	|Yes. Support only full table export.	|Yes. Support also filtered view export	|
 |Data import |No |Yes |
 |Who can access	|Collaborators of your app on Skygear	|Admin users in Skygear user role record	|
 |Customizable	|No. It default shows all tables and columns.	|Yes, with config in YML format.	|
