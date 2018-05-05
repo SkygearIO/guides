@@ -9,15 +9,14 @@ Skygear CMS aims to provide a user friendly-interface for business user to updat
 Some of you may wonder what's the difference between the CMS and the data browser, here's a summary.
 
 
-|Difference	|Database Browser	|CMS	|
-|---	|---	|---	|
-|Target user	|Developers who need to view and alter database data and schema.	|System Admin or managers who need to view and update content of the system.	|
-|Data views	|Showing all tables, including Skygear default tables such as _auth, _role ,etc. Also shows every fields including default fields in each table, such as _access, _id etc.	|Default hide all tables. Developers need to configure which table and fields to be shown at	|
-|Data export	|Yes. Support only full table export.	|Yes. Support also filtered view export	|
-|Data import |No |Yes |
-|Who can access	|Collaborators of your app on Skygear	|Admin users in Skygear user role record	|
-|Customizable	|No. It default shows all tables and columns.	|Yes, with config in YML format.	|
-
+|Difference | Database Browser |CMS|
+|----|----|----|
+|Target User| Developers who need to view data and the database schema|System Admin or managers who need to view and update content of the system.|
+|Data views|Display all the tables at in database, including Skygear default tables such as _auth, _role ,etc. Display also every fields of a record, which includes default fields such as _access, _id etc.|Developers can configure which record type and its fields to be displayed. |
+|Data export|Yes. |Yes|
+|Data import|No|Yes|
+|Who can access|Collaborators of your app on Skygear|Admin users in Skygear user role record|
+|Customizable|No. It default shows all tables and columns.|Yes, with config in YML format.|
 
 ## Enable CMS plugin at Skygear Portal
 
@@ -25,9 +24,7 @@ By default, CMS is not enabled on the portal. You can turn on the the CMS plugin
 
 ## CMS configuration overview
 
-Skygear supports a simple way to configure CMS via editing the CMS Configuration YML. You can find the current config YML at ` Skygear Portal > CMS > CMS Configuration`.
-
-The YML itself looks explanatory, still there are some details we want you to know. Below is a simple overview of what you can configure in the CMS.
+You can configure the CMS with a YML file. It is located at ` Skygear Portal > CMS > CMS Configuration`.
 
 ```
 site:
@@ -41,23 +38,58 @@ records:
       fiters:
         //Filtable fields on the first page
     show:
-      //Displayable fields in the detial page
+      //Displayable fields in the detail page
     edit:
       //Editable fields
     new:
       //Fill-in-able fields when creating a new record
 ```
 
-## Example: configuring a basic CMS
+## Configuring pages
 
-In the following examples, we will be using the below database structure as a sample.
+![CMS List View](/assets/cms/cms-list-view.png)
 
+You can configure the pages your CMS has. All pages will be displayed on the left sidebar so that users can navigate across pages.
+
+Skygear currently supports 3 types of pages:
+
+1. Record: a page to display all the records of a record type.
+2. Push Notifications: a page to send push messages to your users.
+3. User management: a page to manage your users, from creating a new user account, to blocking problemtics users.
+
+Assume we have a database like this:
 |Record	|Fields	|	|	|	|	|
 |---	|---	|---	|---	|---	|---
 |user	|_id	|_created_at	|username	|role	|avatar	|
 |blogpost	|_id	|_created_at	|title	|content	|
-|comment	|_id	|_created_at	|comment	|blogpostId (Skygear reference)	|
+|comment	|_id	|_created_at	|comment	|blogPostId (Skygear reference)	|
 
+If you want to display all the records from the **blogpost** record type, include a push notification dashboard and a user management dashboard in your CMS, you should write in the YML:
+
+```
+site:
+  - type: Record
+    name: blogpost
+    label: Blogpost
+  - type: PushNotifications
+  - type: UserManagement
+```
+
+`name` refers to the record type's name in the database. `label` refers to the name to be displayed in the CMS. If you don't provide a label, Skygear CMS will simply display the record type's name.
+
+
+
+If you only have 'Site' in the YML config, you will only see a blank page in the CMS because we haven't defined what to display on the pages. Let see how to do it below  👇
+
+
+
+
+
+### Step 1: Listing out all the blog posts
+
+![CMS List View](/assets/cms/cms-list-view.png)
+
+This is called the list view, where you
 ### Site
 
 **Site** defines what pages to be shown in the CMS. All availabe pages will be shown on the left sidebar.
@@ -337,6 +369,7 @@ Records:
      list:
        fields:
          - name: comments
+           type: EmbeddedReference
            reference_via_back_reference: comment
            reference_from_field: blogpostId
            reference_field_name: content
