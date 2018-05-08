@@ -86,16 +86,31 @@ They are similar to the available types in a JSON object.
 - Array
 - Object
 
-Depending on the SDKs, the supplied arguments will be
-passed to the lambda function as the corresponding data type.
+In addition to the JSON-compatible data types above, the following Skygear
+data type can be used in parameters as well. Serialization takes place
+automatically and you get these objects on the cloud code side.
+
+- Date
+- Location
+- Reference
+- Asset
+- Record
+
+Note: In JavaScript, the SDK upload Asset (such as image) before calling your
+cloud code. On other SDK, please upload the Asset before calling the lambda.
+
+Objects will be deserialized according to the platform. For example, Array
+will be serialized to `List` in Android and `NSArray` in iOS.
 
 ## Return Value
 
-A lambda function should return a JavaScript object or `null`.
-It will be the response the client SDK receives.
+A lambda function can also return a value. The list of supported data types
+are the same with parameters. That means you can return a date, a location
+or an array.
 
+## Examples
 
-## Example
+### Send an email
 
 The following lambda function, named `send_invitation_email`,
 accepts two parameters: `to_user_email` and `custom_message`.
@@ -186,6 +201,115 @@ SKYContainer.default().callLambda("send_invitation_email", arguments: argv) { (r
         return
     }
     print("Received response = \(response)")
+}
+```
+
+### Find locations
+
+```javascript
+
+skygearCloud.op('find_locations', function(param) {
+  var loc = param['current']; // a Location
+  var keyword = param['keyword']; // a String
+
+  // Search in the database or call external service to find a list of
+  // locations.
+  return [
+    {
+      "loc": new skygear.Geolocation(22.2855200, 114.1576900),
+      "name": "ACME Restaurant"
+    },
+    {
+      "loc": new skygear.Geolocation(25.105497, 121.597366),
+      "name": "ACME Bookshop"
+    }
+  ];
+})
+```
+
+This function can be invoked from the client SDKs by the followings:
+
+**JS SDK**
+
+```javascript
+const params = {
+  'current': new skygear.Geolocation(13.444304, 144.793732),
+  'keyword': 'ACME',
+};
+skygear.lambda('find_locations', params)
+  .then(response => {
+    console.log(response[0].name); // 'ACME Restaurant'
+  });
+```
+
+**Android SDK**
+
+```java
+Container skygear = Container.defaultContainer(this);
+
+String lambdaName = "find_locations";
+
+Location current = new Location("skygear");
+current.setLatitude(13.444304);
+current.setLongitude(144.793732);
+
+// Argument order follows the lambda function signature
+Object[] argv = new Object[]{ current, "ACME" };
+
+// Note: you can skip the argument when calling the function if there is none
+skygear.callLambdaFunction(lambdaName, argv, new TypedLambdaResponseHandler<List<Map<String, Object>>>() {
+    @Override
+    public void onLambdaSuccess(List<Map<String, Object>> result) {
+        LOG.i("MyApplication", result.get(0).get(name)); // 'ACME Restaurant'
+    }
+
+    @Override
+    public void onLambdaFail(String reason) {
+        // Error Handling
+    }
+});
+```
+
+```kotlin
+val container = Container.defaultContainer(this)
+val current = Location("skygear");
+current.latitude = 13.444304
+current.longitude = 144.793732
+
+container.callLambdaFunction("find_locations", arrayOf<Any>(current, "ACME"), object : TypedLambdaResponseHandler<List<Map<String, Object>>>() {
+    override fun onLambdaSuccess(result: List<Map<String, Object>>) {
+        LOG.i("MyApplication", result.get(0).get("name")); // 'ACME Restaurant'
+    }
+
+    override fun onFail(error: Error?) {
+
+    }
+})
+```
+
+**iOS SDK**
+
+```obj-c
+NSArray *argv = @[
+    [[CLLocation alloc] initWithLatitude:22.3 longitude:114.2],
+    @"ACME"
+];
+[container callLambda:@"find_locations" arguments:argv completionHandler:^(id response, NSError *error) {
+    if (error) {
+        NSLog(@"error calling find_locations: %@", error);
+        return;
+    }
+
+    NSLog(@"Name %@", [[response objectAtIndex:0] objectForKey:@"name"]);
+}];
+```
+
+```swift
+let argv = [CLLocation(latitude: 22.3, longitude: 114.2), "ACME"]
+SKYContainer.default().callLambda("find_locations", arguments: argv) { (response, error) in
+    if let shops = response as? [Dictionary<String,Any>] {
+        print("Name: \(shops[0]["name"])")
+    }
 }
 ```
 
