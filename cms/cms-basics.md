@@ -1,302 +1,389 @@
 ---
 title: CMS basics
 ---
+[[toc]]
 
 ## Introduction
 
-Skygear CMS aims to provide a user friendly-interface for business user to update the content of the app. As a developer, you can configure what to display / be editable in the CMS with the YML file at the Developer Portal.
+Skygear CMS aims to provide a user friendly-interface for business user to update the content of the app. As a developer, you can customise the YML file at the Developer Portal. Below are the 5 major CMS features:
 
-Some of you may wonder what's the difference between the CMS and the data browser, here's a summary.
+1. **Content management**: Display, filter, sort, create, update and delete records, including relation records.
 
+2. **File upload**: Upload files
+
+3. **Push**: Broadcast push notifications to segmented users.
+
+4. **User management**: Give CMS access to users, create a new user account, reset user password and etc.
+
+5. **Import/Export**: Import records, and export records according to the filtered view. (Coming soon)
+
+
+Some of you may wonder what is the difference between the CMS and the data browser, here is a summary.
 
 |Difference | Database Browser |CMS|
 |----|----|----|
-|Target User| Developers who need to view data and the database schema|System Admin or managers who need to view and update content of the system.|
-|Data views|Display all the tables at in database, including Skygear default tables such as _auth, _role ,etc. Display also every fields of a record, which includes default fields such as _access, _id etc.|Developers can configure which record type and its fields to be displayed. |
-|Data export|Yes. |Yes|
+|Target User| Developers who need to view data and the database schema|Business users who need to view and update content of the system|
+|Data views|Display all the tables at in database, including Skygear default tables such as _auth, _role ,etc. Display also every fields of a record, which includes default fields such as _access, _id etc.|Developers can configure which record type and its fields to be displayed |
+|Data export|Yes |Yes, and you can configuration the exportable view|
 |Data import|No|Yes|
-|Who can access|Collaborators of your app on Skygear|Admin users in Skygear user role record|
+|Who can access|Collaborators of your app on Skygear|Skygear users marked as admin|
 |Customizable|No. It default shows all tables and columns.|Yes, with config in YML format.|
 
-## Enable CMS plugin at Skygear Portal
 
-By default, CMS is not enabled on the portal. You can turn on the the CMS plugin at `Skygear Portal > CMS. `If you are not a new Skygear users and wanted to use this new version of CMS, re-enable the CMS plug-in 🤓
+## Getting started
 
-## CMS configuration overview
+In this guide, you will learn how to configure the CMS with a YML file. To start with, enable the CMS plug-in at the Developer Portal. You will see a YML editor when the CMS is enabled successfully.
 
-You can configure the CMS with a YML file. It is located at ` Skygear Portal > CMS > CMS Configuration`.
+If you are not a new Skygear user and you want to use this new version of CMS, re-enable the CMS plug-in.
 
-```
+![CMS YML editor](/assets/cms/cms-yml-editor.png)
+
+
+## CMS overview
+
+![CMS page types](/assets/cms/cms-pages-types.png)
+
+Skygear CMS is consisted of **pages**. All pages will be shown on the left side bar so that CMS users can navigate across pages. Each page is configurable. You can configure various items depending on the page type.
+
+There are three page types:
+
+**1. Record**
+
+You can manage the content of your app with record pages. Each record page can display a CMS record, and each CMS record is linked to a database table.
+
+A record page has 4 views: **list**, **show**, **edit** and **new**. Simply put, they are the ways your business users read, update or create a record in the CMS.
+
+Let say we have a blog app, and we want to let business users to update or create blog posts with the CMS. To do so, first of all, we should create a CMS record that links to the blog post table in the database, and then create a page for that CMS record.
+
+**2. Push notification**
+
+You can send push messages to your app users with the push notification page.
+
+**3. User management**
+
+You can manage your users with the user management page. Current functions include assigning admin role and resetting passwords.
+
+Below is a high level overview of all the configurable items:
+
+```YML
 site:
-  // Pages in the CMS. Available pages will be shown on the left sidebar.
+  # pages configuration
 
 records:
-  user:
-    // Configuring the user record
+  # CMS record configuration
+  CMS_record_name:
+    record_type:
     list:
-      //Displayable fields on the first page
-      fiters:
-        //Filtable fields on the first page
+      fields:
+      filters:
+      predicates:
+      default_sort:
     show:
-      //Displayable fields in the detail page
     edit:
-      //Editable fields
     new:
-      //Fill-in-able fields when creating a new record
+
+user_management:
+  # user management page configuration
+  enable:
+
+push_notifications:
+  # push notification page configuration
+  enable:
+
 ```
 
 ## Configuring pages
 
-![CMS List View](/assets/cms/cms-list-view.png)
+Skygear CMS is consisted of pages. When working with the CMS configuration, the first things you should consider is what pages you would need in the CMS.
 
-You can configure the pages your CMS has. All pages will be displayed on the left sidebar so that users can navigate across pages.
+There are 3 page types: Record, Push Notification, and User Management. You can learn about what each type does in [CMS overview]().
 
-Skygear currently supports 3 types of pages:
+To show you how to configure the pages, let's assume we have a database like this:
 
-1. Record: a page to display all the records of a record type.
-2. Push Notifications: a page to send push messages to your users.
-3. User management: a page to manage your users, from creating a new user account, to blocking problemtics users.
+|Record Type| Fields| ||||
+|---|---|---|---|---|---|
+|blogpost|_id|_created_at|title|content|cover|
+|comment|_id|_created_at|blogpostId|
 
-Assume we have a database like this:
-|Record	|Fields	|	|	|	|	|
-|---	|---	|---	|---	|---	|---
-|user	|_id	|_created_at	|username	|role	|avatar	|
-|blogpost	|_id	|_created_at	|title	|content	|
-|comment	|_id	|_created_at	|comment	|blogPostId (Skygear reference)	|
+Suppose we want to show all the blogpost records and all the comment records in the CMS, and also need the push notification dashboard and the user management dashboard:
 
-If you want to display all the records from the **blogpost** record type, include a push notification dashboard and a user management dashboard in your CMS, you should write in the YML:
-
-```
+```yml
 site:
   - type: Record
+    # this is the CMS record name, which can be configured below
     name: blogpost
-    label: Blogpost
+    label: Blogposts
+  - type: Record
+    name: comment
+    label: Comments
   - type: PushNotifications
+    label: Push
   - type: UserManagement
-```
-
-`name` refers to the record type's name in the database. `label` refers to the name to be displayed in the CMS. If you don't provide a label, Skygear CMS will simply display the record type's name.
-
-
-
-If you only have 'Site' in the YML config, you will only see a blank page in the CMS because we haven't defined what to display on the pages. Let see how to do it below  👇
-
-
-
-
-
-### Step 1: Listing out all the blog posts
-
-![CMS List View](/assets/cms/cms-list-view.png)
-
-This is called the list view, where you
-### Site
-
-**Site** defines what pages to be shown in the CMS. All availabe pages will be shown on the left sidebar.
-
-There are 3 types of pages you can show:
-
-1. Record: a page to display all the records of a record type.
-2. Push Notifications: a page to broadcast push messages to your users. (Coming soon)
-3. User management: a page to manage your users, from creating a new user account, to blocking problemtics users. (Coming soon)
-
-For example, if you want to display all the records from **user** and the **blogpost**, you should write in the YML:
-
-```
-site:
-  - type: Record
-    name: user
-    label: User
-  - type: Record
-    name: blogpost
-    label: Blogpost
-```
-
-`name` refers to the record type in the database. `label` refers to the name to be shown on the CMS.
-
-If you only have 'Site' in the YML config, you will only see a blank page in the CMS because we haven't defined what to display on the pages. Let see how to do it below  👇
-
-
-### Records
-
-By now we have already defined two pages - **User** & **Blogpost**. Next we should define what to show in these pages.
-
-In general there are **FOUR** views you can customize: **list, show, edit and new**.
-
-* **List**: displayable fields on the first page. you can further set which fields can be **filtered**
-* **Show**: dispalyable fields on the detail page
-* **Edit**: editable fields to be editable
-* **New**: fill-in-able fields when creating a new record
-
-#### List
-
-Let's first define the fields we want to show in the `user` page. These are the two goals:
-
-1. I want to display only the **username**, the  **role**, the **avatar** and the **_created_at** field of a `user` record.
-2. I also want **role** to be searchable / filterable.
-
-```
-site:
-  - type: Record
-    name: user
-    label: User
-  - type: Record
-    name: blogpost
-    label: Blogpost
+    label: User management
 
 records:
-  user:
-    list:
-      fields:
-        - name: username
-          type: String
-          label: Username
-        - name: role
-          type: Dropdown
-          label: Email
-        - name: avatar
-          type: ImageAsset
-          label: Avatar
-        - type: _created_at
-      filters:
-        - name: username
-          type: String
-          label: Username
-
+  blogpost:
+    # this is the CMS record name, you can call it anything
+    record_type: blogpost
+    # this is the database table that is linked to this CMS record.
+  comment:
+    record_type: comment
 ```
 
-Now in your CMS, you should be able to see all your users records!
+ `name` refers to the CMS record name. You can configure the CMS record name in the records section. `label` refers to the name to be shown in the CMS. If you don't provide a label, Skygear CMS will simply show the CMS record name.
 
-Again, `name` is the field name. `label` is the name to be shown on the CMS.
+Now save the changes and open the CMS. You should see all the pages on the left side bar.
 
-However, if you click on the button `Show`, you will get a 'Page Not Found' Error. This will be fixed when we configure the `Show` view of the user record.
+![CMS Site](/assets/cms/cms-site.png)
 
-You may have questions about **type** in the example. No worries, we are going to talk about it in the [Explaining record types in CMS](##explaining-record-types-in-CMS) section.
+## Configuring record pages
 
-#### Show
+A record page has 4 views: **list**, **show**, **edit** and **new**. They are the ways your business users read (list, show), update (edit) or create (new) a record in the CMS.
 
-In fact, if the fields you want to show in the detail page is the same as the ones on the first page, simply copy and paste the same configure from `list` to the `show`.
+### List view
 
-```
+![CMS List View](/assets/cms/cms-list.png)
+
+You can imagine the list view as a spreadsheet that lists out all the records you have in a table. To show you how to configure the record page list view in the CMS, let's assume we have a database like this:
+
+|Record Type| Fields| ||||
+|---|---|---|---|---|---|
+|blogpost|_id|_created_at|title|content|cover|
+|comment|_id|_created_at|blogpostId|
+
+This is what we need:
+
+1. Display only the **title**, the  **content**, the **cover** and the **created time** of a blogpost.
+2. Blog posts to be filterable with keywords in **title**.
+3. Display only blog posts that are created in 2018.
+4. Blog posts sorted in descending order based on their created time.
+
+Then we should write in the YML:
+
+```yml
 site:
   - type: Record
-    name: user
-    label: User
-  - type: Record
     name: blogpost
-    label: Blogpost
+    label: Blogposts
 
 records:
-  user:
+  blogpost:
+    record_type: blogpost
     list:
       fields:
-        - name: username
+        - name: title
           type: String
-          label: Username
-        - name: role
-          type: Dropdown
-          label: Email
+          label: Title
+        - name: content
+          type: TextArea
+          label: Content
+        - name: cover
+          type: ImageAsset
+          label: Cover
         - type: _created_at
       filters:
-        - name: username
+        - name: title
           type: String
-          label: Username
-     show:
-       fields:
-        - name: username
-          type: String
-          label: Username
-        - name: role
-          type: Dropdown
-          label: Email
-        - name: avatar
-          type: ImageAsset
-          label: Avatar
-        - type: _created_at
+          label: Title
+      predicates:
+        - name: title
+          predicate: EqualTo
+          value: ""
+      default_sort:
+        name: _created_at
+        ascending: false
 
 ```
 
-Save your CMS configurations and open your CMS again. You should be able to access the detail page of your records 🤘
+Let's have a look at all the configurable items:
 
+**1. record_type**
 
-#### Edit & new
-Since the configuration of setting **editable fields** and **fill-in-able fields** when creating a new records are very similar to setting the displayable fields, we are not going into details of the two. You may simply follow the below examples.
+It refers to the database table the CMS record is linked to. In the above example, the CMS record `blogpost` is linked to the database table `blogpost`.
 
-Please note that I have taken away the field _created_at because usually you may not want your users to edit the record creation time.
+**2. fields**
 
+It refers to the fields you want to display. You may not want to display all the fields of a record as it may confuse your business users. For example, most developers choose to not display the record id.
 
+When you configure a field, you have to specify its field types. **Field types in the CMS is not equivalent to data type the database**. They are the way the CMS displays the content of the field. For example, as blog posts are usually long texts, using TextArea to display the `content` field maybe more appropriate. You can learn about all the field types in [Explaining fields types]().
+
+**3. filter**
+
+It refers to the fields your business users can use to filter the records. For example, if you set the `title` field to be filterable, then the business users can filter blog posts that contains a specific keyword in its title.
+
+**4. predicates**
+
+Different from filter, predicates will be applied to the list view automatically. In the example, we have applied a predicate to the blogpost CMS record to show only blog posts created in 2018.
+
+Below are the predicates you can use:
 ```
+Like
+NotLike
+CaseInsensitiveLike
+CaseInsensitiveNotLike
+EqualTo
+NotEqualTo
+GreaterThan
+GreaterThanOrEqualTo
+LessThan
+LessThanOrEqualTo
+Contains
+NotContains
+ContainsValue
+NotContainsValue
+```
+**5. default sort**
+
+It refers to the field you want to use to order your records.
+
+### Show view
+
+![CMS show](/assets/cms/cms-show.png)
+
+The show view is actually the detail page of a record. You can enter the show view by clicking the `show` button on the right hand side of a record in the list view.
+
+You can configure what fields to be displayed in the show view. Following our sample database, suppose we want to show the **id**, the **title**, the **content**, the **image cover** and the **created date** of a blog post:
+
+```yml
 site:
   - type: Record
-    name: user
-    label: User
-  - type: Record
     name: blogpost
-    label: Blogpost
+    label: Blogposts
 
 records:
-  user:
+  blogpost:
+    record_type: blogpost
     list:
       fields:
-        - name: username
+        - name: title
           type: String
-          label: Username
-        - name: role
-          type: Dropdown
-          label: Role
+          label: Title
+        - name: content
+          type: TextArea
+          label: Content
+        - name: cover
+          type: ImageAsset
+          label: Cover
         - type: _created_at
       filters:
-        - name: role
+        - name: title
           type: String
-          label: Role
-     show:
-       fields:
-        - name: username
+          label: Title
+      default_sort:
+        name: _created_at
+        ascending: false
+    show:
+      fields:
+        - type: _id
+        - name: title
           type: String
-          label: Username
-        - name: role
-          type: Dropdown
-          label: Role
+          label: Title
+        - name: content
+          type: TextArea
+          label: Content
+        - name: cover
+          type: ImageAsset
+          label: Cover
         - type: _created_at
-     edit:
-        fields:
-        - name: username
-          type: String
-          label: Username
-        - name: role
-          type: Dropdown
-          label: Role
-        - name: avatar
-          type: ImageAsset
-          label: Avatar
-     new:
-        fields:
-        - name: username
-          type: String
-          label: Username
-        - name: role
-          type: Dropdown
-          label: Role
-        - name: avatar
-          type: ImageAsset
-          label: Avatar
-
 ```
+
+### Edit & New view
+
+![CMS edit](/assets/cms/cms-edit.png)
+![CMS new](/assets/cms/cms-new.png)
+
+As suggested by their names, the edit view refers to the **edit page** where users can update a record; the new view refers to the **create page** where users can create a record. As the configuration of the two are very similar, the example below will show you how to configure the two in one go.
+
+Similar to the show view, you can configure what fields to be displayed in the edit view and the new view.
+
+Suppose business users can update the **title**, the **content** and the **cover image** of the blog posts, and when they create a new blog post, they can also enter its **title**,  its **content** and its **cover image**:
+
+```yml
+site:
+  - type: Record
+    name: blogpost
+    label: Blogposts
+
+records:
+  blogpost:
+    record_type: blogpost
+    list:
+      fields:
+        - name: title
+          type: String
+          label: Title
+        - name: content
+          type: TextArea
+          label: Content
+        - name: cover
+          type: ImageAsset
+          label: Cover
+        - type: _created_at
+      filters:
+        - name: title
+          type: String
+          label: Title
+      default_sort:
+        name: _created_at
+        ascending: false
+    show:
+      fields:
+        - type: _id
+        - name: title
+          type: String
+          label: Title
+        - name: content
+          type: TextArea
+          label: Content
+        - name: cover
+          type: ImageAsset
+          label: Cover
+        - type: _created_at
+    edit:
+      fields:
+        - name: title
+          type: String
+          label: Title
+        - name: content
+          type: WYSIWYG
+          label: Content
+        - name: cover
+          type: ImageAsset
+          label: Cover
+    new:
+      fields:
+        - name: title
+          type: String
+          label: Title
+        - name: content
+          type: WYSIWYG
+          label: Content
+        - name: cover
+          type: ImageAsset
+          label: Cover
+```
+
+Here we have used WYSIWYG for the content's field type in the edit and the new view. WYSIWYG is another field type the CMS support. It offers a WYSIWYG editor for business users to style the content. This is to illustrate that you can have different field types in different views to serve different purposes.
+
 ## Explaining record types in the CMS
 
-In our above examples, whenever you need to configure a field, you have to specify **its name**, **its label** and **its type**. Since **record types in the CMS is not equivalent to data type at database level**, in the section we will go into more details about the record types in CMS.
+In our above examples, whenever you need to configure a field, you have to specify **its name**, **its label** and **its field type**. Since **field types in the CMS is not equivalent to data type at database level**, in this section we will go into more details about the field types in CMS.
 
-Record types in the CMS refers to the type of data a user would enter. For example, while role is **String** at database level, however, as there are only two roles availabe and you want to limit the user input, you may use **Dropdown** instead.
+Fields types in the CMS refers to the way the CMS display the data. For example, suppose there are two roles in your app: student and teacher. While in the database role has a data type of **String**, however, in the CMS, as you may want to limit the user input to student or teacher, you can set the role's field type to **Dropdown** in the CMS.
 
-```
+```yml
 records:
   user:
-    list:
+    edit:
       fields:
         - name: role
+          label: role
           type: Dropdown
-          label: Role
-        - type: _created_at
+          options:
+            - label: student
+              value: student
+            - label: teacher
+              value: teacher
 ```
 
 Here's a list of available types:
@@ -309,70 +396,177 @@ Here's a list of available types:
 * DateTime = date time picker
 * Boolean = boolean
 * Integer = integer
-* ImageAsset = asset (with upload button)
+* Number = nubmer
+* ImageAsset = image
+* FileAsset = files
 * Reference = reference
+
+Here is a full example of using all the field types.
+
+```YML
+fields:
+  - type: _id
+  - type: _created_at
+  - type: _updated_at
+  - name: name
+    label: Name
+    type: String
+  - name: textarea
+    type: TextArea
+  - name: dropdown
+    type: Dropdown
+    null:
+      enabled: false
+      label: Undefined
+    custom:
+      enabled: true
+    options:
+      - label: Option A
+        value: A
+      - label: Option B
+        value: B
+      - label: Option S
+        value: S
+  - name: wysiwyg
+    type: WYSIWYG
+  - name: datetime
+    type: DateTime
+  - name: boolean
+    type: Boolean
+  - name: integer
+    type: Integer
+  - name: number
+    type: Number
+  - name: reference
+    type: Reference
+    reference_target: ref_demo
+    reference_field_name: name
+  - name: back_refs
+    type: Reference
+    reference_via_back_reference: back_ref_demo
+    reference_from_field: reference
+    reference_field_name: name
+  - name: imageasset
+    type: ImageAsset
+  - name: fileasset
+    type: FileAsset
+```
 
 While most types are pretty self explanatory itself, we will go into more details about the reference type in the next section.
 
 ## Working with reference in the CMS
 
-Still remember the sample database we used in the earlier example?
+Very often there is relation records (Skygear reference) in your app.
 
-In the following examples, we will be using the below database structure as a sample.
+To show you how to reference works in the CMS, let's assume we have a database like this:
 
-|Record	|Fields	|	|	|	|	|
-|---	|---	|---	|---	|---	|---
-|user	|_id	|_created_at	|username	|role	|avatar	|
-|blogpost	|_id	|_created_at	|title	|content	|
-|comment	|_id	|_created_at	|comment	|blogpostId (Skygear reference)	|
+|Record Type| Fields| ||||
+|---|---|---|---|---|---|
+|blogpost|_id|_created_at|title|content|cover|
+|comment|_id|_created_at|blogpostId|
 
+The **comment** record has a reference field (blogpostId) that points to the blogpost record. Suppose we want to show all the comments a blogpost has in the blogpost's list and show view:
 
-The **comment** record has a reference column to the blogpost record.
+```yml
+site:
+  - type: Record
+    name: blogpost
+    label: Blogposts
 
-In CMS, you can show a **Referenced** (1 to many) record and **Back-referenced** (reversed) records.
-
-**Referenced record**
-
-To show the blogpost record associated to the comment record, uses:
-
-1. **reference_taget**: the referenced record name, in this case 'blogpost'
-2. **reference_field_name**: the field we want to display from the blogpost record, in this case 'title'
-
-```
-// showing referenced record
-Records:
+records:
   comment:
+    record_type: comment
+  blogpost:
+    record_type: blogpost
     list:
       fields:
+        - name: title
+          type: String
+          label: Title
+        - name: comment
+          type: Reference
+          reference_via_back_reference: comment
+          reference_from_field: blogpostId
+          reference_field_name: comment
+    show:
+      fields:
+        - name: comment
+          type: Reference
+          reference_via_back_reference: comment
+          reference_from_field: blogpostId
+          reference_field_name: comment
+```
+As the CMS needs to display the comments, we need to create a CMS record 'comment' that links to the comment table in the database, even if comment doesn't take up a page in the CMS.
+
+Explaining the configurable items:
+
+1. **reference_via_back_reference**: the back referenced CMS record, in this case 'comment'
+2. **reference_from_field**: the field that links up the two records, in this case 'blogpostId'
+3. **reference_field_name**: the field we want to display from a comment record, in this case 'comment'
+
+At the same time, we also want to show the blog post the comment belongs to in the comment's list and show view:
+
+```yml
+site:
+  - type: Record
+    name: comment
+    label: Comments
+
+records:
+  blogpost:
+    record_type: blogpost
+  comment:
+    record_type: comment
+    list:
+      fields:
+        - name: comment
+          type: String
+          label: Comment
         - name: blogpostId
           type: Reference
           reference_target: blogpost
           reference_field_name: title
+    show:
+      fields:
+        - name: comment
+          type: String
+          label: Comment
+        - name: blogpostId
+          type: Reference
+          reference_target: blogpost
+          reference_field_name: title
+```
+Explaining the configurable items:
 
+1. **reference_taget**: the referenced record name, in this case 'blogpost'
+2. **reference_field_name**: the field we want to display from the blogpost record, in this case 'title'.
+
+## Configuring the push notification page
+
+![CMS push](/assets/cms/cms-push.png)
+
+To add a push notification dashboard in your CMS, not only do you need to add a `PushNotications` page under the site configuration, you also need to enable it in the `push_notifications` configuration.
+
+```yml
+site:
+  - type: PushNotifications
+    label: Push
+
+push_notification:
+  enabled: true
 ```
 
-Here's the results:
+## Configuring the user management page
 
-**Back-referenced record**
+![CMS user](/assets/cms/cms-user.png)
 
-Skygear CMS also supports back reference. That is in this case, show the comments the blogpost has. To do so, defines:
+Similar to adding a push notification dashboard in the CMS, to add a user management dashboard, not only do you need to add a `UserManagement` page under the site configuration, you also need to enable it in the `user_management` configuration.
 
+```yml
+site:
+  - type: UserManagement
+    label: User Management
 
-1. **reference_via_back_reference**: the back referenced record, in this case 'comment'
-2. **reference_from_field**: the field that links up the two records, in this case 'blogpostId'
-3. **reference_field_name**: the field we want to display from the comment record, in this case 'content'
-
+user_management:
+  enabled: true
 ```
-// showing back referenced records
-Records:
-  blogpost:
-     list:
-       fields:
-         - name: comments
-           type: EmbeddedReference
-           reference_via_back_reference: comment
-           reference_from_field: blogpostId
-           reference_field_name: content
-```
-
-Here's the results:
