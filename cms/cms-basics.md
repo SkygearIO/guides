@@ -5,7 +5,7 @@ title: CMS basics
 
 ## Introduction
 
-Skygear CMS aims to provide a user friendly-interface for business user to update the content of the app. As a developer, you can customise the YML file at the Developer Portal. Below are the 5 major CMS features:
+Skygear CMS aims to provide a user friendly-interface for business user to update the content of the app. As a developer, you can customize the YML file at the Developer Portal. Below are the 5 major CMS features:
 
 1. **Content management**: Display, filter, sort, create, update and delete records, including relation records.
 
@@ -391,12 +391,12 @@ Here's a list of available types:
 * Skygear reserved columns (see **_created_at** in the above example. more about Skygear reserved columns [here](https://docs.skygear.io/guides/advanced/database-schema/#records-table). )
 * String = short texts
 * TextArea = long texts
-* Dropdown = dropdown boxes
+* Dropdown = dropdowns
 * WYSIWYG = WYSIWYG editor
 * DateTime = date time picker
 * Boolean = boolean
 * Integer = integer
-* Number = nubmer
+* Number = number
 * ImageAsset = image
 * FileAsset = files
 * Reference = reference
@@ -538,7 +538,7 @@ records:
 ```
 Explaining the configurable items:
 
-1. **reference_taget**: the referenced record name, in this case 'blogpost'
+1. **reference_target**: the referenced record name, in this case 'blogpost'
 2. **reference_field_name**: the field we want to display from the blogpost record, in this case 'title'.
 
 ## Configuring the push notification page

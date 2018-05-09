@@ -112,6 +112,8 @@ AngularJS
 Slackbot
 Lunchbot
 PushNotificationIOS
+YML
+dropdowns
 
 # Skygear Code
 # note: normally codes should be wrapped in backticks `` but may not in titles
@@ -193,6 +195,12 @@ whitelist
 writable
 unregister
 Unregistering
+blogpost
+customizable
+blogpostId
+blogpost
+blogpost's
+
 
 # short forms
 e.g.
@@ -235,6 +243,10 @@ before_delete
 after_delete
 snake_case
 50MB
+_auth
+_role
+_access
+_created_at
 
 # nouns (e.g. GitHub Repo)
 aschuch
@@ -308,3 +320,14 @@ LinkedIn
 popup
 OAuth
 URIs
+
+# CMS terms
+TextArea
+record_type
+Dropdown
+ImageAsset
+FileAsset
+reference_via_back_reference
+reference_from_field
+reference_field_name
+reference_target
