@@ -248,6 +248,57 @@ chatContainer.leaveConversation(conversation, new LambdaResponseHandler() {
 });
 ```
 
+## Getting Participants
+Once you get conversation objects via `getConversation` or `getConversations`, you can get the IDs of participants from `participantIds` in a conversation object. Skygear Chat provides `getParticipants` API to retrieve `Participant` objects from participant IDs. Each `Participant` object contains an user record. For example,
+
+```java
+Container container = Container.defaultContainer(this);
+ChatContainer chatContainer = ChatContainer.getInstance(container);
+chatContainer.getParticipants(conversation.getParticipantIds(), new GetParticipantsCallback() {
+    @Override
+    public void onGetCachedResult(Map<String, Participant> participantsMap) {
+        for (Participant participant: participantsMap.values()) {
+            Log.i("MyApplication", "Participant: " + participant.getRecord().get("username"));
+        }
+    }
+
+    @Override
+    public void onSuccess(Map<String, Participant> participantsMap) {
+        for (Participant participant: participantsMap.values()) {
+            Log.i("MyApplication", "Participant from cache: " + participant.getRecord().get("username"));
+        }
+    }
+
+    @Override
+    public void onFail(@NonNull Error error) {
+        Log.e("MyApplication", "Failed to get participants: " + error.getMessage());
+    }
+});
+```
+
+```kotlin
+val container = Container.defaultContainer(this)
+val chatContainer = ChatContainer.getInstance(container)
+chatContainer.getParticipants(conversation.participantIds!!, object : GetParticipantsCallback {
+    override fun onGetCachedResult(participantsMap: Map<String, Participant>?) {
+        for (participant in participantsMap!!.values) {
+            Log.i("MyApplication", "Participant: " + participant.record.get("username"))
+        }
+    }
+
+    override fun onSuccess(participantsMap: Map<String, Participant>?) {
+        for (participant in participantsMap!!.values) {
+            Log.i("MyApplication", "Participant from cache: " + participant.record.get("username"))
+        }
+    }
+
+    override fun onFail(error: Error) {
+        Log.e("MyApplication", "Failed to get participants: " + error.message)
+    }
+})
+```
+The above function gets participant objects and outputs the username of each participant object. Apart from `onSuccess`,  `onGetCachedResult` is also called if there are participants available from the cache.
+
 ## Managing conversation participants
 At some point of your conversation, you may wish to update the participant list. You may add or remove participants in a conversation.
 
@@ -334,7 +385,7 @@ To remove admins from a conversation, you can call [`removeConversationAdmin`](h
 ## Messages
 Skygear Chat supports real time messaging. A message is the real content of a conversation. Skygear Chat supports 2 types of messages, one is plain text, the other one is assets. Assets include files, images, voice message and video.
 
-### Loading messages from a conversation 
+### Loading messages from a conversation
 When users get into the chatroom, you may call [`getMessages`](https://docs.skygear.io/android/chat/reference/latest/io/skygear/plugins/chat/ChatContainer.html#getMessages-io.skygear.plugins.chat.Conversation-int-java.util.Date-java.lang.String-io.skygear.plugins.chat.GetCallback-) to load the messages of the conversation. You can specify the limit of the messages in `limit` and the time constraint for the message in `before`.
 
 ```Java
@@ -344,10 +395,15 @@ ChatContainer chatContainer = ChatContainer.getInstance(skygear);
 chatContainer.getMessages(conversation,
     -1, // -1 as default limit
     null, // Date before
-    new GetCallback<List<Message>>() {
+    new GetMessagesCallback() {
     @Override
     public void onSuccess(@Nullable List<Message> messageList) {
-        Log.i("MyApplication", "Messages Retrieved: " + messageList);
+        Log.i("MyApplication", "Messages Retrieved from server: " + messageList);
+    }
+
+    @Override
+    public void onGetCachedResult(@Nullable List<Message> messageList) {
+        Log.i("MyApplication", "Messages Retrieved from cache: " + messageList);
     }
 
     @Override
@@ -383,6 +439,73 @@ chatContainer.sendMessage(conversation,
     }
 });
 ```
+
+
+When adding a message to a conversation, the operation is created and is added
+to the local cache store. The callback function is called
+when the message is added to server.
+
+#### Handling failed messages
+
+If messages failed to save, you can obtain them from
+`fetchOutstandingMessageOperations`.
+
+Outstanding message operations contain messages that are not yet synchronized
+to the server. You can fetch outstanding message operations to display to
+the user which messages are failed to synchronize, so that you can present
+user with options whether to retry or cancel the operation.
+
+Here is an example:
+
+```Java
+Container skygear = Container.defaultContainer(getApplicationContext());
+ChatContainer chatContainer = ChatContainer.getInstance(skygear);
+
+chatContainer.fetchOutstandingMessageOperations(conversation, MessageOperation.Type.ADD, new GetCallback<List<MessageOperation>>() {
+    @Override
+    public void onSuccess(@Nullable List<MessageOperation> operations) {
+        Log.i("MyApplication", "Outstanding Message Operation Retrieved: " + operations);
+    }
+
+    @Override
+    public void onFail(@NonNull Error error) {
+        Log.i("MyApplication", "Failed to get outstanding message operations: " + error.getMessage());
+    }
+});
+```
+
+To retry a message operation, calls `retryMessageOperation`:
+
+```Java
+Container skygear = Container.defaultContainer(getApplicationContext());
+ChatContainer chatContainer = ChatContainer.getInstance(skygear);
+
+chatContainer.fetchOutstandingMessageOperations(message, MessageOperation.Type.ADD, new GetCallback<List<MessageOperation>>() {
+    @Override
+    public void onSuccess(@Nullable List<MessageOperationOperation> operations) {
+        for (MessageOperation operation : operations) {
+            chatContainer.retryMessageOperation(operation, new MessageOperationCallback() {
+                @Override
+                public void onSuccess(MessageOperation operation, Message message) {
+                    Log.i("MyApplication", "Retried message operation: " + operation);
+                }
+
+                @Override
+                public void onFail(@NonNull Error error) {
+                    Log.i("MyApplication", "Failed to retry outstanding message operation: " + error.getMessage());
+                }
+            });
+        }
+    }
+
+    @Override
+    public void onFail(@NonNull Error error) {
+        Log.i("MyApplication", "Failed to fetch outstanding message operations: " + error.getMessage());
+    }
+});
+```
+
+Calls `cancelMessageOperation` to cancel the message operation instead.
 
 #### Plain Text
 
@@ -561,7 +684,7 @@ Coming soon
 
 ## Receipt
 Skygear Chat provides you with message receipt which includes status and timestamps information.
- 
+
 ### Message status
 You can make use of the following receipt status to indicate your message status.
 
@@ -679,13 +802,5 @@ chatContainer.sendTypingIndicator(conversation, Typing.State.FINISH);
 ```
 
 
-## User online 
+## User online
 Coming soon
-
-## Best practices
-### Caching message history locally
-
-Skygear Chat does not cache message history in client device. You may consider to use the following libraries.
-
-- [`Android dualcache`](https://github.com/vincentbrison/dualcache)
-- [`Disk LRU Cache`](https://github.com/JakeWharton/DiskLruCache)

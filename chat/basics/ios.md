@@ -28,7 +28,7 @@ There are two types of conversations in Skygear Chat:
 
 ### Creating direct conversations
 
-You can use [`createDirectConversation`](https://docs.skygear.io/ios/chat/reference/latest/Classes/SKYChatExtension.html#/c:objc(cs)SKYChatExtension(im)createDirectConversationWithUserID:title:metadata:completion:) to create a conversation with another user. Please specify the user ID as `userID`. 
+You can use [`createDirectConversation`](https://docs.skygear.io/ios/chat/reference/latest/Classes/SKYChatExtension.html#/c:objc(cs)SKYChatExtension(im)createDirectConversationWithUserID:title:metadata:completion:) to create a conversation with another user. Please specify the user ID as `userID`.
 
 ```swift
 SKYContainer.default().chatExtension?.createDirectConversation(userID: userBen,
@@ -177,6 +177,29 @@ SKYContainer.default().chatExtension?.leave(
 )
 ```
 
+## Getting Participants
+Once you get conversation objects via `fetchConversationWithConversationID ` or `fetchConversationsWithCompletion `, you can get the IDs of participants from `participantIds` in a conversation object. Skygear Chat provides `fetchParticipants` API to retrieve `SKYParticipant` objects from participant IDs. Each `SKYParticipant` object contains an user record. For example,
+
+
+```swift
+SKYContainer.default()
+    .chatExtension?
+    .fetchParticipants(
+        participantIDs: conversation.participantIds,
+        completion: {[weak self] (result, isCached, error) in
+            guard error == nil else {
+                print(error.localizedDescription)
+                return
+            }
+            result.forEach({ (eachParticipantID, eachParticipant) in
+                print(eachParticipant.record["username"])
+              })
+    })
+```
+The above function gets participant objects and outputs the username of each participant object. `SKYParticipant` is fetched from skygear server, or from device cache if cache is available. `isCached` is `true` if data is loaded from cache.
+
+
+
 ## Managing conversation participants
 At some point of your conversation, you may wish to update the participant list. You may add or remove participants in a conversation.
 
@@ -271,16 +294,22 @@ Skygear Chat supports real time messaging. A message is the real content of a co
 
 When users get into the chatroom, you may call [`fetchMessagesWithConversation:limit:beforeTime:order:completion:`](https://docs.skygear.io/ios/chat/reference/latest/Classes/SKYChatExtension.html#/c:objc(cs)SKYChatExtension(im)fetchMessagesWithConversation:limit:beforeTime:order:completion:) to load the messages of the conversation. You can specify the limit of the messages in `limit` and the time constraint for the message in `beforeTime`.
 
+The completion function would get called twice, once from cache and once from server. There is a boolean flag `isCached` in the completion function parameter reflecting if the messages are fetched from local cache or server.
+
 ```swift
 SKYContainer.default().chatExtension?.fetchMessages(
     conversation: conversation,
     limit: 100,
     beforeTime: nil,
     order: nil,
-    completion: { (messages, error) in
+    completion: { (messages, isCached, error) in
         if error != nil {
             print ("Messages cannot be fetched. " +
                    "Error:\(error.localizedDescription)")
+        }
+
+        if isCached {
+            print ("Messages fetched from cache")
         }
 
         print ("Messages fetched")
@@ -301,15 +330,64 @@ message.body = "Hello!"
 SKYContainer.default().chatExtension?.addMessage(message,
     to: conversation) { (message, error) in
         if let err = error {
+            // The message cannot be added, you should handle
+            // this error.
             print("Send message error: \(err.localizedDescription)")
             return
         }
 
-        if message != nil {
-            print("Send message successful")
-        }
+        // The message is added to server.
+        // This is a good time to update your messages view with the added
+        // message.
+        updateMessagesView(message)
 }
 ```
+
+When adding a message to a conversation, the operation is created and is added
+to the local cache store. The completion handler is called
+when the message is added to server.
+
+#### Handling failed messages
+
+If messages failed to save, you can obtain them from
+`fetchOutstandingMessageOperations(conversationID:operationType:completion:)`.
+
+Outstanding message operations contain messages that are not yet synchronized
+to the server. You can fetch outstanding message operations to display to
+the user which messages are failed to synchronize, so that you can present
+user with options whether to retry or cancel the operation.
+
+Here is an example:
+
+```swift
+SKYContainer.default().chatExtension?.fetchOutstandingMessageOperations(
+    conversationID: self.conversation!.recordID().recordName,
+    operationType: SKYMessageOperationType.add
+    completion: { (operations) in
+        // Handle operation here. A typical example is to show
+        // these messages alongside sent ones.
+        for operation in operations {
+            addFailedMessagesToView(operation.message)
+        }
+    })
+```
+
+To retry a message operation, calls `retry(messageOperation:completion:)`:
+
+```swift
+SKYContainer.default().chatExtension?.fetchOutstandingMessageOperations(
+    messageID: message.recordID().recordName,
+    operationType: SKYMessageOperationType.add
+    completion: { (operations) in
+        guard let operation = operations.first else {
+            return
+        }
+
+        SKYContainer.default().chatExtension?.retry(messageOperation: operation, completion: nil)
+    })
+```
+
+Calls `cancel(messageOperation:)` to cancel the message operation instead.
 
 #### Plain Text
 
@@ -375,7 +453,8 @@ SKYContainer.default().editMessage(message, with: newMessageBody, completion: { 
         print(err.localizedDescription)
         return
     }
-    print("Message Updated.")
+
+    print("Edit message successful")
 })
 ```
 
@@ -392,8 +471,6 @@ SKYContainer.default().chatExtension?.deleteMessage(message, in: conversation) {
 }
 ```
 
-
-
 ## Subscribing to new messages
 ### Subscribing to messages in a conversation
 
@@ -409,7 +486,7 @@ SKYContainer.default().chatExtension?.subscribeToMessages(
 
 ### Subscribing to messages in all conversations
 
-Besides a specific conversation, you might want to get notified whenever there are new messages in any conversation you belong to. 
+Besides a specific conversation, you might want to get notified whenever there are new messages in any conversation you belong to.
 
 You can subscribe to all messages in your own user channel with  [`subscribeToUserChannelWithCompletion:`](https://docs.skygear.io/ios/chat/reference/latest/Classes/SKYChatExtension.html#/c:objc(cs)SKYChatExtension(im)subscribeToUserChannelWithCompletion:)
 
@@ -625,15 +702,5 @@ SKYContainer.default().chatExtension?.sendTypingIndicator(event,
 ```
 with the current date `Date()` in the `at` parameter.
 
-
-
-
 ## User online
 Coming soon
-
-## Best practices
-### Caching message history locally
-Skygear Chat does not cache message history in client device. You may consider to use the following libraries.
-
-- [kyperoslo/Cache](https://github.com/hyperoslo/Cache)
-- [aschuch/AwesomeCache](https://github.com/aschuch/AwesomeCache)
