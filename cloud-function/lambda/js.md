@@ -209,8 +209,8 @@ SKYContainer.default().callLambda("send_invitation_email", arguments: argv) { (r
 ```javascript
 
 skygearCloud.op('find_locations', function(param) {
-  var loc = param['current']; // a Location
-  var keyword = param['keyword']; // a String
+  var loc = param['args']['current']; // a Location
+  var keyword = param['args']['keyword']; // a String
 
   // Search in the database or call external service to find a list of
   // locations.
