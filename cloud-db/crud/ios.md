@@ -115,55 +115,6 @@ privateDB.saveRecords(notesToSave, completionHandler: { (savedRecords, operation
     print ("saved todo with recordID = \(record?.recordID)")
 })
 ```
-
-
-## Querying a record
-
-With the `recordID` we could also fetch the record from a database:
-
-```obj-c
-SKYRecordID *recordID = [SKYRecordID recordIDWithRecordType:@"todo" name:@"369067DC-BDBC-49D5-A6A2-D83061D83BFC"];
-[privateDB fetchRecordWithID:recordID completionHandler:^(SKYRecord *record, NSError *error) {
-    if (error) {
-        NSLog(@"error fetching todo: %@", error);
-        return;
-    }
-
-    NSString *title = record[@"title"];
-    NSNumber *order = record[@"order"];
-    NSNumber *done = record[@"done"];
-
-    NSLog(@"Fetched a note (title = %@, order = %@, done = %@)", title, order, done);
-}];
-```
-
-```swift
-let recordID = SKYRecordID(recordType: "todo", name: "369067DC-BDBC-49D5-A6A2-D83061D83BFCD")
-SKYContainer.default().privateCloudDatabase.fetchRecord(with: recordID) { (record, error) in
-    if error != nil {
-        print ("error fetching todo: \(error)")
-        return
-    }
-
-    let title = record?.object(forKey: "title")
-    let order = record?.object(forKey: "order")
-    let done = record?.object(forKey: "done")
-
-    print ("Fetched a note (title = \(title), order = \(order), done = \(done)")
-
-}
-```
-
-In Objective-C, to get the values out of the `SKYRecord`, you can use the `[]` subscript operator as shown above, or the `objectForKey:` method:
-
-```obj-c
-NSString *title = [record objectForKey: @"title"];
-NSNumber *order = [record objectForKey: @"order"];
-NSNumber *done = [record objectForKey: @"done"];
-```
-
-You can construct a `SKYQuery` object by providing a `recordType`. You can configure the `SKYQuery` by mutating its state. Read the [Query][doc-queries] section to learn more.
-
 ## Updating records
 
 Now let's return to our to-do item example. This is how you save a `SKYRecord`:
@@ -228,6 +179,54 @@ SKYContainer.default().privateCloudDatabase.save(todo, completion: nil)
 Note that the data in the returned record in the completion block may be
 different from the originally saved record. This is because additional
 fields maybe applied on the server side when the record is saved (e.g. the updated `modificationDate`). You may want to inspect the returned record for any changes applied on the server side.
+
+
+## Querying records
+
+With the `recordID` we could also fetch the record from a database:
+
+```obj-c
+SKYRecordID *recordID = [SKYRecordID recordIDWithRecordType:@"todo" name:@"369067DC-BDBC-49D5-A6A2-D83061D83BFC"];
+[privateDB fetchRecordWithID:recordID completionHandler:^(SKYRecord *record, NSError *error) {
+    if (error) {
+        NSLog(@"error fetching todo: %@", error);
+        return;
+    }
+
+    NSString *title = record[@"title"];
+    NSNumber *order = record[@"order"];
+    NSNumber *done = record[@"done"];
+
+    NSLog(@"Fetched a note (title = %@, order = %@, done = %@)", title, order, done);
+}];
+```
+
+```swift
+let recordID = SKYRecordID(recordType: "todo", name: "369067DC-BDBC-49D5-A6A2-D83061D83BFCD")
+SKYContainer.default().privateCloudDatabase.fetchRecord(with: recordID) { (record, error) in
+    if error != nil {
+        print ("error fetching todo: \(error)")
+        return
+    }
+
+    let title = record?.object(forKey: "title")
+    let order = record?.object(forKey: "order")
+    let done = record?.object(forKey: "done")
+
+    print ("Fetched a note (title = \(title), order = \(order), done = \(done)")
+
+}
+```
+
+In Objective-C, to get the values out of the `SKYRecord`, you can use the `[]` subscript operator as shown above, or the `objectForKey:` method:
+
+```obj-c
+NSString *title = [record objectForKey: @"title"];
+NSNumber *order = [record objectForKey: @"order"];
+NSNumber *done = [record objectForKey: @"done"];
+```
+
+You can construct a `SKYQuery` object by providing a `recordType`. You can configure the `SKYQuery` by mutating its state. Read the [More About Queries][doc-queries] section to learn more.
 
 ## Deleting records
 
@@ -302,13 +301,7 @@ SKYContainer.default().privateCloudDatabase.deleteRecords(withIDs: notesToDelete
 ```
 
 
-[doc-cloud-db-basics]:/guides/cloud-db/basics/js/
-[doc-setup-skygear]: /guides/get-started/ios/
-[doc-data-type]: /guides/cloud-db/data-types/ios/
-[doc-reserved-columns]: #reserved-columns
-[doc-record-acl]: /guides/cloud-db/record-acl/ios/
-[doc-field-acl]: /guides/cloud-db/field-acl/
-[doc-database-schema]: /guides/advanced/database-schema/
+[doc-cloud-db-basics]:/guides/cloud-db/basics/ios/
 [doc-queries]: /guides/cloud-db/queries/ios/
 [api-save-records]: https://docs.skygear.io/ios/reference/latest/Classes/SKYDatabase.html#/c:objc(cs)SKYDatabase(im)saveRecords:completionHandler:perRecordErrorHandler:
 [api-save-records-atomically]: https://docs.skygear.io/ios/reference/latest/Classes/SKYDatabase.html#/c:objc(cs)SKYDatabase(im)saveRecordsAtomically:completionHandler:

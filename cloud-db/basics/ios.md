@@ -4,31 +4,36 @@ title: Cloud Database Basics
 
 [[toc]]
 
+## Introduction
 
-Please make sure you know about and have already configured your
-`SKYContainer` before you proceed.
+Skygear allows users to store records to Skygear's PostgreSQL cloud database. You can even define your own type of `Record` and add customized fields to suit you needs.
 
-You can follow the steps in [Setup Skygear][doc-setup-skygear] to set it up.
+Before you proceed, please make sure:
 
-## The Skygear record
+- You have your Skygear container configured. Simply follows the guide at [Setup Skygear][doc-setup-skygear] if you haven't.
 
+- You have signed up as a User and logged in, as you have to be authenticated to perform any database operations. For guide on sign up and log in, go to [User Authentication Basics][doc-user-auth].
+
+To visualize your database with graphical presentation, you can go to the Database section in [Skygear Portal][skygear-portal] and open our web data browser.
+
+
+## Record
 `SKYRecord` is the data storage unit in Skygear.
 
 - `SKYRecord` must have a type.
 - Each `SKYRecord ` object is like a dictionary with keys and values; keys will be mapped to database column names, and values will be stored appropriately
-based on the data type. Please refer to [Data Type][doc-data-type] for more information.
+based on the data type.
 - `SKYRecord` will be owned by the currently logged in user.
 - `SKYRecord` object has a unique `id` (a string combination of record type and uuid is used).
 - Each `SKYRecord` has a `recordType`, which describes the _type_ of data this record holds.
-- `SKYRecord` has reserved keys that cannot be used, such as `ownerUserRecordID ` and `recordType `. Please refer to [Reserved Columns][doc-reserved-columns] section for more.
-- Please note Skygear database uses PostgreSQL. You can review our [tips](https://docs.skygear.io/guides/intro/quickstart/js/#tips-anchor) on the 3 ways you can access the Skygear database.
-
+- `SKYRecord` has reserved keys that cannot be used, such as `ownerUserRecordID ` and `recordType `. Please refer to [Reserved columns][doc-reserved-columns] section for more.
+- Please note Skygear database uses PostgreSQL. You are given the direct access of the database and therefore can open the database of your app using a Postgre client. Details can be found on the [Skygear Portal][skygear-portal].
 
 A record can store whatever values that are JSON-serializable. Possible values include
 strings, numbers, booleans, dates, and several other custom types that Skygear
 supports.
 
-## Public database vs private database
+## Database
 
 `SKYDatabase` is the central hub of data storage in `SKYKit`. The main responsibility of database is to store `SKYRecord`s.
 
@@ -43,9 +48,9 @@ To control the access, you may set different access control entity to the record
 
 Head to [Record-based ACL][doc-record-acl] and [Field-based ACL][doc-field-acl] to read more about it.
 
-## Supported data type
+## Data type
 
-Skygear supports a lot of data types, such as:
+Below are the data types Skygear supports:
 - String
 - Number
 - Boolean
@@ -59,9 +64,9 @@ There are also four other types provided by the Skygear SDK:
 - Sequence
 - Location
 
-You will learn how to works with these data type in [Working with relational records][doc-relational-record], [File storage][doc-files] and [Working with other data types][doc-data-type].
+You will learn how to works with these data type in [Relational Records][doc-relational-record], [File storage][doc-files] and [Location, Auto-increment sequence fields][doc-data-type].
 
-## Skygear reserved columns
+## Reserved columns
 
 For each record type stored in the database, a table with the same name as the record type is created. For example, if your record type is called `note`, there is a table called `note` in the database. Each row in the table corresponds to one record.
 
@@ -80,17 +85,17 @@ Each record table contains the following reserved columns:
 | `_owner`      | `ownerUserRecordID`        | `NSString` object of user id of owner           |
 | `_id`         | `recordID`                 | `SKYRecordID` object of record id               |
 
-More about Skygear database schema in [Database Schema][doc-database-schema].
-
-Learn how to query the Skygear reserved columns in [More About Queries](/guides/cloud-db/queries/ios/#querying-skygear-reserved-columns).
+Learn how to work with the reserved columns in [More About Queries][doc-queries].
 
 
-[doc-setup-skygear]: /guides/get-started/ios/
-[doc-data-type]: /guides/cloud-db/data-types/ios/
+[doc-setup-skygear]: /guides/intro/quickstart/ios/
+[doc-user-auth]: /guides/auth/basics/ios/
+[skygear-portal]: https://portal.skygear.io
 [doc-reserved-columns]: #reserved-columns
 [doc-database-schema]: /guides/advanced/database-schema/
-[doc-queries]: /guides/cloud-db/queries/ios/
+[doc-queries]: /guides/cloud-db/queries/ios/#getting-the-reserved-columns
 [doc-relational-record]:/guides/cloud-db/relational-records/ios/
 [doc-files]:/guides/cloud-db/files/ios/
+[doc-data-type]: /guides/cloud-db/data-types/ios/
 [doc-record-acl]: /guides/acl/record-acl/ios/
 [doc-field-acl]: /guides/acl/field-acl/

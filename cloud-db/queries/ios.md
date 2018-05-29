@@ -1,5 +1,5 @@
 ---
-title: Queries
+title: More About Queries
 ---
 
 [[toc]]
@@ -162,9 +162,7 @@ To get the number of all records matching a query, set the property
 retrieved from `overallCount` property of `SKYQueryOperation` when
 `perRecordCompletionBlock` is first called.
 
-
-
-## Querying Skygear reserved columns
+## Getting the reserved columns
 
 For each record type stored in the database, a table with the same name as the record type is created. For example, if your record type is called `note`, there is a table called `note` in the database. Each row in the table corresponds to one record.
 

@@ -4,11 +4,11 @@ title: Files Storage
 
 [[toc]]
 
-## Skygear asset basics
+## About assets
 
 You can make use of `Asset` to store file references such as images and videos on the database. An asset can only be saved with a record but not as a standalone upload. Skygear automatically uploads the files to a S3 bucket assigned to your app. You can also use your own file storage bucket. More settings can be found at the Developer Portal.
 
-## Uploading an asset
+## Creating an asset
 
 For example, you want to allow users to upload an image as an `image` to his `SKYRecord`. Once the user has selected the image to upload, you can save it by:
 
@@ -70,7 +70,7 @@ let newName = asset.name
 // from "profile-picture"
 ```
 
-## Querying an asset 
+## Querying an asset
 
 `SKYAsset.url` will be populated with an expiry URL after fetching /
 querying the record from server.
