@@ -1,5 +1,5 @@
 ---
-title: Location, Auto-increment sequence
+title: Location, Auto-increment Sequence Fields
 ---
 
 [[toc]]
@@ -64,7 +64,7 @@ skygear.publicDB.query(photoQuery).then((photos) => {
 });
 ```
 
-## Auto-Increment Sequence Fields
+## Auto-Increment sequence fields
 
 Skygear reserves the `id` field in the top level of all record as a primary key.
 `id` must be unique and default to be Version 4 UUID. If you want to

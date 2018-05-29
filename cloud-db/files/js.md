@@ -4,7 +4,7 @@ title: File Storage
 
 [[toc]]
 
-## Skygear asset basics
+## About assets
 
 You can make use of `Asset` to store file references such as
 images and videos on the database.

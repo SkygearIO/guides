@@ -1,5 +1,5 @@
 ---
-title: Queries
+title: More About Queries
 ---
 
 [[toc]]
@@ -124,7 +124,7 @@ Please visit [Data Types: Location][doc-data-type-location] section for more.
 
 ## Pagination and Ordering
 
-### Order of records
+### Record orders
 
 You can sort the records based on certain field in ascending or descending order.
 You can also sort on multiple fields as well.
@@ -138,7 +138,7 @@ The above query will first sort from small age to large age, and records
 with the same age will be then sorted from high price to low price. Just like
 this SQL statement: `ORDER BY age, price DESC`.
 
-### Pagination of records
+### Pagination
 
 There are 3 settings that affect query pagination:
 - `limit`: number of records per query/page (default value 50)
@@ -164,7 +164,7 @@ query.page = 8;
 /* 106th to 120th records */
 ```
 
-## Counting records
+## Record counts
 
 To get the number of records matching a query, set the `overallCount`
 of the Query to `true`.
@@ -181,7 +181,7 @@ skygear.publicDB.query(query).then((notes) => {
 The count is not affected by the limit set on the query. So, if you only want
 to get the count without fetching any records, simply set `query.limit = 0`.
 
-## Querying Skygear reserved columns
+## Getting the reserved columns
 
 There are quite a few reserved columns for storing records into the database.
 The column names are written as **snake_case** while the JS object attributes
@@ -229,13 +229,7 @@ query.equalTo('_owner', skygear.auth.currentUser.id);
 // '_owner' is an alias for '_owner_id'
 skygear.publicDB.query(query);
 ```
+Please head to [Database Schema][doc-database-schema] to read more about Reserved Columns, Record Tables and Reserved Tables.
 
-Check the server [database schema][doc-database-schema] page for more.
-
-
-
+[doc-database-schema]:/guides/advanced/database-schema/
 [doc-cloud-db-basics]: /guides/cloud-db/basics/js/
-[doc-reserved-columns]: /guides/cloud-db/basics/js/#reserved-columns
-[doc-social-network]: /guides/social-network/basics/js/
-[doc-data-type-location]: /guides/cloud-db/data-types/js/#location
-[doc-data-type-reference]: /guides/cloud-db/data-types/js/#reference

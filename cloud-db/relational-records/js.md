@@ -4,7 +4,7 @@ title: Relational Records
 
 [[toc]]
 
-## Creating a reference between records
+## Creating references
 
 Skygear supports parent-child relationship between records via _reference_.
 `skygear.Reference` is a pointer class, which translates to foreign key in
@@ -79,7 +79,7 @@ skygear.publicDB.query(query).then((r) => {
 
 ```
 
-## Eager Loading
+## Eager loading
 
 If you wish to retrieve `note1` and `note2` at the same time in one query,
 you can perform eager loading using the transient syntax.

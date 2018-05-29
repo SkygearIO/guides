@@ -85,7 +85,7 @@ skygear.publicDB.save(new Note({
 
 You can construct a Query object by providing a Record Type.
 You can config the query by mutating its state.
-Read the section about [More About Queries][doc-queries] to learn more.
+Read the section [More About Queries][doc-queries] to learn more.
 
 ``` javascript
 const query = new skygear.Query(Blog);
