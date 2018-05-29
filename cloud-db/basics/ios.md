@@ -27,7 +27,7 @@ based on the data type.
 - `SKYRecord` object has a unique `id` (a string combination of record type and uuid is used).
 - Each `SKYRecord` has a `recordType`, which describes the _type_ of data this record holds.
 - `SKYRecord` has reserved keys that cannot be used, such as `ownerUserRecordID ` and `recordType `. Please refer to [Reserved columns][doc-reserved-columns] section for more.
-- Please note Skygear database uses PostgreSQL. You are given the direct access of the database and therefore can open the database of your app using a Postgre client. Details can be found on the [Skygear Portal][skygear-portal].
+- Please note Skygear database uses PostgreSQL. You are given the direct access of the database and therefore can open the database of your app using a PostgreSQL client. Details can be found on the [Skygear Portal][skygear-portal].
 
 A record can store whatever values that are JSON-serializable. Possible values include
 strings, numbers, booleans, dates, and several other custom types that Skygear

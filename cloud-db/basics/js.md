@@ -28,7 +28,7 @@ section for more information.
   and uuid used in the database as `_id`).
 - `Record` has reserved keys that cannot be used, such as `id` and `_id`.
 Please refer to [Reserved Columns][doc-reserved-columns] section for more.
-- Please note Skygear database uses PostgreSQL. You are given the direct access of the database and therefore can open the database of your app using a Postgre client. Details can be found on the [Skygear Portal][skygear-portal].
+- Please note Skygear database uses PostgreSQL. You are given the direct access of the database and therefore can open the database of your app using a PostgreSQL client. Details can be found on the [Skygear Portal][skygear-portal].
 
 You can design different `Record` types to model your app. Just like defining
 tables in SQL.
