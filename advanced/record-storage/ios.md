@@ -133,3 +133,6 @@ NotificationCenter.default.addObserver(
     	self.tableView.reloadData()
 }
 ```
+
+
+[doc-queries]: /guides/cloud-db/queries/ios/
