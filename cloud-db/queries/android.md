@@ -1,5 +1,5 @@
 ---
-title: Queries
+title: More About Queries
 ---
 
 [[toc]]
@@ -74,7 +74,7 @@ Query notBetweenOneAndThree = new Query("Note")
 ```
 
 
-## Conditions
+## Query conditions
 
 Besides the operations shown above, the following list out all operations supported.
 
@@ -99,92 +99,56 @@ Besides the operations shown above, the following list out all operations suppor
 
 ## Pagination and Ordering
 
-Refer to [`Query`][api-query] class reference for pagination and order in query
+Refer to [Query][api-query] class reference for pagination and order in query
 result.
 
-## Relational Queries
+## Getting the reserved columns
+For each new record type stored in the database, a table with the same name as the record type is created. For example, if your record type is called `Note` which no record of this type has been saved before, a new table called `Note`
+will be created. Each row in the table corresponds to one record of type `Note`.
 
-This example shows how to query all notes (`Note` record) who has an `account` field reference to a user record. In this example, we will query all notes where `account` equals to the current user.
+For each record table there exists two types of columns (fields of a record), those reserved by Skygear and those user-defined. Reserved columns contain metadata of a record, such as record ID, record owner and creation time. These reserved columns are prefixed with underscore, like `_created_at`.
 
-```java
-Record currentUser = Container.defaultContainer(this).getAuth().getCurrentUser(); // Get the current user
-Query noteQuery = new Query("Note").equalTo("account", currentUser.getId());
+It is possible to manipulate data in record tables directly. However, one should exercise with caution when modifying data directly in record tables.
 
-Database publicDB = Container.defaultContainer(this).getPublicDatabase();
+Each record table contains the following reserved columns:
 
-publicDB.query(noteQuery, new RecordQueryResponseHandler() {
-    @Override
-    public void onQuerySuccess(Record[] records) {
-        Log.i("Record Query", String.format("Successfully got %d records", records.length));
+| Column Name   | Object Attribute           | Description                                     |
+|---------------|----------------------------|-------------------------------------------------|
+| `_created_at` | `creationDate`             | `NSDate` object of when record was created      |
+| `_updated_at` | `modificationDate`         | `NSDate` object of when record was updated      |
+| `_created_by` | `creatorUserRecordID`      | `NSString` object of user id of record creator  |
+| `_updated_by` | `lastModifiedUserRecordID` | `NSString` object of user id of record updater  |
+| `_owner`      | `ownerUserRecordID`        | `NSString` object of user id of owner           |
+| `_id`         | `recordID`                 | `SKYRecordID` object of record id               |
 
-        for (Record record : records){
-            Log.i("Record Query", record.toJson().toString());
-        }
-    }
 
-    @Override
-    public void onQueryError(Error error) {
-        Log.i("Record Query", String.format("Fail with reason:%s", error.getLocalizedMessage()));
-    }
-```
-
-If you haven't have the corresponding record in hand (in this example, we will use the User record `182654c9-d205-43aa-8e74-d465c830087a`), you can reference with a specify `id` without making another query in this way:
+You can retrieve the values from the object by accessing its properties:
 
 ```java
-Query noteQuery = new Query("Note").equalTo("account", "182654c9-d205-43aa-8e74-d465c830087a");
+// the time when the record created
+Date createdAt = note1.getCreatedAt();
 
-Database publicDB = Container.defaultContainer(this).getPublicDatabase();
+// the time when the record last updated
+Date updatedAt = note1.getUpdatedAt();
 
-publicDB.query(noteQuery, new RecordQueryResponseHandler() {
-    @Override
-    public void onQuerySuccess(Record[] records) {
-        Log.i("Record Query", String.format("Successfully got %d records", records.length));
-
-        for (Record record : records){
-            Log.i("Record Query", record.toJson().toString());
-        }
-    }
-
-    @Override
-    public void onQueryError(Error error) {
-        Log.i("Record Query", String.format("Fail with reason:%s", error.getLocalizedMessage()));
-    }
-
+// the creator ID, the updater ID and the record owner ID
+String creatorId = note1.getCreatorId();
+String updaterId = note1.getUpdaterId();
+String ownerId = note1.getOwnerId();
 ```
+```kotlin
+// the time when the record created
+val createdAt = note1.createdAt
 
-### Eager Loading
+// the time when the record last updated
+val updatedAt = note1.updatedAt
 
-Skygear supports eager loading of referenced records when you are querying the
-referencing records. It is done by specify the transient include on the query.
-The transient field will be available through the `getTransient` method.
-
-```java
-/* Assume the `Order` table has a field named `shipping_address`,
-   which is a foreign key to a table named `address`
-*/
-Query orderQuery = new Query("Order"); /* build the query as usual */
-orderQuery.transientInclude("shipping_address");
-
-// after getting a record of the query result
-Map<String, Record> transientMap = record.getTransient();
-Record shippingAddress = (Record) transientMap.get("shipping_address");
-
+// the creator ID, the updater ID and the record owner ID
+val creatorId = note1.creatorId
+val updaterId = note1.updaterId
+val ownerId = note1.ownerId
 ```
+Please head to [Database Schema][doc-database-schema] to read more about Reserved Columns, Record Tables and Reserved Tables.
 
-By default you access the transient attributes by using the field name.
-If you prefer another key, you can specify it by providing the second
-argument to `transientInclude`:
-
-```java
-orderQuery.transientInclude("shipping_address", "shipping");
-Record shippingAddress = (Record) transientMap.get("shipping");
-
-```
-
-
-## Cached Query
-
-
-## Subscribing to Query Change
-
-[api-query]: https://docs.skygear.io/android/reference/latest/io/skygear/skygear/Query.html
+[doc-database-schema]:/guides/advanced/database-schema/
+[api-query]:https://docs.skygear.io/android/reference/latest/io/skygear/skygear/Query.html

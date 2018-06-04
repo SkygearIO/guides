@@ -1,140 +1,9 @@
 ---
-title: Data Types
+title: Location, Auto-increment Sequence Fields
 ---
 
 [[toc]]
 
-Skygear supports a lot of different data types, such as:
-
-- String
-- Number
-- Boolean
-- Array
-- Object
-- Date
-
-There are also four other types provided by Skygear SDK:
-
-- [Reference][doc-reference] (Record Relations)
-- [Sequence][doc-sequence]
-- [Geo-location][doc-location]
-- [Assets (File Upload)][doc-assets]
-
-
-## Record Relations
-
-Skygear supports many-to-one (aka. parent-child) relation between records via _reference_.
-`SKYReference` is a pointer to a record in database. Let's say we are going to
-reference _Record A_ in _Record B_, we first construct a reference of Record A
-using its id.
-
-```obj-c
-// aID is a placeholder of Record A's id
-SKYReference *aRef = [SKYReference referenceWithRecordID:aID];
-```
-
-```swift
-// aID is a placeholder of Record A's id
-let aRef = SKYReference(recordID: aID)
-```
-
-Then assign this reference as a regular field of Record B:
-
-```obj-c
-// bRecord is a placeholder of Record B's object
-bRecord[@"parent"] = aRef;
-```
-
-```swift
-// bRecord is a placeholder of Record B's object
-bRecord.setObject(aRef, forKey: "parent" as NSCopying!)
-```
-
-
-It will establish a reference from _Record B_ to _Record A_.
-
-<a id="sequence"></a>
-## Auto-Incrementing Sequence Fields
-### Make use of sequence object
-
-Skygear reserves the `id` field in the top level of all record as a primary key.
-`id` must be unique and default to be Version 4 UUID. If you want to
-auto-incrementing id for display purpose, Skygear provide a sequence for this
-purpose. The sequence is guaranteed unique.
-
-```obj-c
-SKYRecord *todo = [SKYRecord recordWithRecordType:@"todo"];
-todo[@"title"] = @"Write documents for Skygear";
-todo[@"noteID"] = [SKYSequence sequence];
-
-SKYDatabase *privateDB = [[SKYContainer defaultContainer] privateCloudDatabase];
-[privateDB saveRecord:todo completion:^(SKYRecord *record, NSError *error) {
-    if (error) {
-        NSLog(@"error saving todo: %@", error);
-        return;
-    }
-
-    NSLog(@"saved todo with auto increment noteID = %@", record[@"noteID"]);
-}];
-```
-
-```swift
-let todo = SKYRecord(recordType: "todo")
-todo.setObject("Write documents for Skygear", forKey: "title" as NSCopying!)
-todo.setObject(SKYSequence(), forKey: "noteID" as NSCopying!)
-
-let privateDB = SKYContainer.default().privateCloudDatabase
-privateDB.save(todo, completion: { (record, error) in
-    if error != nil {
-        print ("error saving todo: \(error)")
-        return
-    }
-
-    print ("saved todo with auto increment noteID = \(record?.object(forKey: "noteID"))")
-})
-```
-
-- You can omit the `noteID` on update, the value will remain unchanged.
-- All the other `Note` in the database will now automatically have their
-  `noteID` as well.
-- You can migrate any integer to auto-incrementing sequence.
-- Our JIT schema at development will migrate the DB schema to sequence. All
-  `noteID` at `Note` will be a sequence type once migrated.
-
-### Override sequence manually
-
-```obj-c
-SKYRecord *todo = [SKYRecord recordWithRecordType:@"todo"];
-todo[@"title"] = @"Override noteID";
-todo[@"noteID"] = @43;
-
-SKYDatabase *privateDB = [[SKYContainer defaultContainer] privateCloudDatabase];
-[privateDB saveRecord:todo completion:^(SKYRecord *record, NSError *error) {
-    if (error) {
-        NSLog(@"error saving todo: %@", error);
-        return;
-    }
-
-    NSLog(@"saved todo with noteID == 43, %@", record[@"noteID"]);
-}];
-```
-```swift
-let todo = SKYRecord(recordType: "todo")
-todo.setObject("Write documents for Skygear", forKey: "title" as NSCopying!)
-todo.setObject(43, forKey: "noteID" as NSCopying!)
-
-let privateDB = SKYContainer.default().privateCloudDatabase
-privateDB.save(todo, completion: { (record, error) in
-    if error != nil {
-        print ("error saving todo: \(error)")
-        return
-    }
-
-    print ("saved todo with noteID == 43, \(record?.object(forKey: "noteID"))")
-})
-```
-
-<a id="location"></a>
 ## Location
 
 1. Supported by saving `CLLocation` in `SKYRecord`
@@ -259,106 +128,86 @@ SKYContainer.default().privateCloudDatabase.perform(query) { (photos, error) in
 }
 ```
 
-<a id="assets"></a>
-## File Storage (Assets)
+## Auto-increment sequence fields
+### Make use of sequence object
 
-### Uploading and associating an asset to a record
-
-You can make use of `Asset` to store file references such as images and videos on the database. An asset can only be saved with a record but not as a standalone upload.
-Skygear automatically uploads the files to a server that you specify, like Amazon S3.
-
-For example, you want to allow users to upload an image as an `image` to his `SKYRecord`. Once the user has selected the image to upload, you can save it by:
+Skygear reserves the `id` field in the top level of all record as a primary key.
+`id` must be unique and default to be Version 4 UUID. If you want to
+auto-incrementing id for display purpose, Skygear provide a sequence for this
+purpose. The sequence is guaranteed unique.
 
 ```obj-c
-- (void)imagePickerController:(UIImagePickerController *)picker
-didFinishPickingMediaWithInfo:(NSDictionary<NSString *, id> *)info
-{
-    UIImage *image = info[UIImagePickerControllerOriginalImage];
-    SKYAsset *asset = [SKYAsset assetWithName:@"profile-picture"
-                                         data:UIImagePNGRepresentation(image)];
-    asset.mimeType = @"image/png";
+SKYRecord *todo = [SKYRecord recordWithRecordType:@"todo"];
+todo[@"title"] = @"Write documents for Skygear";
+todo[@"noteID"] = [SKYSequence sequence];
 
-    SKYContainer *container = [SKYContainer defaultContainer];
-    [container.privateCloudDatabase uploadAsset:asset completionHandler:^(SKYAsset *asset, NSError *error) {
-        if (error) {
-            NSLog(@"error uploading asset: %@", error);
-            return;
-        }
-
-        self.photoRecord[@"image"] = asset;
-        [container.privateCloudDatabase saveRecord:self.photoRecord completion:nil];
-    }];
-}
-```
-
-```swift
-func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-    if let url = info[UIImagePickerControllerReferenceURL] as? URL {
-        let asset = SKYAsset(name: "profile-picture", fileURL: url)
-        asset.mimeType = "image/png"
-
-        let container = SKYContainer.default()
-        container.privateCloudDatabase.uploadAsset(asset, completionHandler: { (asset, error) in
-            if error != nil {
-                print ("error uploading asset: \(error)")
-                return
-            }
-
-            self.photoRecord?.setObject(asset, forKey: "image" as NSCopying!)
-            container.privateCloudDatabase.save(self.photoRecord, completion: nil)
-        })
-    }
-}
-```
-
-Asset names will never collide. i.e. you can upload multiple assets with the same asset name.
-
-`asset.name` is rewritten after the asset being uploaded.
-
-```obj-c
-NSString *newName = asset.name;
-// The name is changed to "c36e803a-f333-47bf-a3e9-4d52b660a71a-profile-picture"
-// from "profile-picture"
-```
-
-```swift
-let newName = asset.name
-// The name is changed to "c36e803a-f333-47bf-a3e9-4d52b660a71a-profile-picture"
-// from "profile-picture"
-```
-
-### Accessing asset
-
-`SKYAsset.url` will be populated with an expiry URL after fetching /
-querying the record from server.
-
-
-```obj-c
-[[[SKYContainer defaultContainer] privateCloudDatabase] fetchRecordWithID:photoRecordID completionHandler:^(SKYRecord *photo, NSError *error) {
+SKYDatabase *privateDB = [[SKYContainer defaultContainer] privateCloudDatabase];
+[privateDB saveRecord:todo completion:^(SKYRecord *record, NSError *error) {
     if (error) {
-        NSLog(@"error fetching photo: %@", error);
+        NSLog(@"error saving todo: %@", error);
         return;
     }
 
-    SKYAsset *asset = photo[@"image"];
-    NSURL *url = asset.url;
-    // do something with the url
+    NSLog(@"saved todo with auto increment noteID = %@", record[@"noteID"]);
 }];
 ```
 
 ```swift
-SKYContainer.default().privateCloudDatabase.fetchRecord(with: photoRecordID) { (photo, error) in
+let todo = SKYRecord(recordType: "todo")
+todo.setObject("Write documents for Skygear", forKey: "title" as NSCopying!)
+todo.setObject(SKYSequence(), forKey: "noteID" as NSCopying!)
+
+let privateDB = SKYContainer.default().privateCloudDatabase
+privateDB.save(todo, completion: { (record, error) in
     if error != nil {
-        print ("error fetching photo: \(error)")
+        print ("error saving todo: \(error)")
         return
     }
 
-    if let asset = photo?.object(forKey: "image") as? SKYAsset{
-        let url = asset.url
-        // do something with the url
-    }
-}
+    print ("saved todo with auto increment noteID = \(record?.object(forKey: "noteID"))")
+})
 ```
+
+- You can omit the `noteID` on update, the value will remain unchanged.
+- All the other `Note` in the database will now automatically have their
+  `noteID` as well.
+- You can migrate any integer to auto-incrementing sequence.
+- Our JIT schema at development will migrate the DB schema to sequence. All
+  `noteID` at `Note` will be a sequence type once migrated.
+
+### Override sequence manually
+
+```obj-c
+SKYRecord *todo = [SKYRecord recordWithRecordType:@"todo"];
+todo[@"title"] = @"Override noteID";
+todo[@"noteID"] = @43;
+
+SKYDatabase *privateDB = [[SKYContainer defaultContainer] privateCloudDatabase];
+[privateDB saveRecord:todo completion:^(SKYRecord *record, NSError *error) {
+    if (error) {
+        NSLog(@"error saving todo: %@", error);
+        return;
+    }
+
+    NSLog(@"saved todo with noteID == 43, %@", record[@"noteID"]);
+}];
+```
+```swift
+let todo = SKYRecord(recordType: "todo")
+todo.setObject("Write documents for Skygear", forKey: "title" as NSCopying!)
+todo.setObject(43, forKey: "noteID" as NSCopying!)
+
+let privateDB = SKYContainer.default().privateCloudDatabase
+privateDB.save(todo, completion: { (record, error) in
+    if error != nil {
+        print ("error saving todo: \(error)")
+        return
+    }
+
+    print ("saved todo with noteID == 43, \(record?.object(forKey: "noteID"))")
+})
+```
+
 
 [doc-reference]: #reference
 [doc-sequence]: #sequence

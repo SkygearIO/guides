@@ -69,7 +69,7 @@ func application(_ application: UIApplication, didReceiveRemoteNotification user
     // Other application initialization logic here
 }
 ```
-## Register for Push Notifications
+## Register for push notifications
 ```obj-c
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {

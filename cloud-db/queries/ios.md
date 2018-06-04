@@ -1,11 +1,11 @@
 ---
-title: Queries
+title: More About Queries
 ---
 
 [[toc]]
 
 
-## Basic Queries
+## Basic queries
 
 We have shown how to fetch individual records by ids, but in real-world
 application there are usually needs to show a list of items according to
@@ -57,7 +57,7 @@ criteria needed so we put the predicate to `nil`. Then we assigned a
 `NSSortDescription` to ask Skygear Server to sort the `todo` records by `order` field in ascending order.
 
 
-## Conditions
+## Query conditions
 
 To use `SKYQuery` with ease, we recommend using the methods provided to add constraints. However, you can also use `NSPredicate` to add constraints if you wish. The following features are supported:
 
@@ -110,7 +110,7 @@ NSPredicate *p =
 let p = SKYRelationPredicate(relation: SKYRelation.following(), keyPath: "_owner")
 ```
 
-## Pagination and Ordering
+## Pagination and ordering
 
 ### Sorting the records
 We can sort records returned by:
@@ -155,198 +155,48 @@ Setting an `offset` number means skipping that many rolls before beginning to re
 
 Now the first 5 records in the result list are skipped. The query result starts with the 6th record. It works just like SQL offset.
 
-## Record Count
+## Record counts
 
 To get the number of all records matching a query, set the property
 `overallCount` property of `SKYQuery` to `YES`. The record count can be
 retrieved from `overallCount` property of `SKYQueryOperation` when
 `perRecordCompletionBlock` is first called.
 
+## Getting the reserved columns
 
-## Relational Queries
+For each record type stored in the database, a table with the same name as the record type is created. For example, if your record type is called `note`, there is a table called `note` in the database. Each row in the table corresponds to one record.
 
-This example shows how to query all notes (`Note` record) who has an `account` field reference to a user record. In this example, we will query all notes where `account` equals to the current user.
+For each record table there exists two types of columns, those that are reserved by Skygear and those that are user-defined. Reserved columns contain metadata of a record, such as record ID, record owner and creation time. Names of reserved columns are prefixed with underscore (`_`).
+
+It is possible to manipulate data in record tables directly. However, one should exercise cautions when modifying data directly in record tables.
+
+Each record table contains the following reserved columns:
+
+| Column Name   | Object Attribute           | Description                                     |
+|---------------|----------------------------|-------------------------------------------------|
+| `_created_at` | `creationDate`             | `NSDate` object of when record was created      |
+| `_updated_at` | `modificationDate`         | `NSDate` object of when record was updated      |
+| `_created_by` | `creatorUserRecordID`      | `NSString` object of user id of record creator  |
+| `_updated_by` | `lastModifiedUserRecordID` | `NSString` object of user id of record updater  |
+| `_owner`      | `ownerUserRecordID`        | `NSString` object of user id of owner           |
+| `_id`         | `recordID`                 | `SKYRecordID` object of record id               |
+
+You can retrieve the values from the object by accessing its properties:
 
 ```obj-c
-// You should have logged in
-SKYRecord *currentUser = [SKYContainer defaultContainer].auth.currentUser;
-SKYReference *nameRef = [SKYReference referenceWithRecord:currentUser];
-
-NSPredicate *accountPredicate = [NSPredicate predicateWithFormat:@"account = %@", nameRef];
-
-SKYQuery *query = [SKYQuery queryWithRecordType:@"Note" predicate: accountPredicate];
-
-
-SKYDatabase *publicDB = [[SKYContainer defaultContainer] publicCloudDatabase];
-[publicDB performQuery:query completionHandler:^(NSArray *results, NSError *error) {
-    if (error) {
-        NSLog(@"error querying notes: %@", error);
-        return;
-    }
-
-    NSLog(@"Received %@ notes.", @(results.count));
-    for (SKYRecord *note in results) {
-        NSLog(@"Got a note: %@", note[@"title"]);
-    }
-}];
-
+NSDate *creationDate = [noteObject creationDate];
+NSString *creatorID = [noteObject creatorUserRecordID];
+SKYRecordID *recordID = [record recordID];
+NSString *recordType = [record recordType];
 ```
 
 ```swift
-// You should have logged in
-let currentUser = SKYContainer.default().auth.currentUser
-let nameRef = SKYReference(recordID: (currentUser?.recordID)!)
-let accountPredicate = NSPredicate(format: "account = %@", nameRef)
-
-let query = SKYQuery(recordType: "Note", predicate: accountPredicate)
-
-SKYContainer.default().publicCloudDatabase.perform(query) { (results, error) in
-    if error != nil {
-        print ("error querying note: \(error)")
-        return
-    }
-    
-    print ("Received \(results?.count) notes.")
-    
-    for note in results as! [SKYRecord] {
-        print ("Got a Note  \(note["content"])")
-    }
-}
+let creationDate = noteObject.creationDate
+let creatorID = noteObject.creatorUserRecordID
+let record = record.recordID
+let recordType = record.recordType
 ```
 
-### Relational query by fields of reference record
-You can query by fields on a referenced record. Following the above example, if
-we want to query all notes where account's role is editor only:
+Please head to [Database Schema][doc-database-schema] to read more about Reserved Columns, Record Tables and Reserved Tables.
 
-```obj-c
-NSPredicate *accountPredicate = [NSPredicate predicateWithFormat:@"account.role = %@", @"editor"];
-SKYQuery *query = [SKYQuery queryWithRecordType:@"Note" predicate: accountPredicate];
-
-SKYDatabase *publicDB = [[SKYContainer defaultContainer] publicCloudDatabase];
-
-[publicDB performQuery:query completionHandler:^(NSArray *results, NSError *error) {
-    if (error) {
-        NSLog(@"error querying notes: %@", error);
-        return;
-    }
-
-    NSLog(@"Received %@ notes.", @(results.count));
-    for (SKYRecord *note in results) {
-        NSLog(@"Got a note: %@", note[@"title"]);
-    }
-}];
-```
-
-```swift
-let accountPredicate = NSPredicate(format: "account.role = %@", "editor")
-let query = SKYQuery(recordType: "Note", predicate: accountPredicate)
-
-SKYContainer.default().publicCloudDatabase.perform(query) { (results, error) in
-    if error != nil {
-        print ("error querying note: \(error)")
-        return
-    }
-
-    print ("Received \(results?.count) notes.")
-    for note in results as! [SKYRecord] {
-        print ("Got a Note  \(note["content"])")
-    }
-})
-```
-
-### Relational query by record's ID
-If you haven't have the corresponding record in hand (in this example, we will use the User record `182654c9-d205-43aa-8e74-d465c830087a`), you can reference with a specify `id` without making another query in this way:
-
-```obj-c
-SKYReference *nameRef = [SKYReference referenceWithRecordID:[SKYRecordID recordIDWithCanonicalString:@"account/182654c9-d205-43aa-8e74-d465c830087a"]];
-
-NSPredicate *accountPredicate = [NSPredicate predicateWithFormat:@"account = %@", nameRef];
-
-SKYQuery *query = [SKYQuery queryWithRecordType:@"Note" predicate: accountPredicate];
-
-
-SKYDatabase *publicDB = [[SKYContainer defaultContainer] publicCloudDatabase];
-[publicDB performQuery:query completionHandler:^(NSArray *results, NSError *error) {
-    if (error) {
-        NSLog(@"error querying notes: %@", error);
-        return;
-    }
-
-    NSLog(@"Received %@ notes.", @(results.count));
-    for (SKYRecord *note in results) {
-        NSLog(@"Got a note: %@", note[@"title"]);
-    }
-}];
-
-```
-
-```swift
-
-let nameRef = SKYReference(recordID: SKYRecordID(canonicalString: "account/182654c9-d205-43aa-8e74-d465c830087a"))
-let accountPredicate = NSPredicate(format: "account = %@", nameRef)
-
-let query = SKYQuery(recordType: "Note", predicate: accountPredicate)
-
-SKYContainer.default().publicCloudDatabase.perform(query) { (results, error) in
-    if error != nil {
-        print ("error querying notes: \(error)")
-        return
-    }
-    
-    for note in results as! [SKYRecord] {
-        print ("Got a Note  \(note["content"])")
-    }
-}
-
-```
-
-### Eager Loading
-
-Skygear support eager loading of referenced records when you are querying the
-referencing records. It's done by supplying a key path expression to
-`[SKYQuery -transientIncludes]`:
-
-```obj-c
-SKYQuery *query = [SKYQuery queryWithRecordType:@"child" predicate:nil];
-NSExpression *keyPath = [NSExpression expressionForKeyPath:@"parent"];
-query.transientIncludes = @{@"parentRecord": keyPath};
-
-[[[SKYContainer defaultContainer] privateCloudDatabase] performQuery:query completionHandler:^(NSArray *results, NSError *error) {
-    if (error) {
-        NSLog(@"error fetching child: %@", error);
-        return;
-    }
-
-    NSLog(@"received %@ children", @(results.count));
-    for (SKYRecord *child in results) {
-        SKYRecord *parent = child.transient[@"parentRecord"];
-        NSLog(@"%@'s parent is %@", child.recordID, parent.recordID);
-    }
-}];
-```
-
-```swift
-let query = SKYQuery(recordType: "child", predicate: nil)
-let keyPath = NSExpression(forKeyPath: "parent")
-query.transientIncludes = ["parentRecord": keyPath]
-
-SKYContainer.default().privateCloudDatabase.perform(query) { (results, error) in
-    if error != nil {
-        print ("error fetching child: \(error)")
-        return
-    }
-
-    print ("received \(results?.count) childern")
-    for child in results as! [SKYRecord] {
-        let parent: SKYRecord = child.transient.object(forKey: "parentRecord") as! SKYRecord
-        print ("\(child.recordID)'s parent is \(parent.recordID)")
-    }
-}
-```
-
-It is possible to eager load records from multiple keys, but doing so will
-impair performance.
-
-### Reference Actions **[not implemented]**
-
-`ON DELETE CASCADE` TBC.
+[doc-database-schema]:/guides/advanced/database-schema/

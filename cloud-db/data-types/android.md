@@ -1,35 +1,8 @@
 ---
-title: Data Types
+title: Location, Auto-increment Sequence Fields
 ---
 
 [[toc]]
-
-
-## Record Relations
-
-Skygear supports parent-child relations between records via _reference_.
-`Reference` is a pointer class, which will translate to foreign key in
-skygear server database for efficient queries.
-
-You can create a reference by passing an object to the `Reference` class
-constructor:
-
-```java
-Record aPost = new Record("Post", postData);
-Reference aPostReference = new Reference(aPost);
-```
-
-By setting the reference to a record, you can create a relation between
-the two records:
-
-```java
-Record aComment = new Record("Comment", commentData);
-aComment.set("post", aPostReference);
-
-```
-
-
-## Auto-Incrementing Sequence Fields
 
 ## Location
 
@@ -167,65 +140,8 @@ publicDB.query(bankQuery, new RecordQueryResponseHandler() {
     }
 });
 ```
-
-## File Storage (Assets)
-
-### Uploading and associating an asset to a record
-
-You can make use of `Asset` to store file references such as images and videos on the database. An asset should be uploaded before being referenced by records.
-Skygear automatically uploads the files to a server that you specify, like Amazon S3.
-
-You can create an asset and upload by:
-
-```java
-byte[] data = /* Get the image data */
-Asset asset = new Asset("profile.jpg", "image/jpeg", data);
-
-this.skygear.uploadAsset(asset, new AssetPostRequest.ResponseHandler() {
-    @Override
-    public void onPostSuccess(Asset asset, String response) {
-        Log.i("Skygear Asset", "Successfully uploaded to " + asset.getUrl());
-    }
-
-    @Override
-    public void onPostFail(Asset asset, Error error) {
-        Log.i("Skygear Asset", "Upload fail: " + error.toString());
-    }
-});
-```
-
-Each asset should have a name. However, asset names will never collide.
-That means you can upload multiple assets with the same asset name.
-
-Asset name (i.e. `asset.getName()`) is rewritten after the asset being uploaded.
-
-Please be reminded that the asset URL (i.e. `asset.getUrl()`) will be populated
-with an expiry URL after fetching / querying the record from server.
-
-After uploading the asset, you can set it as a field of an record.
-
-```java
-Record aNote = new Record("Note");
-aNote.set("attachment", asset);
-
-this.skygear.getPublicDatabase().save(aNote, new RecordSaveResponseHandler(){
-    @Override
-    public void onSaveSuccess(Record[] records) {
-        Log.i("Skygear Record", "Successfully saved");
-    }
-
-
-    @Override
-    public void onPartiallySaveSuccess(Map<String, Record> successRecords, Map<String, Error> errors) {
-         Log.i("Skygear Record", "Partially saved");
-    }
-
-    @Override
-    public void onSaveFail(Error error) {
-        Log.i("Skygear Record", "Record save fails");
-    }
-});
-```
+## Auto-incrementing sequence fields
+Coming soon
 
 [postgis]: http://postgis.net/
 [android-location]: https://developer.android.com/reference/android/location/Location.html

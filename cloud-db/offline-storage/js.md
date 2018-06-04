@@ -5,7 +5,7 @@ title: Offline Storage
 [[toc]]
 
 
-## Cached Query
+## Cached query
 
 Skygear provides a simple cached query mechanism for application that wants to
 display the data last seen before it gets new data from Skygear Server. To make
