@@ -102,3 +102,20 @@ SKYContainer.default().privateCloudDatabase.fetchRecord(with: photoRecordID) { (
     }
 }
 ```
+
+## Frequently Asked Questions
+
+### Is there limit to file upload on Skygear Cloud?
+
+Currently, It is possible to upload file to Skygear Cloud with a maximum size of
+50MB.
+
+### Is it possible to add CORS settings to file upload?
+
+If you use Skygear Cloud, a CORS settings of `*` (any origin) is added to all
+files, so you can fetch your assets using scripts from any origin. If you have
+your own S3 bucket, follow the [Cross-Origin Resource Sharing guide][s3-cors].
+when downloading files 
+
+
+[s3-cors]: https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html

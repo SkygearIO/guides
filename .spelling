@@ -202,6 +202,7 @@ TBC
 TODO
 todo
 WIP
+CORS
 
 # exceptions due to symbols
 _id
@@ -233,6 +234,7 @@ after_save
 before_delete
 after_delete
 snake_case
+50MB
 
 # nouns (e.g. GitHub Repo)
 aschuch
