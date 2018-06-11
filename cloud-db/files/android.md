@@ -16,7 +16,7 @@ You can create an asset and upload by:
 byte[] data = /* Get the image data */
 Asset asset = new Asset("profile.jpg", "image/jpeg", data);
 
-this.skygear.uploadAsset(asset, new AssetPostRequest.ResponseHandler() {
+this.skygear.getPublicDatabase().uploadAsset(asset, new AssetPostRequest.ResponseHandler() {
     @Override
     public void onPostSuccess(Asset asset, String response) {
         Log.i("Skygear Asset", "Successfully uploaded to " + asset.getUrl());
