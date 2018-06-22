@@ -31,7 +31,7 @@ this.skygear.uploadAsset(asset, new AssetPostRequest.ResponseHandler() {
 
 ::: note
 
-In Skygear SDK 1.6 or later, asset is uploaded automatically when you save
+In Skygear SDK 1.6 or later, assets are uploaded automatically when you save
 a record, so you do not need to call `uploadAsset` separately.
 
 :::
