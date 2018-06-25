@@ -1,5 +1,5 @@
 ---
-title: Authenticate With a Custom Authentication System
+title: Authenticate with Custom Authentication System
 ---
 
 [[toc]]
@@ -59,7 +59,7 @@ services to Skygear.
 Here are some example implementations on creation of custom JWTs in
 various languages.
 
-#### JS
+#### JavaScript
 
 Install [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken)
 
@@ -104,7 +104,7 @@ token = jwt.encode({
 }, custom_token_secret, algorithm='HS256')
 ```
 
-#### Rudy
+#### Ruby
 
 Install [ruby-jwt](https://github.com/jwt/ruby-jwt)
 
