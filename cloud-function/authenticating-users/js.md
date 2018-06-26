@@ -23,7 +23,7 @@ skygearCloud.op('foo', function (param, options) {
 
 ## Reset Password
 
-From v1.5.0 onwards, you can reset password for you users using `skygear.auth.adminResetPassword(user, newPassword)`. To call this function, you must use the master key of your Skygear app.
+From v1.5 onward, you can reset password for you users using `skygear.auth.adminResetPassword(user, newPassword)`. To call this function, you must use the master key of your Skygear app.
 
 Suppose we are writing a lambda function to be called by your admins at the client-side to reset password for a user.
 
