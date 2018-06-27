@@ -29,6 +29,13 @@ this.skygear.getPublicDatabase().uploadAsset(asset, new AssetPostRequest.Respons
 });
 ```
 
+::: note
+
+In Skygear SDK 1.6 or later, assets are uploaded automatically when you save
+a record, so you do not need to call `uploadAsset` separately.
+
+:::
+
 Each asset should have a name. However, asset names will never collide.
 That means you can upload multiple assets with the same asset name.
 

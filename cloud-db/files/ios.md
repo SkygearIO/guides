@@ -54,6 +54,13 @@ func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMe
 }
 ```
 
+::: note
+
+In Skygear SDK 1.6 or later, assets are uploaded automatically when you save
+a record, so you do not need to call `uploadAsset` separately.
+
+:::
+
 Asset names will never collide. i.e. you can upload multiple assets with the same asset name.
 
 `asset.name` is rewritten after the asset being uploaded.
