@@ -53,6 +53,19 @@ Decorator parameters:
   receive the response of a database operation only after the database hook
   has finished its execution.
 
+::: note
+
+In Python 3.7, `async` is a reserved word. If you are using py-skygear 1.6.0
+ or later, you can use `async_` instead of `async`. Example:
+
+```python
+@skygear.before_save('cat', async_=False)
+def validate_cat_name(record, original_record, db):
+    pass
+```
+
+:::
+
 ## before_save hook
 
 ```python
