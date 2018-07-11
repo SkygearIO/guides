@@ -4,13 +4,13 @@ title: Configuring Imports and Exports
 
 [[toc]]
 
-Handling bulk data in Skygear CMS is easy. Your users can import data with a csv and export data to a csv. 
+Handling bulk data in Skygear CMS is easy. Your users can import data with a CSV and export data to a CSV. 
 
 ## Imports
 
 ![Skygear CMS import](/assets/cms/cms-import.png)
 
-Your users can import data to Skygear with a csv. To do so, you need to configure the import settings and add an import button to the right page.
+Your users can import data to Skygear with a CSV. To do so, you need to configure the import settings and add an import button to the right page.
 
 ### Configuring imports
 
@@ -38,9 +38,9 @@ There are a few items you can configure in the import settings, and we are using
 This is what we need:
 
 1. Allow users to import a list of comments. 
-2. We will use `comment` as an indenitfier. When there are two identical comments, they are considered as duplicated records.
+2. We will use `comment` as an identifier. When there are two identical comments, they are considered as duplicated records.
 3. When there are duplicated records, we will throw an error to the users.
-4. To correctly assoicate every comment to a blogpost, we should also input the blogpost's title next to each comments.
+4. To correctly associate every comment to a blogpost, we should also input the blogpost's title next to each comments.
 
 ```yml
 site:
@@ -68,7 +68,7 @@ records:
     record_type: blogpost
 ```
 
-This is what your csv should look like:
+This is what your CSV should look like:
 
 |comment| title|
 |---| ---|
@@ -131,7 +131,7 @@ imports:
       - name: a normal field
       - name: a reference field
         reference_target: the referenced table 
-        reference_field_name: the field user should fill in the csv to idenitfy the referenced record
+        reference_field_name: the field user should fill in the CSV to idenitfy the referenced record
         handle_duplicated_reference: throw-error or use-first
 ```
 - `throw-error` will return an error. If you want to reject the whole import when there are errors, you can set `atomic: true` in the `action` setting (will be explained below).
@@ -168,11 +168,11 @@ records:
 
 ![Skygear CMS export](/assets/cms/cms-export.png)
 
-Your users can exprot data from Skygear to a csv. To do so, you need to configure the export settings and add an export button to the right page.
+Your users can export data from Skygear to a CSV. To do so, you need to configure the export settings and add an export button to the right page.
 
 ### Configuring exports
 
-Resuing the two databases in the Configuring imports section as an example.
+Reusing the two databases in the Configuring imports section as an example.
 
 This is what we need:
 
@@ -202,7 +202,7 @@ exports:
         reference_target: blogpost
         reference_field_name: title
 ```
-The exported csv will look like this:
+The exported CSV will look like this:
 
 |_id|_created_at| comment| title|
 |--- |---|---| ---|
@@ -213,7 +213,7 @@ The exported csv will look like this:
 Export supports also back reference (i.e. many-1). The example below will show you how to configure back reference.
 
 This is what we need:
-1. Allow users to export all the blogposts
+1. Allow users to export all the blog posts
 2. Next to each blogpost, we will also show the comments belong to this blogpost
 
 ```yml
@@ -245,7 +245,7 @@ exports:
           - name: comment
             label: comment
 ```
-The exported csv will look like this:
+The exported CSV will look like this:
 
 |_id|_created_at| title| content| comment_id| comment|
 |--- |---|---| ---| ---| ---|

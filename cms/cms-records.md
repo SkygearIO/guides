@@ -145,16 +145,16 @@ filter:
 
 It refers to the fields your business users can use to filter the records. For example, if you set the `title` field to be filterable, then the business users can filter blog posts that contains a specific keyword in its title.
 
-`filter type` determins the filter format. For example, if the filter type is `String`, a keyword search filter will be used.
+`filter type` determines the filter format. For example, if the filter type is `String`, a keyword search filter will be used.
 
 Below are the filter type you can use:
 
-- String
-- DateTime
-- Boolean
-- Integer
-- General
-- Reference
+- `String`
+- `DateTime`
+- `Boolean`
+- `Integer`
+- `General`
+- `Reference`
 
 You can have multiple filters. All filters can be accessed by pressing the 'filter' button on the upper right corner.
 
@@ -171,20 +171,20 @@ Different from filter, predicates will be applied to the list view automatically
 
 Below are the predicates you can use:
 
-- Like
-- NotLike
-- CaseInsensitiveLike
-- CaseInsensitiveNotLike
-- EqualTo
-- NotEqualTo
-- GreaterThan
-- GreaterThanOrEqualTo
-- LessThan
-- LessThanOrEqualTo
-- Contains
-- NotContains
-- ContainsValue
-- NotContainsValue
+- `Like`
+- `NotLike`
+- `CaseInsensitiveLike`
+- `CaseInsensitiveNotLike`
+- `EqualTo`
+- `NotEqualTo`
+- `GreaterThan`
+- `GreaterThanOrEqualTo`
+- `LessThan`
+- `LessThanOrEqualTo`
+- `Contains`
+- `NotContains`
+- `ContainsValue`
+- `NotContainsValue`
 
 Example usage:
 
@@ -235,10 +235,10 @@ By default, there will be two buttons on the upper right hand corner: 'Add' and 
 
 There are 4 action types:
 
-- Import: import data with a CSV
-- Export: import data to a CSV
-- Link: any custom link
-- AddButton: create a new record
+- `Import`: import data with a CSV
+- `Export`: import data to a CSV
+- `Link`: any custom link
+- `AddButton`: create a new record
 
 If you want to use the import and export function, you also need to configure the import or the export settings. Read the 'CMS Import and Export' guide to learn more.
 
@@ -282,7 +282,7 @@ As suggested by their names:
 2. **edit** refers to the **edit page** where users can update a record
 3. **new** refers to the **create page** where users can create a record. 
 
-Since [`fields`](./#fields) is the only configurable item of the 3 views, the below example will demostrate how to configure them in one go. 
+Since [`fields`](./#fields) is the only configurable item of the 3 views, the below example will demonstrate how to configure them in one go. 
 
 Note: you can have different CMS field type for the same field for different views. For example, you may use `TextArea` to display the blog post's content in the **list** view and WYSIWYG in the **new** view. In the [CMS field type guide][doc-cms-field], you will see all the available field types and their respective UI views.
 

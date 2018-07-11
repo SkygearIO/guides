@@ -272,7 +272,7 @@ fields:
     editable: true or false # applicable only to the edit and the new view
 ```
 
-- `custom`: When custom is enabled, users wll be given an 'other' option and be able to enter custom value. Default is false.
+- `custom`: When custom is enabled, users will be given an 'other' option and be able to enter custom value. Default is false.
 
 - `null`: When null is enabled, users can submit a null value. You can also give a display name to the null value (i.e. undefined). Default is false.
 

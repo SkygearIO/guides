@@ -9,7 +9,7 @@ title: Configuring the User Management Dashboard
 The user management dashboard is where admins can manage the users of the app. Currently the user management dashboard has 3 features.
 
 - Reset password
-- Set admins (once a user is set to be an admin, not only he will be given the access to the CMS, he also will be assigned the admin role i.e. hasRole = admin)
+- Set admins (once a user is set to be an admin, not only he will be given the access to the CMS, he also will be assigned the admin role)
 - Create new users
 
 ![Skygear CMS users](/assets/cms/cms-user.png)
