@@ -34,6 +34,11 @@ records:
           - name: role
             type: Dropdown # CMS field types
             label: Role
+            options:
+              - label: Teacher
+                value: teacher
+              - label: Student
+                value: student
 ```
 
 ### You can use different field type for the same field in different views

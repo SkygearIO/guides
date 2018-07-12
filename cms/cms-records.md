@@ -137,7 +137,7 @@ Besides, when you configure a field, you have to specify its field types. **Fiel
 #### `filters`
 
 ```yml
-filter:
+filters:
   - name: field name in the database
     type: filter type 
     label: name to display in the CMS
@@ -192,11 +192,12 @@ Suppose we want to display blogpost that are created in 2018 only.
 
 ```yml
 list:
-  predicate:
+  predicates:
     - name: _created_at
       predicate: GreaterThan
-      value: 2018
+      value: 2018-01-01 
 ```
+Note: for date value, we support full date or datetime. For example, 2018-01-01 or 2018-01-01 12:0:0.
 
 <a name='default_sort'></a>
 

@@ -8,13 +8,13 @@ title: CMS basics
 Skygear CMS aims to provide a user friendly-interface for business user to update the content of the app. As a developer, you can customize the YML file at the Developer Portal. Below are the 5 major CMS features:
 
 ### Content management
-Display, filter, sort, create, update and delete records, including relation records.
+Display, filter, sort, create, and update records, including relation records.
 
 ### Push
 Broadcast push notifications to segmented users.
 
 ### User management
-Give CMS access to users, create a new user account, reset user password and etc.
+Give CMS access to users and reset user password.
 
 ### Import/Export
 Import records, and export records according to the filtered view. 
@@ -28,7 +28,7 @@ Upload files (Coming soon)
 
 In this guide, you will learn how to configure the CMS with a YML file. To start with, enable the CMS plug-in at the Developer Portal. You will see a YML editor when the CMS is enabled successfully.
 
-If you are not a new Skygear user and you want to use this new version of CMS, re-enable the CMS plug-in.
+The new CMS is only available for Skygear v1.6.1+. If you are not a new Skygear user and you want to use the new CMS, upgrade your Skygear app to v1.6.1 and re-enable the CMS plug-in.
 
 ![CMS YML editor](/assets/cms/cms-yml-editor.png)
 
@@ -124,9 +124,6 @@ records:
     record_type: blogpost  # this is the database table that is linked to this CMS record.
   comment:
     record_type: comment
-
-push_notifications:
-  enable: true
 ```
 
  - `name` refers to the CMS record name. You can configure the CMS record name in the records section. 

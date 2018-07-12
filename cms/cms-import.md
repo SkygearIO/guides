@@ -38,8 +38,8 @@ There are a few items you can configure in the import settings, and we are using
 This is what we need:
 
 1. Allow users to import a list of comments. 
-2. We will use `comment` as an identifier. When there are two identical comments, they are considered as duplicated records.
-3. When there are duplicated records, we will throw an error to the users.
+2. We will use `_id` as an identifier. If there is a comment in the database with the same `_id`, we will update the record. 
+3. However,if there are more than 1 comment with the same `_id` in the database, we will throw an error to the users.
 4. To correctly associate every comment to a blogpost, we should also input the blogpost's title next to each comments.
 
 ```yml
@@ -70,11 +70,11 @@ records:
 
 This is what your CSV should look like:
 
-|comment| title|
-|---| ---|
-|Can't agree more| Adele is so adorable!|
-|Let's go drinking this Friday! |Today is such a tired day|
-|Of course! |Skygear is so awesome|
+|_id|comment| title|
+|--- |---| ---|
+|0001-20180909|Can't agree more| Adele is so adorable!|
+|0002-20180910|Let's go drinking this Friday! |Today is such a tired day|
+|0003-20180911|Of course! |Skygear is so awesome|
 
 Configurable items:
 
@@ -96,7 +96,10 @@ imports:
 <a name='identifier'></a>
 
 #### `identifier`
-The field that Skygear uses to determine if there are any duplicated records.
+The field that Skygear uses to identify a record. If `identifier` is not provided, Skygeawr will use `_id` to identify records. 
+
+If a record in the database is found to have the same identifier as the imported record, Skygear will update the record in the database.
+
 ```yml
 imports:
   import-name-random: 
@@ -105,7 +108,7 @@ imports:
 <a name='handle_duplicated_identifier'></a>
 
 #### `handle_duplicated_identifier`
-The way to handle duplicated records. 
+The way to handle duplicated records when If more than 1 record in the database is found to have the same identifier as the imported record.
 
 ```yml
 imports:
