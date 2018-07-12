@@ -96,7 +96,7 @@ imports:
 <a name='identifier'></a>
 
 #### `identifier`
-The field that Skygear uses to identify a record. If `identifier` is not provided, Skygeawr will use `_id` to identify records. 
+The field that Skygear uses to identify a record. If `identifier` is not provided, Skygear will use `_id` to identify records. 
 
 If a record in the database is found to have the same identifier as the imported record, Skygear will update the record in the database.
 
