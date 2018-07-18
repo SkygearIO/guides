@@ -155,12 +155,14 @@ SKYContainer *container = [SKYContainer defaultContainer];
 
 ```swift
 SKYContainer.default().auth.login(withUsername: "john.doe", password: "verysecurepasswd") { (user, error) in
-    if error != nil && (error.code == SKYErrorResourceNotFound || error.code == SKYErrorInvalidCredentials) {
-        // incorrect username or password
-        return
-    } else if (error != nil) {
-        // other kinds of error
-        return;
+    if let error = error as? SKYError {
+        if (error.code == SKYError.resourceNotFound || error.code == SKYError.invalidCredentials) {
+            // incorrect username or password
+            return
+        } else {
+            // other kinds of error
+            return
+        }
     }
 
     print("login successful")
@@ -188,12 +190,14 @@ SKYContainer *container = [SKYContainer defaultContainer];
 
 ```swift
 SKYContainer.default().auth.login(withEmail: "john.doe", password: "verysecurepasswd") { (user, error) in
-    if error != nil && (error.code == SKYErrorResourceNotFound || error.code == SKYErrorInvalidCredentials) {
-        // incorrect email or password
-        return
-    } else if (error != nil) {
-        // other kinds of error
-        return
+    if let error = error as? SKYError {
+        if (error.code == SKYError.resourceNotFound || error.code == SKYError.invalidCredentials) {
+            // incorrect email or password
+            return
+        } else {
+            // other kinds of error
+            return
+        }
     }
 
     print("login successful")

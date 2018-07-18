@@ -83,7 +83,7 @@ SKYContainer.default().chatExtension?.createConversation(
     adminIDs: nil,
     distinctByParticipants: true,
     completion: { (conversation, error) in
-        if let err = error as NSError? {
+        if let err = error as? SKYError {
              if let conversationId = err.userInfo["conversation_id"] as? String {
                  print("Conversation already exists " +
                    conversationId)

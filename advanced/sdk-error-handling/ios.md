@@ -48,7 +48,7 @@ SKYDatabase *publicDB = [[SKYContainer defaultContainer] publicCloudDatabase];
 ```swift
 let publicDB = SKYContainer.defaultContainer().publicCloudDatabase
 publicDB.saveRecord(record) { (record : SKYRecord!, error : NSError!) in
-    if let error = error {
+    if let error = error as? SKYError {
         // Here you have an error object, which means the saving operation is failed.
         // You can get an error message by this:
         let userFriendlyString = error.userInfo[SKYErrorMessageKey] as! String
@@ -59,7 +59,7 @@ publicDB.saveRecord(record) { (record : SKYRecord!, error : NSError!) in
         // For example: "You are not allowed to perform this operation."
 
         // You can handle the error even better by providing custom error message based on the context and error code.
-        if SKYErrorCode(error.code) == SKYErrorAccessTokenNotAccepted {
+        if error.code == SKYError.accessTokenNotAccepted {
             let alert = UIAlertController(title: "Error",
                                           message: "You are logged out remotely",
                                           preferredStyle: UIAlertControllerStyle.Alert)

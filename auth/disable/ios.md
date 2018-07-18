@@ -150,8 +150,8 @@ SKYContainer *container = [SKYContainer defaultContainer];
 
 ```swift
 SKYContainer.default().auth.getWhoAmI { (user, error) in
-    if let error = error {
-        if SKYErrorCode(error.code) == SKYErrorUserDisabled {
+    if let error = error as? SKYError {
+        if error.code == SKYError.userDisabled {
             // the user is disabled
             print("disable message: \(error.userInfo["message"]\)")
         }
