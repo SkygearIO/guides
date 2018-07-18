@@ -112,7 +112,7 @@ AngularJS
 Slackbot
 Lunchbot
 PushNotificationIOS
-YML
+YAML
 dropdowns
 Tinymce
 TZ
@@ -157,6 +157,7 @@ includeLastmessage
 pageSize
 loginWithUsername
 loginWithEmail
+MDN
 
 # Skygear terms
 UI

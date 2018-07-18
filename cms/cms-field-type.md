@@ -23,7 +23,7 @@ records:
 
 Field type in Skygear CMS refers to the UI presentation of the field, not its data type in the database.
 
-For example, suppose there are two roles in your app: student and teacher. In the user table, there is a column named 'role' the stores the role of the user. 'role' in the database has a data type of **String**, however, in the CMS, you can set the its field type to **Dropdown** to limit the input to student or teacher.
+For example, suppose there are two roles in your app: student and teacher. In the user table, there is a column named 'role' the stores the role of the user. 'role' in the database has a data type of `String`, however, in the CMS, you can set the its field type to `Dropdown` to limit the input to student or teacher.
 
 ```yml
 records:
@@ -45,39 +45,39 @@ records:
 
 A CMS record has 4 views: list, show, edit and new. It is likely that the 4 views have similar fields. However, considering the UI presentation of the 4 views are different, you may want to use different field type in different view. 
 
-Suppose you want to display the content of a blogpost as String, however, when users edit or create a new blogpost, you want to display the content of the blogpost as WYSIWYG so that users could add HTML markups to the content.
+Reusing the teach and student example. Suppose you want to display the role as `String`, however, when users edit or create a new user, you want to display the role field as `Dropdown` so that you can limit the user input to student or teacher. 
 
 ``` yml
 records:
   blogpost:
-    record_type: blogpost
+    record_type: user
       list:
         fields:
-          - name: content
+          - name: role
             type: String
-            label: Content
+            label: Role
       show:
         fields:
-          - name: content
+          - name: role
             type: String
-            label: Content      
+            label: Role      
       edit:
         fields:
-          - name: content
-            type: WYSIWYG
-            label: Content
+          - name: role
+            type: Dropdown
+            label: Role
       new:
         fields:
-          - name: content
-            type: WYSIWYG
-            label: Content      
+          - name: role
+            type: Dropdown
+            label: Role      
 ```
 
 ## Supported field types
 
 Every field type has two views: display and edit. Display view default will be applied to the list and the show view, while edit view default will be applied to the edit and new view.
 
-For example, if you use WYSIWYG in the list or the show view, you will get the default WYSIWYG display view (a non-editable WYSIWYG widget). If you use WYSIWYG in the edit or new view, you will get the default WYSIWYG edit view (a working WYSIWYG editor).
+For example, if you use WYSIWYG in the list or the show view, you will get the default WYSIWYG display view (a HTML preview WYSIWYG widget). If you use WYSIWYG in the edit or new view, you will get the default WYSIWYG edit view (a working WYSIWYG editor).
 
 <table>
   <tr>
@@ -99,7 +99,7 @@ For example, if you use WYSIWYG in the list or the show view, you will get the d
   </tr>
   <tr>
     <td><a href='./#wysiwyg'><code>WYSIWYG</code></a></td>
-    <td>Non-editable WYSIWYG widget</td>
+    <td>HTML preview WYSIWYG widget</td>
     <td>WYSIWYG Eidtor</td>
   </tr>
   <tr>
@@ -217,7 +217,7 @@ fields:
 
 #### `WYSIWYG`
 
-WYSIWYG with HTML markups.
+WYSIWYG with HTML markups. If you use WYSIWYG in the edit and the new view, we also suggest you using WYSIWYG in the list and the show view so that your users can see the HTML preview instead of raw HTML.
 
 ```yml
 fields:
@@ -265,9 +265,10 @@ fields:
     type: Dropdown
     custom: 
       enabled: true or false
+      label: name of the custom value
     null: 
       enabled: true or false
-      label: name for null values
+      label: name of the null values
     options:
       - label: option 1
         value: A # only String inputs are supported
@@ -329,12 +330,14 @@ Files except images.
 fields:
   - name: database field name
     type: Asset
+    accept: the accepted file types
     nullable: 
       enabled: true or false
     editable: true or false # applicable only to the edit and the new view
 ```
 
 - `nullable`: `nullable` only applies to the edit and the new view. When `nullable` is enabled, users can update or create a record even if the asset field is null. When `nullable` is disabled, users must upload an asset when they edit or create a record.
+- `type`: Read the MDN web doc [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-accept) to learn more about the file types.
 
 <a name='image'></a>
 
@@ -354,7 +357,7 @@ fields:
 
 #### `Reference`
 
-1-to-many relational records. 
+1-to-1 relational records. 
 
 ```yml
 fields:
@@ -406,7 +409,7 @@ Many-to-1 and/or many-to-many relation records.
 fields:
   - name: a random name
     type: ReferenceList
-    reference_via_back_reference: the table the field reference to
+    reference_via_back_reference: the table the field refers to
     reference_from_field: the field that links the two tables
     reference_field_name: the field you want to display
     editable: true or false # applicable only to the edit and the new view
@@ -428,17 +431,18 @@ records:
   blogpost:
     record_type: blogpost
       list: 
-        fields: &comment_reference_fields
+        fields: &comment_reference_field
           - name: blogpost
             type: ReferenceList
-            reference_target: comment
-            reference_field_name: content
+            reference_via_back_reference: comment
+            reference_from_field: blogpostId
+            reference_field_name: comment
       show: 
-        fields: *comment_reference_fields
+        fields: *comment_reference_field
       edit:
-        fields: *comment_reference_fields
+        fields: *comment_reference_field
       new:
-        fields: *comment_reference_fields
+        fields: *comment_reference_field
 ```
 
 **many-to-many**

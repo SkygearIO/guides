@@ -165,13 +165,16 @@ records:
           atomic: true 
 ```
 
-- `atomic`: When `atomtic` is set to true, the whole import will be rejected if there are errors from `handle_duplicated_reference` and `handle_duplicated_identifier`. Default is false.
+- `atomic`: When `atomtic` is set to true, the whole import will be rejected if there are errors from `handle_duplicated_reference` and `handle_duplicated_identifier`. If `atomic` is not specified, your users will be able to choose from the interface how they want to handle error.
+
 
 ## Exports
 
 ![Skygear CMS export](/assets/cms/cms-export.png)
 
 Your users can export data from Skygear to a CSV. To do so, you need to configure the export settings and add an export button to the right page.
+
+Besides, at the time when your users export the records, users may have applied a filter to the records. He can choose to export all the records or just the filtered records in the interface. 
 
 ### Configuring exports
 
@@ -199,15 +202,22 @@ exports:
     record_type: comment
     fields:
       - name: _id
+        label: id
       - name: _created_at
+        label: creation time
       - name: comment
+        label: comment
       - name: blogpost_title
+        label: blogpost title
         reference_target: blogpost
         reference_field_name: title
 ```
+
+You can give a label to each of the fields, and they will be the header of the exported CSV.
+
 The exported CSV will look like this:
 
-|_id|_created_at| comment| title|
+|id|creation time| comment| blogpost title|
 |--- |---|---| ---|
 |93ab4e95-2cb6-4c00-890e-20038d1be03c|2018-07-09 18:00:56+08:00|Can't agree more| Adele is so adorable!|
 |8cbb14e7-0cb0-48c8-a46e-ba1cfb8804f6|2018-07-09 17:59:52+08:00|Getting a drink. Anyone? |Today is such a tired day|
@@ -236,21 +246,26 @@ exports:
     record_type: blogpost
     fields:
       - name: _id
+        label: id
       - name: _created_at
+        label: creation time
       - name: content
+        label: content
       - name: title
+        label: title
       - name: comment_comment
         reference_via_back_reference: comment
         reference_from_field: blogpostId
         reference_fields:
           - name: _id
-            label: comment_id
+            label: comment id
           - name: comment
             label: comment
 ```
+
 The exported CSV will look like this:
 
-|_id|_created_at| title| content| comment_id| comment|
+|id|creation time| title| content| comment id| comment|
 |--- |---|---| ---| ---| ---|
 |93ab4e95-2cb6-4c00-890e-20038d1be03c|2018-07-09 18:00:56+08:00|What do you think about the new CMS?|Let us know what you think!| 9opb4e15-2f03-9f00-890e-20037w1bg03c, 6f4cc50c-ac72-45a6-8308-d54ce69a0a3b| Better than the old one., Awesome!|
 |8cbb14e7-0cb0-48c8-a46e-ba1cfb8804f6|2018-07-09 17:59:52+08:00|Let's go drinking this Friday! |Today is such a tired day|43c48ee9-558b-43a4-ba85-7e6e3cdd38bd|Let's go drinking this Friday!|

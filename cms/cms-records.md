@@ -44,7 +44,7 @@ This is what we need:
 4. Display only blog posts that are created in 2018.
 5. Blog posts sorted in descending order based on their created time.
 
-Then we should write in the YML:
+Then we should write in the YAML file:
 
 ```yml
 site:
@@ -197,7 +197,7 @@ list:
       predicate: GreaterThan
       value: 2018-01-01 
 ```
-Note: for date value, we support full date or datetime. For example, 2018-01-01 or 2018-01-01 12:0:0.
+Note: for date value, we support what YAML supports. Check it out the YAML spec for datetime [here](http://yaml.org/type/timestamp.html).
 
 <a name='default_sort'></a>
 

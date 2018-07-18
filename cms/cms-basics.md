@@ -5,7 +5,7 @@ title: CMS basics
 
 ## Introduction
 
-Skygear CMS aims to provide a user friendly-interface for business user to update the content of the app. As a developer, you can customize the YML file at the Developer Portal. Below are the 5 major CMS features:
+Skygear CMS aims to provide a user friendly-interface for business user to update the content of the app. As a developer, you can customize the YAML file at the Developer Portal. Below are the 5 major CMS features:
 
 ### Content management
 Display, filter, sort, create, and update records, including relation records.
@@ -23,15 +23,15 @@ Import records, and export records according to the filtered view.
 Upload files (Coming soon)
 
 
-
 ## Getting started
 
-In this guide, you will learn how to configure the CMS with a YML file. To start with, enable the CMS plug-in at the Developer Portal. You will see a YML editor when the CMS is enabled successfully.
+In this guide, you will learn how to configure the CMS with a YAML file. To start with, enable the CMS plug-in at the Developer Portal. You will see a YAML editor when the CMS is enabled successfully.
 
 The new CMS is only available for Skygear v1.6.1+. If you are not a new Skygear user and you want to use the new CMS, upgrade your Skygear app to v1.6.1 and re-enable the CMS plug-in.
 
 ![CMS YML editor](/assets/cms/cms-yml-editor.png)
 
+If you are not familiar with YAML, we suggest you reading the [YAML doc](http://yaml.org/start.html) to familiarize yourself with the syntax. 
 
 ## CMS overview
 
