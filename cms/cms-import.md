@@ -39,27 +39,28 @@ This is what we need:
 
 1. Allow users to import a list of comments. 
 2. We will use `_id` as an identifier. If there is a comment in the database with the same `_id`, we will update the record. 
-3. However,if there are more than 1 comment with the same `_id` in the database, we will throw an error to the users.
+3. However, if there are more than 1 comment with the same `_id` in the database, we will throw an error to the users.
 4. To correctly associate every comment to a blogpost, we should also input the blogpost's title next to each comments.
 
 ```yml
 site:
-  - type: Record
+  - type: record
     name: comment
-  - type: Record
+  - type: record
     name: blogpost
 
 imports:
   import-comment:
     record_type: comment
     identifier: content
-    handle_duplicated_identifier: throw-error
+    handle_duplicated_identifier: throw_error
     fields:
+      - name: _id
       - name: comment
       - name: blogpostId
         reference_target: blogpost
         reference_field_name: title
-        handle_duplicated_reference: use-first
+        handle_duplicated_reference: use_first
 
 records:
   comment: 
@@ -89,8 +90,8 @@ Configurable items:
 The database table this import is linked to.
 ```yml
 imports:
-  import-name-random: 
-    record_type: 
+  name-for-this-import: a random name 
+    record_type: the database this import is related to
 ```
 
 <a name='identifier'></a>
@@ -102,7 +103,7 @@ If a record in the database is found to have the same identifier as the imported
 
 ```yml
 imports:
-  import-name-random: 
+  name-for-this-import: a random name 
     identifier: 
 ```
 <a name='handle_duplicated_identifier'></a>
@@ -113,19 +114,19 @@ The way to handle duplicated records when If more than 1 record in the database 
 ```yml
 imports:
   import-name-random: 
-    handle_duplicated_identifier: throw-error or use-first
+    handle_duplicated_identifier: throw_error or use_first
 ```
 
-- `throw-error` will return an error about this record. If you want to reject the whole import when there are errors, you can set `atomic: true` in the `action` setting (will be explained below).
+- `throw_error` will return an error about this record. If you want to reject the whole import when there are errors, you can set `atomic: true` in the `action` setting (will be explained below).
 
-- `use-first` will randomly accept one of the duplicated records.
+- `use_first` will randomly accept one of the duplicated records.
 
 <a name='fields'></a>
 
 #### `fields`
 Fields the users should fill in. 
 
-For relational records, Import support only **reference** (i.e. 1-many).
+For relational records, Imports support only **reference** (i.e. 1-many).
 
 ```yml
 imports:
@@ -135,11 +136,11 @@ imports:
       - name: a reference field
         reference_target: the referenced table 
         reference_field_name: the field user should fill in the CSV to idenitfy the referenced record
-        handle_duplicated_reference: throw-error or use-first
+        handle_duplicated_reference: throw_error or use_first
 ```
-- `throw-error` will return an error. If you want to reject the whole import when there are errors, you can set `atomic: true` in the `action` setting (will be explained below).
+- `throw_error` will return an error. If you want to reject the whole import when there are errors, you can set `atomic: true` in the `action` setting (will be explained below).
 
-- `use-first` will randomly assign the record to one of the duplicated references.
+- `use_first` will randomly assign the record to one of the duplicated references.
 
 ### Add the import button
 
@@ -151,7 +152,7 @@ Suppose now we are adding an **import** button on the `comment`'s list view.
 
 ```yml
 site:
-  - type: Record
+  - type: record
     name: comment
 
 records:
@@ -159,7 +160,7 @@ records:
     record_type: comment
     list:
       actions:
-        - type: Import
+        - type: import
           name: import-comment # this is defined in the import section
           label: Import
           atomic: true 
@@ -187,7 +188,7 @@ This is what we need:
 
 ```yml
 site:
-  - type: Record
+  - type: record
     name: comment
     label: Comment
 
@@ -231,7 +232,7 @@ This is what we need:
 
 ```yml
 site:
-  - type: Record
+  - type: record
     name: blogpost
     label: Blogpost
 
@@ -276,7 +277,7 @@ The exported CSV will look like this:
 Now, let's add an **export** button to the `comment`'s list view.
 ```yml
 site:
-  - type: Record
+  - type: record
     name: comment
 
 records:
@@ -284,7 +285,7 @@ records:
     record_type: comment
     list:
       actions:
-        - type: Export
+        - type: export
           name: export-comments # this is defined in the import section
           label: Export
 ```

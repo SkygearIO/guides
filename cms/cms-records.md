@@ -1,9 +1,9 @@
 ---
-title: Configuring the CMS Record page
+title: Configuring the CMS record page
 ---
 [[toc]]
 
-In [CMS basics][doc-cms-basic] we learn that the CMS is consisted of 3 types of pages: Records, User management and Push notification. In this section, we will go into details of the record page configuration.
+In [CMS basics][doc-cms-basic] we learn that the CMS is consisted of 3 types of pages: `record`, `user_management` and `push_notifications`. In this section, we will go into details of the record page configuration.
 
 A record page has 4 views: **list**, **show**, **edit** and **new**. They are the ways your business users read (list, show), update (edit) or create (new) a record in the CMS.
 
@@ -48,7 +48,7 @@ Then we should write in the YAML file:
 
 ```yml
 site:
-  - type: Record
+  - type: record
     name: blogpost
     label: Blogposts
 
@@ -60,28 +60,28 @@ records:
     list:
       fields: 
         - name: title
-          type: String
+          type: string
           label: Title
         - name: content
-          type: TextArea
+          type: text_area
           label: Content
         - name: cover
-          type: Image
+          type: image
           label: Cover
         - name: _created_at
         - name: blogpost_comment
           label: Comments
-          type: ReferenceList
+          type: reference_list
           reference_via_back_reference: comment
           reference_from_field: blogpostId
           reference_field_name: comment
       filters:
         - name: title
-          type: String
+          type: string
           label: Title
       predicates:
         - name: _created_at
-          predicate: GreaterThanOrEqualTo
+          predicate: greater_than_or_equal_to
           value: 2018-01-01
       default_sort:
         name: _created_at
@@ -129,7 +129,7 @@ fields:
   - name: _updated_at
 ```
 
-Besides, when you configure a field, you have to specify its field types. **Field types in the CMS is not equivalent to data type the database**. They are the way the CMS displays the content of the field. For example, as blog posts are usually long texts, using TextArea to display the `content` field maybe more appropriate. You can learn about all the field types in the [CMS field type guide][doc-cms-field].
+Besides, when you configure a field, you have to specify its field types. **Field types in the CMS is not equivalent to data type the database**. They are the way the CMS displays the content of the field. For example, as blog posts are usually long texts, using `text_area` to display the `content` field maybe more appropriate. You can learn about all the field types in the [CMS field type guide][doc-cms-field].
 
 
 <a name='filters'></a>
@@ -145,16 +145,16 @@ filters:
 
 It refers to the fields your business users can use to filter the records. For example, if you set the `title` field to be filterable, then the business users can filter blog posts that contains a specific keyword in its title.
 
-`filter type` determines the filter format. For example, if the filter type is `String`, a keyword search filter will be used.
+`filter type` determines the filter format. For example, if the filter type is `string`, a keyword search filter will be used.
 
 Below are the filter type you can use:
 
-- `String`
-- `DateTime`
-- `Boolean`
-- `Integer`
-- `General`
-- `Reference`
+- `string`
+- `date_time`
+- `boolean`
+- `integer`
+- `general`
+- `reference`
 
 You can have multiple filters. All filters can be accessed by pressing the 'filter' button on the upper right corner.
 
@@ -171,20 +171,20 @@ Different from filter, predicates will be applied to the list view automatically
 
 Below are the predicates you can use:
 
-- `Like`
-- `NotLike`
-- `CaseInsensitiveLike`
-- `CaseInsensitiveNotLike`
-- `EqualTo`
-- `NotEqualTo`
-- `GreaterThan`
-- `GreaterThanOrEqualTo`
-- `LessThan`
-- `LessThanOrEqualTo`
-- `Contains`
-- `NotContains`
-- `ContainsValue`
-- `NotContainsValue`
+- `like`
+- `not_like`
+- `case_insensitive_like`
+- `case_insensitive_not_like`
+- `equal_to`
+- `not_equal_to`
+- `greater_than`
+- `greater_than_or_equal_to`
+- `less_than`
+- `less_than_or_equal_to`
+- `contains`
+- `not_contains`
+- `contains_value`
+- `not_contains_value`
 
 Example usage:
 
@@ -194,7 +194,7 @@ Suppose we want to display blogpost that are created in 2018 only.
 list:
   predicates:
     - name: _created_at
-      predicate: GreaterThan
+      predicate: greater_than
       value: 2018-01-01 
 ```
 Note: for date value, we support what YAML supports. Check it out the YAML spec for datetime [here](http://yaml.org/type/timestamp.html).
@@ -218,15 +218,15 @@ It refers to the fields you want to use to order your records.
 
 ```yml
 actions:
-  - type: AddButton
-  - type: Import    
+  - type: add_button
+  - type: import    
     name: name configured in the import section
     label: Text to show inside the button
     atomic: true or false (optional)
-  - type: Export
+  - type: export
     name: name configured in the export section
     label: Text to show inside the button
-  - type: Link
+  - type: link
     label: Text to show inside the button
     href: link path
     target: HTML link target attribute
@@ -236,10 +236,10 @@ By default, there will be two buttons on the upper right hand corner: 'Add' and 
 
 There are 4 action types:
 
-- `Import`: import data with a CSV
-- `Export`: import data to a CSV
-- `Link`: any custom link
-- `AddButton`: create a new record
+- `import`: import data with a CSV
+- `export`: import data to a CSV
+- `link`: any custom link
+- `add_button`: create a new record
 
 If you want to use the import and export function, you also need to configure the import or the export settings. Read the 'CMS Import and Export' guide to learn more.
 
@@ -250,9 +250,9 @@ If you want to use the import and export function, you also need to configure th
 
 ```yml
 item_actions: 
-  - type: ShowButton
-  - type: EditButton
-  - type: Link
+  - type: show_button
+  - type: edit_button
+  - type: link
     label: Text to show inside the button
     href: link path
     target: HTML link target attribute
@@ -262,7 +262,7 @@ There are buttons next to every record, and they are called 'item actions'. If y
 To add custom buttons, simply configure `item_actions`. For example, you may add a button next to each record that links users to the Google search results of the record's title.
 
 ```yml
-  - type: Link
+  - type: link
     label: Search
     href: https://www.google.com/search?q={record.title}
     target: _blank
@@ -285,11 +285,11 @@ As suggested by their names:
 
 Since [`fields`](./#fields) is the only configurable item of the 3 views, the below example will demonstrate how to configure them in one go. 
 
-Note: you can have different CMS field type for the same field for different views. For example, you may use `TextArea` to display the blog post's content in the **list** view and WYSIWYG in the **new** view. In the [CMS field type guide][doc-cms-field], you will see all the available field types and their respective UI views.
+Note: you can have different CMS field type for the same field for different views. For example, you may use `text_area` to display the blog post's content in the **list** view and `wysiwyg` in the **new** view. In the [CMS field type guide][doc-cms-field], you will see all the available field types and their respective UI views.
 
 ```yml
 site:
-  - type: Record
+  - type: record
     name: blogpost
     label: Blogposts
 
@@ -301,40 +301,40 @@ records:
     list:
       fields:
         - name: title
-          type: String
+          type: string
           label: Title
         - name: content
-          type: TextArea
+          type: text_area
           label: Content
         - name: cover
-          type: Image
+          type: image
           label: Cover
         - name: _created_at
         - name: blogpost_comment
           label: Comments
-          type: ReferenceList
+          type: reference_list
           reference_via_back_reference: comment
           reference_from_field: blogpostId
           reference_field_name: comment
       actions:
-        - type: AddButton
-        - type: Link
+        - type: add_button
+        - type: link
           label: Custom button
           href: https://skygear.io
           target: _blank
       item_actions:
-        - type: ShowButton
-        - type: EditButton
-        - type: Link
+        - type: show_button
+        - type: edit_button
+        - type: link
           label: Custom button
           href: https://skygear.io
       filters:
         - name: title
-          type: String
+          type: string
           label: Title
       predicates:
         - name: _created_at
-          predicate: GreaterThanOrEqualTo
+          predicate: greater_than_or_equal_to
           value: 2018-01-01
       default_sort:
         name: _created_at
@@ -342,54 +342,54 @@ records:
     show:
       fields:
         - name: title
-          type: String
+          type: string
           label: Title
         - name: content
-          type: TextArea
+          type: text_area
           label: Content
         - name: cover
-          type: Image
+          type: image
           label: Cover
         - name: _created_at
         - name: blogpost_comment
           label: Comments
-          type: ReferenceList
+          type: reference_list
           reference_via_back_reference: comment
           reference_from_field: blogpostId
           reference_field_name: comment
     edit:
       fields:
         - name: title
-          type: String
+          type: string
           label: Title
         - name: content
-          type: WYSIWYG
+          type: wysiwyg
           label: Content
         - name: cover
-          type: Image
+          type: image
           label: Cover
         - name: _created_at
         - name: blogpost_comment
           label: Comments
-          type: ReferenceList
+          type: reference_list
           reference_via_back_reference: comment
           reference_from_field: blogpostId
           reference_field_name: comment
     new: 
       fields:
         - name: title
-          type: String
+          type: string
           label: Title
         - name: content
-          type: WYSIWYG
+          type: wysiwyg
           label: Content
         - name: cover
-          type: Image
+          type: image
           label: Cover
         - name: _created_at
         - name: blogpost_comment
           label: Comments
-          type: ReferenceList
+          type: reference_list
           reference_via_back_reference: comment
           reference_from_field: blogpostId
           reference_field_name: comment
@@ -399,7 +399,7 @@ If the 4 views share the same fields config, you can use anchors to save time.
 
 ```yml
 site:
-  - type: Record
+  - type: record
     name: blogpost
     label: Blogposts
 
@@ -411,40 +411,40 @@ records:
     list:
       fields: &blogpost_fields
         - name: title
-          type: String
+          type: string
           label: Title
         - name: content
-          type: TextArea
+          type: text_area
           label: Content
         - name: cover
-          type: Image
+          type: image
           label: Cover
         - name: _created_at
         - name: blogpost_comment
           label: Comments
-          type: ReferenceList
+          type: reference_list
           reference_via_back_reference: comment
           reference_from_field: blogpostId
           reference_field_name: comment
       actions:
-        - type: AddButton
-        - type: Link
+        - type: add_button
+        - type: link
           label: Custom button
           href: https://skygear.io
           target: _blank
       item_actions:
-        - type: ShowButton
-        - type: EditButton
-        - type: Link
+        - type: show_button
+        - type: edit_button
+        - type: link
           label: Custom button
           href: https://skygear.io
       filters:
         - name: title
-          type: String
+          type: string
           label: Title
       predicates:
         - name: _created_at
-          predicate: GreaterThanOrEqualTo
+          predicate: greater_than_or_equal_to
           value: 2018-01-01
       default_sort:
         name: _created_at

@@ -81,7 +81,7 @@ push_notifications:
 
 Skygear CMS is consisted of pages. When working with the CMS configuration, the first things you should consider is what pages you would need in the CMS.
 
-There are 3 page types: Record, Push Notification, and User Management. You can learn about what each type does in the [CMS overview](./#cms-overview) section.
+There are 3 page types: `record`, `push_notifications`, and `user_management`. You can learn about what each type does in the [CMS overview](./#cms-overview) section.
 
 To show you how to configure the pages, let's assume we have a database like this:
 
@@ -108,14 +108,14 @@ Suppose we want to show all the blogpost records and all the comment records in 
 
 ```yml
 site:
-  - type: UserManagement
+  - type: user_management
     label: User management
-  - type: PushNotifications
+  - type: push_notifications
     label: Push
-  - type: Record
+  - type: record
     name: blogpost  # this is the CMS record name, which can be configured below
     label: Blogposts
-  - type: Record
+  - type: record
     name: comment
     label: Comments
 
@@ -135,7 +135,7 @@ Now save the changes and open the CMS. You should see all the pages on the left 
 
 ## What's next?
 
-Next, let's learn about how to [configure the Record page][doc-cms-record].
+Next, let's learn about how to [configure the record page][doc-cms-record].
 
 
 [doc-cms-record]: /guides/cms/cms-records/

@@ -15,7 +15,7 @@ records:
       list:
         fields:
           - name: content
-            type: String # CMS field types
+            type: string # CMS field types
             label: Content
 ```
 
@@ -23,7 +23,7 @@ records:
 
 Field type in Skygear CMS refers to the UI presentation of the field, not its data type in the database.
 
-For example, suppose there are two roles in your app: student and teacher. In the user table, there is a column named 'role' the stores the role of the user. 'role' in the database has a data type of `String`, however, in the CMS, you can set the its field type to `Dropdown` to limit the input to student or teacher.
+For example, suppose there are two roles in your app: student and teacher. In the user table, there is a column named 'role' the stores the role of the user. 'role' in the database has a data type of `string`, however, in the CMS, you can set the its field type to `dropdown` to limit the input to student or teacher.
 
 ```yml
 records:
@@ -32,7 +32,7 @@ records:
      list:
        fields:
           - name: role
-            type: Dropdown # CMS field types
+            type: dropdown # CMS field types
             label: Role
             options:
               - label: Teacher
@@ -45,7 +45,7 @@ records:
 
 A CMS record has 4 views: list, show, edit and new. It is likely that the 4 views have similar fields. However, considering the UI presentation of the 4 views are different, you may want to use different field type in different view. 
 
-Reusing the teach and student example. Suppose you want to display the role as `String`, however, when users edit or create a new user, you want to display the role field as `Dropdown` so that you can limit the user input to student or teacher. 
+Reusing the teach and student example. Suppose you want to display the role as `string`, however, when users edit or create a new user, you want to display the role field as `dropdown` so that you can limit the user input to student or teacher. 
 
 ``` yml
 records:
@@ -54,22 +54,22 @@ records:
       list:
         fields:
           - name: role
-            type: String
+            type: string
             label: Role
       show:
         fields:
           - name: role
-            type: String
+            type: string
             label: Role      
       edit:
         fields:
           - name: role
-            type: Dropdown
+            type: dropdown
             label: Role
       new:
         fields:
           - name: role
-            type: Dropdown
+            type: dropdown
             label: Role      
 ```
 
@@ -77,7 +77,7 @@ records:
 
 Every field type has two views: display and edit. Display view default will be applied to the list and the show view, while edit view default will be applied to the edit and new view.
 
-For example, if you use WYSIWYG in the list or the show view, you will get the default WYSIWYG display view (a HTML preview WYSIWYG widget). If you use WYSIWYG in the edit or new view, you will get the default WYSIWYG edit view (a working WYSIWYG editor).
+For example, if you use `wysiwyg` in the list or the show view, you will get the default WYSIWYG display view (a HTML preview WYSIWYG widget). If you use `wysiwyg` in the edit or new view, you will get the default WYSIWYG edit view (a working WYSIWYG editor).
 
 <table>
   <tr>
@@ -88,141 +88,141 @@ For example, if you use WYSIWYG in the list or the show view, you will get the d
   </tr>
   <tr>
     <td rowspan='4'>Text</td>
-    <td><a href='./#string'><code>String</code></a></td>
+    <td><a href='./#string'><code>string</code></a></td>
     <td>Single-line text</td>
     <td>Single-line text input</td>
   </tr>
   <tr>
-    <td><a href='./#textarea'><code>TextArea</code></a></td>
+    <td><a href='./#textarea'><code>text_area</code></a></td>
     <td>Mulitple-line text</td>
     <td>Mulitple-line text input</td>
   </tr>
   <tr>
-    <td><a href='./#wysiwyg'><code>WYSIWYG</code></a></td>
+    <td><a href='./#wysiwyg'><code>wysiwyg</code></a></td>
     <td>HTML preview WYSIWYG widget</td>
     <td>WYSIWYG Eidtor</td>
   </tr>
   <tr>
-    <td><a href='./#dropdown'><code>Dropdown</code></a></td>
+    <td><a href='./#dropdown'><code>dropdown</code></a></td>
     <td>Non-expandable dropdown</td>
     <td>Dropdown input</td>
   </tr>
   <tr>
     <td rowspan='3'>Number</td>
-    <td><a href='./#number'><code>Number</code></a></td>
+    <td><a href='./#number'><code>number</code></a></td>
     <td>Number display</td>
     <td>Number input</td>
   </tr>
   <tr>
-    <td><a href='./#float'><code>Float</code></a></td>
+    <td><a href='./#float'><code>float</code></a></td>
     <td>Float display</td>
     <td>Float input</td>
   </tr>
   <tr>
-    <td><a href='./#integer'><code>Integer</code></a></td>
+    <td><a href='./#integer'><code>integer</code></a></td>
     <td>Integer display</td>
     <td>Integer input</td>
   </tr>
   <tr>
     <td rowspan='2'>Files</td>
-    <td><a href='./#asset'><code>Asset</code></a></td>
+    <td><a href='./#asset'><code>asset</code></a></td>
     <td>Asset name</td>
     <td>Asset uploader</td>
   </tr>
   <tr>
-    <td><a href='./#image'><code>Image</code></a></td>
+    <td><a href='./#image'><code>image</code></a></td>
     <td>Image display</td>
     <td>Image uploader</td>
   </tr>
   <tr>
     <td rowspan='4'>Relational records</td>
-    <td><a href='./#reference'><code>Reference</code></a> (1-many)</td>
+    <td><a href='./#reference'><code>reference</code></a> (1-many)</td>
     <td>Text display</td>
     <td>Dropdown input</td>
   </tr>
   <tr>
-    <td><a href='./#referencelist'><code>ReferenceList</code></a> (many-1 or many-many)</td>
+    <td><a href='./#referencelist'><code>reference_list</code></a> (many-1 or many-many)</td>
     <td>Text display</td>
     <td>Dropdown input</td>
   </tr>
   <tr>
-    <td>EmbeddedReference</td>
+    <td><code>embedded_reference</code></td>
     <td colspan='2'>Coming soon</td>
   </tr>
   <tr>
-    <td>EmbeddedReferenceList</td>
+    <td><code>embedded_reference_list</code></td>
     <td colspan='2'>Coming soon</td>
   </tr>
   <tr>
     <td rowspan='2'>Time</td>
-    <td><a href='./#datetime'><code>Datetime</code></a></td>
+    <td><a href='./#datetime'><code>date_time</code></a></td>
     <td>Date time display</td>
     <td>Date and time picker</td>
   </tr>
   <tr>
-    <td><code>Date</td>
+    <td><code>date</code></td>
     <td colspan='2'>Coming soon</td>
   </tr>
   <tr>
     <td>Boolean</td>
-    <td><a href='./#boolean'><code>Boolean</code></a></td>
+    <td><a href='./#boolean'><code>boolean</code></a></td>
     <td>Non-editable switch</td>
     <td>Switch</td>
   </tr>  
   <tr>
     <td rowspan='2'>Location</td>
-    <td>Location</td>
+    <td><code>location</code></td>
     <td colspan='2'>Coming soon</td>
   </tr>
   <tr>
-    <td>Map</td>
+    <td><code>map</code></td>
     <td colspan='2'>Coming soon</td>
   </tr>
   <tr>
     <td>JSON</td>
-    <td>JSON</td>
+    <td><code>json</code></td>
     <td colspan='2'>Coming soon</td>
   </tr>
 </table>
 
 <a name='string'></a>
 
-#### `String`
+#### `string`
 
 Single-line text.
 
 ``` yml
 fields:
   - name: database field name
-    type: String
+    type: string
     default_value: default value # applicable only to the new view
     editable: true or false # applicable only to the edit and the new view
 ```
 
 <a name='textarea'></a>
 
-#### `TextArea`
+#### `text_area`
 
 Multiple-line text
 
 ```yml
 fields:
   - name: database field name
-    type: TextArea
+    type: text_area
     default_value: default value # applicable only to the new view
     editable: true or false # applicable only to the edit and the new view
 ```
 
 <a name='wysiwyg'></a>
 
-#### `WYSIWYG`
+#### `wysiwyg`
 
-WYSIWYG with HTML markups. If you use WYSIWYG in the edit and the new view, we also suggest you using WYSIWYG in the list and the show view so that your users can see the HTML preview instead of raw HTML.
+WYSIWYG with HTML markups. If you use `wysiwyg` in the edit and the new view, we also suggest you using `wysiwyg` in the list and the show view so that your users can see the HTML preview instead of raw HTML.
 
 ```yml
 fields:
   - name: database field name
-    type: WYSIWYG
+    type: wysiwyg
     config: tiny wysiwyg config
     default_value: default value # applicable only to the new view
     editable: true or false # applicable only to the edit and the new view
@@ -248,21 +248,21 @@ Suppose we want to add another toolbar to the editor:
 ```yml
 fields:
   - name: database field name
-    type: WYSIWYG
+    type: wysiwyg
     config:
       toolbar2: paste | copy | undo | redo
 ```
 
 <a name='dropdown'></a>
 
-#### `Dropdown`
+#### `dropdown`
 
-Currently `Dropdown` only support `String` inputs.
+Currently `dropdown` only support `string` inputs.
 
 ```yml
 fields:
   - name: database field name
-    type: Dropdown
+    type: dropdown
     custom: 
       enabled: true or false
       label: name of the custom value
@@ -271,7 +271,7 @@ fields:
       label: name of the null values
     options:
       - label: option 1
-        value: A # only String inputs are supported
+        value: A # only string inputs are supported
       - label: option 2
         value: B
     default_value: default value # applicable only to the new view
@@ -287,49 +287,49 @@ fields:
 
 <a name='number'></a>
 
-#### `Number`
+#### `number`
 
 ```yml
 fields:
   - name: database field name
-    type: Number
+    type: number
     default_value: default value # applicable only to the new view
     editable: true or false # applicable only to the edit and the new view    
 ```
 
 <a name='float'></a>
 
-#### `Float`
+#### `float`
 
 ```yml
 fields:
   - name: database field name
-    type: Float
+    type: float
     default_value: default value # applicable only to the new view
     editable: true or false # applicable only to the edit and the new view
 ```
 
 <a name='integer'></a>
 
-#### `Integer`
+#### `integer`
 
 ```yml
 fields:
   - name: database field name
-    type: Integer
+    type: integer
     default_value: default value # applicable only to the new view
     editable: true or false # applicable only to the edit and the new view
 ```
 <a name='asset'></a>
 
-#### `Asset`
+#### `asset`
 
 Files except images.
 
 ```yml
 fields:
   - name: database field name
-    type: Asset
+    type: asset
     accept: the accepted file types
     nullable: 
       enabled: true or false
@@ -341,12 +341,12 @@ fields:
 
 <a name='image'></a>
 
-#### `Image`
+#### `image`
 
 ```yml
 fields:
   - name: database field name
-    type: Image
+    type: image
     nullable: 
       enabled: true or false
     editable: true or false # applicable only to the edit and the new view
@@ -355,14 +355,14 @@ fields:
 
 <a name='reference'></a>
 
-#### `Reference`
+#### `reference`
 
 1-to-1 relational records. 
 
 ```yml
 fields:
   - name: database field name
-    type: Reference
+    type: reference
     reference_target: Referenced CMS record
     reference_field_name: Referenced record field name
     editable: true or false # applicable only to the edit and the new view
@@ -374,7 +374,7 @@ Suppose we have a `comment` table with every comment associated to a blogpost, a
 
 ```yml
 site:
-  type: Record
+  type: record
   name: comment
   label: Comment
 
@@ -386,7 +386,7 @@ records:
     list: 
       fields: &blogpost_reference_field
         - name: blogpostId
-          type: Reference
+          type: reference
           reference_target: blogpost
           reference_field_name: title
     show: 
@@ -399,7 +399,7 @@ records:
 
 <a name='referencelist'></a>
 
-#### `ReferenceList`
+#### `reference_list`
 
 Many-to-1 and/or many-to-many relation records.
 
@@ -408,7 +408,7 @@ Many-to-1 and/or many-to-many relation records.
 ```yml
 fields:
   - name: a random name
-    type: ReferenceList
+    type: reference_list
     reference_via_back_reference: the table the field refers to
     reference_from_field: the field that links the two tables
     reference_field_name: the field you want to display
@@ -421,7 +421,7 @@ Suppose we have a `comment` table with every comment referenced to a blogpost, a
 
 ```yml
 site:
-  type: Record
+  type: record
   name: blogpost
   label: Blogpost
 
@@ -433,7 +433,7 @@ records:
       list: 
         fields: &comment_reference_field
           - name: blogpost
-            type: ReferenceList
+            type: reference_list
             reference_via_back_reference: comment
             reference_from_field: blogpostId
             reference_field_name: comment
@@ -463,7 +463,7 @@ Suppose we have an intermediate table named `blogpost_comment` that connects the
 
 ```yml
 site:
-  - type: Record
+  - type: record
     name: blogpost
     label: blogpost
 
@@ -475,7 +475,7 @@ records:
     list:
       fields:
         - name: random name
-          type: referenceList
+          type: reference_list
           reference_via_association_record: blogpost_comment
           reference_target: comment
           reference_field_name: content
@@ -483,24 +483,24 @@ records:
 association_record:
   blogpost_comment:
     - name: blogpostId
-      type: Reference
+      type: reference
       reference_target: blogpost
     - name: commendId
-      type: Reference
+      type: reference
       reference_target: comment
 ```
 
 
 <a name='datetime'></a>
 
-#### `Datetime`
+#### `date_time`
 
 Date with time.
 
 ```yml
 fields:
   - name: database field name
-    type: Datetime
+    type: date_time
     timezone: timezone
     default_value: default value # applicable only to the new view
     editable: true or false # applicable only to the edit and the new view
@@ -509,14 +509,14 @@ fields:
 
 <a name='boolean'></a>
 
-#### `Boolean`
+#### `boolean`
 
 Switch.
 
 ```yml
 fields:
   - name: database field name
-    type: Boolean
+    type: boolean
     default_value: true or false # applicable only to the new view
     editable: true or false # applicable only to the edit and the new view
 ```

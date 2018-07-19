@@ -21,23 +21,23 @@ Example usage:
 
 ```yml
 site:
-  - type: PushNotifications
+  - type: push_notifications
     label: Push Dashboard
 
 push_notifications:
   filters:
     - name: username
-      type: String
+      type: string
       label: Username
 ```
 
 `fiters`: It refers to the fields admins can use to filter the users. For example, if you set the `username` field to be filterable, then admins can filter users based on their username and send push notifications to the filtered user list.
 
-Below are the filter type you can use:
+Below are the filter types you can use:
 
-- String
-- DateTime
-- Boolean
-- Integer
-- General
-- Reference
+- `string`
+- `date_time`
+- `boolean`
+- `integer`
+- `general`
+- `reference`

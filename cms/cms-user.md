@@ -20,7 +20,7 @@ To enable the user management dashboard in the CMS is very simple, simply config
 
 ```yml
 site:
-  - type: UserManagement
+  - type: user_management
     label: User Management Dashboard
 ```
 
