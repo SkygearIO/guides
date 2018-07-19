@@ -23,7 +23,7 @@ A lambda function can be created using the `@skygear.op` decorator.
 The method is:
 
 ```javascript
-op(name: string, func: (param: object, options: any), options: { userRequired?: boolean, keyRequired?: boolean})
+op(name: String, func: function(param: Object, options: *), options: {userRequired: boolean, keyRequired: boolean})
 ```
 
 - **`name`** (String)
