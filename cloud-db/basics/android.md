@@ -89,7 +89,11 @@ will be created. Each row in the table corresponds to one record of type `Note`.
 
 For each record table there exists two types of columns (fields of a record), those reserved by Skygear and those user-defined. Reserved columns contain metadata of a record, such as record ID, record owner and creation time. These reserved columns are prefixed with underscore, like `_created_at`.
 
-It is possible to manipulate data in record tables directly. However, one should exercise with caution when modifying data directly in record tables.
+It is possible to manipulate data in record tables directly. A quick
+way to update or delete records directly is to use our web data
+browser. Please note that reserved columns cannot be manipulated this
+way, and one should exercise with caution when modifying data directly
+in record tables.
 
 Each record table contains the following reserved columns:
 
