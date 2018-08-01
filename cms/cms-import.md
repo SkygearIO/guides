@@ -52,7 +52,7 @@ site:
 imports:
   import-comment:
     record_type: comment
-    identifier: content
+    identifier: _id
     handle_duplicated_identifier: throw_error
     fields:
       - name: _id
