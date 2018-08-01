@@ -3,7 +3,7 @@ title: Configuring the CMS record page
 ---
 [[toc]]
 
-In [CMS basics][doc-cms-basic] we learn that the CMS is consisted of 3 types of pages: `record`, `user_management` and `push_notifications`. In this section, we will go into details of the record page configuration.
+In [CMS basics][doc-cms-basic] we learn that the CMS is consisted of 2 types of pages: `record` and `user_management`. In this section, we will go into details of the record page configuration.
 
 A record page has 4 views: **list**, **show**, **edit** and **new**. They are the ways your business users read (list, show), update (edit) or create (new) a record in the CMS.
 

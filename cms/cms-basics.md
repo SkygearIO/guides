@@ -29,7 +29,7 @@ In this guide, you will learn how to configure the CMS with a YAML file. To star
 
 The new CMS is only available for Skygear v1.6.1+. If you are not a new Skygear user and you want to use the new CMS, upgrade your Skygear app to v1.6.1 and re-enable the CMS plug-in.
 
-![CMS YML editor](/assets/cms/cms-yml-editor.png)
+![CMS overview](/assets/cms/cms-overview.png)
 
 If you are not familiar with YAML, we suggest you reading the [YAML doc](http://yaml.org/start.html) to familiarize yourself with the syntax. 
 
@@ -49,13 +49,12 @@ A record page has 4 views: **list**, **show**, **edit** and **new**. Simply put,
 
 Let say we have a blog app, and we want to let business users to update or create blog posts with the CMS. To do so, first of all, we should create a CMS record that links to the blog post table in the database, and then create a page for that CMS record.
 
-### [Push notification][doc-cms-push]
-
-You can send push messages to your app users with the push notification page.
-
 ### [User management][doc-cms-user]
 
 You can manage your users with the user management page. Current functions include assigning admin role and resetting passwords.
+
+### Push notifications
+Coming soon.
 
 ### File upload
 Coming soon.
@@ -71,9 +70,6 @@ records:
 
 association_records:
   # Many-to-many record configuration
-
-push_notifications:
-  # push notification page configuration
 ```
 
 
@@ -81,7 +77,7 @@ push_notifications:
 
 Skygear CMS is consisted of pages. When working with the CMS configuration, the first things you should consider is what pages you would need in the CMS.
 
-There are 3 page types: `record`, `push_notifications`, and `user_management`. You can learn about what each type does in the [CMS overview](./#cms-overview) section.
+There are 2 page types: `record` and `user_management`. You can learn about what each type does in the [CMS overview](./#cms-overview) section.
 
 To show you how to configure the pages, let's assume we have a database like this:
 
@@ -104,14 +100,12 @@ To show you how to configure the pages, let's assume we have a database like thi
 |content| String|
 |blogpostId | Reference|
 
-Suppose we want to show all the blogpost records and all the comment records in the CMS, and also need the push notification dashboard and the user management dashboard:
+Suppose we want to show all the blogpost records and all the comment records in the CMS, and also need the user management dashboard:
 
 ```yml
 site:
   - type: user_management
     label: User management
-  - type: push_notifications
-    label: Push
   - type: record
     name: blogpost  # this is the CMS record name, which can be configured below
     label: Blogposts
@@ -139,5 +133,4 @@ Next, let's learn about how to [configure the record page][doc-cms-record].
 
 
 [doc-cms-record]: /guides/cms/cms-records/
-[doc-cms-push]: /guides/cms/cms=push/
 [doc-cms-user]: /guides/cms/cms-user/
