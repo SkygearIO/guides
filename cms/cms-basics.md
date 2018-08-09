@@ -16,7 +16,7 @@ Skygear CMS aims to provide a user friendly-interface for business user to updat
 ## Getting started
 
 1. Make sure the version of your Skygear app is v1.6.1+. If not, upgrade your app to the latest version in the Setting tab.  
-2. Enable the CMS plug-in. If the CMS plug-in is already on before you upgrade the app, disable the plug-in and reanble it. You will see a YAML editor when the CMS is enabled successfully.
+2. Enable the CMS plug-in. If the CMS plug-in is already on before you upgrade the app, disable the plug-in and re-enable it. You will see a YAML editor when the CMS is enabled successfully.
 3. Create an admin user on the right hand corner to login to the CMS.
 
 ![CMS overview](/assets/cms/cms-overview.png)
