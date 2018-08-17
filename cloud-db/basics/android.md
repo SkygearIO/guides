@@ -89,18 +89,22 @@ will be created. Each row in the table corresponds to one record of type `Note`.
 
 For each record table there exists two types of columns (fields of a record), those reserved by Skygear and those user-defined. Reserved columns contain metadata of a record, such as record ID, record owner and creation time. These reserved columns are prefixed with underscore, like `_created_at`.
 
-It is possible to manipulate data in record tables directly. However, one should exercise with caution when modifying data directly in record tables.
+It is possible to manipulate data in record tables directly. A quick
+way to update or delete records directly is to use our web data
+browser. Please note that reserved columns cannot be manipulated this
+way, and one should exercise with caution when modifying data directly
+in record tables.
 
 Each record table contains the following reserved columns:
 
-| Column Name   | Object Attribute           | Description                                     |
-|---------------|----------------------------|-------------------------------------------------|
-| `_created_at` | `creationDate`             | `NSDate` object of when record was created      |
-| `_updated_at` | `modificationDate`         | `NSDate` object of when record was updated      |
-| `_created_by` | `creatorUserRecordID`      | `NSString` object of user id of record creator  |
-| `_updated_by` | `lastModifiedUserRecordID` | `NSString` object of user id of record updater  |
-| `_owner`      | `ownerUserRecordID`        | `NSString` object of user id of owner           |
-| `_id`         | `recordID`                 | `SKYRecordID` object of record id               |
+| Column Name   | Object Attribute | Type             | Description                           |
+|---------------|-------------------------------------|---------------------------------------|
+| `_id`         | `id`             | `String`         | unique id of a record                 |
+| `_owner_id`   | `ownerId`        | `String`         | user id of owner of a record          |
+| `_created_at` | `createdAt`      | `java.util.Date` | creation time of a record             |
+| `_created_by` | `creatorId`      | `String`         | id of user who created a record       |
+| `_updated_at` | `updatedAt`      | `java.util.Date` | last update time of a record          |
+| `_updated_by` | `updaterId`      | `String`         | id of user who last updated a record  |
 
 Learn how to get the metadata in [More About Queries][doc-queries].
 
