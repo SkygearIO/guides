@@ -5,8 +5,17 @@ description: Verify user email
 
 [[toc]]
 
-Skygear allows you to verify your user's email through email verification. To
-setup: 
+Skygear allows you to verify your user's email through the email verification APIs.
+
+When email verification is turned on, Skygear will send an verification email to any new signups automatically. To verify your users, you can either ask your users to click on a verification link, or input the verification code listed in the email into the app.
+
+In the developer portal, you can customise the verification email template, the success page and the error page.
+
+::: note
+The email verification email will only be sent to users who sign up after the module is enabled. If you also want to verify users signed up before the module is enabled, you can verify their emails by calling the [`requestVerification`](./#request-verificaiton) function manually.
+:::
+
+## Quick start
 
 1. Go to [Skygear Portal](https://portal.skygear.io/).
 1. On the left menu, click *User Auth*, then click *User Verification*.
@@ -21,14 +30,17 @@ cannot find User verification in the left menu, upgrade your app.
 
 :::
 
+## Implications to the user record
 
-## General Settings
+When email verification is enabled, Skygear will send an email verification email to all new signups using the email stored in their user records (i.e. the `email` field).
 
-When email verification is enabled, skygear will send verification email to user
-record `email` field. After user verify their email, the `email_verified`
-field of their user record will turn into `true`. Skygear use `is_verified`
-field in user record to identify if a user is verified, `is_verified` will be
-updated based on your setup in general settings.
+Besides, 2 additional fields will be added to the user records:  `email_verified` and `is_verified`.
+
+1. `email_verified` equals to `true` when a user's email is verified.
+
+2. `is_verified` equals to `true` when the verification condition is met. Since Skygear provides also SMS verification, if both email and SMS verification are enabled, you can mark users as verified only when both email and phone number are verified. You can set the condition in the general setting page. Skygear uses this field to identify if a user is verified.
+
+## General settings
 
 ![Email verification general settings screen](/assets/user-verification/general-settings.png)
 
@@ -49,7 +61,7 @@ Record save, user required lambda, etc.
     - You can also trigger sending verification email in your application by
       calling `requestVerification('email')` API.
 
-## Email Verification Settings
+## Email verification settings
 
 Enable email verification in **Email Verification Settings**.
 
@@ -67,8 +79,18 @@ You can customize the verification email content, success and error handling her
 - **Verification code expiry** - Verification code will be expired in the
   given hours
 
+## Customising the verification email
+As mentioned, you can either provide a verification link or a verification code in the email.
 
-## Verification success page
+To provide a verification link, simply add the `Verification Link` variable to the email; to provide a verification code, add the `Verification Code` variable to the email.
+
+There are other variables you can use in the email template. Check it out at the Developer Portal.
+
+::: note
+If you want to verify your user with a verification code, you need to call the [`verifyUserWithCode`](./#code) API in your app.
+:::
+
+## Customising the verification success page
 
 After user click the verification link in the email and verify successfully. An
 successful page will be shown and you can customize the page HTML here.
@@ -77,10 +99,7 @@ select **Redirect URL** and input the URL.
 
 ![Verification Success Page](/assets/user-verification/success-page-screenshot.png)
 
-
-## Verify via verification link
-
-#### Verification error page
+## Customising the verification error page
 
 Similarly, if user fail to verify through the verification link. An error page
 will be shown, you can customize the page HTML in **Verification Error Page**.
@@ -89,8 +108,8 @@ To redirect user to another page instead of showing the error page, please selec
 
 ![Verification Error Page](/assets/user-verification/error-page-screenshot.png)
 
-
-#### Request verification email API
+<a name='request-verificaiton'></a>
+## Requesting email verification manually
 
 You can request verification email in your application through API.
 
@@ -101,8 +120,8 @@ skygear.auth.requestVerification("email").then(function () {
   console.error(error);
 });
 ```
-
-## Verify email API
+<a name='code'></a>
+## Verifying users with a verification code
 
 Instead of using verification link, you can do the verification in your
 application through verify API with the verification code.
