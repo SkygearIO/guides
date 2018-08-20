@@ -7,9 +7,9 @@ description: Verify user email
 
 Skygear allows you to verify your user's email through the email verification APIs.
 
-When email verification is turned on, Skygear will send an verification email to any new signups automatically. To verify your users, you can either ask your users to click on a verification link, or input the verification code listed in the email into the app.
+When email verification is turned on, Skygear will send an verification email to any new sign-ups automatically. To verify your users, you can either ask your users to click on a verification link, or input a verification code listed in the email into the app.
 
-In the developer portal, you can customise the verification email template, the success page and the error page.
+In the developer portal, you can customize the verification email template, the success page and the error page.
 
 ::: note
 The email verification email will only be sent to users who sign up after the module is enabled. If you also want to verify users signed up before the module is enabled, you can verify their emails by calling the [`requestVerification`](./#request-verificaiton) function manually.
@@ -32,7 +32,7 @@ cannot find User verification in the left menu, upgrade your app.
 
 ## Implications to the user record
 
-When email verification is enabled, Skygear will send an email verification email to all new signups using the email stored in their user records (i.e. the `email` field).
+When email verification is enabled, Skygear will send an email verification email to all new sign-ups using the email stored in their user records (i.e. the `email` field).
 
 Besides, 2 additional fields will be added to the user records:  `email_verified` and `is_verified`.
 
@@ -79,7 +79,7 @@ You can customize the verification email content, success and error handling her
 - **Verification code expiry** - Verification code will be expired in the
   given hours
 
-## Customising the verification email
+## Customizing the verification email
 As mentioned, you can either provide a verification link or a verification code in the email.
 
 To provide a verification link, simply add the `Verification Link` variable to the email; to provide a verification code, add the `Verification Code` variable to the email.
@@ -90,7 +90,7 @@ There are other variables you can use in the email template. Check it out at the
 If you want to verify your user with a verification code, you need to call the [`verifyUserWithCode`](./#code) API in your app.
 :::
 
-## Customising the verification success page
+## Customizing the verification success page
 
 After user click the verification link in the email and verify successfully. An
 successful page will be shown and you can customize the page HTML here.
@@ -99,7 +99,7 @@ select **Redirect URL** and input the URL.
 
 ![Verification Success Page](/assets/user-verification/success-page-screenshot.png)
 
-## Customising the verification error page
+## Customizing the verification error page
 
 Similarly, if user fail to verify through the verification link. An error page
 will be shown, you can customize the page HTML in **Verification Error Page**.
