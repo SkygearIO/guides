@@ -65,15 +65,33 @@ import SKYKit
 
 2. Then add the following lines in the  `application:didFinishLaunchingWithOptions` method to configure your app.
 
-```obj-c
-SKYContainer *container = [SKYContainer defaultContainer];
-[container configAddress:@"https://your-endpoint.skygeario.com/"]; //Your server endpoint
-[container configureWithAPIKey:@"SKYGEAR_API_KEY"]; //Your Skygear API Key
-```
-```swift
-SKYContainer.default().configAddress("<Your endpoint url>")
-SKYContainer.default().configure(withAPIKey: "<Your API Key>")
-```
+    - For Skygear iOS SDK with version 1.6.2 or before.
+
+    ```obj-c
+    SKYContainer *container = [SKYContainer defaultContainer];
+    [container configAddress:@"<Your endpoint url>"];
+    [container configureWithAPIKey:@"<Your api key>"];
+    ```
+    ```swift
+    SKYContainer.default().configAddress("<Your endpoint url>")
+    SKYContainer.default().configure(withAPIKey: "<Your api key>")
+    ```
+
+    - For Skygear iOS SDK with version 1.6.3 or later.
+
+    ```obj-c
+    SKYConfiguration *config = [[SKYConfiguration alloc] init];
+    config.endPointAddress = [NSURL URLWithString:@"<Your endpoint url>"];
+    config.apiKey = @"<Your api key>";
+    [[SKYContainer defaultContainer] configure:config];
+    ```
+    ```swift
+    let config = SKYConfiguration()
+    config.endPointAddress = URL.init(string: "<Your endpoint url>")!
+    config.apiKey = "<Your api key>"
+    SKYContainer.default().configure(config)
+    ```
+
 :::note
 You can get your server endpoints and the API keys in the _info page_ in your [developer portal](https://portal.skygear.io/apps) after signing up for the [Skygear Cloud Services](https://portal.skygear.io/signup).
 :::
