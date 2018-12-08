@@ -123,7 +123,7 @@ token = jwt.encode({
 }, custom_token_secret, algorithm='HS256')
 ```
 
-#### Rudy
+#### Ruby
 
 Install [ruby-jwt](https://github.com/jwt/ruby-jwt)
 
