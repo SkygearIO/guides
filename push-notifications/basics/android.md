@@ -4,167 +4,116 @@ title: Skygear Push Basics
 
 [[toc]]
 
-To enable receiving push notifications from Skygear, you need to:
+::: note
 
-1. Delegate Skygear SDK to manage the GCM services
-2. Provide your GCM Sender ID
-3. Trigger GCM Token Registration
+To setup android app with FCM SDK, please use Skygear Android SDK v1.6.5 or later.
 
-<a id="delegate-skygear"></a>
-## Delegate Skygear SDK to manage the GCM services
+:::
 
-You need to update the `AndroidManifest.xml` file in your application to add
-necessary permission and delegate Skygear SDK to manage the GCM services.
+Once you have [setup FCM in skygear skygear][setup-fcm-in-skygear] properly, you will need to enable receiving push notifications in the client app on Android. You need to:
 
-Please be reminded that you need to replace all occurrences of
-`your.app.package` to the package name of your application.
+1. Add Firebase to the project
+2. Setup `FirebaseMessagingService` to register token and receive message
 
-```html
-<?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    package="your.app.package">
+## Add Firebase to the project
 
-    <!-- other permissions -->
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
+- In the General tab of project setting, select the android icon to register app.
 
-    <permission
-        android:name="your.app.package.permission.C2D_MESSAGE"
-        android:protectionLevel="signature" />
-    <uses-permission android:name="your.app.package.permission.C2D_MESSAGE" />
+   ![Add android app in Firebase Console][fcm-add-android-app]
 
-    <application ...>
-        <!-- Your Activity Declarations -->
-        ...
+    Complete the steps to add your app into the Firebase project. Download the
+    `google-services.json` file during the registration process. You can get back this file
+    anytime in the General tab. Put the `google-services.json` into your Android app
+    module root directory.
 
-        <!-- Delegate Skygear SDK to manage GCM Services -->
-        <receiver
-            android:name="com.google.android.gms.gcm.GcmReceiver"
-            android:exported="true"
-            android:permission="com.google.android.c2dm.permission.SEND">
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <category android:name="your.app.package" />
-            </intent-filter>
-        </receiver>
-        <service
-            android:name="io.skygear.skygear.gcm.ListenerService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-            </intent-filter>
-        </service>
-        <service
-            android:name="io.skygear.skygear.gcm.InstanceIDListenerService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.android.gms.iid.InstanceID" />
-            </intent-filter>
-        </service>
-        <service
-            android:name="io.skygear.skygear.gcm.RegistrationIntentService"
-            android:exported="false">
-        </service>
+- Add the Google services plugin into your project by modifying the `build.gradle` files.
+    The plugin will load the `google-services.json` file.
 
-    </application>
-</manifest>
-```
+    **Project-level `build.gradle` (`<project>/build.gradle`):**
+    ```
+    buildscript {
+        dependencies {
+            // Add this line
+            classpath 'com.google.gms:google-services:4.0.1'
+        }
+    }
+    ```
 
-<a id="provide-gcm-sender-id"></a>
-## Provide your GCM Sender ID
+    **App-level `build.gradle` (`<project>/<app-module>/build.gradle`):**
+    ```
+    dependencies {
+        // Add this line
+        implementation 'com.google.firebase:firebase-core:16.0.6'
+    }
+    ...
+    // Add to the bottom of the file
+    apply plugin: 'com.google.gms.google-services'
+    ```
 
-After delegating Skygear SDK to manage the GCM services, you also need to
-provide the GCM Sender ID to Skygear. You may find your GCM Sender ID on
-[Firebase Console][firebase-console].
+## Setup `FirebaseMessagingService` to register token and receive message
 
-You can add your GCM Sender ID when configuring Skygear.
+There are two ways to setup `FirebaseMessagingService`:
 
-```java
-Configuration config = new Configuration.Builder()
-    .endPoint("https://<your-app-name>.skygeario.com/")
-    .apiKey("<your-api-key>")
-    .gcmSenderId("<your-gcm-sender-id>")
-    .build();
+1. Use Skygear default `FirebaseMessagingService`, it will help you to handle
+    the token registration and simply display the message in android default Notification.
+2. Create your own `FirebaseMessagingService`, use Skygear SDK for sending token to skygear and
+    customize code in `onMessageReceived`.
 
-Container.defaultContainer(this).configure(config);
-```
 
-If you are extending `SkygearApplication`, you may override `getGcmSenderId()`
-to provide your GCM Sender ID.
+### Option 1: Use Skygear default `FirebaseMessagingService`
 
-```java
-public class MyApplication extends SkygearApplication {
+- Update `AndroidManifest.xml` file in your application, include the following in the manifest:
 
-    /* Other overriding */
+    ```
+    <service android:name="io.skygear.skygear.fcm.FirebaseMessagingService">
+        <intent-filter>
+            <action android:name="com.google.firebase.MESSAGING_EVENT" />
+        </intent-filter>
+    </service>
+    ```
+
+### Option 2: Create your own `FirebaseMessagingService`
+
+- Create your own `FirebaseMessagingService` class, extends `com.google.firebase.messaging.FirebaseMessagingService`. Override method
+`onNewToken` and `onMessageReceived`.
+
+    ```java
+    @Override
+    public void onNewToken(String token) {
+        // send registration to skygear server
+        Container container = Container.defaultContainer(this.getApplicationContext());
+        container.getPush().registerDeviceToken(token);
+    }
 
     @Override
-    public String getGcmSenderId() {
-        return "<your-gcm-sender-id>";
+    public void onMessageReceived(RemoteMessage remoteMessage) {
+        super.onMessageReceived(remoteMessage);
+        // handle notification
     }
-}
-```
-
-<a id="trigger-registration"></a>
-## Trigger GCM Token Registration
-
-After all the configuration, you may also need to trigger the GCM token
-registration as early as possible, in terms of your application flow.
-
-You are suggested to trigger the registration at the creation of your
-application or the creation of the first activity of your application.
-
-The following code snippet shows how to trigger GCM token registration:
-
-```java
-Container skygear = Container.defaultContainer(this);
-if (skygear.getPush().getGcmSenderId() != null) {
-    Intent gcmTokenRegisterIntent = new Intent(this, RegistrationIntentService.class);
-    this.startService(gcmTokenRegisterIntent);
-}
-```
-
-<a id="override-handling"></a>
-## Override Notification Handling
-
-Skygear SDK has a default handling for GCM notifications, which will show the
-`title` and the `body` under the notification payload.
-
-You may also handle the notification by yourself. To do that, you may update
-the `AndroidManifest.xml` and declaring your `ListenerService`:
-
-```html
-<?xml version="1.0" encoding="utf-8"?>
-<manifest ...>
-    <application ...>
-        <!-- Your Activity Declarations -->
-        ...
-
-        <!-- Other GCM Services -->
-        ...
-
-        <service
-            android:name="your.package.gcm.MyListenerService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-            </intent-filter>
-        </service>
-    </application>
-</manifest>
-```
-
-And you need to extend `com.google.android.gms.gcm.GcmListenerService` to
-handle the GCM notification:
-
-```java
-public class MyListenerService extends com.google.android.gms.gcm.GcmListenerService {
-    @Override
-    public void onMessageReceived(String s, Bundle bundle) {
-        super.onMessageReceived(s, bundle);
-
-        /* Handle the GCM notification */
+    ```
+    ```kotlin
+    override fun onNewToken(token: String?) {
+        // send registration to skygear server
+        val container = Container.defaultContainer(applicationContext)
+        container.getPush().registerDeviceToken(token)
     }
-}
 
-```
+    override fun onMessageReceived(remoteMessage: RemoteMessage?) {
+        // handle notification
+    }
+    ```
+
+- Update `AndroidManifest.xml` file in your application, include the following in the manifest:
+
+    ```
+    <service android:name=".YourFirebaseMessagingService">
+        <intent-filter>
+            <action android:name="com.google.firebase.MESSAGING_EVENT" />
+        </intent-filter>
+    </service>
+    ```
+
+[fcm-add-android-app]:/assets/push-notifications/fcm-add-android-app.png
+[setup-fcm-in-skygear]: /guides/push-notifications/config/android/
 [firebase-console]: https://console.firebase.google.com
+[setup-fcm-android-client]: https://firebase.google.com/docs/cloud-messaging/android/client

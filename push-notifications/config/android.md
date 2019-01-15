@@ -52,6 +52,11 @@ Go to [Skygear Portal][skygear-portal] at *App > Push Notification > Firebase Cl
 
 ![Upload service account file in Skygear Portal][fcm-upload-service-account-key]
 
+#### Enabled Firebase Cloud Message API in your google project
+
+It is enabled by default for newly created project, you may need to enable it manually
+for some existing project. To check it go to [Google Console][enable-fcm-api].
+
 ### Option 2: Use Server Key (All version)
 
 In the Cloud Messaging tab, you will find your server keys in place.
@@ -66,12 +71,6 @@ Go to [Skygear Portal][skygear-portal] at *App > Push Notification > Firebase Cl
 
 ![Fill in the Server in Skygear Portal][fcm-fill-in-server-key]
 
-::: note
-
-To start sending message via FCM, remember to turn on `Enable Firebase Cloud Messaging`.
-
-:::
-
 [doc-push-basic-android]: /guides/push-notifications/basics/android/
 [doc-android-quickstart]: /guides/intro/quickstart/android/
 [fcm-doc]: https://firebase.google.com/docs/cloud-messaging/
@@ -84,3 +83,4 @@ To start sending message via FCM, remember to turn on `Enable Firebase Cloud Mes
 [push-overview-fcm]:/assets/push-notifications/push-overview-fcm.png
 [firebase-console]: https://console.firebase.google.com/
 [skygear-portal]: https://portal.skygear.io
+[enable-fcm-api]: https://console.cloud.google.com/apis/api/fcm.googleapis.com/overview
