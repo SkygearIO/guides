@@ -238,8 +238,10 @@ new_password
 user_id
 100m
 v0.12
+v1
 v1.5
 v1.6.1
+v1.6.4
 event_type
 new_password
 user_id
