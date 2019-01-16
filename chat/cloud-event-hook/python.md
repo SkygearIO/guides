@@ -156,7 +156,7 @@ def after_message_sent_hook(message, conversation, participants):
         content = current_user['username'] + ": " + message['body']
     else:
         content = current_user['username'] + " sent you a file."
-    notification = {'gcm': {
+    notification = {'fcm': {
                        'notification': {
                            'title': conversation['title'],
                            'body': content
