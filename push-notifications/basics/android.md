@@ -6,7 +6,7 @@ title: Skygear Push Basics
 
 ::: note
 
-To setup android app with FCM SDK, please use Skygear Android SDK v1.6.5 or later.
+To setup android app with FCM SDK, please use Skygear Android SDK v1.7.0 or later.
 
 :::
 

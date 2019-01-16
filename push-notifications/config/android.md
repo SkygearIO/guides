@@ -32,12 +32,12 @@ There are TWO ways setting up FCM:
 
 ::: note
 
-Using service account is available in Skygear Server v1.6.4 or later. We
+Using service account is available in Skygear Server v1.7.0 or later. We
 recommend using service account approach which use the updated HTTP v1 API. 
 
 :::
 
-### Option 1: Using Service Account (v1.6.4 onward)
+### Option 1: Using Service Account (v1.7.0 onward)
 
 #### Download service account private key
 

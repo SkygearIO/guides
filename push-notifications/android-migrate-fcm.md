@@ -6,12 +6,12 @@ title: Migrate to FCM from GCM
 
 As of April 10, 2018, [Google has deprecated GCM][google-migrate-fcm-faq]. For the app that is using GCM in skygear for android push notifications, you can follow the below steps to migrate from GCM to FCM.
 
-1. Update Skygear server to v1.6.4+
+1. Update Skygear server to v1.7.0+
 1. Migrate from GCM setup to FCM in android client
 
 ## Update Skygear server
 
-After update Skygear server to v1.6.4, Skygear server will use the configured server key with FCM API automatically. There's no need to reconfigure.
+After update Skygear server to v1.7.0+, Skygear server will use the configured server key with FCM API automatically. There's no need to reconfigure.
 
 ## Migrate from GCM setup to FCM in android client
 
@@ -59,7 +59,7 @@ After update Skygear server to v1.6.4, Skygear server will use the configured se
         apply plugin: 'com.google.gms.google-services'
         ```
 
-1. Update skygear Android SDK to v1.6.5+
+1. Update skygear Android SDK to v1.7.0+
 
 1. Replace the GCM with FCM setup in your code
 
