@@ -10,6 +10,12 @@ To setup android app with FCM SDK, please use Skygear Android SDK v1.6.5 or late
 
 :::
 
+::: caution
+
+For migrating to FCM from the older version Skygear Android SDK, please read [Migrate to FCM from GCM][android-migrate-fcm]
+
+:::
+
 Once you have [setup FCM in skygear skygear][setup-fcm-in-skygear] properly, you will need to enable receiving push notifications in the client app on Android. You need to:
 
 1. Add Firebase to the project
@@ -115,5 +121,6 @@ There are two ways to setup `FirebaseMessagingService`:
 
 [fcm-add-android-app]:/assets/push-notifications/fcm-add-android-app.png
 [setup-fcm-in-skygear]: /guides/push-notifications/config/android/
+[android-migrate-fcm]: /guides/push-notifications/android-migrate-fcm/
 [firebase-console]: https://console.firebase.google.com
 [setup-fcm-android-client]: https://firebase.google.com/docs/cloud-messaging/android/client
