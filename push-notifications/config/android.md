@@ -39,22 +39,22 @@ recommend using service account approach which use the updated HTTP v1 API.
 
 ### Option 1: Using Service Account (v1.7.0 onward)
 
-#### Download service account private key
+#### 1. Download the service account private key
 
 In the Service accounts tab, click **Generate new private key** to download
 the service account private key JSON file.
 
 ![Download service account private key for Firebase Admin SDK][fcm-service-account]
 
-#### Upload service account private key in Skygear Portal
+#### 2. Upload the service account private key at the Skygear Portal
 
 Go to [Skygear Portal][skygear-portal] at *App > Push Notification > Firebase Cloud Messaging (FCM)*, turn **ON** *Enable Firebase Cloud Messaging* and turn **OFF** *Use Legacy FCM Server API*. Upload the service account file and click *Save Changes*.
 
 ![Upload service account file in Skygear Portal][fcm-upload-service-account-key]
 
-#### Enabled Firebase Cloud Message API in your google project
+#### 3. Enable the Firebase Cloud Message API in your Google project
 
-It is enabled by default for newly created project, you may need to enable it manually
+It is enabled by default for newly created project. You may need to enable it manually
 for some existing project. To check it go to [Google Console][enable-fcm-api].
 
 ### Option 2: Use Server Key (All version)
@@ -63,7 +63,7 @@ In the Cloud Messaging tab, you will find your server keys in place.
 
 ![Find your server Keys in the Cloud Messaging tab][fcm-project-settings]
 
-You can copy existing and create new Server Keys under the Project credentials section. 
+You can copy existing or create new Server Keys under the Project credentials section. 
 
 #### Filling in the Server Key in Skygear Portal
 

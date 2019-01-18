@@ -6,7 +6,7 @@ title: Skygear Push Basics
 
 ::: note
 
-To setup android app with FCM SDK, please use Skygear Android SDK v1.7.0 or later.
+To setup your android app with the FCM SDK, please use the Skygear Android SDK v1.7.0 or later.
 
 :::
 
@@ -16,14 +16,14 @@ For migrating to FCM from the older version Skygear Android SDK, please read [Mi
 
 :::
 
-Once you have [setup FCM in skygear skygear][setup-fcm-in-skygear] properly, you will need to enable receiving push notifications in the client app on Android. You need to:
+Once you have [setup FCM in Skygear][setup-fcm-in-skygear] properly, you will need to enable receiving push notifications in the client app on Android. You need to:
 
 1. Add Firebase to the project
 2. Setup `FirebaseMessagingService` to register token and receive message
 
 ## Add Firebase to the project
 
-- In the General tab of project setting, select the android icon to register app.
+- In the General tab of the project settings, select the Android icon to register your app.
 
    ![Add android app in Firebase Console][fcm-add-android-app]
 
@@ -62,13 +62,13 @@ There are two ways to setup `FirebaseMessagingService`:
 
 1. Use Skygear default `FirebaseMessagingService`, it will help you to handle
     the token registration and simply display the message in android default Notification.
-2. Create your own `FirebaseMessagingService`, use Skygear SDK for sending token to skygear and
-    customize code in `onMessageReceived`.
+2. Create your own `FirebaseMessagingService`, use the Skygear SDK to send the token to Skygear and
+    customize the codes in `onMessageReceived`.
 
 
 ### Option 1: Use Skygear default `FirebaseMessagingService`
 
-- Update `AndroidManifest.xml` file in your application, include the following in the manifest:
+- Update the `AndroidManifest.xml` file in your application, include the following in the manifest:
 
     ```
     <service android:name="io.skygear.skygear.fcm.FirebaseMessagingService">
@@ -109,7 +109,7 @@ There are two ways to setup `FirebaseMessagingService`:
     }
     ```
 
-- Update `AndroidManifest.xml` file in your application, include the following in the manifest:
+- Update the `AndroidManifest.xml` file in your application. Include the following in the manifest:
 
     ```
     <service android:name=".YourFirebaseMessagingService">
