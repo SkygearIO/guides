@@ -106,6 +106,9 @@ After updating Skygear server to v1.7.0+, Skygear server will use the configured
 
         **Case 1: If you haven't override notification**
 
+        Update the `AndroidManifest.xml` to use Skygear default messaging service, 
+        make sure to remove obsolete elements from your app's manifest.
+
         Before
         ```
         <?xml version="1.0" encoding="utf-8"?>
@@ -212,8 +215,60 @@ After updating Skygear server to v1.7.0+, Skygear server will use the configured
         }
         ```
 
-        Refer to case 1, update the `AndroidManifest.xml`. The only difference is `FirebaseMessagingService`,
-        use your own messaging service.
+        Update the `AndroidManifest.xml` to use your own messaging service,
+        make sure to remove obsolete elements from your app's manifest.
+
+        Before
+        ```
+        <?xml version="1.0" encoding="utf-8"?>
+        <manifest
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            package="your.app.package">
+
+            <!-- other permissions -->
+            <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+            <permission
+                android:name="your.app.package.permission.C2D_MESSAGE"
+                android:protectionLevel="signature" />
+            <uses-permission android:name="your.app.package.permission.C2D_MESSAGE" />
+
+            <application ...>
+                <!-- Your Activity Declarations -->
+                ...
+
+                <!-- Delegate Skygear SDK to manage GCM Services -->
+                <receiver
+                    android:name="com.google.android.gms.gcm.GcmReceiver"
+                    android:exported="true"
+                    android:permission="com.google.android.c2dm.permission.SEND">
+                    <intent-filter>
+                        <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                        <category android:name="your.app.package" />
+                    </intent-filter>
+                </receiver>
+                <service
+                    android:name="io.skygear.skygear.gcm.ListenerService"
+                    android:exported="false">
+                    <intent-filter>
+                        <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                    </intent-filter>
+                </service>
+                <service
+                    android:name="io.skygear.skygear.gcm.InstanceIDListenerService"
+                    android:exported="false">
+                    <intent-filter>
+                        <action android:name="com.google.android.gms.iid.InstanceID" />
+                    </intent-filter>
+                </service>
+                <service
+                    android:name="io.skygear.skygear.gcm.RegistrationIntentService"
+                    android:exported="false">
+                </service>
+
+            </application>
+        </manifest>
+        ```
 
         After
         ```
