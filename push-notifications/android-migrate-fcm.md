@@ -13,6 +13,9 @@ As of April 10, 2018, [Google has deprecated GCM][google-migrate-fcm-faq]. For a
 
 After updating Skygear server to v1.7.0+, Skygear server will use the configured server key with FCM API automatically. There's no need to reconfigure.
 
+(Optional) Skygear support sending FCM through Firebase Admin SDK by providing service account credentials.
+Detail see: [Using service account with Firebase Admin SDK][using-service-account] 
+
 ## Migrate from GCM setup to FCM in android client
 
 1. Add Firebase to existing GCM project
@@ -295,5 +298,6 @@ After updating Skygear server to v1.7.0+, Skygear server will use the configured
 [migrate-fcm-create-project]: /assets/push-notifications/migrate-fcm-create-project.png
 [migrate-fcm-select-add-firebase-to-app]: /assets/push-notifications/migrate-fcm-select-add-firebase-to-app.png
 [migrate-fcm-add-firebase-to-app-setup]: /assets/push-notifications/migrate-fcm-add-firebase-to-app-setup.png
+[using-service-account]: /guides/push-notifications/config/android/#using-service-account
 [firebase-console]: https://console.firebase.google.com
 [google-migrate-fcm-faq]: https://developers.google.com/cloud-messaging/faq

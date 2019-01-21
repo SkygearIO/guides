@@ -37,6 +37,8 @@ recommend using service account approach which use the updated HTTP v1 API.
 
 :::
 
+<div id="using-service-account"></div>
+
 ### Option 1: Using Service Account (v1.7.0 onward)
 
 #### 1. Download the service account private key
