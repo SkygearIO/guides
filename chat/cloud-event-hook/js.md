@@ -196,7 +196,7 @@ skygearChatCloud.afterMessageSent((message, conversation, participants, context)
       'body': body
     }
   }
-  const payload = {'gcm': gcmPayload, 'apns': apnsPayload};
+  const payload = {'fcm': gcmPayload, 'apns': apnsPayload};
   container.push.sendToUser(otherUserIds, payload);
 });
 

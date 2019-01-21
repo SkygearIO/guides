@@ -179,7 +179,7 @@ container.push.sendToUser(
         'from': 'skygear',
         'operation': 'notification',
     },
-    'gcm': {
+    'fcm': {
          'notification': {
               'title': title,
               'body': message,
