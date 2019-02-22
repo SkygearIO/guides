@@ -393,7 +393,17 @@ skygear.auth.changePassword(currentPassword, newPassword, invalidate=true)
 
 ## Forgot password
 
-Coming soon.
+User can request for forgot password email using the [`forgotPassword`] method
+
+```javascript
+skygear.auth.forgotPassword(email)
+  .then(() => {
+    console.log('Forgot password email sent successfully')
+  })
+  .catch(error => {
+    console.error('Forgot password function failed with error:', error.message)
+  }
+```
 
 ## User Verification
 

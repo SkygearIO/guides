@@ -703,7 +703,34 @@ skygear.auth.changePassword("new-password", "old-password", object : AuthRespons
 
 ## Forgot password
 
-Coming soon.
+User can request for forgot password email using the [`forgotPassword`] method
+
+```java
+Container skygear = Container.defaultContainer(this);
+skygear.getAuth().forgotPassword("email-address" new LambdaResponseHandler() {
+  @Override
+  public void onLambdaSuccess() {
+      Log.i("Forgot Password", "onLambdaSuccess: Forgot password email sent successfully.");
+  }
+
+  @Override
+  public void onLambdaFail(Error error) {
+      Log.e("Forgot Password", "onLambdaFail: Fail with reason: " + error.getMessage());
+  }
+})
+```
+```kotlin
+val skygear = Container.defaultContainer(this)
+skygear.auth.forgotPassword("email-address", object: LambdaResponseHandler() {
+  override fun onLambdaSuccess(result: JSONObject?) {
+    Log.i("Forgot Password", "onLambdaSuccess: Forgot password email sent successfully.")
+  }
+
+  override fun onLambdaFail(error: Error?) {
+    Log.e("Forgot Password", "onLambdaFail: Fail with reason: ${error.message}")
+  }
+})
+```
 
 ## What's next from here?
 
