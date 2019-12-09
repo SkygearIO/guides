@@ -1,12 +1,14 @@
 # Skygear Guides
 
-This is the repository and issue trackers for Skygear Guides. The markdown files
-are used to generate [docs.skygear.io](https://docs.skygear.io) with
-[skygeario/skygear-doc](https://github.com/SkygearIO/skygear-doc).
+This repo is *DEPRECATED*
+
+The new Skygear Guides are in Gitbook at [docs.skygear.io](https://docs.skygear.io)
 
 ## Contribute to Skygear!
 
-[![Waffle.io](https://badge.waffle.io/SkygearIO/guides.svg?label=help%20wanted&title=help%20wanted)](http://waffle.io/SkygearIO/guides)
+This is the repository and issue trackers for Skygear Guides. The markdown files
+are used to generate [docs.skygear.io](https://docs.skygear.io) with
+[skygeario/skygear-doc](https://github.com/SkygearIO/skygear-doc).
 
 Guides is probably the easiest way to contribute to Skygear! You can checkout
 list of issues which are new-contributor friendly labeled with [help
