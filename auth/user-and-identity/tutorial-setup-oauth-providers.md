@@ -1,2 +1,0 @@
-# Tutorial: Setup OAuth providers
-
