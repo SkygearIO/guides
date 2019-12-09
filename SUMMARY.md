@@ -12,6 +12,11 @@
 * [Deploy a Dart server with self-defined Dockerfile](quick-started/deploying-your-first-dockerfile-to-skygear.md)
 * [Integrate with Frontend \(with Auth, Hooks\)](quick-started/integrate-with-frontend.md)
 
+## HOW TO
+
+* [How to connect to a managed database in Skygear](how-to/how-to-connect-to-a-managed-database-in-skygear.md)
+* [How to call service APIs at the frontend](how-to/how-to-call-service-apis-at-the-frontend.md)
+
 ## App Management <a id="app"></a>
 
 * [Team Management](app/team-management.md)
@@ -47,11 +52,6 @@
 ## SDK
 
 * [Skygear SDK for web](skygear-sdk-for-web.md)
-
-## HOW TO
-
-* [How to connect to a managed database in Skygear](how-to/how-to-connect-to-a-managed-database-in-skygear.md)
-* [How to call service APIs at the frontend](how-to/how-to-call-service-apis-at-the-frontend.md)
 
 ## Support
 

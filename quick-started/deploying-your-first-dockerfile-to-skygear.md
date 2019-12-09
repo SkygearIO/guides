@@ -145,10 +145,6 @@ Hello World!%
 
 We have now deployed a simple Dart server with our containerization instructions. No matter how intuitive or complex you application is, the same applies as you will just have to write a self-defined `Dockerfile`. Skygear will interpret the `Dockerfile` when supplied and finish up all the deployment chores for you.
 
-
-
-
-
 ## Useful tips
 
 * To exclude deploying specific files, create a `.skyignore` file. It works the same as `.dockerignore`.
