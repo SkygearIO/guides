@@ -1,0 +1,2 @@
+# Skygear HTTP Headers
+

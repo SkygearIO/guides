@@ -1,79 +1,40 @@
-# Skygear Guides
+---
+description: Skygear is a k8s-based serverless platform for web and mobile apps.
+---
 
-This is the repository and issue trackers for Skygear Guides. The markdown files
-are used to generate [docs.skygear.io](https://docs.skygear.io) with
-[skygeario/skygear-doc](https://github.com/SkygearIO/skygear-doc).
+# Skygear V2 Documentation
 
-## Contribute to Skygear!
+Skygear is a server-less cloud platform where a massive portion of set up, operation and configuration tasks are abstracted from Kubernetes. It is still Kuberentes-based, however instead of having to write a bunch of configuration files and manually enable various options on a k8s cluster before an app can be deployed, all you need to do on Skygear is write  one single configuration file `skygear.yaml`.
 
-[![Waffle.io](https://badge.waffle.io/SkygearIO/guides.svg?label=help%20wanted&title=help%20wanted)](http://waffle.io/SkygearIO/guides)
+Configurations of an app such as port number, environment variables and some Skygear hooks are defined in `skygear.yaml`, which is interpreted and executed by Skygear upon deployment.
 
-Guides is probably the easiest way to contribute to Skygear! You can checkout
-list of issues which are new-contributor friendly labeled with [help
-wanted](https://github.com/SkygearIO/guides/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22).
+Below is an architecture diagram of Skygear, which can be divided into 4 main parts:
 
-## Creating alert boxes
+**Gateway**
 
-You can use the following syntax in a markdown file to create an "Advanced" box:
+All incoming requests attempting to reach a user's **Microservices** or **Auth Gear** must always go through Skygear's **Gateway**. Handling on mechanisms like refresh tokens and Cross-Origin Resource Sharing \(CORS\) takes place here, before request hits its destination. 
 
-```
-::: advanced
+App-level user information \(users of the applications\) is also resolved here, where the **Gateway** asks **Auth Gear** to authenticate app-level user credentials provided in a request and insert the corresponding access token into the request's header upon authentication success. The  request will then be routed to its destination, which now have access to the app-level user information via the newly added access token.
 
-Some advanced usage
+**Microservices** 
 
-:::
-```
+This is where a user's applications are hosted and run. Since Skygear rides on a Kubernetes cluster which is container-based, apps uploaded must go through a containerization process before they are actually deployed and run as container instances. A user will have to define instructions on the containerization process, via either of the following three ways:
 
-Besides `advanced`, you can also use `todo`, `note`, `tips` and `caution`.
+1. Opt for a pre-configured template. Skygear offers a list of containerization templates where a user can specify one at their `skygear.yaml`.
+2. Write a `Dockerfile`and upload it with `skygear.yaml` and the app's source code. Skygear will build the container image based on it.
+3. Skip containerization by point to a pre-built image. If such image is stored on a private registry, the user can provide credentials via Skygear secrets.
 
-`todo` is a special type of box to warn users the section is a WIP. It should
-always include a bullet points list of todo items.
+With the application code, `skygear.yaml`, and `Dockerfile` \(if any\) ready, a deployment can be triggered with Skygear's command line interface `skycli` .
 
-## Creating code switcher (e.g. Objective-C vs Swift)
+**Auth Gear**
 
-Any two consecutive fenced code blocks of different languages will be combined
-as a code switcher, e.g.
+A complete and secure authentication solution that has gone through rounds of security audits. We developers at Oursky believe an authentication backend service is hard to be done right, at the same time such service is frequently a requirement from our clients. As a result, `Auth Gear` is developed and shipped with Skygear, in response to such pain points and provide a reusable solution.
 
-    ``` objectivec
-    some Objective-C code
-    ```
+A user's frontend can interact with **Auth Gear** through Skygear's SDKs, whilst his/her backend applications  in the **Microservices** part can achieve same things with the access token resolved and inserted in requests by the **Gateway**.
 
-    ``` swift
-    some swift code
-    ```
+**Controller**
 
-Note: Currently it only supports two languages; the behavior will be unexpected
-if there are more consecutive different language fenced code blocks.
-You can insert paragraphs and text between the codes to avoid this.
+Skygear controller is responsible for app deployments and manages the behaviours and desired states of **Auth Gear** and **Microservices**. There are two means to manipulate them. The first one is `skycli`, where the user can not only trigger app deployments, but also customise how ****his/her **Auth Gear** and **Microservices** works. The other one is `Skygear Portal`, a web-based Graphical User Interface \(GUI\) allowing the user to define behaviours through a variety of intuitive UI components. 
 
-## ASCII Diagram
-
-ASCII Diagram are generated with [asciiflow](http://asciiflow.com/)
-
-## Style Guide
-
-- Use You to refer to the reader
-- Include external link (e.g. webpack) as necessary but not to be repetitive
-- Links used in the markdown can be all placed at the bottom of the file
-- Avoid starting a sentence with a verb
-- Notice the difference between a method and a function, e.g. `skygear.loginWithProvider` is a method
-- Start heading at `h2` (`h1` is for page title from route), and all `h2` has to be as sub-menu item
-- Use &lt;brackets> for parts that require user to fill in
-- Sample user input should be highlighted. (Refer to getting started for JS new project yeoman terminal dump as example)
-- Code inline comment should only be used for simple remarks. Long descriptions should be written as separate paragraphs
-- While there are spelling check for paragraphs, there are none for code. Therefore please double check the spellings in code blocks
-- Use terms consistently especially in titles. Don't shorten words - readers will be confused
-- Avoid saying too much about the server in each of the SDK doc, because:
-  1. it will be repetitive
-  2. technically those descriptions are not directly related to the SDK itself
-
-  Instead you can link to the relevant section in the server doc.
-  However talking about server behavior in each of the SDK is necessary although it is repetitive
-  e.g. in Users & Auth, you need to talk about Skygear not allowing duplicated usernames
-
-## Style Guide for JS Docs
-- Two spaces per indent
-- Use `console.error(error)` instead of `console.log(err)`
-- all object properties should be quoted
-- use ES6 syntax, ES5 syntax will be added later as code tab switching is enabled
+![](.gitbook/assets/screenshot-2019-12-02-at-5.09.46-pm.png)
 
