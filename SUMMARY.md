@@ -14,9 +14,9 @@
 
 ## HOW TO
 
-* [How to sign up and create an app on Skygear](how-to/how-to-sign-up-and-create-an-app-on-skygear.md)
 * [How to connect to a managed database on Skygear](how-to/how-to-connect-to-a-managed-database-in-skygear.md)
 * [How to call service APIs at the frontend](how-to/how-to-call-service-apis-at-the-frontend.md)
+* [How to upload templates to Skygear](how-to/how-to-upload-templates-to-skygear.md)
 
 ## App Management <a id="app"></a>
 
