@@ -1,4 +1,4 @@
-# Integrate with Frontend \(with Auth, Hooks\)
+# Host a blog web app on Skygear \(Auth Gear, your frontend + backend + Database\)
 
 * Clone
 * Go to how to mongo, get the link

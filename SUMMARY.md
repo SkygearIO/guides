@@ -10,11 +10,12 @@
 
 * [Deploying your first Node.js server to Skygear](quick-started/deploying-your-first-node-programme-to-skygear.md)
 * [Deploy a Dart server with self-defined Dockerfile](quick-started/deploying-your-first-dockerfile-to-skygear.md)
-* [Integrate with Frontend \(with Auth, Hooks\)](quick-started/integrate-with-frontend.md)
+* [Host a blog web app on Skygear \(Auth Gear, your frontend + backend + Database\)](quick-started/integrate-with-frontend.md)
 
 ## HOW TO
 
-* [How to connect to a managed database in Skygear](how-to/how-to-connect-to-a-managed-database-in-skygear.md)
+* [How to sign up and create an app on Skygear](how-to/how-to-sign-up-and-create-an-app-on-skygear.md)
+* [How to connect to a managed database on Skygear](how-to/how-to-connect-to-a-managed-database-in-skygear.md)
 * [How to call service APIs at the frontend](how-to/how-to-call-service-apis-at-the-frontend.md)
 
 ## App Management <a id="app"></a>
