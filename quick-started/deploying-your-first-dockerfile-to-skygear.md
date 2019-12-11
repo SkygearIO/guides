@@ -12,13 +12,15 @@ Before you start this section, please ensure you have `skycli` installed and con
 
 ## Create a Skygear app
 
-**1. Create a directory called `dartserver` and go inside**:
+Create a directory called `dartserver` ****and go inside:
 
 ```text
 $ mkdir dartserver && cd $_
 ```
 
-**2. Create a Skygear app.** Enter the `skycli` app creation command and give the new app a name. It's better to prefix you app name with your name or alias like your GitHub ID, since Skygear cluster is shared among everyone who has an account and it's likely someone has already taken the app name `dartserver`.
+### Create app with one command
+
+Enter the `skycli` app creation command and give the new app a name. It's better to prefix you app name with your name or alias like your GitHub ID, since Skygear cluster is shared among everyone who has an account and it's likely someone has already taken the app name `dartserver`.
 
 Upon app creation success, app information such as its API endpoint and key will be listed. They are essential for API calling which we will be performing at later stages. You can either jot them down now or find them at Skygear's Developer Portal. \(\_\_TODO\_\_: confirm this link and those below\)
 
@@ -33,7 +35,9 @@ Upon app creation success, app information such as its API endpoint and key will
  Created app successfully!
 ```
 
-**3. Write some Dart code.** Well, we have the Dart code ready. Paste the below command block into you terminal, which will create a `main.dart` with a simple "Hello World!" API implemented.
+## **Write some Dart code**
+
+Well, we have the Dart code ready. Paste the below command block into you terminal, which will create a `main.dart` with a simple "Hello World!" API implemented.
 
 ```text
 $ echo 'import "dart:io";
@@ -59,7 +63,9 @@ Future main() async {
 
 Every request sent to port 4040 will receive a "Hello World!" response.
 
-**4.** **\(Optional\)** **Test out the API.** [Install Dart](https://dart.dev/get-dart) and run the server: 
+### Test out the API 
+
+[Install Dart](https://dart.dev/get-dart) and run the server: 
 
 ```text
 $ dart main.dart
@@ -72,7 +78,9 @@ $curl localhost:4040
 Hello World!
 ```
 
-**5. Write a Dockerfile**. Similarly, directly paste the below command block into your terminal and you will have a `Dockerfile` created.
+## Dockerfile writing time
+
+ Similarly, directly paste the below command block into your terminal and you will have a `Dockerfile` created.
 
 ```text
 $ echo 'FROM google/dart
@@ -98,7 +106,9 @@ At line 9, the dart server code `main.dart` is compiled to `a.out`. The latter f
 
 Both the image building and container deploying processes are taken care of by Skygear, all you need to do is upload your `Dockerfile`. For more information on `Dockerfile`, please refer to its [official doc](https://docs.docker.com/engine/reference/builder/). 
 
-**6. Write Skygear.yaml.** We are now one step away from deploying. Create a file called `skygear.yaml` so that your file tree in `dartserver` looks like this:
+## **Write a Skygear.yaml**
+
+We are now one step away from deploying. Create a file called `skygear.yaml` so that your file tree in `dartserver` looks like this:
 
 ```text
 .
@@ -124,7 +134,9 @@ The value given at line 1 is the name of app you have created on Skygear. This h
 
 Every item under `deployments`, i.e line 3-7 in our yaml file, is a service registered under an app. Files in our local directory `dartserver`, indicated as `.` since `skygear.yaml` resides in it, are uploaded and deployed as a service called `server`. Port 4040 where our Dart server responses with a "Hello World!" message is mapped to the service `server` under the path `/`.
 
-**7. Deploy with one single command.** Be sure you are in the `dartserver` directory, as `skycli` will look for a `skygear.yaml` during deployment.
+## Deploy the Skygear app
+
+Be sure you are in the `dartserver` directory, as `skycli` will look for a `skygear.yaml` during deployment.
 
 ```bash
 $ skycli app deploy
@@ -132,14 +144,14 @@ $ skycli app deploy
 
 It's likely that you are going to see a list of logs. The deployment is finished when you receive the message "Deployment completed".
 
-**8. Test out the app on Skygear.**
+## **Test out the app on Skygear**
 
 ```text
 curl https://<your_name>-dartserver.v2.dev.skygearapis.com/server
 Hello World!%
 ```
 
-\_\_TODO\_\_ update endpoint
+\(\_\_TODO\_\_ update endpoint\)
 
 ##  Conclusion
 
