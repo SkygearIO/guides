@@ -10,13 +10,15 @@ Before you start this section, please ensure you have `skycli` installed and con
 
 ## Create a Skygear app
 
-**1. Create a directory called `nodeserver` and go inside**:
+Create a directory called ****`nodeserver` ****and go inside:
 
 ```text
 $ mkdir nodeserver && cd $_
 ```
 
-**2. Create a Skygear app.** Enter the `skycli` app creation command and give the new app a name. It's better to prefix you app name with your name or alias like your GitHub ID, since Skygear cluster is shared among everyone who has an account and it's likely someone has already taken the app name `nodeserver`.
+### Create app and scaffold it with skycli
+
+Enter the `skycli` app creation command and give the new app a name. It's better to prefix you app name with your name or alias like your GitHub ID, since Skygear cluster is shared among everyone who has an account and it's likely someone has already taken the app name `nodeserver`.
 
 Upon app creation success, app information such as its API endpoint and key will be listed. They are essential for API calling which we will be performing at later stages. You can either jot them down now or find them at Skygear's Developer Portal. \(\_\_TODO\_\_: confirm this link and those below\)
 
@@ -31,7 +33,7 @@ Upon app creation success, app information such as its API endpoint and key will
  Created app successfully!
 ```
 
-**3. Scaffold the directory.** You will be asked a few question on scaffolding the newly created app in your current directory.
+You will be asked a few question on scaffolding the newly created app in your current directory.
 
 Answer the first three questions with Y:
 
