@@ -110,7 +110,7 @@ Both the image building and container deploying processes are taken care of by S
 
 Paste the following content into it. 
 
-```text
+```yaml
 app: <your_name>-dartserver      # your Skygear app name
 deployments:
   server:                        # an arbitrary name of the service

@@ -1,109 +1,130 @@
----
-description: >-
-  Skygear supports pre-configured Node.js containerization template so that
-  developers do not have to write a Dockerfile when deploying a Nodejs
-  Microservice to Skygear. Learn how it works.
----
+# Deploying your first Node.js server to Skygear with pre-configured template
 
-# Deploying your first Node.js server to Skygear
+## Introduction
 
-Before you start this section, please ensure you have `skycli` installed and configured properly. 
+Skygear offers pre-configured containerization templates so that developers can skip writing a Dockerfile when deploying. One of these templates is Node.js, which we will be using to write a microservice in this section.
+
+## Prerequisites
+
+Before you start this section, please ensure you have `skycli` installed and configured properly. If you haven't, follow [this](../set-up/set-up-steps.md) to set it up.
 
 ## Create a Skygear app
 
-**1. Create a directory** for the project.
+**1. Create a directory called `nodeserver` and go inside**:
 
 ```text
-$ mkdir myProject && cd myProject
+$ mkdir nodeserver && cd $_
 ```
 
-**2. Create a Skygear app.** Take notes of the API endpoint, the client API key, and the master API key of your newly created app as they are the identity of your app. Worry not if you forget the keys, you can always find them at the [Developer Portal](https://app.skygear.dev). 
+**2. Create a Skygear app.** Enter the `skycli` app creation command and give the new app a name. It's better to prefix you app name with your name or alias like your GitHub ID, since Skygear cluster is shared among everyone who has an account and it's likely someone has already taken the app name `nodeserver`.
+
+Upon app creation success, app information such as its API endpoint and key will be listed. They are essential for API calling which we will be performing at later stages. You can either jot them down now or find them at Skygear's Developer Portal. \(\_\_TODO\_\_: confirm this link and those below\)
 
 ```text
  $ skycli app create
- ? What is your app name? <app name>
- App name: <app name>.
+ ? What is your app name? <your_name>-nodeserver
+ App name: <your_name>-nodeserver.
  Creating app...
- Your API endpoint: https://<app name>.staging.skygearapp.com/.
+ Your API endpoint: https://<your_name>-nodeserver.skygearapp.com/.
  Your Client API Key: <API Key>.
  Your Master API Key: <Master Key>.
  Created app successfully!
 ```
 
-**3. Set up the project using scaffold template.**`skycli` offers a couple of templates to help developers initialise their Skygear project quickly. In this example, we will use the `nodejs-example` template.
+**3. Scaffold the directory.** You will be asked a few question on scaffolding the newly created app in your current directory.
+
+Answer the first three questions with Y:
 
 ```text
- ? Do you want to setup the project folder now? Or you can do it later by `skycli app scaffold` command.
- Setup now? Yes
- ? You're about to initialze a Skygear Project in this directory: <directory>
- Confirm? Yes
-
- Fetching examples...
- ? Select example: nodejs-example
-
- Fetching js-example and initializing..
- Success! Initialized "nodejs-example" template in "<directory>".
+? Do you want to scaffold your app now? Or you can do it later by `skycli app scaffold` command.
+Scaffold now? (Y/n) Y
 ```
 
-Upon successfully initialising Skygear in the project directory, you should get a directory structure like this:
-
-```bash
- --- <app root>
-  |--- frontend          # the root of the 'frontend' service
-  | |--- index.js
-  | |--- package.json
-  |--- skygear.yaml      # Skygear app configuration
+```text
+? You're about to initialze a Skygear app in this directory: <your-local-directory>
+Confirm? (Y/n) Y
 ```
 
-## Configure the Skygear app
+```text
+? All files in <your-local-directory> would be DELETED. Confirm? (Y/n) Y
+```
 
-To successfully deploy a NodeJS program on Skygear, you need to write a simple configuration \(i.e. `skygear.yaml`\). Since we have prepared the configuration for you in the NodeJS scaffolding template, you do not have to write one before deploying the Hello World example. But you have to do so when you are writing your own Nodejs programme.
+Pick `<your_name>-nodeserver`:
 
-Here is a simple explanation of the configuration in the `skygear.yaml` .
+```text
+? Select an app to be associated with the directory: (Use arrow keys)
+❯ <your_name>-nodeserver
+```
 
+Select template `Node.js Express`:
+
+```text
+? Select template: (Use arrow keys)
+  Empty
+❯ Node.js Express
+  Node.js MongoDB Blog App
+  Node.js React/Express Fortune App
+```
+
+The following message will then be displayed:
+
+```text
+Success! Initialized "Node.js Express" template for <your_name>-nodeserver in <your-local-directory>.
+```
+
+## Some explanations just before deploying
+
+Your directory should now look like:
+
+```text
+.
+├── README.md
+├── frontend
+│   ├── index.js
+│   └── package.json
+└── skygear.yaml  
+```
+
+A `skygear.yaml` is always needed in order to deploy. It's a configuration file carrying information about the deployment. Let's have a look at the one created by our Node.js Express template:
+
+{% code title="./skygear.yaml" %}
 ```yaml
-app: <app name>             # your app name, input during app creation
-deployments:
-  frontend:                 # an arbitrary name of the service
-    type: http-service      # type of the service
-    context: frontend       # the root directory of the service
-    template: nodejs:12     # the deployment template to use
-    path: /                 # the path for the service
-    port: 8080              # the listening port of the service HTTP server
-```
+app: <your_name>-nodeserver      # your Skygear app name
 
-This configuration contains a microservice \(`frontend`\). The service will be deployed on NodeJS 12, at the root \(`/`\) of the app API endpoint.
+deployments:
+  frontend:                      # an arbitrary name of the service
+    type: http-service           # type of the service
+    context: frontend            # root directory of your source code
+    template: nodejs:12          # pre-configured template
+    path: /                      # the path for the service
+    port: 8080                   # the listening port of the service
+```
+{% endcode %}
+
+The Skygear app name to be linked with this deployment is specified at line 1. A microservice named`frontend` is declared at line 4, with its properties lying underneath. Line 6 tells Skygear where the source code lies, while line 8 defines the endpoint to reach the service.
+
+Skygear runs on an actual Kubernetes cluster which is container-based, still you might already notice there exists no Dockerfile in the directory frontend. This is because we have used a pre-configured template to build our Node.js program, as displayed at line 7. With a valid value given to the configuration filed `template`, you don't need to provide a Dockerfile anymore.
 
 ## Deploy the Skygear app
 
-**1. Run `skycli app deploy`** to deploy the Nodejs program.
+Ensure you are at the root of `nodeserver` where `skygear.yaml` lies, run:
 
-```bash
+```
 $ skycli app deploy
 ```
 
-You should see the message `Deployment completed` when the deployment is completes.
+You should see the message `Deployment completed` when the deployment completes.
 
-**2. Curl the API endpoint of the app** to ensure the deployment is successful.
+## **Test it out**
+
+**Simply curl it:**
 
 ```bash
-$ curl https://<app name>.staging.skygearapp.com/
+$ curl https://<your_name>-nodeserver.staging.skygearapp.com/
 Hello, world!
 ```
 
-Hurray! We are done.
-
-## 
-
-## Draft
-
-1.  \(one to one mapping\)
-   1.  \(one to one mapping\)
-      1.  \(one to one mapping\)
-
-## 
-
-## 
+\(\_\_TODO\_\_: confirm this link\)
 
 ## Useful tips
 
