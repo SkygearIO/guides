@@ -10,7 +10,7 @@
 
 * [Deploying your first Node.js server to Skygear](quick-started/deploying-your-first-node-programme-to-skygear.md)
 * [Deploy a Dart server with self-defined Dockerfile](quick-started/deploying-your-first-dockerfile-to-skygear.md)
-* [Host a blog web app on Skygear \(Auth Gear, your frontend + backend + Database\)](quick-started/integrate-with-frontend.md)
+* [Host a blog site on Skygear \(Auth Gear, your frontend + backend + database\)](quick-started/integrate-with-frontend.md)
 
 ## HOW TO
 
