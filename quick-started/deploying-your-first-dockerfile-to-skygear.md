@@ -1,14 +1,14 @@
 # Deploy a Dart server with self-defined Dockerfile
 
-## Prerequisites
-
-Before you start this section, please ensure you have `skycli` installed and configured properly. 
-
 ## Introduction
 
 If the language you are coding in isn't on our pre-configured containerization template list or you wish to have more control on the containerization process, write your own Dockerfile and Skygear will follow  instructions inside to build your container image.
 
 In this quick start guide, we will build a simple server written in Dart, which unfortunately isn't one of our pre-configured templates yet.
+
+## Prerequisites
+
+Before you start this section, please ensure you have `skycli` installed and configured properly. 
 
 ## Create a Skygear app
 
