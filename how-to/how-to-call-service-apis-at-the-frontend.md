@@ -45,7 +45,7 @@ skygear.configure({
 
 ### **Fetch!**
 
-Assuming that we already have deployed a microservice under the path `api` and would like to send a request to one of its APIs `fetch_blogs`, we can achieve this with Skygear SDK as shown below:
+Assuming that a microservice is deployed under the path `api` and would like to send a request to one of its APIs `fetch_blogs`, we can achieve this with Skygear SDK as shown below:
 
 ```javascript
 skygear
@@ -68,6 +68,7 @@ curl -X POST \
   -H 'Content-Length: 33' \
   -H 'accept: */*' \
   -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
   -H 'sec-fetch-mode: cors' \
   -H 'sec-fetch-site: same-site' \
   -H 'x-skygear-api-key: <your_app_key>' \
