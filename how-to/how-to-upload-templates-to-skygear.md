@@ -79,7 +79,7 @@ To trigger Auth gear to send a forgot password email, you can either call the `r
 
 ```text
 curl -X POST \
-  https://<your-app>.v2.dev.skygearapis.com/_auth/forgot_password \
+  https://<your-app>.skygearapp.com/_auth/forgot_password \
   -H 'Cache-Control: no-cache' \
   -H 'Connection: keep-alive' \
   -H 'Content-Length: 33' \

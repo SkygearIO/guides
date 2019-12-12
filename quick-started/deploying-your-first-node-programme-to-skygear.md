@@ -20,7 +20,7 @@ $ mkdir nodeserver && cd $_
 
 Enter the `skycli` app creation command and give the new app a name. It's better to prefix you app name with your name or preferred alias like your GitHub ID, since Skygear cluster is shared among everyone who has an account and it's likely someone has already taken the app name `nodeserver`.
 
-Upon app creation success, app information such as its API endpoint and key will be listed. They are essential for API calling which we will be performing at later stages. You can either jot them down now or find them at Skygear's Developer Portal. \(\_\_TODO\_\_: confirm this link and those below\)
+Upon app creation success, app information such as its API endpoint and key will be listed. They are essential for API calling which we will be performing at later stages. You can either jot them down now or find them at [Skygear's Developer Portal](https://portal.skygear.dev/).
 
 ```text
  $ skycli app create
@@ -122,11 +122,9 @@ Wait for the deployment to complete.
 **Simply curl it:**
 
 ```bash
-$ curl https://<your_name>-nodeserver.staging.skygearapp.com/
+$ curl https://<your_name>-nodeserver.skygearapp.com/
 Hello, world!
 ```
-
-\(\_\_TODO\_\_: confirm this link\)
 
 ## Useful tips
 

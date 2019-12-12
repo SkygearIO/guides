@@ -62,7 +62,7 @@ Similarly, you can curl the exact same API:
 
 ```text
 curl -X POST \
-  https://<your-app>.v2.dev.skygearapis.com/api/fetch_blogs \
+  https://<your-app>.skygearapp.com/api/fetch_blogs \
   -H 'Cache-Control: no-cache' \
   -H 'Connection: keep-alive' \
   -H 'Content-Length: 33' \
