@@ -6,7 +6,9 @@ description: >-
 
 # Install and Configure skycli
 
-**1. Install `skycli`** **.**
+## **Install `skycli`** 
+
+This can be done with `npm` or `yarn`. Global installation is needed so that `skycli` can be called throughout your machine.
 
 ```bash
 $ npm install -g @skygear/skycli
@@ -14,7 +16,9 @@ $ npm install -g @skygear/skycli
 $ yarn global add @skygear/skycli
 ```
 
-**2. Select the cluster you need.** If you already are a skygear.io user or would like to try it out, select skygeario. If you are an Enterprise license user, select the other option and enter the cluster information you receive from our team. In this example, we will go for the first option.
+## **Select the cluster you need**
+
+If you are a Skygear user already or would like to try it out, select skygeario. If you are an Enterprise license user, select the other option and enter the cluster information you receive from our team. In this example, we will go for the first one.
 
 ```bash
 $ skycli config set-cluster
@@ -22,7 +26,9 @@ $ skycli config set-cluster
   Connect to my own cluster
 ```
 
-**3. Log in or Sign up to Skygear.** To create a new app or manage existing ones, you will need an account first. How an app is created will be covered later, here we will focus on logging in/signing up to Skygear.
+## **Log in or sign up to Skygear**
+
+To create a new app or manage existing ones, you will need an account first. How an app is created will be covered later, here we will focus on logging in/signing up to Skygear.
 
 Simply log in if you already have an account:
 
@@ -42,9 +48,11 @@ $ skycli auth signup
 Sign up as <your_email>.
 ```
 
- Skygear decides whether you have access to apps by your account. Creator of an app is automatically granted access and the right to add more collaborators via sending invitation emails.
+Skygear decides whether you have access to apps by your account. Creator of an app is automatically granted access and the right to add more collaborators via sending invitation emails.
 
-**4. Check configuration.** Type in the following command to check if you have connected `skycli`  to Skygear's cluster properly. Your output should look like the one displayed below.
+## Check Configuration
+
+Type in the following command to check if you have connected `skycli`  to Skygear's cluster properly. Your output should look like the one displayed below.
 
 ```bash
 $ skycli config view

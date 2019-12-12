@@ -18,7 +18,7 @@ $ mkdir nodeserver && cd $_
 
 ### Create app and scaffold it with skycli
 
-Enter the `skycli` app creation command and give the new app a name. It's better to prefix you app name with your name or alias like your GitHub ID, since Skygear cluster is shared among everyone who has an account and it's likely someone has already taken the app name `nodeserver`.
+Enter the `skycli` app creation command and give the new app a name. It's better to prefix you app name with your name or preferred alias like your GitHub ID, since Skygear cluster is shared among everyone who has an account and it's likely someone has already taken the app name `nodeserver`.
 
 Upon app creation success, app information such as its API endpoint and key will be listed. They are essential for API calling which we will be performing at later stages. You can either jot them down now or find them at Skygear's Developer Portal. \(\_\_TODO\_\_: confirm this link and those below\)
 
@@ -33,9 +33,9 @@ Upon app creation success, app information such as its API endpoint and key will
  Created app successfully!
 ```
 
-You will be asked a few question on scaffolding the newly created app in your current directory.
+You will be asked a few questions on scaffolding the newly created app in your current directory.
 
-Answer the first three questions with Y:
+Answer the first three questions with a Y:
 
 ```text
 ? Do you want to scaffold your app now? Or you can do it later by `skycli app scaffold` command.
@@ -68,7 +68,7 @@ Select template `Node.js Express`:
   Node.js React/Express Fortune App
 ```
 
-The following message will then be displayed:
+A success message will then be displayed:
 
 ```text
 Success! Initialized "Node.js Express" template for <your_name>-nodeserver in <your-local-directory>.
@@ -76,7 +76,7 @@ Success! Initialized "Node.js Express" template for <your_name>-nodeserver in <y
 
 ## Some explanations just before deploying
 
-Your directory should now look like:
+Your directory should now look like this:
 
 ```text
 .
@@ -115,7 +115,7 @@ Ensure you are at the root of `nodeserver` where `skygear.yaml` lies, run:
 $ skycli app deploy
 ```
 
-You should see the message `Deployment completed` when the deployment completes.
+Wait for the deployment to complete.
 
 ## **Test it out**
 
