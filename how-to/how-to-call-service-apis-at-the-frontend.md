@@ -1,18 +1,24 @@
----
-description: >-
-  There are two ways you can call service APIs at the frontend: using the
-  Skygear JS SDK or plain HTTP request. Learn how they work.
----
+# How to call API of a deployed service on Skygear
 
-# How to call service APIs at the frontend
+## Introduction
 
-## Call functions using the Skygear JS SDK
+The APIs of your microservices on Skygear can be called with the `fetch` method provided in Skygear JS SDK, or with tools like cURL that can make HTTP-based requests.
 
-We recommend you to use the Skygear JS SDK to call functions at the frontend since it manages the user sessions for you. 
+## Prerequisites
 
-Assume you already have a web frontend and a up-and-running Microservice on Skygear.
+Before you start this section, please ensure you have `skycli` installed and configured properly. If not, follow [this](../set-up/set-up-steps.md) to set it up.
 
-**1. Install the SDK in the frontend client.** 
+You will need your service\(s\) deployed on Skygear before you can call them, where `skycli` is the only way to perform deployments.
+
+**TL**;**DR** Sooner or later you will need to install and configure `skycli`.
+
+## Call APIs using the Skygear JS SDK
+
+We recommend you to use `fetch` in Skygear JS SDK to call your APIs, since it not only manages the users sessions but also throws in required headers for you.
+
+Assume you already have a web frontend and a up-and-running microservice on Skygear.
+
+### **Install the SDK in the frontend client**
 
 The CDN way:
 
@@ -28,7 +34,7 @@ $ npm install @skygear/web
 $ yarn add @skygear/web
 ```
 
-**2. Configure the Skygear SDK** with the app endpoint and the API key of the app when your app initialises.
+### **Configure the SDK with your app's endpoint and API key**
 
 ```javascript
 skygear.configure({
@@ -37,7 +43,9 @@ skygear.configure({
 });
 ```
 
-**3. Call the service APIs using the `fetch` function**. Assume we already have a function named `fetch_blogs` deployed to Skygear and we want to call it at the frontend.
+### **Fetch!**
+
+Assuming that we already have deployed a microservice under the path `api` and would like to send a request to one of its APIs `fetch_blogs`, we can achieve this with Skygear SDK as shown below:
 
 ```javascript
 skygear
@@ -46,7 +54,24 @@ skygear
     .then((posts) => console.log(posts));
 ```
 
-## Call service APIs using HTTP requests
+This API `fetch_blogs` actually exists in one of our Skygear demos. Visit this [guide](../quick-started/integrate-with-frontend.md) for more information.
 
-=== require updates ===
+## Call APIs using cURL
+
+Similarly, you can curl the exact same API:
+
+```text
+curl -X POST \
+  https://<your-app>.v2.dev.skygearapis.com/api/fetch_blogs \
+  -H 'Cache-Control: no-cache' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Length: 33' \
+  -H 'accept: */*' \
+  -H 'cache-control: no-cache' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-site: same-site' \
+  -H 'x-skygear-api-key: <your_app_key>' \
+```
+
+The request is visibly bulkier, plus extra effort is spent to substitute values like a Skygear API key. This is nevertheless the go-to option when you would like to test out an API quickly without having to install some SDKs and initialise a new project.
 
