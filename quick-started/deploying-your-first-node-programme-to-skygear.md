@@ -129,5 +129,5 @@ Hello, world!
 ## Useful tips
 
 * To exclude deploying specific files, create a `.skyignore` file. It works the same as `.dockerignore`.
-* To deploy service on runtimes other than NodeJS, you can supply a custom `Dockerfile` instead. Learn about it [here](https://app.gitbook.com/@ten-tang/s/skygear/~/drafts/-LuBuVmjRZJ6-T_Q_ur0/microserivces/deploying-your-first-dockerfile-to-skygear).
+* To deploy service on runtimes other than NodeJS, you can supply a custom `Dockerfile` instead. Learn about it [here](deploying-your-first-dockerfile-to-skygear.md).
 

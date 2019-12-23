@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Skygear V2 Documentation](README.md)
+* [Skygear Documentation](README.md)
 
 ## Set up
 

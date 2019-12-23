@@ -2,7 +2,7 @@
 description: Skygear is a k8s-based serverless platform for web and mobile apps.
 ---
 
-# Skygear V2 Documentation
+# Skygear Documentation
 
 Skygear is a server-less cloud platform where a massive portion of set up, operation and configuration tasks are abstracted from Kubernetes. It is still Kuberentes-based, however instead of having to write a bunch of configuration files and manually enable various options on a k8s cluster before an app can be deployed, all you need to do on Skygear is write  one single configuration file `skygear.yaml`.
 
