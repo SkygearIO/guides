@@ -21,3 +21,7 @@ Login ID types specifies the meaning of the login ID, so that Skygear Auth can p
 * phone: phone in E.164 format
 * raw: a raw string
 
+### Change Login IDs
+
+Login IDs associated with a user can be added, removed, or updated their associated login ID using APIs.
+

@@ -10,6 +10,8 @@ For example, a user John Doe may have three identity:
 
 To authenticate in Skygear, the user need to have their identity verified. Skygear supports three type of identities: password-based, OAuth, and custom token.
 
+All associated identities of a user can be listed through API.
+
 ### Password-based Identity
 
 This identity type would be used when user signed up with a **Login ID** and **password**. User can then login with the same login ID and password.
