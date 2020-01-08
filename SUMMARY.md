@@ -33,6 +33,7 @@
 * [User & Identity](auth/user-and-identity/README.md)
   * [Login IDs](auth/user-and-identity/login-ids.md)
   * [OAuth Authentication](auth/user-and-identity/oauth-authentication.md)
+  * [Sign in with Apple](auth/user-and-identity/sign-in-with-apple.md)
   * [Tutorial: Setup OAuth providers](auth/user-and-identity/tutorial-setup-oauth-providers.md)
 * [API Clients & Key](auth/api-clients.md)
 * [External Service Providers](auth/external-service-providers.md)
