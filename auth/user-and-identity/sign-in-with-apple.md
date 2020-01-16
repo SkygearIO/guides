@@ -11,7 +11,7 @@ To configure SIWA for Skygear Auth, you have to fulfill the following prerequisi
 5. Set up [DKIM](https://en.wikipedia.org/wiki/DomainKeys_Identified_Mail) for your domain.
 6. On Apple Developer, follow the instructions there and verify your domain.
 7. Create an App ID with SIWA enabled.
-8. Create a Services ID with SIWA enabled.
+8. [Create a Services ID with SIWA enabled](sign-in-with-apple.md#create-a-services-id-with-siwa-enabled).
 9. Create a Key with SIWA enabled. Keep the private key safe. You need to provide this later.
 
 The next step is to choose a custom URI scheme for your frontend apps. This URI scheme must not collide with other applications in this earth. So it is better to choose a longer one.
@@ -30,6 +30,10 @@ To configure your Android app, perform the following tasks:
 The final task is to [configure Skygear Auth](sign-in-with-apple.md#configure-skygear-auth).
 
 Now you can write [the code to trigger SIWA](sign-in-with-apple.md#sample-code).
+
+### Create a Services ID with SIWA enabled
+
+The Return URLs can have different domain than the verified Web Domain. The scheme can either be HTTP or HTTPS, however, the domain cannot be `localhost`. To work around this limitation, you may use dnsmasq which resolves `*.localhost` to `127.0.0.1`
 
 ### Declare your custom URI scheme in Info.plist
 
