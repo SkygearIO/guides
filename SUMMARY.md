@@ -18,16 +18,6 @@
 * [How to call API of a deployed service on Skygear](how-to/how-to-call-service-apis-at-the-frontend.md)
 * [How to upload templates to Skygear](how-to/how-to-upload-templates-to-skygear.md)
 
-## App Management <a id="app"></a>
-
-* [Team Management](app/team-management.md)
-* [Cross-Origin policy](app/cross-origin-policy.md)
-
-## Microservices
-
-* [Secrets](microservices/secrets.md)
-* [Skygear HTTP Headers](microservices/skygear-http-headers.md)
-
 ## Auth
 
 * [User & Identity](auth/user-and-identity/README.md)
@@ -50,6 +40,16 @@
   * [Tutorial: Update welcome email template](skycli/template-management/how-to-upload-html-template.md)
 * [Secret Management](skycli/secret-management/README.md)
   * [Tutorial: Create and use secrets in micro-services](skycli/secret-management/tutorial-create-and-use-secrets-in-micro-services.md)
+
+## App Management <a id="app"></a>
+
+* [Team Management](app/team-management.md)
+* [Cross-Origin policy](app/cross-origin-policy.md)
+
+## Microservices
+
+* [Secrets](microservices/secrets.md)
+* [Skygear HTTP Headers](microservices/skygear-http-headers.md)
 
 ## SDK
 
