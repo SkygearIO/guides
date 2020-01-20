@@ -32,7 +32,7 @@
 ## skycli
 
 * [Introduction to skycli](skycli/introduction-to-skycli.md)
-* [Deployment Configuration](skycli/deployment-configuration/README.md)
+* [skygear.yaml](skycli/deployment-configuration/README.md)
   * [Routing](skycli/deployment-configuration/routing.md)
   * [Deployment Image](skycli/deployment-configuration/image-building.md)
   * [Tutorial: Deploy micro-service using skycli](skycli/deployment-configuration/tutorial-deploy-micro-service-using-skycli.md)

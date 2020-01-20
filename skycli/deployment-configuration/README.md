@@ -1,6 +1,10 @@
-# Deployment Configuration
+---
+description: The deployment configuration file
+---
 
-The deployment configuration is a file `skygear.yaml`. It contains configuration for an app deployment:
+# skygear.yaml
+
+`skygear.yaml` defines the deployment configuration. It contains configuration for an app deployment:
 
 * Micro-service configuration
 * Web-hook configuration
@@ -11,7 +15,7 @@ A sample deployment configuration file looks like this:
 app: my-app
 
 deployments:
-  backend:
+  - name: backend
     type: http-service
     path: /api
     port: 8080
@@ -21,7 +25,7 @@ deployments:
       - name: SERVER_PORT
         value: "8080"
       - secret: DATABASE_URL
-  frontend:
+  - name: frontend
     type: http-service
     path: /
     port: 8080
@@ -33,32 +37,54 @@ hooks:
     event: after_user_create
 ```
 
-### Micro-service configuration
+## deployments
 
-Micro-service configurations are put under `deployments` key. Each entry represents a micro-service deployment. In the above sample, there are two micro-service deployment, named `backend` and `frontend`.
+The top-level key `deployments` contains a list of deployment items. In the above sample, there are two micro-service deployment item, named `backend` and `frontend`.
 
-The `type` key specifies the type of micro-service. For now only `http-service` is supported.
+### name
 
-The `path` key represents the path which the micro-service would be mounted at. For details, refer to [Routing](routing.md) documentation.
+The `name` key specifies the name of the deployment item. It must be unique within the list.
 
-The `port` key represents the port which the micro-service server is listening to.
+### type
+
+The `type` key specifies the type of the deployment item. For now only [http-service](./#http-service) is supported. Each type of deployment item has its own additional properties.
+
+### path
+
+The `path` key represents the path which the deployment item would be mounted at. For details, refer to [Routing](routing.md) documentation.
+
+## http-service
+
+### port
+
+The `port` key specifies the TCP port the micro-service is listening for. Required.
+
+### command
+
+The `command` key specifies the command of micro-service. It will be translated to `args` key of Kubernetes deployment.
+
+### template, context and image
 
 The `template`, `context`, and `image` key specifies micro-service's Docker image source. For details, refer to [Deployment Image](image-building.md) documentation.
 
-The `command` key specifies the startup command of micro-service. It will be translated to `args` key of Kubernetes deployment.
+### environment
 
-The `environment` key specifies the environment variables of the micro-services:
+The `environment` key specifies the environment variables of the micro-services.
 
 * For simple environment variables, it can be configured with literal `name` and `value`.
 * For environment variables using secret as source, the `secret` key is used. `name` is optional and default to the name of secret.
 
-### Web-hook configuration
+## hooks
 
 Web-hook configurations are put under `hooks` key. Each entry represents a web-hook handler.
 
+### event
+
 The `event` key specifies the event name that the web-hook handler would handle. The same event name can appears multiple times in the list. For list of event names, refer to [Web-hooks](../../auth/web-hooks.md) documentation.
 
-The `path` key specifies the location of web-hook handler. It can be an absolute URL \(e.g. `https://example.com`\), or a relative path \(which would be resolved to absolute URL based on the app endpoint\).
+### path
+
+The `path` key specifies the location of web-hook handler. It can be an absolute URL \(e.g. `https://example.com`\), or a absolute path \(which would be resolved to absolute URL based on the app endpoint\).
 
 
 
