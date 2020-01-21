@@ -17,6 +17,7 @@
 * [How to connect to a managed database on Skygear](how-to/how-to-connect-to-a-managed-database-in-skygear.md)
 * [How to call API of a deployed service on Skygear](how-to/how-to-call-service-apis-at-the-frontend.md)
 * [How to upload templates to Skygear](how-to/how-to-upload-templates-to-skygear.md)
+* [How to view the logs of microservices](how-to/how-to-view-the-logs-of-microservices.md)
 
 ## Auth
 
@@ -35,7 +36,6 @@
 * [skygear.yaml](skycli/deployment-configuration/README.md)
   * [Routing](skycli/deployment-configuration/routing.md)
   * [Deployment Image](skycli/deployment-configuration/image-building.md)
-  * [Tutorial: Deploy micro-service using skycli](skycli/deployment-configuration/tutorial-deploy-micro-service-using-skycli.md)
 * [Template Management](skycli/template-management/README.md)
   * [Tutorial: Update welcome email template](skycli/template-management/how-to-upload-html-template.md)
 * [Secret Management](skycli/secret-management/README.md)
