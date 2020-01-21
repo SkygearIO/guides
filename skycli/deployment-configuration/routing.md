@@ -10,11 +10,11 @@ For example, in the following configuration:
 
 ```yaml
 deployments:
-  - name: backend
+  backend:
     path: /api
     port: 8080
     # ...
-  - name: frontend
+  frontend:
     path: /
     port: 8080
     # ...

@@ -86,7 +86,7 @@ Replace `__APP_NAME__` with your app's name:
 app: __APP_NAME__                  # <- HERE!
 
 deployments:
-  backend:
+  - name: backend
     type: http-service
     context: backend
     template: nodejs:12
@@ -95,7 +95,7 @@ deployments:
     environment:
     - name: MONGO_DB_URL
       secret: MONGO_DB_URL
-  frontend:
+  - name: frontend
     type: http-service
     context: frontend
     template: nodejs:12
@@ -202,7 +202,7 @@ Navigate to `./skygear.yaml`:
 app: __APP_NAME__                  # should be already replaced
 
 deployments:
-  backend:
+  - name: backend
     type: http-service
     context: backend
     template: nodejs:12
@@ -211,7 +211,7 @@ deployments:
     environment:
     - name: MONGO_DB_URL
       secret: MONGO_DB_URL
-  frontend:
+  - name: frontend
     type: http-service
     context: frontend
     template: nodejs:12
@@ -221,7 +221,6 @@ deployments:
 hooks:
   - path: /api/after_user_create
     event: after_user_create
-
 ```
 {% endcode %}
 

@@ -81,11 +81,11 @@ Create a secret on Skygear Portal. Below is a screenshot where a Secret has been
 
 Say you have written some code that are deployment-ready called `backend`. To access a Secret, i.e. your MongoDB Atlas connection string in `backend`named `MONGO_DB_URL`,  update `skygear.yaml`:
 
-```
+```yaml
 app: <your_app_name>
 
 deployments:
-  backend:
+  - name: backend
     environment:
     - name: MONGO_DB_URL         #name of env variable
       secret: MONGO_DB_URL       #the actual Secret value

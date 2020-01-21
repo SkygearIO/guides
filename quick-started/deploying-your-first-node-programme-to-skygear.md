@@ -94,7 +94,7 @@ A `skygear.yaml` is always needed in order to deploy. It's a configuration file 
 app: <your_name>-nodeserver      # your Skygear app name
 
 deployments:
-  frontend:                      # an arbitrary name of the service
+  - name: frontend               # an arbitrary name of the service
     type: http-service           # type of the service
     context: frontend            # root directory of your source code
     template: nodejs:12          # pre-configured template

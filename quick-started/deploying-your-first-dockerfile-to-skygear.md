@@ -123,7 +123,7 @@ Paste the following content into it.
 ```yaml
 app: <your_name>-dartserver      # your Skygear app name
 deployments:
-  server:                        # an arbitrary name of the service
+  - name: server                 # an arbitrary name of the service
     type: http-service           # type of the service
     context: .                   # root directory of your source code
     path: /                      # the path for the service
