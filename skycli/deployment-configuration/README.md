@@ -14,6 +14,8 @@ A sample deployment configuration file looks like this:
 ```yaml
 app: my-app
 
+api_version: v2.1
+
 deployments:
   - name: backend
     type: http-service
@@ -36,6 +38,10 @@ hooks:
   - path: /api/after_user_create
     event: after_user_create
 ```
+
+## api\_version
+
+The top-level key `api_version` declares the API version. Use the value `v2.1` for now.
 
 ## deployments
 
