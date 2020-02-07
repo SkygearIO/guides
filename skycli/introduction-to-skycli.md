@@ -1,4 +1,4 @@
-# Introduction
+# Introduction to skycli
 
 `skycli` is a tool to manage Skygear Apps from command line. Developers can use it to update app configs, deploy micro-services, etc.
 
