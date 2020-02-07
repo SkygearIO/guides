@@ -33,7 +33,7 @@
 
 ## skycli
 
-* [Introduction to skycli](skycli/introduction-to-skycli.md)
+* [Introduction](skycli/introduction-to-skycli.md)
 * [skygear.yaml](skycli/deployment-configuration/README.md)
   * [Routing](skycli/deployment-configuration/routing.md)
   * [Deployment Image](skycli/deployment-configuration/image-building.md)
