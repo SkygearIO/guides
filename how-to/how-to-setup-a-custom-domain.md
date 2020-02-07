@@ -1,4 +1,4 @@
-# How to setup a custom domain
+# How to set up a custom domain
 
 ## Introduction
 
