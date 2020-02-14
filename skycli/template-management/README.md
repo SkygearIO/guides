@@ -1,6 +1,0 @@
-# Template Management
-
-## Introduction
-
-
-

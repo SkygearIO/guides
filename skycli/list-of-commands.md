@@ -35,7 +35,7 @@ List all apps that you have access right.
 
 #### `skycli app scaffold`
 
-Kicks start a scaffolding for a Skygear app from our templates.
+Kicks start a scaffolding for a Skygear app from our app templates.
 
 #### `skycli app deploy`
 

@@ -2,32 +2,11 @@
 
 ## Introduction
 
-Almost every software application that requires users to log in comes with the ability to send password reset and welcome emails. Landing pages for user verification have also become an essential for a secure and complete user registration flow.
-
-On Skygear, these features are all implemented and brought to users out of the box. At the same time one can customize the appearance and behaviours of these emails and landing pages through the use of templates.
+In this guide, we will create and upload a pair of forgot password templates, in html and txt format. They won't override each other as they server different purposes.
 
 ## Prerequisites
 
 Before you start this section, please ensure you have `skycli` installed and configured properly. If not, follow [this](../set-up/set-up-steps.md) to set it up.
-
-## Available templates
-
-Here is a list of customizable emails and pages:
-
-* _forgot\_password\_email.txt_
-* _forgot\_password\_email.html_
-* _forgot\_password\_reset.html_
-* _forgot\_password\_success.html_
-* _forgot\_password\_error.html_
-* _welcome\_email.txt_
-* _welcome\_email.html_
-* _user\_verification\_general\_error.html_
-* _user\_verification\_message.txt_
-* _user\_verification\_message.html_
-* _user\_verification\_success.html_
-* _user\_verification\_error.html_
-
-In this guide, we will create and upload a pair of forgot password templates, in html and txt format.
 
 ## Create some templates
 

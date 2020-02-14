@@ -35,11 +35,10 @@
 
 * [Introduction](skycli/introduction-to-skycli.md)
 * [List of Commands](skycli/list-of-commands.md)
+* [Template Management](skycli/template-management.md)
 * [skygear.yaml](skycli/deployment-configuration/README.md)
   * [Routing](skycli/deployment-configuration/routing.md)
   * [Deployment Image](skycli/deployment-configuration/image-building.md)
-* [Template Management](skycli/template-management/README.md)
-  * [Tutorial: Update welcome email template](skycli/template-management/how-to-upload-html-template.md)
 * [Secret Management](skycli/secret-management/README.md)
   * [Tutorial: Create and use secrets in micro-services](skycli/secret-management/tutorial-create-and-use-secrets-in-micro-services.md)
 
