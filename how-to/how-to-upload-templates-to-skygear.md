@@ -75,30 +75,43 @@ A list of templates containing either their storage path or the message `<not pr
 
 ## Check out how they look!
 
-To trigger Auth gear to send a forgot password email, you can either call the `requestForgotPasswordEmail` method in Skygear SDK or directly make a HTTP-based API call. Here we will go for the latter with the help of curl. Replace the placeholders with your Skygear app's data:
+To reset a password, you first need a registered user. Call the `signup` method in Skygear SDK or directly `curl` the endpoint to create a user to your app. Here we will go for the latter option, be sure to replace all the placeholders wrapped in `<...>`:
+
+```text
+curl -X POST \
+    https://<your-app>.skygearapp.com/_auth/signup \
+    -H 'Cache-Control: no-cache' \
+    -H 'Connection: keep-alive' \
+    -H 'accept: */*' \
+    -H 'cache-control: no-cache' \
+    -H 'content-type: application/json' \
+    -H 'sec-fetch-mode: cors' \
+    -H 'sec-fetch-site: same-site' \
+    -H 'x-skygear-api-key: <your_app_key>' \
+    -d '{"login_ids": [{"key": "email", "value": "<an_email_address>" }], "password": "<some_password>" }'
+```
+
+Then you can trigger AuthGear to send a forgot password email to the newly registered email. Once again we will `curl` the endpoint, but of course you can do the same thing with the `requestForgotPasswordEmail` method in Skygear SDK:
 
 ```text
 curl -X POST \
   https://<your-app>.skygearapp.com/_auth/forgot_password \
   -H 'Cache-Control: no-cache' \
   -H 'Connection: keep-alive' \
-  -H 'Content-Length: 33' \
   -H 'accept: */*' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -H 'sec-fetch-mode: cors' \
   -H 'sec-fetch-site: same-site' \
   -H 'x-skygear-api-key: <your_app_key>' \
-  -d '{"email":<a_registered_email>}'
+  -d '{"email": "<a_registered_email>"}'
 ```
-
-\(\_\_TODO\_\_ skygear endpoint\)
 
 Be sure that the email address you put in the JSON body is one that has been registered before on your app. Otherwise an error saying no such email address found will be thrown.
 
 Once you get the OK response back, you can go ahead to your email inbox and check out the email created from your forgot password templates.
 
-Note that you may only see the HTML part if you are using Gmail. In this case, you can show the email as original to look at the text part.
+Note that you may only see the HTML part if you are using Gmail, as this is their default display setting. In this case, you can show the email as original to look at the text part.
 
 ## Conclusion
 
