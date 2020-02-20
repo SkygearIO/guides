@@ -85,6 +85,8 @@ Replace `__APP_NAME__` with your app's name:
 ```yaml
 app: __APP_NAME__                  # <- HERE!
 
+api_version: v2.1
+
 deployments:
   - name: backend
     type: http-service
@@ -93,8 +95,7 @@ deployments:
     path: /api
     port: 8080
     environment:
-    - name: MONGO_DB_URL
-      secret: MONGO_DB_URL
+      - secret: MONGO_DB_URL
   - name: frontend
     type: http-service
     context: frontend
@@ -201,6 +202,8 @@ Navigate to `./skygear.yaml`:
 ```yaml
 app: __APP_NAME__                  # should be already replaced
 
+api_version: v2.1
+
 deployments:
   - name: backend
     type: http-service
@@ -209,8 +212,7 @@ deployments:
     path: /api
     port: 8080
     environment:
-    - name: MONGO_DB_URL
-      secret: MONGO_DB_URL
+      - secret: MONGO_DB_URL
   - name: frontend
     type: http-service
     context: frontend

@@ -4,8 +4,6 @@
 
 Skygear provides default suffixed domain `.skygearapp.com` for you to access your application. You can update your application to use a custom domain which owned by you instead of the skygear generated domain. 
 
-More commands on custom domains can be found [here](../skycli/list-of-commands.md#skycli-domain).
-
 ## Prerequisites
 
 To setup custom domain, you need to install and configure `skycli` properly. Please follow [this guide](../set-up/set-up-steps.md) to setup skycli.
