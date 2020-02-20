@@ -122,9 +122,6 @@ Paste the following content into it.
 
 ```yaml
 app: <your_name>-dartserver      # your Skygear app name
-
-api_version: v2.1
-
 deployments:
   - name: server                 # an arbitrary name of the service
     type: http-service           # type of the service
@@ -151,8 +148,10 @@ It's likely that you are going to see a list of logs. The deployment is finished
 
 ```text
 curl https://<your_name>-dartserver.skygearapp.com/server
-Hello World!
+Hello World!%
 ```
+
+\(\_\_TODO\_\_ update endpoint\)
 
 ##  Conclusion
 
