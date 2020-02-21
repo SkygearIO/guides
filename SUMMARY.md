@@ -17,7 +17,7 @@
 * [How to connect to a managed database on Skygear](how-to/how-to-connect-to-a-managed-database-in-skygear.md)
 * [How to call API of a deployed service on Skygear](how-to/how-to-call-service-apis-at-the-frontend.md)
 * [How to upload templates to Skygear](how-to/how-to-upload-templates-to-skygear.md)
-* [How to view the logs of microservices](how-to/how-to-view-the-logs-of-microservices.md)
+* [How to view the logs of your microservices](how-to/how-to-view-the-logs-of-microservices.md)
 * [How to set up a custom domain](how-to/how-to-setup-a-custom-domain.md)
 
 ## Auth
