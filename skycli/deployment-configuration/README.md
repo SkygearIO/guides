@@ -4,10 +4,7 @@ description: The deployment configuration file
 
 # skygear.yaml
 
-`skygear.yaml` defines the deployment configuration. It contains configuration for an app deployment:
-
-* Micro-service configuration
-* Web-hook configuration
+All deployment configuration of an app is defined with `skygear.yaml`. Configurations can be divided into two types, microservice and web hooks respectively.
 
 A sample deployment configuration file looks like this:
 
@@ -39,25 +36,27 @@ hooks:
     event: after_user_create
 ```
 
+Configurations of the microservices are declared under the key `deployments`, while those of hooks are under the key `hooks`.
+
 ## api\_version
 
 The top-level key `api_version` declares the API version. Use the value `v2.1` for now.
 
 ## deployments
 
-The top-level key `deployments` contains a list of deployment items. In the above sample, there are two micro-service deployment item, named `backend` and `frontend`.
+The top-level key `deployments` contains a list of deployment items. In the above sample, there are two micro-service deployment items, named `backend` and `frontend`.
 
 ### name
 
-The `name` key specifies the name of the deployment item. It must be unique within the list.
+The name of a deployment item, must be unique in this list \(i.e. under the key `deployments`\).
 
 ### type
 
-The `type` key specifies the type of the deployment item. For now only [http-service](./#http-service) is supported. Each type of deployment item has its own additional properties.
+Defines the type of a deployment item, where only [http-service](./#http-service) is supported.
 
 ### path
 
-The `path` key represents the path which the deployment item would be mounted at. For details, refer to [Routing](routing.md) documentation.
+Indicates the path which the deployment item would be mounted and be available at. For details, refer to [Routing](routing.md) documentation.
 
 ## http-service
 
@@ -67,30 +66,30 @@ The `port` key specifies the TCP port the micro-service is listening for. Requir
 
 ### command
 
-The `command` key specifies the command of micro-service. It will be translated to `args` key of Kubernetes deployment.
+The `command` key specifies the command of a microservice. It will be translated to the `args` key of Kubernetes deployment.
 
 ### template, context and image
 
-The `template`, `context`, and `image` key specifies micro-service's Docker image source. For details, refer to [Deployment Image](image-building.md) documentation.
+The `template`, `context`, and `image` keys specify a microservice item's Docker image source. For details, refer to [Deployment Image](image-building.md) documentation.
 
 ### environment
 
-The `environment` key specifies the environment variables of the micro-services.
+The `environment` key specifies the environment variables of a microservice item.
 
-* For simple environment variables, it can be configured with literal `name` and `value`.
-* For environment variables using secret as source, the `secret` key is used. `name` is optional and default to the name of secret.
+* For environment variables, it can be configured with a literal pair of `name` and `value`.
+* For environment variables using a Kubernetes Secret as the source, use the `secret` key. `name` is optional, with use the Secret's name when not given.
 
 ## hooks
 
-Web-hook configurations are put under `hooks` key. Each entry represents a web-hook handler.
+Web-hook configurations are put under the `hooks` key. Each entry represents a web-hook handler.
 
 ### event
 
-The `event` key specifies the event name that the web-hook handler would handle. The same event name can appears multiple times in the list. For list of event names, refer to [Web-hooks](../../auth/web-hooks.md) documentation.
+The `event` key reflects the event name that the web-hook handler would handle. The same event name can appears multiple times in the list. For list of event names, refer to [Web-hooks](../../auth/web-hooks.md) documentation.
 
 ### path
 
-The `path` key specifies the location of web-hook handler. It can be an absolute URL \(e.g. `https://example.com`\), or a absolute path \(which would be resolved to absolute URL based on the app endpoint\).
+The `path` key specifies the location of web-hook handler. It can be an absolute URL \(e.g. `https://example.com`\), or path \(which would be resolved to absolute URL based on the app endpoint\).
 
 
 
