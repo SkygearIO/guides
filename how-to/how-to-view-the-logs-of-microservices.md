@@ -2,7 +2,7 @@
 
 ## Introduction
 
-In a lot of cases a developer will need to look at the logs of a service to monitor health status, trace a bug or evaluate performance. This section walks you through how can the logs of a microservice deployed to Skygear be retrieved.
+In a lot of cases a developer will need to look at the logs of a service to monitor health status, trace a bug or evaluate performance. This section walks you through how can you check the logging of a microservice deployed to Skygear be retrieved.
 
 ## Prerequisites
 

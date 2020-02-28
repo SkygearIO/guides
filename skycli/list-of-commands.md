@@ -75,7 +75,7 @@ Download all templates of your Skygear app.
 
 #### `skycli app get-k8s-credentials`
 
-Write your Skygear app's Kubernetes credentials to your local config, normally at `~/.kube/config`.
+Write your Skygear app's Kubernetes credentials to your local config, normally at `~/.kube/config`. Useful for things like check the logging of your pod/service.
 
 #### `skycli app get-k8s-token-request`
 
