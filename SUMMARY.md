@@ -54,7 +54,7 @@
 
 ## SDK
 
-* [Skygear SDK for web](skygear-sdk-for-web.md)
+* [Skygear SDK for web](sdk/skygear-sdk-for-web.md)
 
 ## Support
 

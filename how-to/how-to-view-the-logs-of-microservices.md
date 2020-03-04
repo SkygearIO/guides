@@ -53,5 +53,3 @@ Then put in the name of the microservice you would like its logs to be retrieved
 $ kubectl logs <your_target pod>
 ```
 
-
-

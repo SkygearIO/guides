@@ -84,15 +84,17 @@ Say you have written some code that are deployment-ready called `backend`. To ac
 ```yaml
 app: <your_app_name>
 
+api_version: v2.1
+
 deployments:
   - name: backend
-    environment:
-    - name: MONGO_DB_URL         #name of env variable
-      secret: MONGO_DB_URL       #the actual Secret value
     type: http-service
     context: <your_code_path>    #where you code resides
     path: <service_path>         #where the service is exposed         
     port: 8080                   #where the service is exposed         
+    environment:
+      - secret: MONGO_DB_URL       #the actual Secret value
+
 ```
 
 Say you are coding in Node.js. To access the Connection String:

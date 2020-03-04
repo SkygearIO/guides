@@ -52,7 +52,7 @@ The name of a deployment item, must be unique in this list \(i.e. under the key 
 
 ### type
 
-Defines the type of a deployment item, where only [http-service](./#http-service) is supported.
+Defines the type of a deployment item, where [http-service](./#http-service) and [static](./#static) is supported.
 
 ### path
 
@@ -78,6 +78,28 @@ The `environment` key specifies the environment variables of a microservice item
 
 * For environment variables, it can be configured with a literal pair of `name` and `value`.
 * For environment variables using a Kubernetes Secret as the source, use the `secret` key. `name` is optional, with use the Secret's name when not given.
+
+## static
+
+### context
+
+The relative path to static assets.
+
+### fallback\_page
+
+The file to serve when the path cannot be found. The HTTP status code of response is 200.
+
+### error\_page
+
+The file to serve when the path cannot be found. The HTTP status code of response is 404.
+
+### index\_file
+
+The name of index file. Default to `index.html`
+
+### expires
+
+The cache expiry time in seconds. Valid value ranged from 0 to 604800 \(7 days\).
 
 ## hooks
 
