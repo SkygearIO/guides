@@ -23,7 +23,7 @@ While you can access logs with `kubectl` by entering bunch of commands, commands
 This writes the context of your Skygear cluster to your local k8s configuration file:
 
 ```bash
-$ skycli --app yourapp app get-k8s-credentials
+$ skycli --app <your_app_name> app get-k8s-credentials
 # The necessary configuration was written to KUBECONFIG.
 # Follow the instruction in the output to
 # switch kubectl context if you wish.
