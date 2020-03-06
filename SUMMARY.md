@@ -22,6 +22,7 @@
 
 ## Auth
 
+* [Exchange of Session with User Info at Gateway](auth/exchange-of-session-with-user-info-at-gateway.md)
 * [User & Identity](auth/user-and-identity/README.md)
   * [Login IDs](auth/user-and-identity/login-ids.md)
   * [OAuth Authentication](auth/user-and-identity/oauth-authentication.md)
