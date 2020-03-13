@@ -5,6 +5,7 @@
 ## Set up
 
 * [Install and Configure skycli](set-up/set-up-steps.md)
+* [Install SkygearSDK](set-up/install-skygearsdk.md)
 
 ## quick start <a id="quick-started"></a>
 
@@ -54,8 +55,6 @@
 * [Skygear HTTP Headers](microservices/skygear-http-headers.md)
 
 ## SDK
-
-* [Skygear SDK for web](sdk/skygear-sdk-for-web.md)
 
 ## Support
 
