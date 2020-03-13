@@ -1,7 +1,7 @@
 ---
 description: >-
-  Installable packages that eases the implementation of communication between
-  your apps and Skygear apps and AuthGear
+  Installable packages that eases the communication between your apps and
+  Skygear.
 ---
 
 # Install SkygearSDK
@@ -54,7 +54,7 @@ skygear.auth.login("some_registered_username", "some_registered_password")
 
 All user operations such as sign-up, log-in and log-out with AuthGear can be performed through the SDK.
 
-## Fetch API
+## Interact with Deployed Apps - Fetch API
 
 The [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) is an interface allowing users to retrieve web resources with ease. We have shipped this with Skygear SDKs where your app endpoint is automatically taken care for you. 
 
