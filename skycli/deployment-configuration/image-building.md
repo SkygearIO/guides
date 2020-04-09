@@ -26,6 +26,8 @@ The `context` key specifies the context of image build. `Dockerfile` must exists
 
 To use pre-built image, the `image` key must be specified in the micro-service configuration.
 
+The image pull policy is [IfNotPresent](https://kubernetes.io/docs/concepts/containers/images/#updating-images). So you should use a different tag if you want to pull a newer image. Using a constant tag like `:latest` always resolve to the first pulled image.
+
 To pull image from private image registry, the `image_pull_secret` key must be specified. The value should a secret name, refer to a secret created with type `dockerconfigjson`:
 
 ```text
