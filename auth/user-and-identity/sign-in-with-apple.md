@@ -1,5 +1,7 @@
 # Sign in with Apple
 
+### Overview
+
 Skygear Auth supports Sign in with Apple \(SIWA\).
 
 To configure SIWA for Skygear Auth, you have to fulfill the following prerequisites:
@@ -33,7 +35,27 @@ Now you can write [the code to trigger SIWA](sign-in-with-apple.md#sample-code).
 
 ### Create a Services ID with SIWA enabled
 
-The Return URLs can have different domain than the verified Web Domain. The scheme can either be HTTP or HTTPS, however, the domain cannot be `localhost`. To work around this limitation, you may use dnsmasq which resolves `*.localhost` to `127.0.0.1`
+The Return URLs can have different domain than the domain used for sending and receiving emails.
+
+To test locally on your own machine, you can edit `/etc/hosts` to force a domain to be resolved to `127.0.0.1`.
+
+For example
+
+```
+# Add the following line to /etc/hosts so that myapp.com resolves to 127.0.0.1
+127.0.0.1 myapp.com
+```
+
+And then you can add the Return URL. Depending on whether you are using Auth UI or Auth API, the URL is different.
+
+```
+# If you are using Auth UI, add this one.
+https://myapp.com/sso/oauth2/callback/<provider-id>
+# Otherwise if you are using Auth API, add this one.
+https://myapp.com/_auth/sso/<provider-id>/auth_handler
+```
+
+`provider-id` is just an ID you provide in the configuration to allow Skygear Auth to identify a provider.
 
 ### Declare your custom URI scheme in Info.plist
 
